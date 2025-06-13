@@ -1,0 +1,26 @@
+{
+  "title": "gerenciador-familiar",
+  "name": "gerenciador-familiar",
+  "version": "1.0.0",
+  "description": "API para gerenciador familiar",
+  "license": "ISC",
+  "author": "LHS",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.8.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "eslint": "^9.29.0",
+    "globals": "^16.2.0",
+    "nodemon": "^3.1.10",
+    "prisma": "^6.8.2"
+  }
+}

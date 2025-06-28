@@ -13,3 +13,58 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Usuario {
+  id       String @id @default(uuid()) @db.Uuid // valor default para gerar o uuid
+  name     String
+  email    String @unique
+  password String
+}
+
+model ListaDeCompra {
+  id               String @id @default(uuid()) @db.Uuid
+  nome             String
+  usuarioIdEnviou  String @map("usuario_id_enviou") @db.Uuid // referência ao usuário que enviou a lista
+  usuarioIdRecebeu String @map("usuario_id_recebeu") @db.Uuid // referência ao usuário que recebeu a lista
+
+  @@map("lista_de_compras") // nome da tabela no banco de dados
+}
+
+model ItemListaDeCompra {
+  id         String  @id @default(uuid()) @db.Uuid
+  descricao  String
+  quantidade Int
+  listaId    String  @map("lista_id") @db.Uuid // referência à lista de compra
+  comprado   Boolean @default(false) // valor padrão para indicar se o item foi comprado
+
+  @@map("itens_lista_de_compras") // nome da tabela no banco de dados
+}
+
+model Veiculo {
+  id        String @id @default(uuid()) @db.Uuid
+  marca     String
+  modelo    String
+  ano       Int
+  placa     String @unique // valor único para a placa do veículo
+  usuarioId String @map("usuario_id") @db.Uuid // referência ao usuário que criou o veículo
+}
+
+model RegistroDeManutencao {
+  id        String   @id @default(uuid()) @db.Uuid
+  descricao String
+  data      DateTime
+  veiculoId String   @map("veiculo_id") @db.Uuid // referência ao veículo associado ao registro de manutenção
+
+  @@map("registros_de_manutencao") // nome da tabela no banco de dados
+}
+
+model Lembrete {
+  id               String   @id @default(uuid()) @db.Uuid
+  titulo           String
+  descricao        String
+  dataHora         DateTime @map("data_hora") // data e hora do lembrete
+  usuarioIdEnviou  String   @map("usuario_id_enviou") @db.Uuid
+  usuarioIdRecebeu String   @map("usuario_id_recebeu") @db.Uuid
+  listaDeCompraId  String   @map("lista_de_compra_id") @db.Uuid // referência à lista de compra associada ao lembrete
+  veiculoId        String   @map("veiculo_id") @db.Uuid // referência ao veículo associado ao lembrete
+}

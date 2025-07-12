@@ -1,28 +1,16 @@
-const { PrismaClient } = require("@prisma/client")
-
-const prisma = new PrismaClient()
+const { prismaClient } = require("../../libs/PrismaClient")
 
 class LoginController {
 
   //* listar todos os usuários
-  async index(request, response) {
-    const users = await prisma.user.findMany()
+  async index(request, reply) {
+    const users = await prismaClient.user.findMany()
 
-    return response.send(users)
+    return reply.send(users)
   }
 
   //* cria um novo usuário
-  async function createUser(request, response) {
-    const user = await prisma.user.create({
-    data: {
-      name: 'Elsa Prisma',
-      email: 'elsa@prisma.io',
-      password: '123456'
-    },
-  })
 
-    return response.send(user)
-  }
 
 }
 

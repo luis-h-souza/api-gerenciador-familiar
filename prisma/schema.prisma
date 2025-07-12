@@ -21,6 +21,18 @@ model Usuario {
   password String
 }
 
+model Familia {
+  id        String @id @default(uuid()) @db.Uuid
+  nome      String
+}
+
+// model FamiliaUsuario {
+//   idFamiliaId String @map("familia_id") @db.Uuid
+//   idUsuarioId String @map("usuario_id") @db.Uuid
+
+//   @@map("familia_usuario")
+// }
+
 model ListaDeCompra {
   id               String @id @default(uuid()) @db.Uuid
   nome             String

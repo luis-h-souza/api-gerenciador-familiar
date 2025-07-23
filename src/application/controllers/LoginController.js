@@ -1,7 +1,5 @@
 const { z } = require("zod");
 
-const { LoginRepository } = require("../repositories/LoginRepository");
-
 // Define Zod schema for input validation
 const InputSchema = z.object({
   email: z.email({ message: "Formato de e-mail inválido" }),
@@ -16,9 +14,9 @@ class LoginController {
   // Handles the login request
   async handle({ body }) {
     try {
-      // Validate input usando o Zod
+      // validação de entrada usando o Zod
       const { email, password } = InputSchema.parse(body);
-      // Execute the login repository method
+      // executa o método do repository de login
       const result = await this.LoginRepository.execute({ email, password });
 
       console.log(result)

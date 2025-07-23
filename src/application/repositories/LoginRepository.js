@@ -1,6 +1,7 @@
 const { compare } = require("bcryptjs");
 const { sign } = require("jsonwebtoken");
 const { prismaClient } = require("../../libs/PrismaClient");
+const { env } = require("../config/env");
 
 class LoginRepository {
   async execute({ email, password }) {
@@ -17,7 +18,7 @@ class LoginRepository {
     if (!isPasswordValid) {
       throw new Error("Senha inválida");
     }
-
+    // Gera o token de acesso
     const accessToken = sign(
       { sub: account.id },
       env.jwtSecret,

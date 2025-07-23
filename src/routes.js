@@ -1,30 +1,33 @@
 const { Router } = require('express');
-const { RegisterController } = require('./application/controllers/RegisterController');
-const { RegisterRepository } = require('./application/repositories/RegisterRepository');
-const { AuthenticationMiddleware } = require('./application/middlewares/AuthMiddleware');
+
+const { jwtGuard } = require('./application/middlewares/jwtGuard');
+
+const { makeRegisterRepository } = require('./factories/makeRegisterRepository');
+const { makeRegisterController } = require('./factories/makeRegisterController');
+const { makeLoginRepository } = require('./factories/makeLoginRepository');
+const { makeLoginController } = require('./factories/makeLoginController');
 
 const router = Router();
 
-const registerRepository = new RegisterRepository();
-const registerController = new RegisterController(registerRepository);
+const registerRepository = makeRegisterRepository();
+const registerController = makeRegisterController(registerRepository);
+const loginRepository = makeLoginRepository();
+const loginController = makeLoginController(loginRepository);
 
+// Rota de cadastro de usuário
 router.post('/register', async (req, res) => {
+  // Chama o controller de registro
   const response = await registerController.handle({ body: req.body });
+  // Retorna a resposta do controller
   res.status(response.statusCode).json(response.body);
 });
 
-// Middleware JWT para proteger rotas
-const authMiddleware = new AuthenticationMiddleware();
-function jwtGuard(req, res, next) {
-  authMiddleware.handle({ headers: req.headers }).then(result => {
-    if (result.statusCode === 401) {
-      return res.status(401).json(result.body);
-    }
-    // Adiciona o accountId ao request para uso posterior
-    req.accountId = result.data.accountId;
-    next();
-  });
-}
+// rota de login
+router.post('/login', async (req, res) => {
+  // chama o controller do login
+  const response = await loginController.handle({ body: req.body })
+  res.status(response.statusCode).json(response.body);
+})
 
 // Exemplo de rota protegida
 router.get('/me', jwtGuard, (req, res) => {

@@ -47,11 +47,10 @@ router.get('/user', jwtGuard, async (req, res) => {
 });
 
 // Rota de atualização de usuário
-router.put('/users/:id', jwtGuard, async (req, res) => {
-  const response = await userController.handle({
+router.put('/user/:id', jwtGuard, async (req, res) => {
+  const response = await userController.update({
     params: req.params,
     body: req.body,
-    user: req.user,
   });
   res.status(response.statusCode).json(response.body);
 });

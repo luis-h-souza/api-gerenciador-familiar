@@ -1,16 +1,17 @@
 const { z } = require('zod');
 
 const schema = z.object({
-  name: z.string().min(1, { message: 'O nome não deve ter menos de 1 caractere' }),
-  email: z.string().email({ message: 'Formato de e-mail inválido' }),
-  password: z
+  name: z.string().min(1, { message: 'O nome não deve ter no mínimo 01 caractere' }),
+  email: z.string().email({ message: 'Formato de e-mail inválido' }).optional(),
+  newEmail: z.string().email({ message: 'Formato de novo e-mail inválido' }).optional(),
+  currentPassword: z.string().min(1, { message: 'Senha atual é obrigatória' }).optional(),
+  newPassword: z
     .string()
     .optional()
     .refine(
-      (val) => !val || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/.test(val),
+      (val) => !val || val.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/),
       {
-        message:
-          'A senha deve ter pelo menos 6 caracteres, incluindo uma letra maiúscula, uma letra minúscula e um número',
+        message: 'A senha deve ter pelo menos 6 caracteres, com uma letra maiúscula, uma minúscula e um número',
       }
     ),
 });
@@ -21,44 +22,81 @@ class UserController {
   }
 
   // lista usuário pelo ID
-  async showById({ params}) {
-  try {
-    const foundUser = await this.UserRepository.showById({ id: params.id });
-    console.log(foundUser)
-    return {
-      statusCode: 200,
-      body: foundUser,
-    };
-  } catch (error) {
-    if (error.message === 'Usuário não encontrado') {
-      return {
-        statusCode: 400,
-        body: null,
-      };
-    }
-    console.error('Erro inesperado:', error);
-  }
-}
+  async showById({ params }) {
+    const { id } = params;
 
-// lista todos os usuários
-  async show() {
-  try {
-    const user = await this.UserRepository.show();
-    console.log(user)
-    return {
-      statusCode: 200,
-      body: user,
-    };
-  } catch (error) {
-    if (error.message === 'Usuário não encontrado') {
+    try {
+      const foundUser = await this.UserRepository.showById({ id: params.id });
+
       return {
-        statusCode: 400,
-        body: null,
+        statusCode: 200,
+        body: foundUser,
       };
+
+    } catch (error) {
+
+      if (!id) {
+        return {
+          statusCode: 401,
+          body: { message: "Usuário não autenticado" },
+        };
+      };
+
+      if (error.message === 'Usuário não encontrado') {
+        return {
+          statusCode: 400,
+          body: { message: "Usuário não encontrado" },
+        };
+      }
     }
-    console.error('Erro inesperado:', error);
   }
-}
+
+  // lista todos os usuários
+  async show() {
+    try {
+      const user = await this.UserRepository.show();
+      console.log(user)
+      return {
+        statusCode: 200,
+        body: user,
+      };
+    } catch (error) {
+      if (error.message === 'Usuário não encontrado') {
+        return {
+          statusCode: 400,
+          body: null,
+        };
+      }
+    }
+  };
+
+  // Atualiza usuário
+  async update({ body, params }) {
+    const { id } = params;
+
+    try {
+      // Validar o body com Zod
+      const { name, email } = schema.parse(body);
+      const result = await this.UserRepository.update({ name, email, id })
+
+      return {
+        statusCode: 200,
+        body: result,
+      };
+
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return {
+          statusCode: 400,
+          body: error.issues,
+        };
+      }
+      throw error;
+    }
+  };
+
+  // Atualiza senha
+
 
   async handle({ body, user, params }) {
     console.log(params)
@@ -74,7 +112,6 @@ class UserController {
           body: { message: "Usuário não autenticado" },
         };
       }
-
 
       if (!userId) {
         return {

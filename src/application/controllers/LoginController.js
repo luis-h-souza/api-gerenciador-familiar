@@ -7,7 +7,7 @@ const InputSchema = z.object({
 });
 
 class LoginController {
-  // Receives the LoginRepository as a dependency
+  // Recebe o LoginRepository como uma dependência
   constructor(LoginRepository) {
     this.LoginRepository = LoginRepository;
   }

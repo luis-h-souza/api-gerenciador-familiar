@@ -41,8 +41,15 @@ model familia_usuarios {
   familia Familia @relation(fields: [id_familia], references: [id], onDelete: Cascade, onUpdate: Cascade) // relação com a família
   usuario Usuario @relation(fields: [id_usuario], references: [id], onDelete: Cascade, onUpdate: Cascade) // relação com o usuário
 
+  rotulo Rotulo @default(FILHO)// enum para definir o rótulo do usuário na família
+
   @@id([id_usuario, id_familia]) // chave primária composta
   @@map("familia_usuarios")
+}
+
+enum Rotulo {
+  PAIS
+  FILHO
 }
 
 model ListaDeCompra {

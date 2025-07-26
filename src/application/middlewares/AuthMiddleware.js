@@ -27,6 +27,7 @@ class AuthenticationMiddleware {
       return {
         data: {
           accountId: payload.sub,
+          name: payload.name,
         },
       };
     } catch (error) {

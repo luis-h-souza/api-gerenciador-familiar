@@ -1,8 +1,9 @@
-const { makeAuthMiddleware } = require('../../factories/makeAuthMiddleware');
+const { AuthenticationMiddleware } = require('./AuthMiddleware');
 
 // Este middleware verifica o token JWT e adiciona o accountId ao request
 async function jwtGuard(req, res, next) {
-  const authMiddleware = makeAuthMiddleware();
+  const authMiddleware = new AuthenticationMiddleware();
+
   try {
     const result = await authMiddleware.handle({ headers: req.headers });
     if (result.statusCode === 401) {

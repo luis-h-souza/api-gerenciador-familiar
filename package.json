@@ -7,8 +7,12 @@
   "author": "LHS",
   "type": "commonjs",
   "main": "index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",

@@ -18,6 +18,7 @@ class UserRepository {
         password: true
       }
     })
+
     if (!userById) {
       throw new Error("Usuário não encontrado");
     }
@@ -30,7 +31,6 @@ class UserRepository {
         id: true,
         name: true,
         email: true,
-        password: true
       }
     })
     if (!allUser) {
@@ -61,42 +61,48 @@ class UserRepository {
     return updateUser;
   };
 
-  async updatePassword({ id, currentPassword, newPassword }) {
+  async updatePassword({ id, currentPassword, password }) {
     try {
-      // 1. Buscar o usuário e sua senha hasheada
-      const user = await this.showById(id);
+      // Buscar o usuário e sua senha hasheada
+      const user = await this.showById({
+        where: { id },
+        select: {
+          password: true
+        }
+      })
+
       if (!user) {
         throw new Error('Usuário não encontrado.');
       }
-
-      // 2. Verificar se a senha atual está correta
+      // Verificar se a senha atual está correta
       const isPasswordValid = await compare(currentPassword, user.password);
 
-      if (!currentPassword || !newPassword || newPassword.length < 6) {
-        throw new Error('As senhas devem ter pelo menos 8 caracteres.');
-      }
       if (!isPasswordValid) {
-        throw new Error('Senha atual incorreta.');
+        throw new Error("Senha atual incorreta.");
       }
 
-      // 3. Gerar um novo hash para a nova senha
-      const hashedPassword = await hash(newPassword, 10); // 10 é o custo do salt (padrão comum)
+      // Gerar um novo hash para a nova senha
+      const hashedPassword = await hash(password, 10);
 
-      // 4. Atualizar o hash da senha no banco de dados
-      const updatedUser = await prismaClient.usuario.update({
+      // Atualizar o hash da senha no banco de dados
+      const updatedPassword = await prismaClient.usuario.update({
         where: { id },
         data: {
-          password: hashedPassword, // Salvar o hash, não a senha em texto puro
+          password: hashedPassword,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
         },
       });
 
-      return updatedUser;
+      return updatedPassword;
 
     } catch (error) {
       throw new Error(`Erro ao atualizar a senha: ${error.message}`);
     }
   };
-
 }
 
 module.exports = { UserRepository };

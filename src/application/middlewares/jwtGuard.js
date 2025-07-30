@@ -4,6 +4,8 @@ const { AuthenticationMiddleware } = require('./AuthMiddleware');
 async function jwtGuard(req, res, next) {
   const authMiddleware = new AuthenticationMiddleware();
 
+  console.log('jwtGuard - req.body:', req.body); // Debug: log do req.body antes
+
   try {
     const result = await authMiddleware.handle({ headers: req.headers });
     if (result.statusCode === 401) {
@@ -13,7 +15,8 @@ async function jwtGuard(req, res, next) {
     // Adiciona o accountId ao request para uso posterior
     req.accountId = result.data.accountId;
 
-    console.log("JWT-Guard - Account ID:", req.accountId);
+    console.log('jwtGuard - Account ID:', req.accountId); // Debug
+    console.log('jwtGuard - req.body após:', req.body); // Debug: log do req.body depois
 
     next();
   } catch (error) {

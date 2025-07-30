@@ -55,6 +55,14 @@ router.put('/user/:id', jwtGuard, async (req, res) => {
   res.status(response.statusCode).json(response.body);
 });
 
+router.put('/user/:id/password', jwtGuard, async (req, res) => {
+  const response = await userController.updatePassword({
+    params: req.params,
+    body: req.body,
+  });
+  res.status(response.statusCode).json(response.body);
+});
+
 // Rota de criação de família (ajustada para POST)
 router.post('/family', jwtGuard, async (req, res) => {
   const response = await familyController.handle({ body: req.body, user: req.user });

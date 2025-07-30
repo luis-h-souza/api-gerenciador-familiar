@@ -4,16 +4,12 @@ const schema = z.object({
   name: z.string().min(1, { message: 'O nome não deve ter no mínimo 01 caractere' }),
   email: z.string().email({ message: 'Formato de e-mail inválido' }).optional(),
   newEmail: z.string().email({ message: 'Formato de novo e-mail inválido' }).optional(),
-  currentPassword: z.string().min(1, { message: 'Senha atual é obrigatória' }).optional(),
-  newPassword: z
-    .string()
-    .optional()
-    .refine(
-      (val) => !val || val.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/),
-      {
-        message: 'A senha deve ter pelo menos 6 caracteres, com uma letra maiúscula, uma minúscula e um número',
-      }
-    ),
+});
+
+// Esquema para atualização de senha
+const updatePasswordSchema = z.object({
+  currentPassword: z.string().min(1, 'A senha atual é obrigatória'),
+  password: z.string().min(6, 'A nova senha deve ter pelo menos 6 caracteres'),
 });
 
 class UserController {
@@ -96,6 +92,37 @@ class UserController {
   };
 
   // Atualiza senha
+  async updatePassword({ body, params }) {
+    const { id } = params;
+
+    try {
+      // Validar o body com Zod
+      const { currentPassword, password } = updatePasswordSchema.parse(body);
+
+      console.log('req.body:', body); // Debug: log do body completo
+      console.log('password:', password, 'type:', typeof password); // Debug: log do password e seu tipo
+
+      const result = await this.UserRepository.updatePassword({ id, currentPassword, password })
+
+      console.log("RESULT ", result)
+
+      return {
+        statusCode: 200,
+        body: result,
+      };
+
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        console.error('Erro de validação:', error.issues); // Debug: log do erro do Zod
+        return {
+          statusCode: 400,
+          body: error.issues,
+        };
+      }
+      console.error('Erro ao atualizar senha:', error.message); // Debug: log do erro
+      throw error;
+    }
+  };
 
 
   async handle({ body, user, params }) {

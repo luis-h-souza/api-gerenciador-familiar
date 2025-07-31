@@ -7,8 +7,6 @@ const schema = z.object({
   password: z.string().min(6, { message: "A senha deve ter pelo menos 6 caracteres" }),
 });
 
-console.log("DATABASE_URL:", process.env.DATABASE_URL);
-
 class RegisterController {
   // Recebe o repositório de registro como dependência
   // Isso permite que o controlador seja testável e desacoplado da implementação específica do repositório
@@ -30,8 +28,8 @@ class RegisterController {
       });
 
       return {
-        statusCode: 204,
-        body: null,
+        statusCode: 201,
+        body: {message: "Usuário cadastrado com sucesso!"}
       };
     } catch (error) {
       if (error instanceof z.ZodError) {

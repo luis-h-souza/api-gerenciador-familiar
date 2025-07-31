@@ -1,6 +1,7 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  // output   = "./src/generated/prisma" // vercel
+  // output   = "../src/generated/prisma" // local
 }
 
 datasource db {
@@ -9,89 +10,75 @@ datasource db {
 }
 
 model Usuario {
-  id       String @id @default(uuid()) @db.Uuid // valor default para gerar o uuid
-  name     String
-  email    String @unique
-  password String
-
-  familias familia_usuarios[] // relação com famílias
-  listasEnviadas     ListaDeCompra[] @relation("UsuarioEnviouLista") // relação com listas enviadas
-  listasRecebidas    ListaDeCompra[] @relation("UsuarioRecebeuLista") // relação com listas recebidas
-  veiculos Veiculo[] // relação com veículos
-  lembretesEnviados  Lembrete[]      @relation("UsuarioEnviouLembrete")
-  lembretesRecebidos Lembrete[]      @relation("UsuarioRecebeuLembrete")
+  id                 String             @id @default(uuid()) @db.Uuid
+  name               String
+  email              String             @unique
+  password           String
+  familias           familia_usuarios[]
+  lembretesEnviados  Lembrete[]         @relation("UsuarioEnviouLembrete")
+  lembretesRecebidos Lembrete[]         @relation("UsuarioRecebeuLembrete")
+  listasEnviadas     ListaDeCompra[]    @relation("UsuarioEnviouLista")
+  listasRecebidas    ListaDeCompra[]    @relation("UsuarioRecebeuLista")
+  veiculos           Veiculo[]
 
   @@map("usuarios")
 }
 
 model Familia {
-  id        String @id @default(uuid()) @db.Uuid
+  id        String             @id @default(uuid()) @db.Uuid
   nome      String
-  usuarioId String @map("usuario_id") @db.Uuid
-
-  usuarios familia_usuarios[]
+  usuarioId String             @map("usuario_id") @db.Uuid
+  usuarios  familia_usuarios[]
 
   @@map("familia")
 }
 
 model familia_usuarios {
-  id_usuario String @db.Uuid
-  id_familia String @db.Uuid
+  id_usuario String  @db.Uuid
+  id_familia String  @db.Uuid
+  rotulo     Rotulo  @default(FILHO)
+  familia    Familia @relation(fields: [id_familia], references: [id], onDelete: Cascade)
+  usuario    Usuario @relation(fields: [id_usuario], references: [id], onDelete: Cascade)
 
-  familia Familia @relation(fields: [id_familia], references: [id], onDelete: Cascade, onUpdate: Cascade) // relação com a família
-  usuario Usuario @relation(fields: [id_usuario], references: [id], onDelete: Cascade, onUpdate: Cascade) // relação com o usuário
-
-  rotulo Rotulo @default(FILHO)// enum para definir o rótulo do usuário na família
-
-  @@id([id_usuario, id_familia]) // chave primária composta
+  @@id([id_usuario, id_familia])
   @@map("familia_usuarios")
 }
 
-enum Rotulo {
-  PAIS
-  FILHO
-}
-
 model ListaDeCompra {
-  id     String @id @default(uuid()) @db.Uuid
-  nome   String
-  status String @default("Pendente") // status da lista de compra
-
-  usuarioIdEnviou  String @map("usuario_id_enviou") @db.Uuid // referência ao usuário que enviou a lista
-  usuarioIdRecebeu String @map("usuario_id_recebeu") @db.Uuid // referência ao usuário que recebeu a lista
-
-  usuarioEnviou  Usuario @relation("UsuarioEnviouLista", fields: [usuarioIdEnviou], references: [id], onDelete: Cascade, onUpdate: Cascade) // relação com o usuário que enviou a lista
-  usuarioRecebeu Usuario @relation("UsuarioRecebeuLista", fields: [usuarioIdRecebeu], references: [id], onDelete: Cascade, onUpdate: Cascade) // relação com o usuário que recebeu a lista
-
-  itens ItemListaDeCompra[] // relação com os itens da lista de compra
-  lembretes Lembrete[] // relação com os lembretes associados à lista de compra
+  id               String              @id @default(uuid()) @db.Uuid
+  nome             String
+  usuarioIdEnviou  String              @map("usuario_id_enviou") @db.Uuid
+  usuarioIdRecebeu String              @map("usuario_id_recebeu") @db.Uuid
+  status           String              @default("Pendente")
+  itens            ItemListaDeCompra[]
+  lembretes        Lembrete[]
+  usuarioEnviou    Usuario             @relation("UsuarioEnviouLista", fields: [usuarioIdEnviou], references: [id], onDelete: Cascade)
+  usuarioRecebeu   Usuario             @relation("UsuarioRecebeuLista", fields: [usuarioIdRecebeu], references: [id], onDelete: Cascade)
 
   @@map("lista_de_compras")
 }
 
 model ItemListaDeCompra {
-  id         String  @id @default(uuid()) @db.Uuid
+  id         String        @id @default(uuid()) @db.Uuid
   descricao  String
   quantidade Int
-  comprado   Boolean @default(false) // valor padrão para indicar se o item foi comprado
-  listaId    String  @map("lista_id") @db.Uuid // referência à lista de compra
-
-  lista ListaDeCompra @relation(fields: [listaId], references: [id], onDelete: Cascade, onUpdate: Cascade) // relação com a lista de compra
+  listaId    String        @map("lista_id") @db.Uuid
+  comprado   Boolean       @default(false)
+  lista      ListaDeCompra @relation(fields: [listaId], references: [id], onDelete: Cascade)
 
   @@map("itens_lista_de_compras")
 }
 
 model Veiculo {
-  id        String @id @default(uuid()) @db.Uuid
-  marca     String
-  modelo    String
-  ano       Int
-  placa     String @unique // valor único para a placa do veículo
-  usuarioId String @map("usuario_id") @db.Uuid // referência ao usuário que criou o veículo
-
-  usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade, onUpdate: Cascade) // relação com o usuário
-  manutencoes RegistroDeManutencao[] // relação com os registros de manutenção do veículo
-  Lembrete    Lembrete[] // relação com os lembretes associados ao veículo
+  id          String                 @id @default(uuid()) @db.Uuid
+  marca       String
+  modelo      String
+  ano         Int
+  placa       String                 @unique
+  usuarioId   String                 @map("usuario_id") @db.Uuid
+  Lembrete    Lembrete[]
+  manutencoes RegistroDeManutencao[]
+  usuario     Usuario                @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
 
   @@map("veiculos")
 }
@@ -100,27 +87,30 @@ model RegistroDeManutencao {
   id        String   @id @default(uuid()) @db.Uuid
   descricao String
   data      DateTime
-  veiculoId String   @map("veiculo_id") @db.Uuid // referência ao veículo associado ao registro de manutenção
+  veiculoId String   @map("veiculo_id") @db.Uuid
+  veiculo   Veiculo  @relation(fields: [veiculoId], references: [id])
 
-  veiculo Veiculo @relation(fields: [veiculoId], references: [id]) // relação com o veículo
-
-  @@map("registros_de_manutencao") // nome da tabela no banco de dados
+  @@map("registros_de_manutencao")
 }
 
 model Lembrete {
-  id               String   @id @default(uuid()) @db.Uuid
+  id               String        @id @default(uuid()) @db.Uuid
   titulo           String
   descricao        String
-  dataHora         DateTime @map("data_hora") // data e hora do lembrete
-  usuarioIdEnviou  String   @map("usuario_id_enviou") @db.Uuid
-  usuarioIdRecebeu String   @map("usuario_id_recebeu") @db.Uuid
-  listaDeCompraId  String   @map("lista_de_compra_id") @db.Uuid // referência à lista de compra associada ao lembrete
-  veiculoId        String   @map("veiculo_id") @db.Uuid // referência ao veículo associado ao lembrete
-
-  usuarioRecebeu Usuario  @relation("UsuarioRecebeuLembrete", fields: [usuarioIdRecebeu], references: [id], onDelete: Cascade, onUpdate: Cascade) // relação com o usuário que recebeu o lembrete
-  usuarioEnviou  Usuario  @relation("UsuarioEnviouLembrete", fields: [usuarioIdEnviou], references: [id], onDelete: Cascade, onUpdate: Cascade) // relação com o usuário que enviou o lembrete
-  listaDeCompra ListaDeCompra @relation(fields: [listaDeCompraId], references: [id], onDelete: Cascade, onUpdate: Cascade) // relação com a lista de compra associada ao lembrete
-  veiculo        Veiculo? @relation(fields: [veiculoId], references: [id]) // relação com o veículo
+  dataHora         DateTime      @map("data_hora")
+  usuarioIdEnviou  String        @map("usuario_id_enviou") @db.Uuid
+  usuarioIdRecebeu String        @map("usuario_id_recebeu") @db.Uuid
+  listaDeCompraId  String        @map("lista_de_compra_id") @db.Uuid
+  veiculoId        String        @map("veiculo_id") @db.Uuid
+  listaDeCompra    ListaDeCompra @relation(fields: [listaDeCompraId], references: [id], onDelete: Cascade)
+  usuarioEnviou    Usuario       @relation("UsuarioEnviouLembrete", fields: [usuarioIdEnviou], references: [id], onDelete: Cascade)
+  usuarioRecebeu   Usuario       @relation("UsuarioRecebeuLembrete", fields: [usuarioIdRecebeu], references: [id], onDelete: Cascade)
+  veiculo          Veiculo       @relation(fields: [veiculoId], references: [id])
 
   @@map("lembretes")
+}
+
+enum Rotulo {
+  PAIS
+  FILHO
 }

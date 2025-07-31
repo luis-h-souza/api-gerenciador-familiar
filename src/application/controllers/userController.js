@@ -6,7 +6,7 @@ const schema = z.object({
   newEmail: z.string().email({ message: 'Formato de novo e-mail inválido' }).optional(),
 });
 
-// Esquema para atualização de senha
+// Schema para atualização de senha
 const updatePasswordSchema = z.object({
   currentPassword: z.string().min(1, 'A senha atual é obrigatória'),
   password: z.string().min(6, 'A nova senha deve ter pelo menos 6 caracteres'),
@@ -99,9 +99,6 @@ class UserController {
       // Validar o body com Zod
       const { currentPassword, password } = updatePasswordSchema.parse(body);
 
-      console.log('req.body:', body); // Debug: log do body completo
-      console.log('password:', password, 'type:', typeof password); // Debug: log do password e seu tipo
-
       const result = await this.UserRepository.updatePassword({ id, currentPassword, password })
 
       console.log("RESULT ", result)
@@ -113,13 +110,11 @@ class UserController {
 
     } catch (error) {
       if (error instanceof z.ZodError) {
-        console.error('Erro de validação:', error.issues); // Debug: log do erro do Zod
         return {
           statusCode: 400,
           body: error.issues,
         };
       }
-      console.error('Erro ao atualizar senha:', error.message); // Debug: log do erro
       throw error;
     }
   };

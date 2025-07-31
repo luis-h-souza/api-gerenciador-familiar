@@ -13,7 +13,7 @@ class AuthenticationMiddleware {
     }
 
     try {
-      // verifica se o token começa com "Bearer "
+      // verifica se o token começa com "Bearer"
       if (!authorization.startsWith("Bearer ")) {
         throw new Error("Formato de token inválido.");
       }

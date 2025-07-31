@@ -1,6 +1,6 @@
 const { z } = require("zod");
 
-// Define Zod schema for input validation
+// Define Zod schema para validação dos inputs
 const InputSchema = z.object({
   email: z.email({ message: "Formato de e-mail inválido" }),
   password: z.string().min(1, { message: "A senha não pode ser vazia" }),
@@ -11,7 +11,7 @@ class LoginController {
   constructor(LoginRepository) {
     this.LoginRepository = LoginRepository;
   }
-  // Handles the login request
+  // Handles com a requisição do login
   async handle({ body }) {
     try {
       // validação de entrada usando o Zod
@@ -35,7 +35,7 @@ class LoginController {
 
       if (error instanceof Error && error.message === "Senha inválida") {
         return {
-          statusCode: 401, // Unauthorized
+          statusCode: 401, // Não autorizado
           body: { message: error.message },
         };
       }

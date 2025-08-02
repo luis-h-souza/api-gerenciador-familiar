@@ -34,20 +34,20 @@ router.post('/login', async (req, res) => {
   res.status(response.statusCode).json(response.body);
 })
 
-// Rota de busca de usuário por ID
+// Lista todos os usuários
+router.get('/users', jwtGuard, async (req, res) => {
+  const response = await userController.show();
+  res.status(response.statusCode).json(response.body);
+});
+
+// Busca o usuário pelo ID
 router.get('/user/:id', jwtGuard, async (req, res) => {
   const response = await userController.showById({ params: req.params });
   res.status(response.statusCode).json(response.body);
 });
 
-// Rota de busca de usuário por ID
-router.get('/user', jwtGuard, async (req, res) => {
-  const response = await userController.show();
-  res.status(response.statusCode).json(response.body);
-});
-
-// Rota de atualização de usuário
-router.put('/user/:id', jwtGuard, async (req, res) => {
+// Atualização do usuário
+router.put('/update-user/:id', jwtGuard, async (req, res) => {
   const response = await userController.update({
     params: req.params,
     body: req.body,
@@ -55,7 +55,8 @@ router.put('/user/:id', jwtGuard, async (req, res) => {
   res.status(response.statusCode).json(response.body);
 });
 
-router.put('/user/:id/password', jwtGuard, async (req, res) => {
+// Atualiza a senha do usuário
+router.put('/update-user/:id/password', jwtGuard, async (req, res) => {
   const response = await userController.updatePassword({
     params: req.params,
     body: req.body,

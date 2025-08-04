@@ -19,8 +19,6 @@ class LoginController {
       // executa o método do repository de login
       const result = await this.LoginRepository.execute({ email, password });
 
-      console.log(result)
-
       return {
         statusCode: 200,
         body: result,

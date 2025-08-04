@@ -53,12 +53,41 @@ export type RegistroDeManutencao = $Result.DefaultSelection<Prisma.$RegistroDeMa
  * 
  */
 export type Lembrete = $Result.DefaultSelection<Prisma.$LembretePayload>
+/**
+ * Model Tarefa
+ * 
+ */
+export type Tarefa = $Result.DefaultSelection<Prisma.$TarefaPayload>
+/**
+ * Model Atividade
+ * 
+ */
+export type Atividade = $Result.DefaultSelection<Prisma.$AtividadePayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const Rotulo: {
+  export const TipoAtividade: {
+  LEMBRETE: 'LEMBRETE',
+  TAREFA: 'TAREFA',
+  LISTA: 'LISTA',
+  VEICULO: 'VEICULO'
+};
+
+export type TipoAtividade = (typeof TipoAtividade)[keyof typeof TipoAtividade]
+
+
+export const AcaoAtividade: {
+  CRIADA: 'CRIADA',
+  ATUALIZADA: 'ATUALIZADA',
+  EXCLUIDA: 'EXCLUIDA'
+};
+
+export type AcaoAtividade = (typeof AcaoAtividade)[keyof typeof AcaoAtividade]
+
+
+export const Rotulo: {
   PAIS: 'PAIS',
   FILHO: 'FILHO'
 };
@@ -66,6 +95,14 @@ export namespace $Enums {
 export type Rotulo = (typeof Rotulo)[keyof typeof Rotulo]
 
 }
+
+export type TipoAtividade = $Enums.TipoAtividade
+
+export const TipoAtividade: typeof $Enums.TipoAtividade
+
+export type AcaoAtividade = $Enums.AcaoAtividade
+
+export const AcaoAtividade: typeof $Enums.AcaoAtividade
 
 export type Rotulo = $Enums.Rotulo
 
@@ -275,6 +312,26 @@ export class PrismaClient<
     * ```
     */
   get lembrete(): Prisma.LembreteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tarefa`: Exposes CRUD operations for the **Tarefa** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tarefas
+    * const tarefas = await prisma.tarefa.findMany()
+    * ```
+    */
+  get tarefa(): Prisma.TarefaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.atividade`: Exposes CRUD operations for the **Atividade** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Atividades
+    * const atividades = await prisma.atividade.findMany()
+    * ```
+    */
+  get atividade(): Prisma.AtividadeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -722,7 +779,9 @@ export namespace Prisma {
     ItemListaDeCompra: 'ItemListaDeCompra',
     Veiculo: 'Veiculo',
     RegistroDeManutencao: 'RegistroDeManutencao',
-    Lembrete: 'Lembrete'
+    Lembrete: 'Lembrete',
+    Tarefa: 'Tarefa',
+    Atividade: 'Atividade'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -741,7 +800,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "usuario" | "familia" | "familia_usuarios" | "listaDeCompra" | "itemListaDeCompra" | "veiculo" | "registroDeManutencao" | "lembrete"
+      modelProps: "usuario" | "familia" | "familia_usuarios" | "listaDeCompra" | "itemListaDeCompra" | "veiculo" | "registroDeManutencao" | "lembrete" | "tarefa" | "atividade"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1337,6 +1396,154 @@ export namespace Prisma {
           }
         }
       }
+      Tarefa: {
+        payload: Prisma.$TarefaPayload<ExtArgs>
+        fields: Prisma.TarefaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TarefaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TarefaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TarefaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TarefaPayload>
+          }
+          findFirst: {
+            args: Prisma.TarefaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TarefaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TarefaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TarefaPayload>
+          }
+          findMany: {
+            args: Prisma.TarefaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TarefaPayload>[]
+          }
+          create: {
+            args: Prisma.TarefaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TarefaPayload>
+          }
+          createMany: {
+            args: Prisma.TarefaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TarefaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TarefaPayload>[]
+          }
+          delete: {
+            args: Prisma.TarefaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TarefaPayload>
+          }
+          update: {
+            args: Prisma.TarefaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TarefaPayload>
+          }
+          deleteMany: {
+            args: Prisma.TarefaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TarefaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TarefaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TarefaPayload>[]
+          }
+          upsert: {
+            args: Prisma.TarefaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TarefaPayload>
+          }
+          aggregate: {
+            args: Prisma.TarefaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTarefa>
+          }
+          groupBy: {
+            args: Prisma.TarefaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TarefaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TarefaCountArgs<ExtArgs>
+            result: $Utils.Optional<TarefaCountAggregateOutputType> | number
+          }
+        }
+      }
+      Atividade: {
+        payload: Prisma.$AtividadePayload<ExtArgs>
+        fields: Prisma.AtividadeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AtividadeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AtividadePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AtividadeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AtividadePayload>
+          }
+          findFirst: {
+            args: Prisma.AtividadeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AtividadePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AtividadeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AtividadePayload>
+          }
+          findMany: {
+            args: Prisma.AtividadeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AtividadePayload>[]
+          }
+          create: {
+            args: Prisma.AtividadeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AtividadePayload>
+          }
+          createMany: {
+            args: Prisma.AtividadeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AtividadeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AtividadePayload>[]
+          }
+          delete: {
+            args: Prisma.AtividadeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AtividadePayload>
+          }
+          update: {
+            args: Prisma.AtividadeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AtividadePayload>
+          }
+          deleteMany: {
+            args: Prisma.AtividadeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AtividadeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AtividadeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AtividadePayload>[]
+          }
+          upsert: {
+            args: Prisma.AtividadeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AtividadePayload>
+          }
+          aggregate: {
+            args: Prisma.AtividadeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAtividade>
+          }
+          groupBy: {
+            args: Prisma.AtividadeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AtividadeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AtividadeCountArgs<ExtArgs>
+            result: $Utils.Optional<AtividadeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1429,6 +1636,8 @@ export namespace Prisma {
     veiculo?: VeiculoOmit
     registroDeManutencao?: RegistroDeManutencaoOmit
     lembrete?: LembreteOmit
+    tarefa?: TarefaOmit
+    atividade?: AtividadeOmit
   }
 
   /* Types for Logging */
@@ -1524,20 +1733,18 @@ export namespace Prisma {
 
   export type UsuarioCountOutputType = {
     familias: number
-    listasEnviadas: number
-    listasRecebidas: number
-    veiculos: number
     lembretesEnviados: number
-    lembretesRecebidos: number
+    listasEnviadas: number
+    veiculos: number
+    tarefas: number
   }
 
   export type UsuarioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     familias?: boolean | UsuarioCountOutputTypeCountFamiliasArgs
-    listasEnviadas?: boolean | UsuarioCountOutputTypeCountListasEnviadasArgs
-    listasRecebidas?: boolean | UsuarioCountOutputTypeCountListasRecebidasArgs
-    veiculos?: boolean | UsuarioCountOutputTypeCountVeiculosArgs
     lembretesEnviados?: boolean | UsuarioCountOutputTypeCountLembretesEnviadosArgs
-    lembretesRecebidos?: boolean | UsuarioCountOutputTypeCountLembretesRecebidosArgs
+    listasEnviadas?: boolean | UsuarioCountOutputTypeCountListasEnviadasArgs
+    veiculos?: boolean | UsuarioCountOutputTypeCountVeiculosArgs
+    tarefas?: boolean | UsuarioCountOutputTypeCountTarefasArgs
   }
 
   // Custom InputTypes
@@ -1561,14 +1768,14 @@ export namespace Prisma {
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountListasEnviadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ListaDeCompraWhereInput
+  export type UsuarioCountOutputTypeCountLembretesEnviadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LembreteWhereInput
   }
 
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountListasRecebidasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UsuarioCountOutputTypeCountListasEnviadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ListaDeCompraWhereInput
   }
 
@@ -1582,15 +1789,8 @@ export namespace Prisma {
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountLembretesEnviadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LembreteWhereInput
-  }
-
-  /**
-   * UsuarioCountOutputType without action
-   */
-  export type UsuarioCountOutputTypeCountLembretesRecebidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LembreteWhereInput
+  export type UsuarioCountOutputTypeCountTarefasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TarefaWhereInput
   }
 
 
@@ -1632,11 +1832,13 @@ export namespace Prisma {
   export type ListaDeCompraCountOutputType = {
     itens: number
     lembretes: number
+    atividades: number
   }
 
   export type ListaDeCompraCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     itens?: boolean | ListaDeCompraCountOutputTypeCountItensArgs
     lembretes?: boolean | ListaDeCompraCountOutputTypeCountLembretesArgs
+    atividades?: boolean | ListaDeCompraCountOutputTypeCountAtividadesArgs
   }
 
   // Custom InputTypes
@@ -1664,19 +1866,28 @@ export namespace Prisma {
     where?: LembreteWhereInput
   }
 
+  /**
+   * ListaDeCompraCountOutputType without action
+   */
+  export type ListaDeCompraCountOutputTypeCountAtividadesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AtividadeWhereInput
+  }
+
 
   /**
    * Count Type VeiculoCountOutputType
    */
 
   export type VeiculoCountOutputType = {
-    manutencoes: number
     Lembrete: number
+    manutencoes: number
+    atividades: number
   }
 
   export type VeiculoCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    manutencoes?: boolean | VeiculoCountOutputTypeCountManutencoesArgs
     Lembrete?: boolean | VeiculoCountOutputTypeCountLembreteArgs
+    manutencoes?: boolean | VeiculoCountOutputTypeCountManutencoesArgs
+    atividades?: boolean | VeiculoCountOutputTypeCountAtividadesArgs
   }
 
   // Custom InputTypes
@@ -1693,6 +1904,13 @@ export namespace Prisma {
   /**
    * VeiculoCountOutputType without action
    */
+  export type VeiculoCountOutputTypeCountLembreteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LembreteWhereInput
+  }
+
+  /**
+   * VeiculoCountOutputType without action
+   */
   export type VeiculoCountOutputTypeCountManutencoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: RegistroDeManutencaoWhereInput
   }
@@ -1700,8 +1918,70 @@ export namespace Prisma {
   /**
    * VeiculoCountOutputType without action
    */
-  export type VeiculoCountOutputTypeCountLembreteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: LembreteWhereInput
+  export type VeiculoCountOutputTypeCountAtividadesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AtividadeWhereInput
+  }
+
+
+  /**
+   * Count Type LembreteCountOutputType
+   */
+
+  export type LembreteCountOutputType = {
+    atividades: number
+  }
+
+  export type LembreteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    atividades?: boolean | LembreteCountOutputTypeCountAtividadesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LembreteCountOutputType without action
+   */
+  export type LembreteCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LembreteCountOutputType
+     */
+    select?: LembreteCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LembreteCountOutputType without action
+   */
+  export type LembreteCountOutputTypeCountAtividadesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AtividadeWhereInput
+  }
+
+
+  /**
+   * Count Type TarefaCountOutputType
+   */
+
+  export type TarefaCountOutputType = {
+    atividades: number
+  }
+
+  export type TarefaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    atividades?: boolean | TarefaCountOutputTypeCountAtividadesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TarefaCountOutputType without action
+   */
+  export type TarefaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TarefaCountOutputType
+     */
+    select?: TarefaCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TarefaCountOutputType without action
+   */
+  export type TarefaCountOutputTypeCountAtividadesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AtividadeWhereInput
   }
 
 
@@ -1866,11 +2146,10 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     familias?: boolean | Usuario$familiasArgs<ExtArgs>
-    listasEnviadas?: boolean | Usuario$listasEnviadasArgs<ExtArgs>
-    listasRecebidas?: boolean | Usuario$listasRecebidasArgs<ExtArgs>
-    veiculos?: boolean | Usuario$veiculosArgs<ExtArgs>
     lembretesEnviados?: boolean | Usuario$lembretesEnviadosArgs<ExtArgs>
-    lembretesRecebidos?: boolean | Usuario$lembretesRecebidosArgs<ExtArgs>
+    listasEnviadas?: boolean | Usuario$listasEnviadasArgs<ExtArgs>
+    veiculos?: boolean | Usuario$veiculosArgs<ExtArgs>
+    tarefas?: boolean | Usuario$tarefasArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuario"]>
 
@@ -1898,11 +2177,10 @@ export namespace Prisma {
   export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password", ExtArgs["result"]["usuario"]>
   export type UsuarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     familias?: boolean | Usuario$familiasArgs<ExtArgs>
-    listasEnviadas?: boolean | Usuario$listasEnviadasArgs<ExtArgs>
-    listasRecebidas?: boolean | Usuario$listasRecebidasArgs<ExtArgs>
-    veiculos?: boolean | Usuario$veiculosArgs<ExtArgs>
     lembretesEnviados?: boolean | Usuario$lembretesEnviadosArgs<ExtArgs>
-    lembretesRecebidos?: boolean | Usuario$lembretesRecebidosArgs<ExtArgs>
+    listasEnviadas?: boolean | Usuario$listasEnviadasArgs<ExtArgs>
+    veiculos?: boolean | Usuario$veiculosArgs<ExtArgs>
+    tarefas?: boolean | Usuario$tarefasArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1912,11 +2190,10 @@ export namespace Prisma {
     name: "Usuario"
     objects: {
       familias: Prisma.$familia_usuariosPayload<ExtArgs>[]
-      listasEnviadas: Prisma.$ListaDeCompraPayload<ExtArgs>[]
-      listasRecebidas: Prisma.$ListaDeCompraPayload<ExtArgs>[]
-      veiculos: Prisma.$VeiculoPayload<ExtArgs>[]
       lembretesEnviados: Prisma.$LembretePayload<ExtArgs>[]
-      lembretesRecebidos: Prisma.$LembretePayload<ExtArgs>[]
+      listasEnviadas: Prisma.$ListaDeCompraPayload<ExtArgs>[]
+      veiculos: Prisma.$VeiculoPayload<ExtArgs>[]
+      tarefas: Prisma.$TarefaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2318,11 +2595,10 @@ export namespace Prisma {
   export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     familias<T extends Usuario$familiasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$familiasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$familia_usuariosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    listasEnviadas<T extends Usuario$listasEnviadasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$listasEnviadasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    listasRecebidas<T extends Usuario$listasRecebidasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$listasRecebidasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    veiculos<T extends Usuario$veiculosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$veiculosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     lembretesEnviados<T extends Usuario$lembretesEnviadosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$lembretesEnviadosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LembretePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    lembretesRecebidos<T extends Usuario$lembretesRecebidosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$lembretesRecebidosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LembretePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    listasEnviadas<T extends Usuario$listasEnviadasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$listasEnviadasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    veiculos<T extends Usuario$veiculosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$veiculosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tarefas<T extends Usuario$tarefasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$tarefasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2768,33 +3044,33 @@ export namespace Prisma {
   }
 
   /**
-   * Usuario.listasEnviadas
+   * Usuario.lembretesEnviados
    */
-  export type Usuario$listasEnviadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Usuario$lembretesEnviadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ListaDeCompra
+     * Select specific fields to fetch from the Lembrete
      */
-    select?: ListaDeCompraSelect<ExtArgs> | null
+    select?: LembreteSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ListaDeCompra
+     * Omit specific fields from the Lembrete
      */
-    omit?: ListaDeCompraOmit<ExtArgs> | null
+    omit?: LembreteOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ListaDeCompraInclude<ExtArgs> | null
-    where?: ListaDeCompraWhereInput
-    orderBy?: ListaDeCompraOrderByWithRelationInput | ListaDeCompraOrderByWithRelationInput[]
-    cursor?: ListaDeCompraWhereUniqueInput
+    include?: LembreteInclude<ExtArgs> | null
+    where?: LembreteWhereInput
+    orderBy?: LembreteOrderByWithRelationInput | LembreteOrderByWithRelationInput[]
+    cursor?: LembreteWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ListaDeCompraScalarFieldEnum | ListaDeCompraScalarFieldEnum[]
+    distinct?: LembreteScalarFieldEnum | LembreteScalarFieldEnum[]
   }
 
   /**
-   * Usuario.listasRecebidas
+   * Usuario.listasEnviadas
    */
-  export type Usuario$listasRecebidasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Usuario$listasEnviadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ListaDeCompra
      */
@@ -2840,51 +3116,27 @@ export namespace Prisma {
   }
 
   /**
-   * Usuario.lembretesEnviados
+   * Usuario.tarefas
    */
-  export type Usuario$lembretesEnviadosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Usuario$tarefasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Lembrete
+     * Select specific fields to fetch from the Tarefa
      */
-    select?: LembreteSelect<ExtArgs> | null
+    select?: TarefaSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Lembrete
+     * Omit specific fields from the Tarefa
      */
-    omit?: LembreteOmit<ExtArgs> | null
+    omit?: TarefaOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: LembreteInclude<ExtArgs> | null
-    where?: LembreteWhereInput
-    orderBy?: LembreteOrderByWithRelationInput | LembreteOrderByWithRelationInput[]
-    cursor?: LembreteWhereUniqueInput
+    include?: TarefaInclude<ExtArgs> | null
+    where?: TarefaWhereInput
+    orderBy?: TarefaOrderByWithRelationInput | TarefaOrderByWithRelationInput[]
+    cursor?: TarefaWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: LembreteScalarFieldEnum | LembreteScalarFieldEnum[]
-  }
-
-  /**
-   * Usuario.lembretesRecebidos
-   */
-  export type Usuario$lembretesRecebidosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Lembrete
-     */
-    select?: LembreteSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Lembrete
-     */
-    omit?: LembreteOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: LembreteInclude<ExtArgs> | null
-    where?: LembreteWhereInput
-    orderBy?: LembreteOrderByWithRelationInput | LembreteOrderByWithRelationInput[]
-    cursor?: LembreteWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: LembreteScalarFieldEnum | LembreteScalarFieldEnum[]
+    distinct?: TarefaScalarFieldEnum | TarefaScalarFieldEnum[]
   }
 
   /**
@@ -5002,52 +5254,46 @@ export namespace Prisma {
 
   export type ListaDeCompraMinAggregateOutputType = {
     id: string | null
-    nome: string | null
-    status: string | null
+    tipo: string | null
     usuarioIdEnviou: string | null
-    usuarioIdRecebeu: string | null
+    status: boolean | null
   }
 
   export type ListaDeCompraMaxAggregateOutputType = {
     id: string | null
-    nome: string | null
-    status: string | null
+    tipo: string | null
     usuarioIdEnviou: string | null
-    usuarioIdRecebeu: string | null
+    status: boolean | null
   }
 
   export type ListaDeCompraCountAggregateOutputType = {
     id: number
-    nome: number
-    status: number
+    tipo: number
     usuarioIdEnviou: number
-    usuarioIdRecebeu: number
+    status: number
     _all: number
   }
 
 
   export type ListaDeCompraMinAggregateInputType = {
     id?: true
-    nome?: true
-    status?: true
+    tipo?: true
     usuarioIdEnviou?: true
-    usuarioIdRecebeu?: true
+    status?: true
   }
 
   export type ListaDeCompraMaxAggregateInputType = {
     id?: true
-    nome?: true
-    status?: true
+    tipo?: true
     usuarioIdEnviou?: true
-    usuarioIdRecebeu?: true
+    status?: true
   }
 
   export type ListaDeCompraCountAggregateInputType = {
     id?: true
-    nome?: true
-    status?: true
+    tipo?: true
     usuarioIdEnviou?: true
-    usuarioIdRecebeu?: true
+    status?: true
     _all?: true
   }
 
@@ -5125,10 +5371,9 @@ export namespace Prisma {
 
   export type ListaDeCompraGroupByOutputType = {
     id: string
-    nome: string
-    status: string
+    tipo: string
     usuarioIdEnviou: string
-    usuarioIdRecebeu: string
+    status: boolean
     _count: ListaDeCompraCountAggregateOutputType | null
     _min: ListaDeCompraMinAggregateOutputType | null
     _max: ListaDeCompraMaxAggregateOutputType | null
@@ -5150,76 +5395,67 @@ export namespace Prisma {
 
   export type ListaDeCompraSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    nome?: boolean
-    status?: boolean
+    tipo?: boolean
     usuarioIdEnviou?: boolean
-    usuarioIdRecebeu?: boolean
+    status?: boolean
     usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
-    usuarioRecebeu?: boolean | UsuarioDefaultArgs<ExtArgs>
     itens?: boolean | ListaDeCompra$itensArgs<ExtArgs>
     lembretes?: boolean | ListaDeCompra$lembretesArgs<ExtArgs>
+    atividades?: boolean | ListaDeCompra$atividadesArgs<ExtArgs>
     _count?: boolean | ListaDeCompraCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["listaDeCompra"]>
 
   export type ListaDeCompraSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    nome?: boolean
-    status?: boolean
+    tipo?: boolean
     usuarioIdEnviou?: boolean
-    usuarioIdRecebeu?: boolean
+    status?: boolean
     usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
-    usuarioRecebeu?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["listaDeCompra"]>
 
   export type ListaDeCompraSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    nome?: boolean
-    status?: boolean
+    tipo?: boolean
     usuarioIdEnviou?: boolean
-    usuarioIdRecebeu?: boolean
+    status?: boolean
     usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
-    usuarioRecebeu?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["listaDeCompra"]>
 
   export type ListaDeCompraSelectScalar = {
     id?: boolean
-    nome?: boolean
-    status?: boolean
+    tipo?: boolean
     usuarioIdEnviou?: boolean
-    usuarioIdRecebeu?: boolean
+    status?: boolean
   }
 
-  export type ListaDeCompraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nome" | "status" | "usuarioIdEnviou" | "usuarioIdRecebeu", ExtArgs["result"]["listaDeCompra"]>
+  export type ListaDeCompraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipo" | "usuarioIdEnviou" | "status", ExtArgs["result"]["listaDeCompra"]>
   export type ListaDeCompraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
-    usuarioRecebeu?: boolean | UsuarioDefaultArgs<ExtArgs>
     itens?: boolean | ListaDeCompra$itensArgs<ExtArgs>
     lembretes?: boolean | ListaDeCompra$lembretesArgs<ExtArgs>
+    atividades?: boolean | ListaDeCompra$atividadesArgs<ExtArgs>
     _count?: boolean | ListaDeCompraCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ListaDeCompraIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
-    usuarioRecebeu?: boolean | UsuarioDefaultArgs<ExtArgs>
   }
   export type ListaDeCompraIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
-    usuarioRecebeu?: boolean | UsuarioDefaultArgs<ExtArgs>
   }
 
   export type $ListaDeCompraPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ListaDeCompra"
     objects: {
       usuarioEnviou: Prisma.$UsuarioPayload<ExtArgs>
-      usuarioRecebeu: Prisma.$UsuarioPayload<ExtArgs>
       itens: Prisma.$ItemListaDeCompraPayload<ExtArgs>[]
       lembretes: Prisma.$LembretePayload<ExtArgs>[]
+      atividades: Prisma.$AtividadePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      nome: string
-      status: string
+      tipo: string
       usuarioIdEnviou: string
-      usuarioIdRecebeu: string
+      status: boolean
     }, ExtArgs["result"]["listaDeCompra"]>
     composites: {}
   }
@@ -5615,9 +5851,9 @@ export namespace Prisma {
   export interface Prisma__ListaDeCompraClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     usuarioEnviou<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    usuarioRecebeu<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     itens<T extends ListaDeCompra$itensArgs<ExtArgs> = {}>(args?: Subset<T, ListaDeCompra$itensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     lembretes<T extends ListaDeCompra$lembretesArgs<ExtArgs> = {}>(args?: Subset<T, ListaDeCompra$lembretesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LembretePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    atividades<T extends ListaDeCompra$atividadesArgs<ExtArgs> = {}>(args?: Subset<T, ListaDeCompra$atividadesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5648,10 +5884,9 @@ export namespace Prisma {
    */
   interface ListaDeCompraFieldRefs {
     readonly id: FieldRef<"ListaDeCompra", 'String'>
-    readonly nome: FieldRef<"ListaDeCompra", 'String'>
-    readonly status: FieldRef<"ListaDeCompra", 'String'>
+    readonly tipo: FieldRef<"ListaDeCompra", 'String'>
     readonly usuarioIdEnviou: FieldRef<"ListaDeCompra", 'String'>
-    readonly usuarioIdRecebeu: FieldRef<"ListaDeCompra", 'String'>
+    readonly status: FieldRef<"ListaDeCompra", 'Boolean'>
   }
     
 
@@ -6093,6 +6328,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: LembreteScalarFieldEnum | LembreteScalarFieldEnum[]
+  }
+
+  /**
+   * ListaDeCompra.atividades
+   */
+  export type ListaDeCompra$atividadesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
+    where?: AtividadeWhereInput
+    orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
+    cursor?: AtividadeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AtividadeScalarFieldEnum | AtividadeScalarFieldEnum[]
   }
 
   /**
@@ -7413,8 +7672,9 @@ export namespace Prisma {
     placa?: boolean
     usuarioId?: boolean
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
-    manutencoes?: boolean | Veiculo$manutencoesArgs<ExtArgs>
     Lembrete?: boolean | Veiculo$LembreteArgs<ExtArgs>
+    manutencoes?: boolean | Veiculo$manutencoesArgs<ExtArgs>
+    atividades?: boolean | Veiculo$atividadesArgs<ExtArgs>
     _count?: boolean | VeiculoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["veiculo"]>
 
@@ -7450,8 +7710,9 @@ export namespace Prisma {
   export type VeiculoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "marca" | "modelo" | "ano" | "placa" | "usuarioId", ExtArgs["result"]["veiculo"]>
   export type VeiculoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
-    manutencoes?: boolean | Veiculo$manutencoesArgs<ExtArgs>
     Lembrete?: boolean | Veiculo$LembreteArgs<ExtArgs>
+    manutencoes?: boolean | Veiculo$manutencoesArgs<ExtArgs>
+    atividades?: boolean | Veiculo$atividadesArgs<ExtArgs>
     _count?: boolean | VeiculoCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type VeiculoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7465,8 +7726,9 @@ export namespace Prisma {
     name: "Veiculo"
     objects: {
       usuario: Prisma.$UsuarioPayload<ExtArgs>
-      manutencoes: Prisma.$RegistroDeManutencaoPayload<ExtArgs>[]
       Lembrete: Prisma.$LembretePayload<ExtArgs>[]
+      manutencoes: Prisma.$RegistroDeManutencaoPayload<ExtArgs>[]
+      atividades: Prisma.$AtividadePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7870,8 +8132,9 @@ export namespace Prisma {
   export interface Prisma__VeiculoClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    manutencoes<T extends Veiculo$manutencoesArgs<ExtArgs> = {}>(args?: Subset<T, Veiculo$manutencoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistroDeManutencaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Lembrete<T extends Veiculo$LembreteArgs<ExtArgs> = {}>(args?: Subset<T, Veiculo$LembreteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LembretePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    manutencoes<T extends Veiculo$manutencoesArgs<ExtArgs> = {}>(args?: Subset<T, Veiculo$manutencoesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistroDeManutencaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    atividades<T extends Veiculo$atividadesArgs<ExtArgs> = {}>(args?: Subset<T, Veiculo$atividadesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8303,6 +8566,30 @@ export namespace Prisma {
   }
 
   /**
+   * Veiculo.Lembrete
+   */
+  export type Veiculo$LembreteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lembrete
+     */
+    select?: LembreteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lembrete
+     */
+    omit?: LembreteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LembreteInclude<ExtArgs> | null
+    where?: LembreteWhereInput
+    orderBy?: LembreteOrderByWithRelationInput | LembreteOrderByWithRelationInput[]
+    cursor?: LembreteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LembreteScalarFieldEnum | LembreteScalarFieldEnum[]
+  }
+
+  /**
    * Veiculo.manutencoes
    */
   export type Veiculo$manutencoesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8327,27 +8614,27 @@ export namespace Prisma {
   }
 
   /**
-   * Veiculo.Lembrete
+   * Veiculo.atividades
    */
-  export type Veiculo$LembreteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Veiculo$atividadesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Lembrete
+     * Select specific fields to fetch from the Atividade
      */
-    select?: LembreteSelect<ExtArgs> | null
+    select?: AtividadeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Lembrete
+     * Omit specific fields from the Atividade
      */
-    omit?: LembreteOmit<ExtArgs> | null
+    omit?: AtividadeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: LembreteInclude<ExtArgs> | null
-    where?: LembreteWhereInput
-    orderBy?: LembreteOrderByWithRelationInput | LembreteOrderByWithRelationInput[]
-    cursor?: LembreteWhereUniqueInput
+    include?: AtividadeInclude<ExtArgs> | null
+    where?: AtividadeWhereInput
+    orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
+    cursor?: AtividadeWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: LembreteScalarFieldEnum | LembreteScalarFieldEnum[]
+    distinct?: AtividadeScalarFieldEnum | AtividadeScalarFieldEnum[]
   }
 
   /**
@@ -8375,14 +8662,25 @@ export namespace Prisma {
 
   export type AggregateRegistroDeManutencao = {
     _count: RegistroDeManutencaoCountAggregateOutputType | null
+    _avg: RegistroDeManutencaoAvgAggregateOutputType | null
+    _sum: RegistroDeManutencaoSumAggregateOutputType | null
     _min: RegistroDeManutencaoMinAggregateOutputType | null
     _max: RegistroDeManutencaoMaxAggregateOutputType | null
+  }
+
+  export type RegistroDeManutencaoAvgAggregateOutputType = {
+    valor: number | null
+  }
+
+  export type RegistroDeManutencaoSumAggregateOutputType = {
+    valor: number | null
   }
 
   export type RegistroDeManutencaoMinAggregateOutputType = {
     id: string | null
     descricao: string | null
     data: Date | null
+    valor: number | null
     veiculoId: string | null
   }
 
@@ -8390,6 +8688,7 @@ export namespace Prisma {
     id: string | null
     descricao: string | null
     data: Date | null
+    valor: number | null
     veiculoId: string | null
   }
 
@@ -8397,15 +8696,25 @@ export namespace Prisma {
     id: number
     descricao: number
     data: number
+    valor: number
     veiculoId: number
     _all: number
   }
 
 
+  export type RegistroDeManutencaoAvgAggregateInputType = {
+    valor?: true
+  }
+
+  export type RegistroDeManutencaoSumAggregateInputType = {
+    valor?: true
+  }
+
   export type RegistroDeManutencaoMinAggregateInputType = {
     id?: true
     descricao?: true
     data?: true
+    valor?: true
     veiculoId?: true
   }
 
@@ -8413,6 +8722,7 @@ export namespace Prisma {
     id?: true
     descricao?: true
     data?: true
+    valor?: true
     veiculoId?: true
   }
 
@@ -8420,6 +8730,7 @@ export namespace Prisma {
     id?: true
     descricao?: true
     data?: true
+    valor?: true
     veiculoId?: true
     _all?: true
   }
@@ -8462,6 +8773,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: RegistroDeManutencaoAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RegistroDeManutencaoSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: RegistroDeManutencaoMinAggregateInputType
@@ -8492,16 +8815,21 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: RegistroDeManutencaoCountAggregateInputType | true
+    _avg?: RegistroDeManutencaoAvgAggregateInputType
+    _sum?: RegistroDeManutencaoSumAggregateInputType
     _min?: RegistroDeManutencaoMinAggregateInputType
     _max?: RegistroDeManutencaoMaxAggregateInputType
   }
 
   export type RegistroDeManutencaoGroupByOutputType = {
     id: string
-    descricao: string
+    descricao: string | null
     data: Date
+    valor: number | null
     veiculoId: string
     _count: RegistroDeManutencaoCountAggregateOutputType | null
+    _avg: RegistroDeManutencaoAvgAggregateOutputType | null
+    _sum: RegistroDeManutencaoSumAggregateOutputType | null
     _min: RegistroDeManutencaoMinAggregateOutputType | null
     _max: RegistroDeManutencaoMaxAggregateOutputType | null
   }
@@ -8524,6 +8852,7 @@ export namespace Prisma {
     id?: boolean
     descricao?: boolean
     data?: boolean
+    valor?: boolean
     veiculoId?: boolean
     veiculo?: boolean | VeiculoDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["registroDeManutencao"]>
@@ -8532,6 +8861,7 @@ export namespace Prisma {
     id?: boolean
     descricao?: boolean
     data?: boolean
+    valor?: boolean
     veiculoId?: boolean
     veiculo?: boolean | VeiculoDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["registroDeManutencao"]>
@@ -8540,6 +8870,7 @@ export namespace Prisma {
     id?: boolean
     descricao?: boolean
     data?: boolean
+    valor?: boolean
     veiculoId?: boolean
     veiculo?: boolean | VeiculoDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["registroDeManutencao"]>
@@ -8548,10 +8879,11 @@ export namespace Prisma {
     id?: boolean
     descricao?: boolean
     data?: boolean
+    valor?: boolean
     veiculoId?: boolean
   }
 
-  export type RegistroDeManutencaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descricao" | "data" | "veiculoId", ExtArgs["result"]["registroDeManutencao"]>
+  export type RegistroDeManutencaoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descricao" | "data" | "valor" | "veiculoId", ExtArgs["result"]["registroDeManutencao"]>
   export type RegistroDeManutencaoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     veiculo?: boolean | VeiculoDefaultArgs<ExtArgs>
   }
@@ -8569,8 +8901,9 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      descricao: string
+      descricao: string | null
       data: Date
+      valor: number | null
       veiculoId: string
     }, ExtArgs["result"]["registroDeManutencao"]>
     composites: {}
@@ -8999,6 +9332,7 @@ export namespace Prisma {
     readonly id: FieldRef<"RegistroDeManutencao", 'String'>
     readonly descricao: FieldRef<"RegistroDeManutencao", 'String'>
     readonly data: FieldRef<"RegistroDeManutencao", 'DateTime'>
+    readonly valor: FieldRef<"RegistroDeManutencao", 'Float'>
     readonly veiculoId: FieldRef<"RegistroDeManutencao", 'String'>
   }
     
@@ -9426,33 +9760,30 @@ export namespace Prisma {
 
   export type LembreteMinAggregateOutputType = {
     id: string | null
-    titulo: string | null
     descricao: string | null
     dataHora: Date | null
+    status: boolean | null
     usuarioIdEnviou: string | null
-    usuarioIdRecebeu: string | null
     listaDeCompraId: string | null
     veiculoId: string | null
   }
 
   export type LembreteMaxAggregateOutputType = {
     id: string | null
-    titulo: string | null
     descricao: string | null
     dataHora: Date | null
+    status: boolean | null
     usuarioIdEnviou: string | null
-    usuarioIdRecebeu: string | null
     listaDeCompraId: string | null
     veiculoId: string | null
   }
 
   export type LembreteCountAggregateOutputType = {
     id: number
-    titulo: number
     descricao: number
     dataHora: number
+    status: number
     usuarioIdEnviou: number
-    usuarioIdRecebeu: number
     listaDeCompraId: number
     veiculoId: number
     _all: number
@@ -9461,33 +9792,30 @@ export namespace Prisma {
 
   export type LembreteMinAggregateInputType = {
     id?: true
-    titulo?: true
     descricao?: true
     dataHora?: true
+    status?: true
     usuarioIdEnviou?: true
-    usuarioIdRecebeu?: true
     listaDeCompraId?: true
     veiculoId?: true
   }
 
   export type LembreteMaxAggregateInputType = {
     id?: true
-    titulo?: true
     descricao?: true
     dataHora?: true
+    status?: true
     usuarioIdEnviou?: true
-    usuarioIdRecebeu?: true
     listaDeCompraId?: true
     veiculoId?: true
   }
 
   export type LembreteCountAggregateInputType = {
     id?: true
-    titulo?: true
     descricao?: true
     dataHora?: true
+    status?: true
     usuarioIdEnviou?: true
-    usuarioIdRecebeu?: true
     listaDeCompraId?: true
     veiculoId?: true
     _all?: true
@@ -9567,11 +9895,10 @@ export namespace Prisma {
 
   export type LembreteGroupByOutputType = {
     id: string
-    titulo: string
     descricao: string
     dataHora: Date
+    status: boolean
     usuarioIdEnviou: string
-    usuarioIdRecebeu: string
     listaDeCompraId: string
     veiculoId: string
     _count: LembreteCountAggregateOutputType | null
@@ -9595,95 +9922,88 @@ export namespace Prisma {
 
   export type LembreteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    titulo?: boolean
     descricao?: boolean
     dataHora?: boolean
+    status?: boolean
     usuarioIdEnviou?: boolean
-    usuarioIdRecebeu?: boolean
     listaDeCompraId?: boolean
     veiculoId?: boolean
-    usuarioRecebeu?: boolean | UsuarioDefaultArgs<ExtArgs>
-    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
     listaDeCompra?: boolean | ListaDeCompraDefaultArgs<ExtArgs>
-    veiculo?: boolean | Lembrete$veiculoArgs<ExtArgs>
+    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
+    veiculo?: boolean | VeiculoDefaultArgs<ExtArgs>
+    atividades?: boolean | Lembrete$atividadesArgs<ExtArgs>
+    _count?: boolean | LembreteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lembrete"]>
 
   export type LembreteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    titulo?: boolean
     descricao?: boolean
     dataHora?: boolean
+    status?: boolean
     usuarioIdEnviou?: boolean
-    usuarioIdRecebeu?: boolean
     listaDeCompraId?: boolean
     veiculoId?: boolean
-    usuarioRecebeu?: boolean | UsuarioDefaultArgs<ExtArgs>
-    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
     listaDeCompra?: boolean | ListaDeCompraDefaultArgs<ExtArgs>
-    veiculo?: boolean | Lembrete$veiculoArgs<ExtArgs>
+    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
+    veiculo?: boolean | VeiculoDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lembrete"]>
 
   export type LembreteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    titulo?: boolean
     descricao?: boolean
     dataHora?: boolean
+    status?: boolean
     usuarioIdEnviou?: boolean
-    usuarioIdRecebeu?: boolean
     listaDeCompraId?: boolean
     veiculoId?: boolean
-    usuarioRecebeu?: boolean | UsuarioDefaultArgs<ExtArgs>
-    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
     listaDeCompra?: boolean | ListaDeCompraDefaultArgs<ExtArgs>
-    veiculo?: boolean | Lembrete$veiculoArgs<ExtArgs>
+    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
+    veiculo?: boolean | VeiculoDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lembrete"]>
 
   export type LembreteSelectScalar = {
     id?: boolean
-    titulo?: boolean
     descricao?: boolean
     dataHora?: boolean
+    status?: boolean
     usuarioIdEnviou?: boolean
-    usuarioIdRecebeu?: boolean
     listaDeCompraId?: boolean
     veiculoId?: boolean
   }
 
-  export type LembreteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "titulo" | "descricao" | "dataHora" | "usuarioIdEnviou" | "usuarioIdRecebeu" | "listaDeCompraId" | "veiculoId", ExtArgs["result"]["lembrete"]>
+  export type LembreteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descricao" | "dataHora" | "status" | "usuarioIdEnviou" | "listaDeCompraId" | "veiculoId", ExtArgs["result"]["lembrete"]>
   export type LembreteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuarioRecebeu?: boolean | UsuarioDefaultArgs<ExtArgs>
-    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
     listaDeCompra?: boolean | ListaDeCompraDefaultArgs<ExtArgs>
-    veiculo?: boolean | Lembrete$veiculoArgs<ExtArgs>
+    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
+    veiculo?: boolean | VeiculoDefaultArgs<ExtArgs>
+    atividades?: boolean | Lembrete$atividadesArgs<ExtArgs>
+    _count?: boolean | LembreteCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type LembreteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuarioRecebeu?: boolean | UsuarioDefaultArgs<ExtArgs>
-    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
     listaDeCompra?: boolean | ListaDeCompraDefaultArgs<ExtArgs>
-    veiculo?: boolean | Lembrete$veiculoArgs<ExtArgs>
+    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
+    veiculo?: boolean | VeiculoDefaultArgs<ExtArgs>
   }
   export type LembreteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuarioRecebeu?: boolean | UsuarioDefaultArgs<ExtArgs>
-    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
     listaDeCompra?: boolean | ListaDeCompraDefaultArgs<ExtArgs>
-    veiculo?: boolean | Lembrete$veiculoArgs<ExtArgs>
+    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
+    veiculo?: boolean | VeiculoDefaultArgs<ExtArgs>
   }
 
   export type $LembretePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Lembrete"
     objects: {
-      usuarioRecebeu: Prisma.$UsuarioPayload<ExtArgs>
-      usuarioEnviou: Prisma.$UsuarioPayload<ExtArgs>
       listaDeCompra: Prisma.$ListaDeCompraPayload<ExtArgs>
-      veiculo: Prisma.$VeiculoPayload<ExtArgs> | null
+      usuarioEnviou: Prisma.$UsuarioPayload<ExtArgs>
+      veiculo: Prisma.$VeiculoPayload<ExtArgs>
+      atividades: Prisma.$AtividadePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      titulo: string
       descricao: string
       dataHora: Date
+      status: boolean
       usuarioIdEnviou: string
-      usuarioIdRecebeu: string
       listaDeCompraId: string
       veiculoId: string
     }, ExtArgs["result"]["lembrete"]>
@@ -10080,10 +10400,10 @@ export namespace Prisma {
    */
   export interface Prisma__LembreteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    usuarioRecebeu<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    usuarioEnviou<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     listaDeCompra<T extends ListaDeCompraDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ListaDeCompraDefaultArgs<ExtArgs>>): Prisma__ListaDeCompraClient<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    veiculo<T extends Lembrete$veiculoArgs<ExtArgs> = {}>(args?: Subset<T, Lembrete$veiculoArgs<ExtArgs>>): Prisma__VeiculoClient<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    usuarioEnviou<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    veiculo<T extends VeiculoDefaultArgs<ExtArgs> = {}>(args?: Subset<T, VeiculoDefaultArgs<ExtArgs>>): Prisma__VeiculoClient<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    atividades<T extends Lembrete$atividadesArgs<ExtArgs> = {}>(args?: Subset<T, Lembrete$atividadesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10114,11 +10434,10 @@ export namespace Prisma {
    */
   interface LembreteFieldRefs {
     readonly id: FieldRef<"Lembrete", 'String'>
-    readonly titulo: FieldRef<"Lembrete", 'String'>
     readonly descricao: FieldRef<"Lembrete", 'String'>
     readonly dataHora: FieldRef<"Lembrete", 'DateTime'>
+    readonly status: FieldRef<"Lembrete", 'Boolean'>
     readonly usuarioIdEnviou: FieldRef<"Lembrete", 'String'>
-    readonly usuarioIdRecebeu: FieldRef<"Lembrete", 'String'>
     readonly listaDeCompraId: FieldRef<"Lembrete", 'String'>
     readonly veiculoId: FieldRef<"Lembrete", 'String'>
   }
@@ -10517,22 +10836,27 @@ export namespace Prisma {
   }
 
   /**
-   * Lembrete.veiculo
+   * Lembrete.atividades
    */
-  export type Lembrete$veiculoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Lembrete$atividadesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Veiculo
+     * Select specific fields to fetch from the Atividade
      */
-    select?: VeiculoSelect<ExtArgs> | null
+    select?: AtividadeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Veiculo
+     * Omit specific fields from the Atividade
      */
-    omit?: VeiculoOmit<ExtArgs> | null
+    omit?: AtividadeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: VeiculoInclude<ExtArgs> | null
-    where?: VeiculoWhereInput
+    include?: AtividadeInclude<ExtArgs> | null
+    where?: AtividadeWhereInput
+    orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
+    cursor?: AtividadeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AtividadeScalarFieldEnum | AtividadeScalarFieldEnum[]
   }
 
   /**
@@ -10551,6 +10875,2278 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: LembreteInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Tarefa
+   */
+
+  export type AggregateTarefa = {
+    _count: TarefaCountAggregateOutputType | null
+    _min: TarefaMinAggregateOutputType | null
+    _max: TarefaMaxAggregateOutputType | null
+  }
+
+  export type TarefaMinAggregateOutputType = {
+    id: string | null
+    descricao: string | null
+    status: boolean | null
+    usuarioId: string | null
+  }
+
+  export type TarefaMaxAggregateOutputType = {
+    id: string | null
+    descricao: string | null
+    status: boolean | null
+    usuarioId: string | null
+  }
+
+  export type TarefaCountAggregateOutputType = {
+    id: number
+    descricao: number
+    status: number
+    usuarioId: number
+    _all: number
+  }
+
+
+  export type TarefaMinAggregateInputType = {
+    id?: true
+    descricao?: true
+    status?: true
+    usuarioId?: true
+  }
+
+  export type TarefaMaxAggregateInputType = {
+    id?: true
+    descricao?: true
+    status?: true
+    usuarioId?: true
+  }
+
+  export type TarefaCountAggregateInputType = {
+    id?: true
+    descricao?: true
+    status?: true
+    usuarioId?: true
+    _all?: true
+  }
+
+  export type TarefaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tarefa to aggregate.
+     */
+    where?: TarefaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tarefas to fetch.
+     */
+    orderBy?: TarefaOrderByWithRelationInput | TarefaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TarefaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tarefas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tarefas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Tarefas
+    **/
+    _count?: true | TarefaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TarefaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TarefaMaxAggregateInputType
+  }
+
+  export type GetTarefaAggregateType<T extends TarefaAggregateArgs> = {
+        [P in keyof T & keyof AggregateTarefa]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTarefa[P]>
+      : GetScalarType<T[P], AggregateTarefa[P]>
+  }
+
+
+
+
+  export type TarefaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TarefaWhereInput
+    orderBy?: TarefaOrderByWithAggregationInput | TarefaOrderByWithAggregationInput[]
+    by: TarefaScalarFieldEnum[] | TarefaScalarFieldEnum
+    having?: TarefaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TarefaCountAggregateInputType | true
+    _min?: TarefaMinAggregateInputType
+    _max?: TarefaMaxAggregateInputType
+  }
+
+  export type TarefaGroupByOutputType = {
+    id: string
+    descricao: string
+    status: boolean
+    usuarioId: string
+    _count: TarefaCountAggregateOutputType | null
+    _min: TarefaMinAggregateOutputType | null
+    _max: TarefaMaxAggregateOutputType | null
+  }
+
+  type GetTarefaGroupByPayload<T extends TarefaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TarefaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TarefaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TarefaGroupByOutputType[P]>
+            : GetScalarType<T[P], TarefaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TarefaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    descricao?: boolean
+    status?: boolean
+    usuarioId?: boolean
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+    atividades?: boolean | Tarefa$atividadesArgs<ExtArgs>
+    _count?: boolean | TarefaCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tarefa"]>
+
+  export type TarefaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    descricao?: boolean
+    status?: boolean
+    usuarioId?: boolean
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tarefa"]>
+
+  export type TarefaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    descricao?: boolean
+    status?: boolean
+    usuarioId?: boolean
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tarefa"]>
+
+  export type TarefaSelectScalar = {
+    id?: boolean
+    descricao?: boolean
+    status?: boolean
+    usuarioId?: boolean
+  }
+
+  export type TarefaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "descricao" | "status" | "usuarioId", ExtArgs["result"]["tarefa"]>
+  export type TarefaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+    atividades?: boolean | Tarefa$atividadesArgs<ExtArgs>
+    _count?: boolean | TarefaCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TarefaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }
+  export type TarefaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }
+
+  export type $TarefaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Tarefa"
+    objects: {
+      usuario: Prisma.$UsuarioPayload<ExtArgs>
+      atividades: Prisma.$AtividadePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      descricao: string
+      status: boolean
+      usuarioId: string
+    }, ExtArgs["result"]["tarefa"]>
+    composites: {}
+  }
+
+  type TarefaGetPayload<S extends boolean | null | undefined | TarefaDefaultArgs> = $Result.GetResult<Prisma.$TarefaPayload, S>
+
+  type TarefaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TarefaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TarefaCountAggregateInputType | true
+    }
+
+  export interface TarefaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Tarefa'], meta: { name: 'Tarefa' } }
+    /**
+     * Find zero or one Tarefa that matches the filter.
+     * @param {TarefaFindUniqueArgs} args - Arguments to find a Tarefa
+     * @example
+     * // Get one Tarefa
+     * const tarefa = await prisma.tarefa.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TarefaFindUniqueArgs>(args: SelectSubset<T, TarefaFindUniqueArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Tarefa that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TarefaFindUniqueOrThrowArgs} args - Arguments to find a Tarefa
+     * @example
+     * // Get one Tarefa
+     * const tarefa = await prisma.tarefa.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TarefaFindUniqueOrThrowArgs>(args: SelectSubset<T, TarefaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tarefa that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TarefaFindFirstArgs} args - Arguments to find a Tarefa
+     * @example
+     * // Get one Tarefa
+     * const tarefa = await prisma.tarefa.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TarefaFindFirstArgs>(args?: SelectSubset<T, TarefaFindFirstArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tarefa that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TarefaFindFirstOrThrowArgs} args - Arguments to find a Tarefa
+     * @example
+     * // Get one Tarefa
+     * const tarefa = await prisma.tarefa.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TarefaFindFirstOrThrowArgs>(args?: SelectSubset<T, TarefaFindFirstOrThrowArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Tarefas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TarefaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tarefas
+     * const tarefas = await prisma.tarefa.findMany()
+     * 
+     * // Get first 10 Tarefas
+     * const tarefas = await prisma.tarefa.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tarefaWithIdOnly = await prisma.tarefa.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TarefaFindManyArgs>(args?: SelectSubset<T, TarefaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Tarefa.
+     * @param {TarefaCreateArgs} args - Arguments to create a Tarefa.
+     * @example
+     * // Create one Tarefa
+     * const Tarefa = await prisma.tarefa.create({
+     *   data: {
+     *     // ... data to create a Tarefa
+     *   }
+     * })
+     * 
+     */
+    create<T extends TarefaCreateArgs>(args: SelectSubset<T, TarefaCreateArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Tarefas.
+     * @param {TarefaCreateManyArgs} args - Arguments to create many Tarefas.
+     * @example
+     * // Create many Tarefas
+     * const tarefa = await prisma.tarefa.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TarefaCreateManyArgs>(args?: SelectSubset<T, TarefaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tarefas and returns the data saved in the database.
+     * @param {TarefaCreateManyAndReturnArgs} args - Arguments to create many Tarefas.
+     * @example
+     * // Create many Tarefas
+     * const tarefa = await prisma.tarefa.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tarefas and only return the `id`
+     * const tarefaWithIdOnly = await prisma.tarefa.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TarefaCreateManyAndReturnArgs>(args?: SelectSubset<T, TarefaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Tarefa.
+     * @param {TarefaDeleteArgs} args - Arguments to delete one Tarefa.
+     * @example
+     * // Delete one Tarefa
+     * const Tarefa = await prisma.tarefa.delete({
+     *   where: {
+     *     // ... filter to delete one Tarefa
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TarefaDeleteArgs>(args: SelectSubset<T, TarefaDeleteArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Tarefa.
+     * @param {TarefaUpdateArgs} args - Arguments to update one Tarefa.
+     * @example
+     * // Update one Tarefa
+     * const tarefa = await prisma.tarefa.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TarefaUpdateArgs>(args: SelectSubset<T, TarefaUpdateArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Tarefas.
+     * @param {TarefaDeleteManyArgs} args - Arguments to filter Tarefas to delete.
+     * @example
+     * // Delete a few Tarefas
+     * const { count } = await prisma.tarefa.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TarefaDeleteManyArgs>(args?: SelectSubset<T, TarefaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tarefas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TarefaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tarefas
+     * const tarefa = await prisma.tarefa.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TarefaUpdateManyArgs>(args: SelectSubset<T, TarefaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tarefas and returns the data updated in the database.
+     * @param {TarefaUpdateManyAndReturnArgs} args - Arguments to update many Tarefas.
+     * @example
+     * // Update many Tarefas
+     * const tarefa = await prisma.tarefa.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Tarefas and only return the `id`
+     * const tarefaWithIdOnly = await prisma.tarefa.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TarefaUpdateManyAndReturnArgs>(args: SelectSubset<T, TarefaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Tarefa.
+     * @param {TarefaUpsertArgs} args - Arguments to update or create a Tarefa.
+     * @example
+     * // Update or create a Tarefa
+     * const tarefa = await prisma.tarefa.upsert({
+     *   create: {
+     *     // ... data to create a Tarefa
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tarefa we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TarefaUpsertArgs>(args: SelectSubset<T, TarefaUpsertArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Tarefas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TarefaCountArgs} args - Arguments to filter Tarefas to count.
+     * @example
+     * // Count the number of Tarefas
+     * const count = await prisma.tarefa.count({
+     *   where: {
+     *     // ... the filter for the Tarefas we want to count
+     *   }
+     * })
+    **/
+    count<T extends TarefaCountArgs>(
+      args?: Subset<T, TarefaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TarefaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tarefa.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TarefaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TarefaAggregateArgs>(args: Subset<T, TarefaAggregateArgs>): Prisma.PrismaPromise<GetTarefaAggregateType<T>>
+
+    /**
+     * Group by Tarefa.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TarefaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TarefaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TarefaGroupByArgs['orderBy'] }
+        : { orderBy?: TarefaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TarefaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTarefaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Tarefa model
+   */
+  readonly fields: TarefaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Tarefa.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TarefaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    atividades<T extends Tarefa$atividadesArgs<ExtArgs> = {}>(args?: Subset<T, Tarefa$atividadesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Tarefa model
+   */
+  interface TarefaFieldRefs {
+    readonly id: FieldRef<"Tarefa", 'String'>
+    readonly descricao: FieldRef<"Tarefa", 'String'>
+    readonly status: FieldRef<"Tarefa", 'Boolean'>
+    readonly usuarioId: FieldRef<"Tarefa", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Tarefa findUnique
+   */
+  export type TarefaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaInclude<ExtArgs> | null
+    /**
+     * Filter, which Tarefa to fetch.
+     */
+    where: TarefaWhereUniqueInput
+  }
+
+  /**
+   * Tarefa findUniqueOrThrow
+   */
+  export type TarefaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaInclude<ExtArgs> | null
+    /**
+     * Filter, which Tarefa to fetch.
+     */
+    where: TarefaWhereUniqueInput
+  }
+
+  /**
+   * Tarefa findFirst
+   */
+  export type TarefaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaInclude<ExtArgs> | null
+    /**
+     * Filter, which Tarefa to fetch.
+     */
+    where?: TarefaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tarefas to fetch.
+     */
+    orderBy?: TarefaOrderByWithRelationInput | TarefaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tarefas.
+     */
+    cursor?: TarefaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tarefas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tarefas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tarefas.
+     */
+    distinct?: TarefaScalarFieldEnum | TarefaScalarFieldEnum[]
+  }
+
+  /**
+   * Tarefa findFirstOrThrow
+   */
+  export type TarefaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaInclude<ExtArgs> | null
+    /**
+     * Filter, which Tarefa to fetch.
+     */
+    where?: TarefaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tarefas to fetch.
+     */
+    orderBy?: TarefaOrderByWithRelationInput | TarefaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tarefas.
+     */
+    cursor?: TarefaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tarefas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tarefas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tarefas.
+     */
+    distinct?: TarefaScalarFieldEnum | TarefaScalarFieldEnum[]
+  }
+
+  /**
+   * Tarefa findMany
+   */
+  export type TarefaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaInclude<ExtArgs> | null
+    /**
+     * Filter, which Tarefas to fetch.
+     */
+    where?: TarefaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tarefas to fetch.
+     */
+    orderBy?: TarefaOrderByWithRelationInput | TarefaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Tarefas.
+     */
+    cursor?: TarefaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tarefas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tarefas.
+     */
+    skip?: number
+    distinct?: TarefaScalarFieldEnum | TarefaScalarFieldEnum[]
+  }
+
+  /**
+   * Tarefa create
+   */
+  export type TarefaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Tarefa.
+     */
+    data: XOR<TarefaCreateInput, TarefaUncheckedCreateInput>
+  }
+
+  /**
+   * Tarefa createMany
+   */
+  export type TarefaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Tarefas.
+     */
+    data: TarefaCreateManyInput | TarefaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Tarefa createManyAndReturn
+   */
+  export type TarefaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * The data used to create many Tarefas.
+     */
+    data: TarefaCreateManyInput | TarefaCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Tarefa update
+   */
+  export type TarefaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Tarefa.
+     */
+    data: XOR<TarefaUpdateInput, TarefaUncheckedUpdateInput>
+    /**
+     * Choose, which Tarefa to update.
+     */
+    where: TarefaWhereUniqueInput
+  }
+
+  /**
+   * Tarefa updateMany
+   */
+  export type TarefaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Tarefas.
+     */
+    data: XOR<TarefaUpdateManyMutationInput, TarefaUncheckedUpdateManyInput>
+    /**
+     * Filter which Tarefas to update
+     */
+    where?: TarefaWhereInput
+    /**
+     * Limit how many Tarefas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tarefa updateManyAndReturn
+   */
+  export type TarefaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * The data used to update Tarefas.
+     */
+    data: XOR<TarefaUpdateManyMutationInput, TarefaUncheckedUpdateManyInput>
+    /**
+     * Filter which Tarefas to update
+     */
+    where?: TarefaWhereInput
+    /**
+     * Limit how many Tarefas to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Tarefa upsert
+   */
+  export type TarefaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Tarefa to update in case it exists.
+     */
+    where: TarefaWhereUniqueInput
+    /**
+     * In case the Tarefa found by the `where` argument doesn't exist, create a new Tarefa with this data.
+     */
+    create: XOR<TarefaCreateInput, TarefaUncheckedCreateInput>
+    /**
+     * In case the Tarefa was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TarefaUpdateInput, TarefaUncheckedUpdateInput>
+  }
+
+  /**
+   * Tarefa delete
+   */
+  export type TarefaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaInclude<ExtArgs> | null
+    /**
+     * Filter which Tarefa to delete.
+     */
+    where: TarefaWhereUniqueInput
+  }
+
+  /**
+   * Tarefa deleteMany
+   */
+  export type TarefaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tarefas to delete
+     */
+    where?: TarefaWhereInput
+    /**
+     * Limit how many Tarefas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tarefa.atividades
+   */
+  export type Tarefa$atividadesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
+    where?: AtividadeWhereInput
+    orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
+    cursor?: AtividadeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AtividadeScalarFieldEnum | AtividadeScalarFieldEnum[]
+  }
+
+  /**
+   * Tarefa without action
+   */
+  export type TarefaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Atividade
+   */
+
+  export type AggregateAtividade = {
+    _count: AtividadeCountAggregateOutputType | null
+    _min: AtividadeMinAggregateOutputType | null
+    _max: AtividadeMaxAggregateOutputType | null
+  }
+
+  export type AtividadeMinAggregateOutputType = {
+    id: string | null
+    tipo: $Enums.TipoAtividade | null
+    acao: $Enums.AcaoAtividade | null
+    datHora: Date | null
+    tarefaId: string | null
+    listaDeCompraId: string | null
+    lembreteId: string | null
+    veiculoId: string | null
+  }
+
+  export type AtividadeMaxAggregateOutputType = {
+    id: string | null
+    tipo: $Enums.TipoAtividade | null
+    acao: $Enums.AcaoAtividade | null
+    datHora: Date | null
+    tarefaId: string | null
+    listaDeCompraId: string | null
+    lembreteId: string | null
+    veiculoId: string | null
+  }
+
+  export type AtividadeCountAggregateOutputType = {
+    id: number
+    tipo: number
+    acao: number
+    datHora: number
+    tarefaId: number
+    listaDeCompraId: number
+    lembreteId: number
+    veiculoId: number
+    _all: number
+  }
+
+
+  export type AtividadeMinAggregateInputType = {
+    id?: true
+    tipo?: true
+    acao?: true
+    datHora?: true
+    tarefaId?: true
+    listaDeCompraId?: true
+    lembreteId?: true
+    veiculoId?: true
+  }
+
+  export type AtividadeMaxAggregateInputType = {
+    id?: true
+    tipo?: true
+    acao?: true
+    datHora?: true
+    tarefaId?: true
+    listaDeCompraId?: true
+    lembreteId?: true
+    veiculoId?: true
+  }
+
+  export type AtividadeCountAggregateInputType = {
+    id?: true
+    tipo?: true
+    acao?: true
+    datHora?: true
+    tarefaId?: true
+    listaDeCompraId?: true
+    lembreteId?: true
+    veiculoId?: true
+    _all?: true
+  }
+
+  export type AtividadeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Atividade to aggregate.
+     */
+    where?: AtividadeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Atividades to fetch.
+     */
+    orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AtividadeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Atividades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Atividades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Atividades
+    **/
+    _count?: true | AtividadeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AtividadeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AtividadeMaxAggregateInputType
+  }
+
+  export type GetAtividadeAggregateType<T extends AtividadeAggregateArgs> = {
+        [P in keyof T & keyof AggregateAtividade]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAtividade[P]>
+      : GetScalarType<T[P], AggregateAtividade[P]>
+  }
+
+
+
+
+  export type AtividadeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AtividadeWhereInput
+    orderBy?: AtividadeOrderByWithAggregationInput | AtividadeOrderByWithAggregationInput[]
+    by: AtividadeScalarFieldEnum[] | AtividadeScalarFieldEnum
+    having?: AtividadeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AtividadeCountAggregateInputType | true
+    _min?: AtividadeMinAggregateInputType
+    _max?: AtividadeMaxAggregateInputType
+  }
+
+  export type AtividadeGroupByOutputType = {
+    id: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora: Date
+    tarefaId: string | null
+    listaDeCompraId: string | null
+    lembreteId: string | null
+    veiculoId: string | null
+    _count: AtividadeCountAggregateOutputType | null
+    _min: AtividadeMinAggregateOutputType | null
+    _max: AtividadeMaxAggregateOutputType | null
+  }
+
+  type GetAtividadeGroupByPayload<T extends AtividadeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AtividadeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AtividadeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AtividadeGroupByOutputType[P]>
+            : GetScalarType<T[P], AtividadeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AtividadeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tipo?: boolean
+    acao?: boolean
+    datHora?: boolean
+    tarefaId?: boolean
+    listaDeCompraId?: boolean
+    lembreteId?: boolean
+    veiculoId?: boolean
+    tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
+    lista?: boolean | Atividade$listaArgs<ExtArgs>
+    lembrete?: boolean | Atividade$lembreteArgs<ExtArgs>
+    veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
+  }, ExtArgs["result"]["atividade"]>
+
+  export type AtividadeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tipo?: boolean
+    acao?: boolean
+    datHora?: boolean
+    tarefaId?: boolean
+    listaDeCompraId?: boolean
+    lembreteId?: boolean
+    veiculoId?: boolean
+    tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
+    lista?: boolean | Atividade$listaArgs<ExtArgs>
+    lembrete?: boolean | Atividade$lembreteArgs<ExtArgs>
+    veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
+  }, ExtArgs["result"]["atividade"]>
+
+  export type AtividadeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tipo?: boolean
+    acao?: boolean
+    datHora?: boolean
+    tarefaId?: boolean
+    listaDeCompraId?: boolean
+    lembreteId?: boolean
+    veiculoId?: boolean
+    tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
+    lista?: boolean | Atividade$listaArgs<ExtArgs>
+    lembrete?: boolean | Atividade$lembreteArgs<ExtArgs>
+    veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
+  }, ExtArgs["result"]["atividade"]>
+
+  export type AtividadeSelectScalar = {
+    id?: boolean
+    tipo?: boolean
+    acao?: boolean
+    datHora?: boolean
+    tarefaId?: boolean
+    listaDeCompraId?: boolean
+    lembreteId?: boolean
+    veiculoId?: boolean
+  }
+
+  export type AtividadeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipo" | "acao" | "datHora" | "tarefaId" | "listaDeCompraId" | "lembreteId" | "veiculoId", ExtArgs["result"]["atividade"]>
+  export type AtividadeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
+    lista?: boolean | Atividade$listaArgs<ExtArgs>
+    lembrete?: boolean | Atividade$lembreteArgs<ExtArgs>
+    veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
+  }
+  export type AtividadeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
+    lista?: boolean | Atividade$listaArgs<ExtArgs>
+    lembrete?: boolean | Atividade$lembreteArgs<ExtArgs>
+    veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
+  }
+  export type AtividadeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
+    lista?: boolean | Atividade$listaArgs<ExtArgs>
+    lembrete?: boolean | Atividade$lembreteArgs<ExtArgs>
+    veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
+  }
+
+  export type $AtividadePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Atividade"
+    objects: {
+      tarefa: Prisma.$TarefaPayload<ExtArgs> | null
+      lista: Prisma.$ListaDeCompraPayload<ExtArgs> | null
+      lembrete: Prisma.$LembretePayload<ExtArgs> | null
+      veiculo: Prisma.$VeiculoPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tipo: $Enums.TipoAtividade
+      acao: $Enums.AcaoAtividade
+      datHora: Date
+      tarefaId: string | null
+      listaDeCompraId: string | null
+      lembreteId: string | null
+      veiculoId: string | null
+    }, ExtArgs["result"]["atividade"]>
+    composites: {}
+  }
+
+  type AtividadeGetPayload<S extends boolean | null | undefined | AtividadeDefaultArgs> = $Result.GetResult<Prisma.$AtividadePayload, S>
+
+  type AtividadeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AtividadeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AtividadeCountAggregateInputType | true
+    }
+
+  export interface AtividadeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Atividade'], meta: { name: 'Atividade' } }
+    /**
+     * Find zero or one Atividade that matches the filter.
+     * @param {AtividadeFindUniqueArgs} args - Arguments to find a Atividade
+     * @example
+     * // Get one Atividade
+     * const atividade = await prisma.atividade.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AtividadeFindUniqueArgs>(args: SelectSubset<T, AtividadeFindUniqueArgs<ExtArgs>>): Prisma__AtividadeClient<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Atividade that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AtividadeFindUniqueOrThrowArgs} args - Arguments to find a Atividade
+     * @example
+     * // Get one Atividade
+     * const atividade = await prisma.atividade.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AtividadeFindUniqueOrThrowArgs>(args: SelectSubset<T, AtividadeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AtividadeClient<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Atividade that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AtividadeFindFirstArgs} args - Arguments to find a Atividade
+     * @example
+     * // Get one Atividade
+     * const atividade = await prisma.atividade.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AtividadeFindFirstArgs>(args?: SelectSubset<T, AtividadeFindFirstArgs<ExtArgs>>): Prisma__AtividadeClient<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Atividade that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AtividadeFindFirstOrThrowArgs} args - Arguments to find a Atividade
+     * @example
+     * // Get one Atividade
+     * const atividade = await prisma.atividade.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AtividadeFindFirstOrThrowArgs>(args?: SelectSubset<T, AtividadeFindFirstOrThrowArgs<ExtArgs>>): Prisma__AtividadeClient<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Atividades that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AtividadeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Atividades
+     * const atividades = await prisma.atividade.findMany()
+     * 
+     * // Get first 10 Atividades
+     * const atividades = await prisma.atividade.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const atividadeWithIdOnly = await prisma.atividade.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AtividadeFindManyArgs>(args?: SelectSubset<T, AtividadeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Atividade.
+     * @param {AtividadeCreateArgs} args - Arguments to create a Atividade.
+     * @example
+     * // Create one Atividade
+     * const Atividade = await prisma.atividade.create({
+     *   data: {
+     *     // ... data to create a Atividade
+     *   }
+     * })
+     * 
+     */
+    create<T extends AtividadeCreateArgs>(args: SelectSubset<T, AtividadeCreateArgs<ExtArgs>>): Prisma__AtividadeClient<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Atividades.
+     * @param {AtividadeCreateManyArgs} args - Arguments to create many Atividades.
+     * @example
+     * // Create many Atividades
+     * const atividade = await prisma.atividade.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AtividadeCreateManyArgs>(args?: SelectSubset<T, AtividadeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Atividades and returns the data saved in the database.
+     * @param {AtividadeCreateManyAndReturnArgs} args - Arguments to create many Atividades.
+     * @example
+     * // Create many Atividades
+     * const atividade = await prisma.atividade.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Atividades and only return the `id`
+     * const atividadeWithIdOnly = await prisma.atividade.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AtividadeCreateManyAndReturnArgs>(args?: SelectSubset<T, AtividadeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Atividade.
+     * @param {AtividadeDeleteArgs} args - Arguments to delete one Atividade.
+     * @example
+     * // Delete one Atividade
+     * const Atividade = await prisma.atividade.delete({
+     *   where: {
+     *     // ... filter to delete one Atividade
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AtividadeDeleteArgs>(args: SelectSubset<T, AtividadeDeleteArgs<ExtArgs>>): Prisma__AtividadeClient<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Atividade.
+     * @param {AtividadeUpdateArgs} args - Arguments to update one Atividade.
+     * @example
+     * // Update one Atividade
+     * const atividade = await prisma.atividade.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AtividadeUpdateArgs>(args: SelectSubset<T, AtividadeUpdateArgs<ExtArgs>>): Prisma__AtividadeClient<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Atividades.
+     * @param {AtividadeDeleteManyArgs} args - Arguments to filter Atividades to delete.
+     * @example
+     * // Delete a few Atividades
+     * const { count } = await prisma.atividade.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AtividadeDeleteManyArgs>(args?: SelectSubset<T, AtividadeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Atividades.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AtividadeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Atividades
+     * const atividade = await prisma.atividade.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AtividadeUpdateManyArgs>(args: SelectSubset<T, AtividadeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Atividades and returns the data updated in the database.
+     * @param {AtividadeUpdateManyAndReturnArgs} args - Arguments to update many Atividades.
+     * @example
+     * // Update many Atividades
+     * const atividade = await prisma.atividade.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Atividades and only return the `id`
+     * const atividadeWithIdOnly = await prisma.atividade.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AtividadeUpdateManyAndReturnArgs>(args: SelectSubset<T, AtividadeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Atividade.
+     * @param {AtividadeUpsertArgs} args - Arguments to update or create a Atividade.
+     * @example
+     * // Update or create a Atividade
+     * const atividade = await prisma.atividade.upsert({
+     *   create: {
+     *     // ... data to create a Atividade
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Atividade we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AtividadeUpsertArgs>(args: SelectSubset<T, AtividadeUpsertArgs<ExtArgs>>): Prisma__AtividadeClient<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Atividades.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AtividadeCountArgs} args - Arguments to filter Atividades to count.
+     * @example
+     * // Count the number of Atividades
+     * const count = await prisma.atividade.count({
+     *   where: {
+     *     // ... the filter for the Atividades we want to count
+     *   }
+     * })
+    **/
+    count<T extends AtividadeCountArgs>(
+      args?: Subset<T, AtividadeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AtividadeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Atividade.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AtividadeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AtividadeAggregateArgs>(args: Subset<T, AtividadeAggregateArgs>): Prisma.PrismaPromise<GetAtividadeAggregateType<T>>
+
+    /**
+     * Group by Atividade.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AtividadeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AtividadeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AtividadeGroupByArgs['orderBy'] }
+        : { orderBy?: AtividadeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AtividadeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAtividadeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Atividade model
+   */
+  readonly fields: AtividadeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Atividade.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AtividadeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tarefa<T extends Atividade$tarefaArgs<ExtArgs> = {}>(args?: Subset<T, Atividade$tarefaArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    lista<T extends Atividade$listaArgs<ExtArgs> = {}>(args?: Subset<T, Atividade$listaArgs<ExtArgs>>): Prisma__ListaDeCompraClient<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    lembrete<T extends Atividade$lembreteArgs<ExtArgs> = {}>(args?: Subset<T, Atividade$lembreteArgs<ExtArgs>>): Prisma__LembreteClient<$Result.GetResult<Prisma.$LembretePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    veiculo<T extends Atividade$veiculoArgs<ExtArgs> = {}>(args?: Subset<T, Atividade$veiculoArgs<ExtArgs>>): Prisma__VeiculoClient<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Atividade model
+   */
+  interface AtividadeFieldRefs {
+    readonly id: FieldRef<"Atividade", 'String'>
+    readonly tipo: FieldRef<"Atividade", 'TipoAtividade'>
+    readonly acao: FieldRef<"Atividade", 'AcaoAtividade'>
+    readonly datHora: FieldRef<"Atividade", 'DateTime'>
+    readonly tarefaId: FieldRef<"Atividade", 'String'>
+    readonly listaDeCompraId: FieldRef<"Atividade", 'String'>
+    readonly lembreteId: FieldRef<"Atividade", 'String'>
+    readonly veiculoId: FieldRef<"Atividade", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Atividade findUnique
+   */
+  export type AtividadeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
+    /**
+     * Filter, which Atividade to fetch.
+     */
+    where: AtividadeWhereUniqueInput
+  }
+
+  /**
+   * Atividade findUniqueOrThrow
+   */
+  export type AtividadeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
+    /**
+     * Filter, which Atividade to fetch.
+     */
+    where: AtividadeWhereUniqueInput
+  }
+
+  /**
+   * Atividade findFirst
+   */
+  export type AtividadeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
+    /**
+     * Filter, which Atividade to fetch.
+     */
+    where?: AtividadeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Atividades to fetch.
+     */
+    orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Atividades.
+     */
+    cursor?: AtividadeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Atividades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Atividades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Atividades.
+     */
+    distinct?: AtividadeScalarFieldEnum | AtividadeScalarFieldEnum[]
+  }
+
+  /**
+   * Atividade findFirstOrThrow
+   */
+  export type AtividadeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
+    /**
+     * Filter, which Atividade to fetch.
+     */
+    where?: AtividadeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Atividades to fetch.
+     */
+    orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Atividades.
+     */
+    cursor?: AtividadeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Atividades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Atividades.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Atividades.
+     */
+    distinct?: AtividadeScalarFieldEnum | AtividadeScalarFieldEnum[]
+  }
+
+  /**
+   * Atividade findMany
+   */
+  export type AtividadeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
+    /**
+     * Filter, which Atividades to fetch.
+     */
+    where?: AtividadeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Atividades to fetch.
+     */
+    orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Atividades.
+     */
+    cursor?: AtividadeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Atividades from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Atividades.
+     */
+    skip?: number
+    distinct?: AtividadeScalarFieldEnum | AtividadeScalarFieldEnum[]
+  }
+
+  /**
+   * Atividade create
+   */
+  export type AtividadeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Atividade.
+     */
+    data: XOR<AtividadeCreateInput, AtividadeUncheckedCreateInput>
+  }
+
+  /**
+   * Atividade createMany
+   */
+  export type AtividadeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Atividades.
+     */
+    data: AtividadeCreateManyInput | AtividadeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Atividade createManyAndReturn
+   */
+  export type AtividadeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * The data used to create many Atividades.
+     */
+    data: AtividadeCreateManyInput | AtividadeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Atividade update
+   */
+  export type AtividadeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Atividade.
+     */
+    data: XOR<AtividadeUpdateInput, AtividadeUncheckedUpdateInput>
+    /**
+     * Choose, which Atividade to update.
+     */
+    where: AtividadeWhereUniqueInput
+  }
+
+  /**
+   * Atividade updateMany
+   */
+  export type AtividadeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Atividades.
+     */
+    data: XOR<AtividadeUpdateManyMutationInput, AtividadeUncheckedUpdateManyInput>
+    /**
+     * Filter which Atividades to update
+     */
+    where?: AtividadeWhereInput
+    /**
+     * Limit how many Atividades to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Atividade updateManyAndReturn
+   */
+  export type AtividadeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * The data used to update Atividades.
+     */
+    data: XOR<AtividadeUpdateManyMutationInput, AtividadeUncheckedUpdateManyInput>
+    /**
+     * Filter which Atividades to update
+     */
+    where?: AtividadeWhereInput
+    /**
+     * Limit how many Atividades to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Atividade upsert
+   */
+  export type AtividadeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Atividade to update in case it exists.
+     */
+    where: AtividadeWhereUniqueInput
+    /**
+     * In case the Atividade found by the `where` argument doesn't exist, create a new Atividade with this data.
+     */
+    create: XOR<AtividadeCreateInput, AtividadeUncheckedCreateInput>
+    /**
+     * In case the Atividade was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AtividadeUpdateInput, AtividadeUncheckedUpdateInput>
+  }
+
+  /**
+   * Atividade delete
+   */
+  export type AtividadeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
+    /**
+     * Filter which Atividade to delete.
+     */
+    where: AtividadeWhereUniqueInput
+  }
+
+  /**
+   * Atividade deleteMany
+   */
+  export type AtividadeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Atividades to delete
+     */
+    where?: AtividadeWhereInput
+    /**
+     * Limit how many Atividades to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Atividade.tarefa
+   */
+  export type Atividade$tarefaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tarefa
+     */
+    select?: TarefaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tarefa
+     */
+    omit?: TarefaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TarefaInclude<ExtArgs> | null
+    where?: TarefaWhereInput
+  }
+
+  /**
+   * Atividade.lista
+   */
+  export type Atividade$listaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ListaDeCompra
+     */
+    select?: ListaDeCompraSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ListaDeCompra
+     */
+    omit?: ListaDeCompraOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ListaDeCompraInclude<ExtArgs> | null
+    where?: ListaDeCompraWhereInput
+  }
+
+  /**
+   * Atividade.lembrete
+   */
+  export type Atividade$lembreteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lembrete
+     */
+    select?: LembreteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lembrete
+     */
+    omit?: LembreteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LembreteInclude<ExtArgs> | null
+    where?: LembreteWhereInput
+  }
+
+  /**
+   * Atividade.veiculo
+   */
+  export type Atividade$veiculoArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Veiculo
+     */
+    select?: VeiculoSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Veiculo
+     */
+    omit?: VeiculoOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: VeiculoInclude<ExtArgs> | null
+    where?: VeiculoWhereInput
+  }
+
+  /**
+   * Atividade without action
+   */
+  export type AtividadeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
   }
 
 
@@ -10598,10 +13194,9 @@ export namespace Prisma {
 
   export const ListaDeCompraScalarFieldEnum: {
     id: 'id',
-    nome: 'nome',
-    status: 'status',
+    tipo: 'tipo',
     usuarioIdEnviou: 'usuarioIdEnviou',
-    usuarioIdRecebeu: 'usuarioIdRecebeu'
+    status: 'status'
   };
 
   export type ListaDeCompraScalarFieldEnum = (typeof ListaDeCompraScalarFieldEnum)[keyof typeof ListaDeCompraScalarFieldEnum]
@@ -10634,6 +13229,7 @@ export namespace Prisma {
     id: 'id',
     descricao: 'descricao',
     data: 'data',
+    valor: 'valor',
     veiculoId: 'veiculoId'
   };
 
@@ -10642,16 +13238,39 @@ export namespace Prisma {
 
   export const LembreteScalarFieldEnum: {
     id: 'id',
-    titulo: 'titulo',
     descricao: 'descricao',
     dataHora: 'dataHora',
+    status: 'status',
     usuarioIdEnviou: 'usuarioIdEnviou',
-    usuarioIdRecebeu: 'usuarioIdRecebeu',
     listaDeCompraId: 'listaDeCompraId',
     veiculoId: 'veiculoId'
   };
 
   export type LembreteScalarFieldEnum = (typeof LembreteScalarFieldEnum)[keyof typeof LembreteScalarFieldEnum]
+
+
+  export const TarefaScalarFieldEnum: {
+    id: 'id',
+    descricao: 'descricao',
+    status: 'status',
+    usuarioId: 'usuarioId'
+  };
+
+  export type TarefaScalarFieldEnum = (typeof TarefaScalarFieldEnum)[keyof typeof TarefaScalarFieldEnum]
+
+
+  export const AtividadeScalarFieldEnum: {
+    id: 'id',
+    tipo: 'tipo',
+    acao: 'acao',
+    datHora: 'datHora',
+    tarefaId: 'tarefaId',
+    listaDeCompraId: 'listaDeCompraId',
+    lembreteId: 'lembreteId',
+    veiculoId: 'veiculoId'
+  };
+
+  export type AtividadeScalarFieldEnum = (typeof AtividadeScalarFieldEnum)[keyof typeof AtividadeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10668,6 +13287,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -10704,6 +13331,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -10714,13 +13348,6 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -10750,6 +13377,34 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
+
+
+  /**
+   * Reference to a field of type 'TipoAtividade'
+   */
+  export type EnumTipoAtividadeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoAtividade'>
+    
+
+
+  /**
+   * Reference to a field of type 'TipoAtividade[]'
+   */
+  export type ListEnumTipoAtividadeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoAtividade[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AcaoAtividade'
+   */
+  export type EnumAcaoAtividadeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AcaoAtividade'>
+    
+
+
+  /**
+   * Reference to a field of type 'AcaoAtividade[]'
+   */
+  export type ListEnumAcaoAtividadeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AcaoAtividade[]'>
+    
   /**
    * Deep Input Types
    */
@@ -10764,11 +13419,10 @@ export namespace Prisma {
     email?: StringFilter<"Usuario"> | string
     password?: StringFilter<"Usuario"> | string
     familias?: Familia_usuariosListRelationFilter
-    listasEnviadas?: ListaDeCompraListRelationFilter
-    listasRecebidas?: ListaDeCompraListRelationFilter
-    veiculos?: VeiculoListRelationFilter
     lembretesEnviados?: LembreteListRelationFilter
-    lembretesRecebidos?: LembreteListRelationFilter
+    listasEnviadas?: ListaDeCompraListRelationFilter
+    veiculos?: VeiculoListRelationFilter
+    tarefas?: TarefaListRelationFilter
   }
 
   export type UsuarioOrderByWithRelationInput = {
@@ -10777,11 +13431,10 @@ export namespace Prisma {
     email?: SortOrder
     password?: SortOrder
     familias?: familia_usuariosOrderByRelationAggregateInput
-    listasEnviadas?: ListaDeCompraOrderByRelationAggregateInput
-    listasRecebidas?: ListaDeCompraOrderByRelationAggregateInput
-    veiculos?: VeiculoOrderByRelationAggregateInput
     lembretesEnviados?: LembreteOrderByRelationAggregateInput
-    lembretesRecebidos?: LembreteOrderByRelationAggregateInput
+    listasEnviadas?: ListaDeCompraOrderByRelationAggregateInput
+    veiculos?: VeiculoOrderByRelationAggregateInput
+    tarefas?: TarefaOrderByRelationAggregateInput
   }
 
   export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
@@ -10793,11 +13446,10 @@ export namespace Prisma {
     name?: StringFilter<"Usuario"> | string
     password?: StringFilter<"Usuario"> | string
     familias?: Familia_usuariosListRelationFilter
-    listasEnviadas?: ListaDeCompraListRelationFilter
-    listasRecebidas?: ListaDeCompraListRelationFilter
-    veiculos?: VeiculoListRelationFilter
     lembretesEnviados?: LembreteListRelationFilter
-    lembretesRecebidos?: LembreteListRelationFilter
+    listasEnviadas?: ListaDeCompraListRelationFilter
+    veiculos?: VeiculoListRelationFilter
+    tarefas?: TarefaListRelationFilter
   }, "id" | "email">
 
   export type UsuarioOrderByWithAggregationInput = {
@@ -10919,26 +13571,24 @@ export namespace Prisma {
     OR?: ListaDeCompraWhereInput[]
     NOT?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
     id?: UuidFilter<"ListaDeCompra"> | string
-    nome?: StringFilter<"ListaDeCompra"> | string
-    status?: StringFilter<"ListaDeCompra"> | string
+    tipo?: StringFilter<"ListaDeCompra"> | string
     usuarioIdEnviou?: UuidFilter<"ListaDeCompra"> | string
-    usuarioIdRecebeu?: UuidFilter<"ListaDeCompra"> | string
+    status?: BoolFilter<"ListaDeCompra"> | boolean
     usuarioEnviou?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
-    usuarioRecebeu?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     itens?: ItemListaDeCompraListRelationFilter
     lembretes?: LembreteListRelationFilter
+    atividades?: AtividadeListRelationFilter
   }
 
   export type ListaDeCompraOrderByWithRelationInput = {
     id?: SortOrder
-    nome?: SortOrder
-    status?: SortOrder
+    tipo?: SortOrder
     usuarioIdEnviou?: SortOrder
-    usuarioIdRecebeu?: SortOrder
+    status?: SortOrder
     usuarioEnviou?: UsuarioOrderByWithRelationInput
-    usuarioRecebeu?: UsuarioOrderByWithRelationInput
     itens?: ItemListaDeCompraOrderByRelationAggregateInput
     lembretes?: LembreteOrderByRelationAggregateInput
+    atividades?: AtividadeOrderByRelationAggregateInput
   }
 
   export type ListaDeCompraWhereUniqueInput = Prisma.AtLeast<{
@@ -10946,22 +13596,20 @@ export namespace Prisma {
     AND?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
     OR?: ListaDeCompraWhereInput[]
     NOT?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
-    nome?: StringFilter<"ListaDeCompra"> | string
-    status?: StringFilter<"ListaDeCompra"> | string
+    tipo?: StringFilter<"ListaDeCompra"> | string
     usuarioIdEnviou?: UuidFilter<"ListaDeCompra"> | string
-    usuarioIdRecebeu?: UuidFilter<"ListaDeCompra"> | string
+    status?: BoolFilter<"ListaDeCompra"> | boolean
     usuarioEnviou?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
-    usuarioRecebeu?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     itens?: ItemListaDeCompraListRelationFilter
     lembretes?: LembreteListRelationFilter
+    atividades?: AtividadeListRelationFilter
   }, "id">
 
   export type ListaDeCompraOrderByWithAggregationInput = {
     id?: SortOrder
-    nome?: SortOrder
-    status?: SortOrder
+    tipo?: SortOrder
     usuarioIdEnviou?: SortOrder
-    usuarioIdRecebeu?: SortOrder
+    status?: SortOrder
     _count?: ListaDeCompraCountOrderByAggregateInput
     _max?: ListaDeCompraMaxOrderByAggregateInput
     _min?: ListaDeCompraMinOrderByAggregateInput
@@ -10972,10 +13620,9 @@ export namespace Prisma {
     OR?: ListaDeCompraScalarWhereWithAggregatesInput[]
     NOT?: ListaDeCompraScalarWhereWithAggregatesInput | ListaDeCompraScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"ListaDeCompra"> | string
-    nome?: StringWithAggregatesFilter<"ListaDeCompra"> | string
-    status?: StringWithAggregatesFilter<"ListaDeCompra"> | string
+    tipo?: StringWithAggregatesFilter<"ListaDeCompra"> | string
     usuarioIdEnviou?: UuidWithAggregatesFilter<"ListaDeCompra"> | string
-    usuarioIdRecebeu?: UuidWithAggregatesFilter<"ListaDeCompra"> | string
+    status?: BoolWithAggregatesFilter<"ListaDeCompra"> | boolean
   }
 
   export type ItemListaDeCompraWhereInput = {
@@ -11046,8 +13693,9 @@ export namespace Prisma {
     placa?: StringFilter<"Veiculo"> | string
     usuarioId?: UuidFilter<"Veiculo"> | string
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
-    manutencoes?: RegistroDeManutencaoListRelationFilter
     Lembrete?: LembreteListRelationFilter
+    manutencoes?: RegistroDeManutencaoListRelationFilter
+    atividades?: AtividadeListRelationFilter
   }
 
   export type VeiculoOrderByWithRelationInput = {
@@ -11058,8 +13706,9 @@ export namespace Prisma {
     placa?: SortOrder
     usuarioId?: SortOrder
     usuario?: UsuarioOrderByWithRelationInput
-    manutencoes?: RegistroDeManutencaoOrderByRelationAggregateInput
     Lembrete?: LembreteOrderByRelationAggregateInput
+    manutencoes?: RegistroDeManutencaoOrderByRelationAggregateInput
+    atividades?: AtividadeOrderByRelationAggregateInput
   }
 
   export type VeiculoWhereUniqueInput = Prisma.AtLeast<{
@@ -11073,8 +13722,9 @@ export namespace Prisma {
     ano?: IntFilter<"Veiculo"> | number
     usuarioId?: UuidFilter<"Veiculo"> | string
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
-    manutencoes?: RegistroDeManutencaoListRelationFilter
     Lembrete?: LembreteListRelationFilter
+    manutencoes?: RegistroDeManutencaoListRelationFilter
+    atividades?: AtividadeListRelationFilter
   }, "id" | "placa">
 
   export type VeiculoOrderByWithAggregationInput = {
@@ -11108,16 +13758,18 @@ export namespace Prisma {
     OR?: RegistroDeManutencaoWhereInput[]
     NOT?: RegistroDeManutencaoWhereInput | RegistroDeManutencaoWhereInput[]
     id?: UuidFilter<"RegistroDeManutencao"> | string
-    descricao?: StringFilter<"RegistroDeManutencao"> | string
+    descricao?: StringNullableFilter<"RegistroDeManutencao"> | string | null
     data?: DateTimeFilter<"RegistroDeManutencao"> | Date | string
+    valor?: FloatNullableFilter<"RegistroDeManutencao"> | number | null
     veiculoId?: UuidFilter<"RegistroDeManutencao"> | string
     veiculo?: XOR<VeiculoScalarRelationFilter, VeiculoWhereInput>
   }
 
   export type RegistroDeManutencaoOrderByWithRelationInput = {
     id?: SortOrder
-    descricao?: SortOrder
+    descricao?: SortOrderInput | SortOrder
     data?: SortOrder
+    valor?: SortOrderInput | SortOrder
     veiculoId?: SortOrder
     veiculo?: VeiculoOrderByWithRelationInput
   }
@@ -11127,20 +13779,24 @@ export namespace Prisma {
     AND?: RegistroDeManutencaoWhereInput | RegistroDeManutencaoWhereInput[]
     OR?: RegistroDeManutencaoWhereInput[]
     NOT?: RegistroDeManutencaoWhereInput | RegistroDeManutencaoWhereInput[]
-    descricao?: StringFilter<"RegistroDeManutencao"> | string
+    descricao?: StringNullableFilter<"RegistroDeManutencao"> | string | null
     data?: DateTimeFilter<"RegistroDeManutencao"> | Date | string
+    valor?: FloatNullableFilter<"RegistroDeManutencao"> | number | null
     veiculoId?: UuidFilter<"RegistroDeManutencao"> | string
     veiculo?: XOR<VeiculoScalarRelationFilter, VeiculoWhereInput>
   }, "id">
 
   export type RegistroDeManutencaoOrderByWithAggregationInput = {
     id?: SortOrder
-    descricao?: SortOrder
+    descricao?: SortOrderInput | SortOrder
     data?: SortOrder
+    valor?: SortOrderInput | SortOrder
     veiculoId?: SortOrder
     _count?: RegistroDeManutencaoCountOrderByAggregateInput
+    _avg?: RegistroDeManutencaoAvgOrderByAggregateInput
     _max?: RegistroDeManutencaoMaxOrderByAggregateInput
     _min?: RegistroDeManutencaoMinOrderByAggregateInput
+    _sum?: RegistroDeManutencaoSumOrderByAggregateInput
   }
 
   export type RegistroDeManutencaoScalarWhereWithAggregatesInput = {
@@ -11148,8 +13804,9 @@ export namespace Prisma {
     OR?: RegistroDeManutencaoScalarWhereWithAggregatesInput[]
     NOT?: RegistroDeManutencaoScalarWhereWithAggregatesInput | RegistroDeManutencaoScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"RegistroDeManutencao"> | string
-    descricao?: StringWithAggregatesFilter<"RegistroDeManutencao"> | string
+    descricao?: StringNullableWithAggregatesFilter<"RegistroDeManutencao"> | string | null
     data?: DateTimeWithAggregatesFilter<"RegistroDeManutencao"> | Date | string
+    valor?: FloatNullableWithAggregatesFilter<"RegistroDeManutencao"> | number | null
     veiculoId?: UuidWithAggregatesFilter<"RegistroDeManutencao"> | string
   }
 
@@ -11158,32 +13815,30 @@ export namespace Prisma {
     OR?: LembreteWhereInput[]
     NOT?: LembreteWhereInput | LembreteWhereInput[]
     id?: UuidFilter<"Lembrete"> | string
-    titulo?: StringFilter<"Lembrete"> | string
     descricao?: StringFilter<"Lembrete"> | string
     dataHora?: DateTimeFilter<"Lembrete"> | Date | string
+    status?: BoolFilter<"Lembrete"> | boolean
     usuarioIdEnviou?: UuidFilter<"Lembrete"> | string
-    usuarioIdRecebeu?: UuidFilter<"Lembrete"> | string
     listaDeCompraId?: UuidFilter<"Lembrete"> | string
     veiculoId?: UuidFilter<"Lembrete"> | string
-    usuarioRecebeu?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
-    usuarioEnviou?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     listaDeCompra?: XOR<ListaDeCompraScalarRelationFilter, ListaDeCompraWhereInput>
-    veiculo?: XOR<VeiculoNullableScalarRelationFilter, VeiculoWhereInput> | null
+    usuarioEnviou?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
+    veiculo?: XOR<VeiculoScalarRelationFilter, VeiculoWhereInput>
+    atividades?: AtividadeListRelationFilter
   }
 
   export type LembreteOrderByWithRelationInput = {
     id?: SortOrder
-    titulo?: SortOrder
     descricao?: SortOrder
     dataHora?: SortOrder
+    status?: SortOrder
     usuarioIdEnviou?: SortOrder
-    usuarioIdRecebeu?: SortOrder
     listaDeCompraId?: SortOrder
     veiculoId?: SortOrder
-    usuarioRecebeu?: UsuarioOrderByWithRelationInput
-    usuarioEnviou?: UsuarioOrderByWithRelationInput
     listaDeCompra?: ListaDeCompraOrderByWithRelationInput
+    usuarioEnviou?: UsuarioOrderByWithRelationInput
     veiculo?: VeiculoOrderByWithRelationInput
+    atividades?: AtividadeOrderByRelationAggregateInput
   }
 
   export type LembreteWhereUniqueInput = Prisma.AtLeast<{
@@ -11191,26 +13846,24 @@ export namespace Prisma {
     AND?: LembreteWhereInput | LembreteWhereInput[]
     OR?: LembreteWhereInput[]
     NOT?: LembreteWhereInput | LembreteWhereInput[]
-    titulo?: StringFilter<"Lembrete"> | string
     descricao?: StringFilter<"Lembrete"> | string
     dataHora?: DateTimeFilter<"Lembrete"> | Date | string
+    status?: BoolFilter<"Lembrete"> | boolean
     usuarioIdEnviou?: UuidFilter<"Lembrete"> | string
-    usuarioIdRecebeu?: UuidFilter<"Lembrete"> | string
     listaDeCompraId?: UuidFilter<"Lembrete"> | string
     veiculoId?: UuidFilter<"Lembrete"> | string
-    usuarioRecebeu?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
-    usuarioEnviou?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     listaDeCompra?: XOR<ListaDeCompraScalarRelationFilter, ListaDeCompraWhereInput>
-    veiculo?: XOR<VeiculoNullableScalarRelationFilter, VeiculoWhereInput> | null
+    usuarioEnviou?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
+    veiculo?: XOR<VeiculoScalarRelationFilter, VeiculoWhereInput>
+    atividades?: AtividadeListRelationFilter
   }, "id">
 
   export type LembreteOrderByWithAggregationInput = {
     id?: SortOrder
-    titulo?: SortOrder
     descricao?: SortOrder
     dataHora?: SortOrder
+    status?: SortOrder
     usuarioIdEnviou?: SortOrder
-    usuarioIdRecebeu?: SortOrder
     listaDeCompraId?: SortOrder
     veiculoId?: SortOrder
     _count?: LembreteCountOrderByAggregateInput
@@ -11223,13 +13876,144 @@ export namespace Prisma {
     OR?: LembreteScalarWhereWithAggregatesInput[]
     NOT?: LembreteScalarWhereWithAggregatesInput | LembreteScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"Lembrete"> | string
-    titulo?: StringWithAggregatesFilter<"Lembrete"> | string
     descricao?: StringWithAggregatesFilter<"Lembrete"> | string
     dataHora?: DateTimeWithAggregatesFilter<"Lembrete"> | Date | string
+    status?: BoolWithAggregatesFilter<"Lembrete"> | boolean
     usuarioIdEnviou?: UuidWithAggregatesFilter<"Lembrete"> | string
-    usuarioIdRecebeu?: UuidWithAggregatesFilter<"Lembrete"> | string
     listaDeCompraId?: UuidWithAggregatesFilter<"Lembrete"> | string
     veiculoId?: UuidWithAggregatesFilter<"Lembrete"> | string
+  }
+
+  export type TarefaWhereInput = {
+    AND?: TarefaWhereInput | TarefaWhereInput[]
+    OR?: TarefaWhereInput[]
+    NOT?: TarefaWhereInput | TarefaWhereInput[]
+    id?: UuidFilter<"Tarefa"> | string
+    descricao?: StringFilter<"Tarefa"> | string
+    status?: BoolFilter<"Tarefa"> | boolean
+    usuarioId?: UuidFilter<"Tarefa"> | string
+    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
+    atividades?: AtividadeListRelationFilter
+  }
+
+  export type TarefaOrderByWithRelationInput = {
+    id?: SortOrder
+    descricao?: SortOrder
+    status?: SortOrder
+    usuarioId?: SortOrder
+    usuario?: UsuarioOrderByWithRelationInput
+    atividades?: AtividadeOrderByRelationAggregateInput
+  }
+
+  export type TarefaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TarefaWhereInput | TarefaWhereInput[]
+    OR?: TarefaWhereInput[]
+    NOT?: TarefaWhereInput | TarefaWhereInput[]
+    descricao?: StringFilter<"Tarefa"> | string
+    status?: BoolFilter<"Tarefa"> | boolean
+    usuarioId?: UuidFilter<"Tarefa"> | string
+    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
+    atividades?: AtividadeListRelationFilter
+  }, "id">
+
+  export type TarefaOrderByWithAggregationInput = {
+    id?: SortOrder
+    descricao?: SortOrder
+    status?: SortOrder
+    usuarioId?: SortOrder
+    _count?: TarefaCountOrderByAggregateInput
+    _max?: TarefaMaxOrderByAggregateInput
+    _min?: TarefaMinOrderByAggregateInput
+  }
+
+  export type TarefaScalarWhereWithAggregatesInput = {
+    AND?: TarefaScalarWhereWithAggregatesInput | TarefaScalarWhereWithAggregatesInput[]
+    OR?: TarefaScalarWhereWithAggregatesInput[]
+    NOT?: TarefaScalarWhereWithAggregatesInput | TarefaScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Tarefa"> | string
+    descricao?: StringWithAggregatesFilter<"Tarefa"> | string
+    status?: BoolWithAggregatesFilter<"Tarefa"> | boolean
+    usuarioId?: UuidWithAggregatesFilter<"Tarefa"> | string
+  }
+
+  export type AtividadeWhereInput = {
+    AND?: AtividadeWhereInput | AtividadeWhereInput[]
+    OR?: AtividadeWhereInput[]
+    NOT?: AtividadeWhereInput | AtividadeWhereInput[]
+    id?: UuidFilter<"Atividade"> | string
+    tipo?: EnumTipoAtividadeFilter<"Atividade"> | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFilter<"Atividade"> | $Enums.AcaoAtividade
+    datHora?: DateTimeFilter<"Atividade"> | Date | string
+    tarefaId?: UuidNullableFilter<"Atividade"> | string | null
+    listaDeCompraId?: UuidNullableFilter<"Atividade"> | string | null
+    lembreteId?: UuidNullableFilter<"Atividade"> | string | null
+    veiculoId?: UuidNullableFilter<"Atividade"> | string | null
+    tarefa?: XOR<TarefaNullableScalarRelationFilter, TarefaWhereInput> | null
+    lista?: XOR<ListaDeCompraNullableScalarRelationFilter, ListaDeCompraWhereInput> | null
+    lembrete?: XOR<LembreteNullableScalarRelationFilter, LembreteWhereInput> | null
+    veiculo?: XOR<VeiculoNullableScalarRelationFilter, VeiculoWhereInput> | null
+  }
+
+  export type AtividadeOrderByWithRelationInput = {
+    id?: SortOrder
+    tipo?: SortOrder
+    acao?: SortOrder
+    datHora?: SortOrder
+    tarefaId?: SortOrderInput | SortOrder
+    listaDeCompraId?: SortOrderInput | SortOrder
+    lembreteId?: SortOrderInput | SortOrder
+    veiculoId?: SortOrderInput | SortOrder
+    tarefa?: TarefaOrderByWithRelationInput
+    lista?: ListaDeCompraOrderByWithRelationInput
+    lembrete?: LembreteOrderByWithRelationInput
+    veiculo?: VeiculoOrderByWithRelationInput
+  }
+
+  export type AtividadeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AtividadeWhereInput | AtividadeWhereInput[]
+    OR?: AtividadeWhereInput[]
+    NOT?: AtividadeWhereInput | AtividadeWhereInput[]
+    tipo?: EnumTipoAtividadeFilter<"Atividade"> | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFilter<"Atividade"> | $Enums.AcaoAtividade
+    datHora?: DateTimeFilter<"Atividade"> | Date | string
+    tarefaId?: UuidNullableFilter<"Atividade"> | string | null
+    listaDeCompraId?: UuidNullableFilter<"Atividade"> | string | null
+    lembreteId?: UuidNullableFilter<"Atividade"> | string | null
+    veiculoId?: UuidNullableFilter<"Atividade"> | string | null
+    tarefa?: XOR<TarefaNullableScalarRelationFilter, TarefaWhereInput> | null
+    lista?: XOR<ListaDeCompraNullableScalarRelationFilter, ListaDeCompraWhereInput> | null
+    lembrete?: XOR<LembreteNullableScalarRelationFilter, LembreteWhereInput> | null
+    veiculo?: XOR<VeiculoNullableScalarRelationFilter, VeiculoWhereInput> | null
+  }, "id">
+
+  export type AtividadeOrderByWithAggregationInput = {
+    id?: SortOrder
+    tipo?: SortOrder
+    acao?: SortOrder
+    datHora?: SortOrder
+    tarefaId?: SortOrderInput | SortOrder
+    listaDeCompraId?: SortOrderInput | SortOrder
+    lembreteId?: SortOrderInput | SortOrder
+    veiculoId?: SortOrderInput | SortOrder
+    _count?: AtividadeCountOrderByAggregateInput
+    _max?: AtividadeMaxOrderByAggregateInput
+    _min?: AtividadeMinOrderByAggregateInput
+  }
+
+  export type AtividadeScalarWhereWithAggregatesInput = {
+    AND?: AtividadeScalarWhereWithAggregatesInput | AtividadeScalarWhereWithAggregatesInput[]
+    OR?: AtividadeScalarWhereWithAggregatesInput[]
+    NOT?: AtividadeScalarWhereWithAggregatesInput | AtividadeScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Atividade"> | string
+    tipo?: EnumTipoAtividadeWithAggregatesFilter<"Atividade"> | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeWithAggregatesFilter<"Atividade"> | $Enums.AcaoAtividade
+    datHora?: DateTimeWithAggregatesFilter<"Atividade"> | Date | string
+    tarefaId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
+    listaDeCompraId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
+    lembreteId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
+    veiculoId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
   }
 
   export type UsuarioCreateInput = {
@@ -11238,11 +14022,10 @@ export namespace Prisma {
     email: string
     password: string
     familias?: familia_usuariosCreateNestedManyWithoutUsuarioInput
-    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
-    listasRecebidas?: ListaDeCompraCreateNestedManyWithoutUsuarioRecebeuInput
-    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
     lembretesEnviados?: LembreteCreateNestedManyWithoutUsuarioEnviouInput
-    lembretesRecebidos?: LembreteCreateNestedManyWithoutUsuarioRecebeuInput
+    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
+    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateInput = {
@@ -11251,11 +14034,10 @@ export namespace Prisma {
     email: string
     password: string
     familias?: familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput
-    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
-    listasRecebidas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioRecebeuInput
-    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
     lembretesEnviados?: LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput
-    lembretesRecebidos?: LembreteUncheckedCreateNestedManyWithoutUsuarioRecebeuInput
+    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
+    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUpdateInput = {
@@ -11264,11 +14046,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     familias?: familia_usuariosUpdateManyWithoutUsuarioNestedInput
-    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
-    listasRecebidas?: ListaDeCompraUpdateManyWithoutUsuarioRecebeuNestedInput
-    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
     lembretesEnviados?: LembreteUpdateManyWithoutUsuarioEnviouNestedInput
-    lembretesRecebidos?: LembreteUpdateManyWithoutUsuarioRecebeuNestedInput
+    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
+    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateInput = {
@@ -11277,11 +14058,10 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     familias?: familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput
-    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
-    listasRecebidas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput
-    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
     lembretesEnviados?: LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
-    lembretesRecebidos?: LembreteUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput
+    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
+    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioCreateManyInput = {
@@ -11393,64 +14173,62 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateInput = {
     id?: string
-    nome: string
-    status?: string
+    tipo: string
+    status?: boolean
     usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
-    usuarioRecebeu: UsuarioCreateNestedOneWithoutListasRecebidasInput
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
     lembretes?: LembreteCreateNestedManyWithoutListaDeCompraInput
+    atividades?: AtividadeCreateNestedManyWithoutListaInput
   }
 
   export type ListaDeCompraUncheckedCreateInput = {
     id?: string
-    nome: string
-    status?: string
+    tipo: string
     usuarioIdEnviou: string
-    usuarioIdRecebeu: string
+    status?: boolean
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
     lembretes?: LembreteUncheckedCreateNestedManyWithoutListaDeCompraInput
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutListaInput
   }
 
   export type ListaDeCompraUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
-    usuarioRecebeu?: UsuarioUpdateOneRequiredWithoutListasRecebidasNestedInput
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
     lembretes?: LembreteUpdateManyWithoutListaDeCompraNestedInput
+    atividades?: AtividadeUpdateManyWithoutListaNestedInput
   }
 
   export type ListaDeCompraUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
     lembretes?: LembreteUncheckedUpdateManyWithoutListaDeCompraNestedInput
+    atividades?: AtividadeUncheckedUpdateManyWithoutListaNestedInput
   }
 
   export type ListaDeCompraCreateManyInput = {
     id?: string
-    nome: string
-    status?: string
+    tipo: string
     usuarioIdEnviou: string
-    usuarioIdRecebeu: string
+    status?: boolean
   }
 
   export type ListaDeCompraUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ListaDeCompraUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ItemListaDeCompraCreateInput = {
@@ -11515,8 +14293,9 @@ export namespace Prisma {
     ano: number
     placa: string
     usuario: UsuarioCreateNestedOneWithoutVeiculosInput
-    manutencoes?: RegistroDeManutencaoCreateNestedManyWithoutVeiculoInput
     Lembrete?: LembreteCreateNestedManyWithoutVeiculoInput
+    manutencoes?: RegistroDeManutencaoCreateNestedManyWithoutVeiculoInput
+    atividades?: AtividadeCreateNestedManyWithoutVeiculoInput
   }
 
   export type VeiculoUncheckedCreateInput = {
@@ -11526,8 +14305,9 @@ export namespace Prisma {
     ano: number
     placa: string
     usuarioId: string
-    manutencoes?: RegistroDeManutencaoUncheckedCreateNestedManyWithoutVeiculoInput
     Lembrete?: LembreteUncheckedCreateNestedManyWithoutVeiculoInput
+    manutencoes?: RegistroDeManutencaoUncheckedCreateNestedManyWithoutVeiculoInput
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutVeiculoInput
   }
 
   export type VeiculoUpdateInput = {
@@ -11537,8 +14317,9 @@ export namespace Prisma {
     ano?: IntFieldUpdateOperationsInput | number
     placa?: StringFieldUpdateOperationsInput | string
     usuario?: UsuarioUpdateOneRequiredWithoutVeiculosNestedInput
-    manutencoes?: RegistroDeManutencaoUpdateManyWithoutVeiculoNestedInput
     Lembrete?: LembreteUpdateManyWithoutVeiculoNestedInput
+    manutencoes?: RegistroDeManutencaoUpdateManyWithoutVeiculoNestedInput
+    atividades?: AtividadeUpdateManyWithoutVeiculoNestedInput
   }
 
   export type VeiculoUncheckedUpdateInput = {
@@ -11548,8 +14329,9 @@ export namespace Prisma {
     ano?: IntFieldUpdateOperationsInput | number
     placa?: StringFieldUpdateOperationsInput | string
     usuarioId?: StringFieldUpdateOperationsInput | string
-    manutencoes?: RegistroDeManutencaoUncheckedUpdateManyWithoutVeiculoNestedInput
     Lembrete?: LembreteUncheckedUpdateManyWithoutVeiculoNestedInput
+    manutencoes?: RegistroDeManutencaoUncheckedUpdateManyWithoutVeiculoNestedInput
+    atividades?: AtividadeUncheckedUpdateManyWithoutVeiculoNestedInput
   }
 
   export type VeiculoCreateManyInput = {
@@ -11580,123 +14362,253 @@ export namespace Prisma {
 
   export type RegistroDeManutencaoCreateInput = {
     id?: string
-    descricao: string
+    descricao?: string | null
     data: Date | string
+    valor?: number | null
     veiculo: VeiculoCreateNestedOneWithoutManutencoesInput
   }
 
   export type RegistroDeManutencaoUncheckedCreateInput = {
     id?: string
-    descricao: string
+    descricao?: string | null
     data: Date | string
+    valor?: number | null
     veiculoId: string
   }
 
   export type RegistroDeManutencaoUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     data?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
     veiculo?: VeiculoUpdateOneRequiredWithoutManutencoesNestedInput
   }
 
   export type RegistroDeManutencaoUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     data?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
     veiculoId?: StringFieldUpdateOperationsInput | string
   }
 
   export type RegistroDeManutencaoCreateManyInput = {
     id?: string
-    descricao: string
+    descricao?: string | null
     data: Date | string
+    valor?: number | null
     veiculoId: string
   }
 
   export type RegistroDeManutencaoUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     data?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
   export type RegistroDeManutencaoUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
     data?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
     veiculoId?: StringFieldUpdateOperationsInput | string
   }
 
   export type LembreteCreateInput = {
     id?: string
-    titulo: string
     descricao: string
-    dataHora: Date | string
-    usuarioRecebeu: UsuarioCreateNestedOneWithoutLembretesRecebidosInput
-    usuarioEnviou: UsuarioCreateNestedOneWithoutLembretesEnviadosInput
+    dataHora?: Date | string
+    status?: boolean
     listaDeCompra: ListaDeCompraCreateNestedOneWithoutLembretesInput
-    veiculo?: VeiculoCreateNestedOneWithoutLembreteInput
+    usuarioEnviou: UsuarioCreateNestedOneWithoutLembretesEnviadosInput
+    veiculo: VeiculoCreateNestedOneWithoutLembreteInput
+    atividades?: AtividadeCreateNestedManyWithoutLembreteInput
   }
 
   export type LembreteUncheckedCreateInput = {
     id?: string
-    titulo: string
     descricao: string
-    dataHora: Date | string
+    dataHora?: Date | string
+    status?: boolean
     usuarioIdEnviou: string
-    usuarioIdRecebeu: string
     listaDeCompraId: string
     veiculoId: string
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutLembreteInput
   }
 
   export type LembreteUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuarioRecebeu?: UsuarioUpdateOneRequiredWithoutLembretesRecebidosNestedInput
-    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutLembretesEnviadosNestedInput
+    status?: BoolFieldUpdateOperationsInput | boolean
     listaDeCompra?: ListaDeCompraUpdateOneRequiredWithoutLembretesNestedInput
-    veiculo?: VeiculoUpdateOneWithoutLembreteNestedInput
+    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutLembretesEnviadosNestedInput
+    veiculo?: VeiculoUpdateOneRequiredWithoutLembreteNestedInput
+    atividades?: AtividadeUpdateManyWithoutLembreteNestedInput
   }
 
   export type LembreteUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
     listaDeCompraId?: StringFieldUpdateOperationsInput | string
     veiculoId?: StringFieldUpdateOperationsInput | string
+    atividades?: AtividadeUncheckedUpdateManyWithoutLembreteNestedInput
   }
 
   export type LembreteCreateManyInput = {
     id?: string
-    titulo: string
     descricao: string
-    dataHora: Date | string
+    dataHora?: Date | string
+    status?: boolean
     usuarioIdEnviou: string
-    usuarioIdRecebeu: string
     listaDeCompraId: string
     veiculoId: string
   }
 
   export type LembreteUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type LembreteUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
     listaDeCompraId?: StringFieldUpdateOperationsInput | string
     veiculoId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TarefaCreateInput = {
+    id?: string
+    descricao: string
+    status?: boolean
+    usuario: UsuarioCreateNestedOneWithoutTarefasInput
+    atividades?: AtividadeCreateNestedManyWithoutTarefaInput
+  }
+
+  export type TarefaUncheckedCreateInput = {
+    id?: string
+    descricao: string
+    status?: boolean
+    usuarioId: string
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutTarefaInput
+  }
+
+  export type TarefaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuario?: UsuarioUpdateOneRequiredWithoutTarefasNestedInput
+    atividades?: AtividadeUpdateManyWithoutTarefaNestedInput
+  }
+
+  export type TarefaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuarioId?: StringFieldUpdateOperationsInput | string
+    atividades?: AtividadeUncheckedUpdateManyWithoutTarefaNestedInput
+  }
+
+  export type TarefaCreateManyInput = {
+    id?: string
+    descricao: string
+    status?: boolean
+    usuarioId: string
+  }
+
+  export type TarefaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type TarefaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuarioId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AtividadeCreateInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
+    lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
+    lembrete?: LembreteCreateNestedOneWithoutAtividadesInput
+    veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
+  }
+
+  export type AtividadeUncheckedCreateInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    tarefaId?: string | null
+    listaDeCompraId?: string | null
+    lembreteId?: string | null
+    veiculoId?: string | null
+  }
+
+  export type AtividadeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
+    lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
+    lembrete?: LembreteUpdateOneWithoutAtividadesNestedInput
+    veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
+  }
+
+  export type AtividadeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
+    listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
+    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
+    veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AtividadeCreateManyInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    tarefaId?: string | null
+    listaDeCompraId?: string | null
+    lembreteId?: string | null
+    veiculoId?: string | null
+  }
+
+  export type AtividadeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AtividadeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
+    listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
+    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
+    veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -11732,6 +14644,12 @@ export namespace Prisma {
     none?: familia_usuariosWhereInput
   }
 
+  export type LembreteListRelationFilter = {
+    every?: LembreteWhereInput
+    some?: LembreteWhereInput
+    none?: LembreteWhereInput
+  }
+
   export type ListaDeCompraListRelationFilter = {
     every?: ListaDeCompraWhereInput
     some?: ListaDeCompraWhereInput
@@ -11744,13 +14662,17 @@ export namespace Prisma {
     none?: VeiculoWhereInput
   }
 
-  export type LembreteListRelationFilter = {
-    every?: LembreteWhereInput
-    some?: LembreteWhereInput
-    none?: LembreteWhereInput
+  export type TarefaListRelationFilter = {
+    every?: TarefaWhereInput
+    some?: TarefaWhereInput
+    none?: TarefaWhereInput
   }
 
   export type familia_usuariosOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LembreteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11762,7 +14684,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type LembreteOrderByRelationAggregateInput = {
+  export type TarefaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11888,38 +14810,58 @@ export namespace Prisma {
     _max?: NestedEnumRotuloFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type ItemListaDeCompraListRelationFilter = {
     every?: ItemListaDeCompraWhereInput
     some?: ItemListaDeCompraWhereInput
     none?: ItemListaDeCompraWhereInput
   }
 
+  export type AtividadeListRelationFilter = {
+    every?: AtividadeWhereInput
+    some?: AtividadeWhereInput
+    none?: AtividadeWhereInput
+  }
+
   export type ItemListaDeCompraOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AtividadeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type ListaDeCompraCountOrderByAggregateInput = {
     id?: SortOrder
-    nome?: SortOrder
-    status?: SortOrder
+    tipo?: SortOrder
     usuarioIdEnviou?: SortOrder
-    usuarioIdRecebeu?: SortOrder
+    status?: SortOrder
   }
 
   export type ListaDeCompraMaxOrderByAggregateInput = {
     id?: SortOrder
-    nome?: SortOrder
-    status?: SortOrder
+    tipo?: SortOrder
     usuarioIdEnviou?: SortOrder
-    usuarioIdRecebeu?: SortOrder
+    status?: SortOrder
   }
 
   export type ListaDeCompraMinOrderByAggregateInput = {
     id?: SortOrder
-    nome?: SortOrder
-    status?: SortOrder
+    tipo?: SortOrder
     usuarioIdEnviou?: SortOrder
-    usuarioIdRecebeu?: SortOrder
+    status?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -11931,11 +14873,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type ListaDeCompraScalarRelationFilter = {
@@ -11991,14 +14928,6 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type RegistroDeManutencaoListRelationFilter = {
     every?: RegistroDeManutencaoWhereInput
     some?: RegistroDeManutencaoWhereInput
@@ -12044,6 +14973,21 @@ export namespace Prisma {
     ano?: SortOrder
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -12055,22 +14999,44 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type VeiculoScalarRelationFilter = {
     is?: VeiculoWhereInput
     isNot?: VeiculoWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type RegistroDeManutencaoCountOrderByAggregateInput = {
     id?: SortOrder
     descricao?: SortOrder
     data?: SortOrder
+    valor?: SortOrder
     veiculoId?: SortOrder
+  }
+
+  export type RegistroDeManutencaoAvgOrderByAggregateInput = {
+    valor?: SortOrder
   }
 
   export type RegistroDeManutencaoMaxOrderByAggregateInput = {
     id?: SortOrder
     descricao?: SortOrder
     data?: SortOrder
+    valor?: SortOrder
     veiculoId?: SortOrder
   }
 
@@ -12078,7 +15044,30 @@ export namespace Prisma {
     id?: SortOrder
     descricao?: SortOrder
     data?: SortOrder
+    valor?: SortOrder
     veiculoId?: SortOrder
+  }
+
+  export type RegistroDeManutencaoSumOrderByAggregateInput = {
+    valor?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -12095,42 +15084,185 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type VeiculoNullableScalarRelationFilter = {
-    is?: VeiculoWhereInput | null
-    isNot?: VeiculoWhereInput | null
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type LembreteCountOrderByAggregateInput = {
     id?: SortOrder
-    titulo?: SortOrder
     descricao?: SortOrder
     dataHora?: SortOrder
+    status?: SortOrder
     usuarioIdEnviou?: SortOrder
-    usuarioIdRecebeu?: SortOrder
     listaDeCompraId?: SortOrder
     veiculoId?: SortOrder
   }
 
   export type LembreteMaxOrderByAggregateInput = {
     id?: SortOrder
-    titulo?: SortOrder
     descricao?: SortOrder
     dataHora?: SortOrder
+    status?: SortOrder
     usuarioIdEnviou?: SortOrder
-    usuarioIdRecebeu?: SortOrder
     listaDeCompraId?: SortOrder
     veiculoId?: SortOrder
   }
 
   export type LembreteMinOrderByAggregateInput = {
     id?: SortOrder
-    titulo?: SortOrder
     descricao?: SortOrder
     dataHora?: SortOrder
+    status?: SortOrder
     usuarioIdEnviou?: SortOrder
-    usuarioIdRecebeu?: SortOrder
     listaDeCompraId?: SortOrder
     veiculoId?: SortOrder
+  }
+
+  export type TarefaCountOrderByAggregateInput = {
+    id?: SortOrder
+    descricao?: SortOrder
+    status?: SortOrder
+    usuarioId?: SortOrder
+  }
+
+  export type TarefaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    descricao?: SortOrder
+    status?: SortOrder
+    usuarioId?: SortOrder
+  }
+
+  export type TarefaMinOrderByAggregateInput = {
+    id?: SortOrder
+    descricao?: SortOrder
+    status?: SortOrder
+    usuarioId?: SortOrder
+  }
+
+  export type EnumTipoAtividadeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoAtividade | EnumTipoAtividadeFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoAtividade[] | ListEnumTipoAtividadeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoAtividade[] | ListEnumTipoAtividadeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoAtividadeFilter<$PrismaModel> | $Enums.TipoAtividade
+  }
+
+  export type EnumAcaoAtividadeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AcaoAtividade | EnumAcaoAtividadeFieldRefInput<$PrismaModel>
+    in?: $Enums.AcaoAtividade[] | ListEnumAcaoAtividadeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AcaoAtividade[] | ListEnumAcaoAtividadeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAcaoAtividadeFilter<$PrismaModel> | $Enums.AcaoAtividade
+  }
+
+  export type UuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type TarefaNullableScalarRelationFilter = {
+    is?: TarefaWhereInput | null
+    isNot?: TarefaWhereInput | null
+  }
+
+  export type ListaDeCompraNullableScalarRelationFilter = {
+    is?: ListaDeCompraWhereInput | null
+    isNot?: ListaDeCompraWhereInput | null
+  }
+
+  export type LembreteNullableScalarRelationFilter = {
+    is?: LembreteWhereInput | null
+    isNot?: LembreteWhereInput | null
+  }
+
+  export type VeiculoNullableScalarRelationFilter = {
+    is?: VeiculoWhereInput | null
+    isNot?: VeiculoWhereInput | null
+  }
+
+  export type AtividadeCountOrderByAggregateInput = {
+    id?: SortOrder
+    tipo?: SortOrder
+    acao?: SortOrder
+    datHora?: SortOrder
+    tarefaId?: SortOrder
+    listaDeCompraId?: SortOrder
+    lembreteId?: SortOrder
+    veiculoId?: SortOrder
+  }
+
+  export type AtividadeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tipo?: SortOrder
+    acao?: SortOrder
+    datHora?: SortOrder
+    tarefaId?: SortOrder
+    listaDeCompraId?: SortOrder
+    lembreteId?: SortOrder
+    veiculoId?: SortOrder
+  }
+
+  export type AtividadeMinOrderByAggregateInput = {
+    id?: SortOrder
+    tipo?: SortOrder
+    acao?: SortOrder
+    datHora?: SortOrder
+    tarefaId?: SortOrder
+    listaDeCompraId?: SortOrder
+    lembreteId?: SortOrder
+    veiculoId?: SortOrder
+  }
+
+  export type EnumTipoAtividadeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoAtividade | EnumTipoAtividadeFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoAtividade[] | ListEnumTipoAtividadeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoAtividade[] | ListEnumTipoAtividadeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoAtividadeWithAggregatesFilter<$PrismaModel> | $Enums.TipoAtividade
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTipoAtividadeFilter<$PrismaModel>
+    _max?: NestedEnumTipoAtividadeFilter<$PrismaModel>
+  }
+
+  export type EnumAcaoAtividadeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AcaoAtividade | EnumAcaoAtividadeFieldRefInput<$PrismaModel>
+    in?: $Enums.AcaoAtividade[] | ListEnumAcaoAtividadeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AcaoAtividade[] | ListEnumAcaoAtividadeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAcaoAtividadeWithAggregatesFilter<$PrismaModel> | $Enums.AcaoAtividade
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAcaoAtividadeFilter<$PrismaModel>
+    _max?: NestedEnumAcaoAtividadeFilter<$PrismaModel>
+  }
+
+  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type familia_usuariosCreateNestedManyWithoutUsuarioInput = {
@@ -12140,17 +15272,17 @@ export namespace Prisma {
     connect?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
   }
 
+  export type LembreteCreateNestedManyWithoutUsuarioEnviouInput = {
+    create?: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput> | LembreteCreateWithoutUsuarioEnviouInput[] | LembreteUncheckedCreateWithoutUsuarioEnviouInput[]
+    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioEnviouInput | LembreteCreateOrConnectWithoutUsuarioEnviouInput[]
+    createMany?: LembreteCreateManyUsuarioEnviouInputEnvelope
+    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+  }
+
   export type ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput = {
     create?: XOR<ListaDeCompraCreateWithoutUsuarioEnviouInput, ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput> | ListaDeCompraCreateWithoutUsuarioEnviouInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput[]
     connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioEnviouInput | ListaDeCompraCreateOrConnectWithoutUsuarioEnviouInput[]
     createMany?: ListaDeCompraCreateManyUsuarioEnviouInputEnvelope
-    connect?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
-  }
-
-  export type ListaDeCompraCreateNestedManyWithoutUsuarioRecebeuInput = {
-    create?: XOR<ListaDeCompraCreateWithoutUsuarioRecebeuInput, ListaDeCompraUncheckedCreateWithoutUsuarioRecebeuInput> | ListaDeCompraCreateWithoutUsuarioRecebeuInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioRecebeuInput[]
-    connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioRecebeuInput | ListaDeCompraCreateOrConnectWithoutUsuarioRecebeuInput[]
-    createMany?: ListaDeCompraCreateManyUsuarioRecebeuInputEnvelope
     connect?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
   }
 
@@ -12161,18 +15293,11 @@ export namespace Prisma {
     connect?: VeiculoWhereUniqueInput | VeiculoWhereUniqueInput[]
   }
 
-  export type LembreteCreateNestedManyWithoutUsuarioEnviouInput = {
-    create?: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput> | LembreteCreateWithoutUsuarioEnviouInput[] | LembreteUncheckedCreateWithoutUsuarioEnviouInput[]
-    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioEnviouInput | LembreteCreateOrConnectWithoutUsuarioEnviouInput[]
-    createMany?: LembreteCreateManyUsuarioEnviouInputEnvelope
-    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-  }
-
-  export type LembreteCreateNestedManyWithoutUsuarioRecebeuInput = {
-    create?: XOR<LembreteCreateWithoutUsuarioRecebeuInput, LembreteUncheckedCreateWithoutUsuarioRecebeuInput> | LembreteCreateWithoutUsuarioRecebeuInput[] | LembreteUncheckedCreateWithoutUsuarioRecebeuInput[]
-    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioRecebeuInput | LembreteCreateOrConnectWithoutUsuarioRecebeuInput[]
-    createMany?: LembreteCreateManyUsuarioRecebeuInputEnvelope
-    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+  export type TarefaCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<TarefaCreateWithoutUsuarioInput, TarefaUncheckedCreateWithoutUsuarioInput> | TarefaCreateWithoutUsuarioInput[] | TarefaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: TarefaCreateOrConnectWithoutUsuarioInput | TarefaCreateOrConnectWithoutUsuarioInput[]
+    createMany?: TarefaCreateManyUsuarioInputEnvelope
+    connect?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
   }
 
   export type familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput = {
@@ -12182,17 +15307,17 @@ export namespace Prisma {
     connect?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
   }
 
+  export type LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput = {
+    create?: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput> | LembreteCreateWithoutUsuarioEnviouInput[] | LembreteUncheckedCreateWithoutUsuarioEnviouInput[]
+    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioEnviouInput | LembreteCreateOrConnectWithoutUsuarioEnviouInput[]
+    createMany?: LembreteCreateManyUsuarioEnviouInputEnvelope
+    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+  }
+
   export type ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput = {
     create?: XOR<ListaDeCompraCreateWithoutUsuarioEnviouInput, ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput> | ListaDeCompraCreateWithoutUsuarioEnviouInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput[]
     connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioEnviouInput | ListaDeCompraCreateOrConnectWithoutUsuarioEnviouInput[]
     createMany?: ListaDeCompraCreateManyUsuarioEnviouInputEnvelope
-    connect?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
-  }
-
-  export type ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioRecebeuInput = {
-    create?: XOR<ListaDeCompraCreateWithoutUsuarioRecebeuInput, ListaDeCompraUncheckedCreateWithoutUsuarioRecebeuInput> | ListaDeCompraCreateWithoutUsuarioRecebeuInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioRecebeuInput[]
-    connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioRecebeuInput | ListaDeCompraCreateOrConnectWithoutUsuarioRecebeuInput[]
-    createMany?: ListaDeCompraCreateManyUsuarioRecebeuInputEnvelope
     connect?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
   }
 
@@ -12203,18 +15328,11 @@ export namespace Prisma {
     connect?: VeiculoWhereUniqueInput | VeiculoWhereUniqueInput[]
   }
 
-  export type LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput = {
-    create?: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput> | LembreteCreateWithoutUsuarioEnviouInput[] | LembreteUncheckedCreateWithoutUsuarioEnviouInput[]
-    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioEnviouInput | LembreteCreateOrConnectWithoutUsuarioEnviouInput[]
-    createMany?: LembreteCreateManyUsuarioEnviouInputEnvelope
-    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-  }
-
-  export type LembreteUncheckedCreateNestedManyWithoutUsuarioRecebeuInput = {
-    create?: XOR<LembreteCreateWithoutUsuarioRecebeuInput, LembreteUncheckedCreateWithoutUsuarioRecebeuInput> | LembreteCreateWithoutUsuarioRecebeuInput[] | LembreteUncheckedCreateWithoutUsuarioRecebeuInput[]
-    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioRecebeuInput | LembreteCreateOrConnectWithoutUsuarioRecebeuInput[]
-    createMany?: LembreteCreateManyUsuarioRecebeuInputEnvelope
-    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+  export type TarefaUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<TarefaCreateWithoutUsuarioInput, TarefaUncheckedCreateWithoutUsuarioInput> | TarefaCreateWithoutUsuarioInput[] | TarefaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: TarefaCreateOrConnectWithoutUsuarioInput | TarefaCreateOrConnectWithoutUsuarioInput[]
+    createMany?: TarefaCreateManyUsuarioInputEnvelope
+    connect?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12235,6 +15353,20 @@ export namespace Prisma {
     deleteMany?: familia_usuariosScalarWhereInput | familia_usuariosScalarWhereInput[]
   }
 
+  export type LembreteUpdateManyWithoutUsuarioEnviouNestedInput = {
+    create?: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput> | LembreteCreateWithoutUsuarioEnviouInput[] | LembreteUncheckedCreateWithoutUsuarioEnviouInput[]
+    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioEnviouInput | LembreteCreateOrConnectWithoutUsuarioEnviouInput[]
+    upsert?: LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput | LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput[]
+    createMany?: LembreteCreateManyUsuarioEnviouInputEnvelope
+    set?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    disconnect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    delete?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    update?: LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput | LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput[]
+    updateMany?: LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput | LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput[]
+    deleteMany?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
+  }
+
   export type ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput = {
     create?: XOR<ListaDeCompraCreateWithoutUsuarioEnviouInput, ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput> | ListaDeCompraCreateWithoutUsuarioEnviouInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput[]
     connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioEnviouInput | ListaDeCompraCreateOrConnectWithoutUsuarioEnviouInput[]
@@ -12246,20 +15378,6 @@ export namespace Prisma {
     connect?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
     update?: ListaDeCompraUpdateWithWhereUniqueWithoutUsuarioEnviouInput | ListaDeCompraUpdateWithWhereUniqueWithoutUsuarioEnviouInput[]
     updateMany?: ListaDeCompraUpdateManyWithWhereWithoutUsuarioEnviouInput | ListaDeCompraUpdateManyWithWhereWithoutUsuarioEnviouInput[]
-    deleteMany?: ListaDeCompraScalarWhereInput | ListaDeCompraScalarWhereInput[]
-  }
-
-  export type ListaDeCompraUpdateManyWithoutUsuarioRecebeuNestedInput = {
-    create?: XOR<ListaDeCompraCreateWithoutUsuarioRecebeuInput, ListaDeCompraUncheckedCreateWithoutUsuarioRecebeuInput> | ListaDeCompraCreateWithoutUsuarioRecebeuInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioRecebeuInput[]
-    connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioRecebeuInput | ListaDeCompraCreateOrConnectWithoutUsuarioRecebeuInput[]
-    upsert?: ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioRecebeuInput | ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioRecebeuInput[]
-    createMany?: ListaDeCompraCreateManyUsuarioRecebeuInputEnvelope
-    set?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
-    disconnect?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
-    delete?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
-    connect?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
-    update?: ListaDeCompraUpdateWithWhereUniqueWithoutUsuarioRecebeuInput | ListaDeCompraUpdateWithWhereUniqueWithoutUsuarioRecebeuInput[]
-    updateMany?: ListaDeCompraUpdateManyWithWhereWithoutUsuarioRecebeuInput | ListaDeCompraUpdateManyWithWhereWithoutUsuarioRecebeuInput[]
     deleteMany?: ListaDeCompraScalarWhereInput | ListaDeCompraScalarWhereInput[]
   }
 
@@ -12277,32 +15395,18 @@ export namespace Prisma {
     deleteMany?: VeiculoScalarWhereInput | VeiculoScalarWhereInput[]
   }
 
-  export type LembreteUpdateManyWithoutUsuarioEnviouNestedInput = {
-    create?: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput> | LembreteCreateWithoutUsuarioEnviouInput[] | LembreteUncheckedCreateWithoutUsuarioEnviouInput[]
-    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioEnviouInput | LembreteCreateOrConnectWithoutUsuarioEnviouInput[]
-    upsert?: LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput | LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput[]
-    createMany?: LembreteCreateManyUsuarioEnviouInputEnvelope
-    set?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    disconnect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    delete?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    update?: LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput | LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput[]
-    updateMany?: LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput | LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput[]
-    deleteMany?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
-  }
-
-  export type LembreteUpdateManyWithoutUsuarioRecebeuNestedInput = {
-    create?: XOR<LembreteCreateWithoutUsuarioRecebeuInput, LembreteUncheckedCreateWithoutUsuarioRecebeuInput> | LembreteCreateWithoutUsuarioRecebeuInput[] | LembreteUncheckedCreateWithoutUsuarioRecebeuInput[]
-    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioRecebeuInput | LembreteCreateOrConnectWithoutUsuarioRecebeuInput[]
-    upsert?: LembreteUpsertWithWhereUniqueWithoutUsuarioRecebeuInput | LembreteUpsertWithWhereUniqueWithoutUsuarioRecebeuInput[]
-    createMany?: LembreteCreateManyUsuarioRecebeuInputEnvelope
-    set?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    disconnect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    delete?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    update?: LembreteUpdateWithWhereUniqueWithoutUsuarioRecebeuInput | LembreteUpdateWithWhereUniqueWithoutUsuarioRecebeuInput[]
-    updateMany?: LembreteUpdateManyWithWhereWithoutUsuarioRecebeuInput | LembreteUpdateManyWithWhereWithoutUsuarioRecebeuInput[]
-    deleteMany?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
+  export type TarefaUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<TarefaCreateWithoutUsuarioInput, TarefaUncheckedCreateWithoutUsuarioInput> | TarefaCreateWithoutUsuarioInput[] | TarefaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: TarefaCreateOrConnectWithoutUsuarioInput | TarefaCreateOrConnectWithoutUsuarioInput[]
+    upsert?: TarefaUpsertWithWhereUniqueWithoutUsuarioInput | TarefaUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: TarefaCreateManyUsuarioInputEnvelope
+    set?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
+    disconnect?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
+    delete?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
+    connect?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
+    update?: TarefaUpdateWithWhereUniqueWithoutUsuarioInput | TarefaUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: TarefaUpdateManyWithWhereWithoutUsuarioInput | TarefaUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: TarefaScalarWhereInput | TarefaScalarWhereInput[]
   }
 
   export type familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput = {
@@ -12319,6 +15423,20 @@ export namespace Prisma {
     deleteMany?: familia_usuariosScalarWhereInput | familia_usuariosScalarWhereInput[]
   }
 
+  export type LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput = {
+    create?: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput> | LembreteCreateWithoutUsuarioEnviouInput[] | LembreteUncheckedCreateWithoutUsuarioEnviouInput[]
+    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioEnviouInput | LembreteCreateOrConnectWithoutUsuarioEnviouInput[]
+    upsert?: LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput | LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput[]
+    createMany?: LembreteCreateManyUsuarioEnviouInputEnvelope
+    set?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    disconnect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    delete?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    update?: LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput | LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput[]
+    updateMany?: LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput | LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput[]
+    deleteMany?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
+  }
+
   export type ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput = {
     create?: XOR<ListaDeCompraCreateWithoutUsuarioEnviouInput, ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput> | ListaDeCompraCreateWithoutUsuarioEnviouInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput[]
     connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioEnviouInput | ListaDeCompraCreateOrConnectWithoutUsuarioEnviouInput[]
@@ -12330,20 +15448,6 @@ export namespace Prisma {
     connect?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
     update?: ListaDeCompraUpdateWithWhereUniqueWithoutUsuarioEnviouInput | ListaDeCompraUpdateWithWhereUniqueWithoutUsuarioEnviouInput[]
     updateMany?: ListaDeCompraUpdateManyWithWhereWithoutUsuarioEnviouInput | ListaDeCompraUpdateManyWithWhereWithoutUsuarioEnviouInput[]
-    deleteMany?: ListaDeCompraScalarWhereInput | ListaDeCompraScalarWhereInput[]
-  }
-
-  export type ListaDeCompraUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput = {
-    create?: XOR<ListaDeCompraCreateWithoutUsuarioRecebeuInput, ListaDeCompraUncheckedCreateWithoutUsuarioRecebeuInput> | ListaDeCompraCreateWithoutUsuarioRecebeuInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioRecebeuInput[]
-    connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioRecebeuInput | ListaDeCompraCreateOrConnectWithoutUsuarioRecebeuInput[]
-    upsert?: ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioRecebeuInput | ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioRecebeuInput[]
-    createMany?: ListaDeCompraCreateManyUsuarioRecebeuInputEnvelope
-    set?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
-    disconnect?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
-    delete?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
-    connect?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
-    update?: ListaDeCompraUpdateWithWhereUniqueWithoutUsuarioRecebeuInput | ListaDeCompraUpdateWithWhereUniqueWithoutUsuarioRecebeuInput[]
-    updateMany?: ListaDeCompraUpdateManyWithWhereWithoutUsuarioRecebeuInput | ListaDeCompraUpdateManyWithWhereWithoutUsuarioRecebeuInput[]
     deleteMany?: ListaDeCompraScalarWhereInput | ListaDeCompraScalarWhereInput[]
   }
 
@@ -12361,32 +15465,18 @@ export namespace Prisma {
     deleteMany?: VeiculoScalarWhereInput | VeiculoScalarWhereInput[]
   }
 
-  export type LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput = {
-    create?: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput> | LembreteCreateWithoutUsuarioEnviouInput[] | LembreteUncheckedCreateWithoutUsuarioEnviouInput[]
-    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioEnviouInput | LembreteCreateOrConnectWithoutUsuarioEnviouInput[]
-    upsert?: LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput | LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput[]
-    createMany?: LembreteCreateManyUsuarioEnviouInputEnvelope
-    set?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    disconnect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    delete?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    update?: LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput | LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput[]
-    updateMany?: LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput | LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput[]
-    deleteMany?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
-  }
-
-  export type LembreteUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput = {
-    create?: XOR<LembreteCreateWithoutUsuarioRecebeuInput, LembreteUncheckedCreateWithoutUsuarioRecebeuInput> | LembreteCreateWithoutUsuarioRecebeuInput[] | LembreteUncheckedCreateWithoutUsuarioRecebeuInput[]
-    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioRecebeuInput | LembreteCreateOrConnectWithoutUsuarioRecebeuInput[]
-    upsert?: LembreteUpsertWithWhereUniqueWithoutUsuarioRecebeuInput | LembreteUpsertWithWhereUniqueWithoutUsuarioRecebeuInput[]
-    createMany?: LembreteCreateManyUsuarioRecebeuInputEnvelope
-    set?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    disconnect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    delete?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    update?: LembreteUpdateWithWhereUniqueWithoutUsuarioRecebeuInput | LembreteUpdateWithWhereUniqueWithoutUsuarioRecebeuInput[]
-    updateMany?: LembreteUpdateManyWithWhereWithoutUsuarioRecebeuInput | LembreteUpdateManyWithWhereWithoutUsuarioRecebeuInput[]
-    deleteMany?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
+  export type TarefaUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<TarefaCreateWithoutUsuarioInput, TarefaUncheckedCreateWithoutUsuarioInput> | TarefaCreateWithoutUsuarioInput[] | TarefaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: TarefaCreateOrConnectWithoutUsuarioInput | TarefaCreateOrConnectWithoutUsuarioInput[]
+    upsert?: TarefaUpsertWithWhereUniqueWithoutUsuarioInput | TarefaUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: TarefaCreateManyUsuarioInputEnvelope
+    set?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
+    disconnect?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
+    delete?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
+    connect?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
+    update?: TarefaUpdateWithWhereUniqueWithoutUsuarioInput | TarefaUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: TarefaUpdateManyWithWhereWithoutUsuarioInput | TarefaUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: TarefaScalarWhereInput | TarefaScalarWhereInput[]
   }
 
   export type familia_usuariosCreateNestedManyWithoutFamiliaInput = {
@@ -12469,12 +15559,6 @@ export namespace Prisma {
     connect?: UsuarioWhereUniqueInput
   }
 
-  export type UsuarioCreateNestedOneWithoutListasRecebidasInput = {
-    create?: XOR<UsuarioCreateWithoutListasRecebidasInput, UsuarioUncheckedCreateWithoutListasRecebidasInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutListasRecebidasInput
-    connect?: UsuarioWhereUniqueInput
-  }
-
   export type ItemListaDeCompraCreateNestedManyWithoutListaInput = {
     create?: XOR<ItemListaDeCompraCreateWithoutListaInput, ItemListaDeCompraUncheckedCreateWithoutListaInput> | ItemListaDeCompraCreateWithoutListaInput[] | ItemListaDeCompraUncheckedCreateWithoutListaInput[]
     connectOrCreate?: ItemListaDeCompraCreateOrConnectWithoutListaInput | ItemListaDeCompraCreateOrConnectWithoutListaInput[]
@@ -12487,6 +15571,13 @@ export namespace Prisma {
     connectOrCreate?: LembreteCreateOrConnectWithoutListaDeCompraInput | LembreteCreateOrConnectWithoutListaDeCompraInput[]
     createMany?: LembreteCreateManyListaDeCompraInputEnvelope
     connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+  }
+
+  export type AtividadeCreateNestedManyWithoutListaInput = {
+    create?: XOR<AtividadeCreateWithoutListaInput, AtividadeUncheckedCreateWithoutListaInput> | AtividadeCreateWithoutListaInput[] | AtividadeUncheckedCreateWithoutListaInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutListaInput | AtividadeCreateOrConnectWithoutListaInput[]
+    createMany?: AtividadeCreateManyListaInputEnvelope
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
   }
 
   export type ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput = {
@@ -12503,20 +15594,23 @@ export namespace Prisma {
     connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
   }
 
+  export type AtividadeUncheckedCreateNestedManyWithoutListaInput = {
+    create?: XOR<AtividadeCreateWithoutListaInput, AtividadeUncheckedCreateWithoutListaInput> | AtividadeCreateWithoutListaInput[] | AtividadeUncheckedCreateWithoutListaInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutListaInput | AtividadeCreateOrConnectWithoutListaInput[]
+    createMany?: AtividadeCreateManyListaInputEnvelope
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput = {
     create?: XOR<UsuarioCreateWithoutListasEnviadasInput, UsuarioUncheckedCreateWithoutListasEnviadasInput>
     connectOrCreate?: UsuarioCreateOrConnectWithoutListasEnviadasInput
     upsert?: UsuarioUpsertWithoutListasEnviadasInput
     connect?: UsuarioWhereUniqueInput
     update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutListasEnviadasInput, UsuarioUpdateWithoutListasEnviadasInput>, UsuarioUncheckedUpdateWithoutListasEnviadasInput>
-  }
-
-  export type UsuarioUpdateOneRequiredWithoutListasRecebidasNestedInput = {
-    create?: XOR<UsuarioCreateWithoutListasRecebidasInput, UsuarioUncheckedCreateWithoutListasRecebidasInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutListasRecebidasInput
-    upsert?: UsuarioUpsertWithoutListasRecebidasInput
-    connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutListasRecebidasInput, UsuarioUpdateWithoutListasRecebidasInput>, UsuarioUncheckedUpdateWithoutListasRecebidasInput>
   }
 
   export type ItemListaDeCompraUpdateManyWithoutListaNestedInput = {
@@ -12547,6 +15641,20 @@ export namespace Prisma {
     deleteMany?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
   }
 
+  export type AtividadeUpdateManyWithoutListaNestedInput = {
+    create?: XOR<AtividadeCreateWithoutListaInput, AtividadeUncheckedCreateWithoutListaInput> | AtividadeCreateWithoutListaInput[] | AtividadeUncheckedCreateWithoutListaInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutListaInput | AtividadeCreateOrConnectWithoutListaInput[]
+    upsert?: AtividadeUpsertWithWhereUniqueWithoutListaInput | AtividadeUpsertWithWhereUniqueWithoutListaInput[]
+    createMany?: AtividadeCreateManyListaInputEnvelope
+    set?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    disconnect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    delete?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    update?: AtividadeUpdateWithWhereUniqueWithoutListaInput | AtividadeUpdateWithWhereUniqueWithoutListaInput[]
+    updateMany?: AtividadeUpdateManyWithWhereWithoutListaInput | AtividadeUpdateManyWithWhereWithoutListaInput[]
+    deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+  }
+
   export type ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput = {
     create?: XOR<ItemListaDeCompraCreateWithoutListaInput, ItemListaDeCompraUncheckedCreateWithoutListaInput> | ItemListaDeCompraCreateWithoutListaInput[] | ItemListaDeCompraUncheckedCreateWithoutListaInput[]
     connectOrCreate?: ItemListaDeCompraCreateOrConnectWithoutListaInput | ItemListaDeCompraCreateOrConnectWithoutListaInput[]
@@ -12575,6 +15683,20 @@ export namespace Prisma {
     deleteMany?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
   }
 
+  export type AtividadeUncheckedUpdateManyWithoutListaNestedInput = {
+    create?: XOR<AtividadeCreateWithoutListaInput, AtividadeUncheckedCreateWithoutListaInput> | AtividadeCreateWithoutListaInput[] | AtividadeUncheckedCreateWithoutListaInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutListaInput | AtividadeCreateOrConnectWithoutListaInput[]
+    upsert?: AtividadeUpsertWithWhereUniqueWithoutListaInput | AtividadeUpsertWithWhereUniqueWithoutListaInput[]
+    createMany?: AtividadeCreateManyListaInputEnvelope
+    set?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    disconnect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    delete?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    update?: AtividadeUpdateWithWhereUniqueWithoutListaInput | AtividadeUpdateWithWhereUniqueWithoutListaInput[]
+    updateMany?: AtividadeUpdateManyWithWhereWithoutListaInput | AtividadeUpdateManyWithWhereWithoutListaInput[]
+    deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+  }
+
   export type ListaDeCompraCreateNestedOneWithoutItensInput = {
     create?: XOR<ListaDeCompraCreateWithoutItensInput, ListaDeCompraUncheckedCreateWithoutItensInput>
     connectOrCreate?: ListaDeCompraCreateOrConnectWithoutItensInput
@@ -12587,10 +15709,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
   }
 
   export type ListaDeCompraUpdateOneRequiredWithoutItensNestedInput = {
@@ -12607,6 +15725,13 @@ export namespace Prisma {
     connect?: UsuarioWhereUniqueInput
   }
 
+  export type LembreteCreateNestedManyWithoutVeiculoInput = {
+    create?: XOR<LembreteCreateWithoutVeiculoInput, LembreteUncheckedCreateWithoutVeiculoInput> | LembreteCreateWithoutVeiculoInput[] | LembreteUncheckedCreateWithoutVeiculoInput[]
+    connectOrCreate?: LembreteCreateOrConnectWithoutVeiculoInput | LembreteCreateOrConnectWithoutVeiculoInput[]
+    createMany?: LembreteCreateManyVeiculoInputEnvelope
+    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+  }
+
   export type RegistroDeManutencaoCreateNestedManyWithoutVeiculoInput = {
     create?: XOR<RegistroDeManutencaoCreateWithoutVeiculoInput, RegistroDeManutencaoUncheckedCreateWithoutVeiculoInput> | RegistroDeManutencaoCreateWithoutVeiculoInput[] | RegistroDeManutencaoUncheckedCreateWithoutVeiculoInput[]
     connectOrCreate?: RegistroDeManutencaoCreateOrConnectWithoutVeiculoInput | RegistroDeManutencaoCreateOrConnectWithoutVeiculoInput[]
@@ -12614,7 +15739,14 @@ export namespace Prisma {
     connect?: RegistroDeManutencaoWhereUniqueInput | RegistroDeManutencaoWhereUniqueInput[]
   }
 
-  export type LembreteCreateNestedManyWithoutVeiculoInput = {
+  export type AtividadeCreateNestedManyWithoutVeiculoInput = {
+    create?: XOR<AtividadeCreateWithoutVeiculoInput, AtividadeUncheckedCreateWithoutVeiculoInput> | AtividadeCreateWithoutVeiculoInput[] | AtividadeUncheckedCreateWithoutVeiculoInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutVeiculoInput | AtividadeCreateOrConnectWithoutVeiculoInput[]
+    createMany?: AtividadeCreateManyVeiculoInputEnvelope
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+  }
+
+  export type LembreteUncheckedCreateNestedManyWithoutVeiculoInput = {
     create?: XOR<LembreteCreateWithoutVeiculoInput, LembreteUncheckedCreateWithoutVeiculoInput> | LembreteCreateWithoutVeiculoInput[] | LembreteUncheckedCreateWithoutVeiculoInput[]
     connectOrCreate?: LembreteCreateOrConnectWithoutVeiculoInput | LembreteCreateOrConnectWithoutVeiculoInput[]
     createMany?: LembreteCreateManyVeiculoInputEnvelope
@@ -12628,11 +15760,11 @@ export namespace Prisma {
     connect?: RegistroDeManutencaoWhereUniqueInput | RegistroDeManutencaoWhereUniqueInput[]
   }
 
-  export type LembreteUncheckedCreateNestedManyWithoutVeiculoInput = {
-    create?: XOR<LembreteCreateWithoutVeiculoInput, LembreteUncheckedCreateWithoutVeiculoInput> | LembreteCreateWithoutVeiculoInput[] | LembreteUncheckedCreateWithoutVeiculoInput[]
-    connectOrCreate?: LembreteCreateOrConnectWithoutVeiculoInput | LembreteCreateOrConnectWithoutVeiculoInput[]
-    createMany?: LembreteCreateManyVeiculoInputEnvelope
-    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+  export type AtividadeUncheckedCreateNestedManyWithoutVeiculoInput = {
+    create?: XOR<AtividadeCreateWithoutVeiculoInput, AtividadeUncheckedCreateWithoutVeiculoInput> | AtividadeCreateWithoutVeiculoInput[] | AtividadeUncheckedCreateWithoutVeiculoInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutVeiculoInput | AtividadeCreateOrConnectWithoutVeiculoInput[]
+    createMany?: AtividadeCreateManyVeiculoInputEnvelope
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
   }
 
   export type UsuarioUpdateOneRequiredWithoutVeiculosNestedInput = {
@@ -12641,6 +15773,20 @@ export namespace Prisma {
     upsert?: UsuarioUpsertWithoutVeiculosInput
     connect?: UsuarioWhereUniqueInput
     update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutVeiculosInput, UsuarioUpdateWithoutVeiculosInput>, UsuarioUncheckedUpdateWithoutVeiculosInput>
+  }
+
+  export type LembreteUpdateManyWithoutVeiculoNestedInput = {
+    create?: XOR<LembreteCreateWithoutVeiculoInput, LembreteUncheckedCreateWithoutVeiculoInput> | LembreteCreateWithoutVeiculoInput[] | LembreteUncheckedCreateWithoutVeiculoInput[]
+    connectOrCreate?: LembreteCreateOrConnectWithoutVeiculoInput | LembreteCreateOrConnectWithoutVeiculoInput[]
+    upsert?: LembreteUpsertWithWhereUniqueWithoutVeiculoInput | LembreteUpsertWithWhereUniqueWithoutVeiculoInput[]
+    createMany?: LembreteCreateManyVeiculoInputEnvelope
+    set?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    disconnect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    delete?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    update?: LembreteUpdateWithWhereUniqueWithoutVeiculoInput | LembreteUpdateWithWhereUniqueWithoutVeiculoInput[]
+    updateMany?: LembreteUpdateManyWithWhereWithoutVeiculoInput | LembreteUpdateManyWithWhereWithoutVeiculoInput[]
+    deleteMany?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
   }
 
   export type RegistroDeManutencaoUpdateManyWithoutVeiculoNestedInput = {
@@ -12657,7 +15803,21 @@ export namespace Prisma {
     deleteMany?: RegistroDeManutencaoScalarWhereInput | RegistroDeManutencaoScalarWhereInput[]
   }
 
-  export type LembreteUpdateManyWithoutVeiculoNestedInput = {
+  export type AtividadeUpdateManyWithoutVeiculoNestedInput = {
+    create?: XOR<AtividadeCreateWithoutVeiculoInput, AtividadeUncheckedCreateWithoutVeiculoInput> | AtividadeCreateWithoutVeiculoInput[] | AtividadeUncheckedCreateWithoutVeiculoInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutVeiculoInput | AtividadeCreateOrConnectWithoutVeiculoInput[]
+    upsert?: AtividadeUpsertWithWhereUniqueWithoutVeiculoInput | AtividadeUpsertWithWhereUniqueWithoutVeiculoInput[]
+    createMany?: AtividadeCreateManyVeiculoInputEnvelope
+    set?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    disconnect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    delete?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    update?: AtividadeUpdateWithWhereUniqueWithoutVeiculoInput | AtividadeUpdateWithWhereUniqueWithoutVeiculoInput[]
+    updateMany?: AtividadeUpdateManyWithWhereWithoutVeiculoInput | AtividadeUpdateManyWithWhereWithoutVeiculoInput[]
+    deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+  }
+
+  export type LembreteUncheckedUpdateManyWithoutVeiculoNestedInput = {
     create?: XOR<LembreteCreateWithoutVeiculoInput, LembreteUncheckedCreateWithoutVeiculoInput> | LembreteCreateWithoutVeiculoInput[] | LembreteUncheckedCreateWithoutVeiculoInput[]
     connectOrCreate?: LembreteCreateOrConnectWithoutVeiculoInput | LembreteCreateOrConnectWithoutVeiculoInput[]
     upsert?: LembreteUpsertWithWhereUniqueWithoutVeiculoInput | LembreteUpsertWithWhereUniqueWithoutVeiculoInput[]
@@ -12685,18 +15845,18 @@ export namespace Prisma {
     deleteMany?: RegistroDeManutencaoScalarWhereInput | RegistroDeManutencaoScalarWhereInput[]
   }
 
-  export type LembreteUncheckedUpdateManyWithoutVeiculoNestedInput = {
-    create?: XOR<LembreteCreateWithoutVeiculoInput, LembreteUncheckedCreateWithoutVeiculoInput> | LembreteCreateWithoutVeiculoInput[] | LembreteUncheckedCreateWithoutVeiculoInput[]
-    connectOrCreate?: LembreteCreateOrConnectWithoutVeiculoInput | LembreteCreateOrConnectWithoutVeiculoInput[]
-    upsert?: LembreteUpsertWithWhereUniqueWithoutVeiculoInput | LembreteUpsertWithWhereUniqueWithoutVeiculoInput[]
-    createMany?: LembreteCreateManyVeiculoInputEnvelope
-    set?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    disconnect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    delete?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
-    update?: LembreteUpdateWithWhereUniqueWithoutVeiculoInput | LembreteUpdateWithWhereUniqueWithoutVeiculoInput[]
-    updateMany?: LembreteUpdateManyWithWhereWithoutVeiculoInput | LembreteUpdateManyWithWhereWithoutVeiculoInput[]
-    deleteMany?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
+  export type AtividadeUncheckedUpdateManyWithoutVeiculoNestedInput = {
+    create?: XOR<AtividadeCreateWithoutVeiculoInput, AtividadeUncheckedCreateWithoutVeiculoInput> | AtividadeCreateWithoutVeiculoInput[] | AtividadeUncheckedCreateWithoutVeiculoInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutVeiculoInput | AtividadeCreateOrConnectWithoutVeiculoInput[]
+    upsert?: AtividadeUpsertWithWhereUniqueWithoutVeiculoInput | AtividadeUpsertWithWhereUniqueWithoutVeiculoInput[]
+    createMany?: AtividadeCreateManyVeiculoInputEnvelope
+    set?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    disconnect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    delete?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    update?: AtividadeUpdateWithWhereUniqueWithoutVeiculoInput | AtividadeUpdateWithWhereUniqueWithoutVeiculoInput[]
+    updateMany?: AtividadeUpdateManyWithWhereWithoutVeiculoInput | AtividadeUpdateManyWithWhereWithoutVeiculoInput[]
+    deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
   }
 
   export type VeiculoCreateNestedOneWithoutManutencoesInput = {
@@ -12705,8 +15865,20 @@ export namespace Prisma {
     connect?: VeiculoWhereUniqueInput
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type VeiculoUpdateOneRequiredWithoutManutencoesNestedInput = {
@@ -12717,10 +15889,10 @@ export namespace Prisma {
     update?: XOR<XOR<VeiculoUpdateToOneWithWhereWithoutManutencoesInput, VeiculoUpdateWithoutManutencoesInput>, VeiculoUncheckedUpdateWithoutManutencoesInput>
   }
 
-  export type UsuarioCreateNestedOneWithoutLembretesRecebidosInput = {
-    create?: XOR<UsuarioCreateWithoutLembretesRecebidosInput, UsuarioUncheckedCreateWithoutLembretesRecebidosInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutLembretesRecebidosInput
-    connect?: UsuarioWhereUniqueInput
+  export type ListaDeCompraCreateNestedOneWithoutLembretesInput = {
+    create?: XOR<ListaDeCompraCreateWithoutLembretesInput, ListaDeCompraUncheckedCreateWithoutLembretesInput>
+    connectOrCreate?: ListaDeCompraCreateOrConnectWithoutLembretesInput
+    connect?: ListaDeCompraWhereUniqueInput
   }
 
   export type UsuarioCreateNestedOneWithoutLembretesEnviadosInput = {
@@ -12729,32 +15901,24 @@ export namespace Prisma {
     connect?: UsuarioWhereUniqueInput
   }
 
-  export type ListaDeCompraCreateNestedOneWithoutLembretesInput = {
-    create?: XOR<ListaDeCompraCreateWithoutLembretesInput, ListaDeCompraUncheckedCreateWithoutLembretesInput>
-    connectOrCreate?: ListaDeCompraCreateOrConnectWithoutLembretesInput
-    connect?: ListaDeCompraWhereUniqueInput
-  }
-
   export type VeiculoCreateNestedOneWithoutLembreteInput = {
     create?: XOR<VeiculoCreateWithoutLembreteInput, VeiculoUncheckedCreateWithoutLembreteInput>
     connectOrCreate?: VeiculoCreateOrConnectWithoutLembreteInput
     connect?: VeiculoWhereUniqueInput
   }
 
-  export type UsuarioUpdateOneRequiredWithoutLembretesRecebidosNestedInput = {
-    create?: XOR<UsuarioCreateWithoutLembretesRecebidosInput, UsuarioUncheckedCreateWithoutLembretesRecebidosInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutLembretesRecebidosInput
-    upsert?: UsuarioUpsertWithoutLembretesRecebidosInput
-    connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutLembretesRecebidosInput, UsuarioUpdateWithoutLembretesRecebidosInput>, UsuarioUncheckedUpdateWithoutLembretesRecebidosInput>
+  export type AtividadeCreateNestedManyWithoutLembreteInput = {
+    create?: XOR<AtividadeCreateWithoutLembreteInput, AtividadeUncheckedCreateWithoutLembreteInput> | AtividadeCreateWithoutLembreteInput[] | AtividadeUncheckedCreateWithoutLembreteInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutLembreteInput | AtividadeCreateOrConnectWithoutLembreteInput[]
+    createMany?: AtividadeCreateManyLembreteInputEnvelope
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
   }
 
-  export type UsuarioUpdateOneRequiredWithoutLembretesEnviadosNestedInput = {
-    create?: XOR<UsuarioCreateWithoutLembretesEnviadosInput, UsuarioUncheckedCreateWithoutLembretesEnviadosInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutLembretesEnviadosInput
-    upsert?: UsuarioUpsertWithoutLembretesEnviadosInput
-    connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutLembretesEnviadosInput, UsuarioUpdateWithoutLembretesEnviadosInput>, UsuarioUncheckedUpdateWithoutLembretesEnviadosInput>
+  export type AtividadeUncheckedCreateNestedManyWithoutLembreteInput = {
+    create?: XOR<AtividadeCreateWithoutLembreteInput, AtividadeUncheckedCreateWithoutLembreteInput> | AtividadeCreateWithoutLembreteInput[] | AtividadeUncheckedCreateWithoutLembreteInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutLembreteInput | AtividadeCreateOrConnectWithoutLembreteInput[]
+    createMany?: AtividadeCreateManyLembreteInputEnvelope
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
   }
 
   export type ListaDeCompraUpdateOneRequiredWithoutLembretesNestedInput = {
@@ -12765,14 +15929,176 @@ export namespace Prisma {
     update?: XOR<XOR<ListaDeCompraUpdateToOneWithWhereWithoutLembretesInput, ListaDeCompraUpdateWithoutLembretesInput>, ListaDeCompraUncheckedUpdateWithoutLembretesInput>
   }
 
-  export type VeiculoUpdateOneWithoutLembreteNestedInput = {
+  export type UsuarioUpdateOneRequiredWithoutLembretesEnviadosNestedInput = {
+    create?: XOR<UsuarioCreateWithoutLembretesEnviadosInput, UsuarioUncheckedCreateWithoutLembretesEnviadosInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutLembretesEnviadosInput
+    upsert?: UsuarioUpsertWithoutLembretesEnviadosInput
+    connect?: UsuarioWhereUniqueInput
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutLembretesEnviadosInput, UsuarioUpdateWithoutLembretesEnviadosInput>, UsuarioUncheckedUpdateWithoutLembretesEnviadosInput>
+  }
+
+  export type VeiculoUpdateOneRequiredWithoutLembreteNestedInput = {
     create?: XOR<VeiculoCreateWithoutLembreteInput, VeiculoUncheckedCreateWithoutLembreteInput>
     connectOrCreate?: VeiculoCreateOrConnectWithoutLembreteInput
     upsert?: VeiculoUpsertWithoutLembreteInput
+    connect?: VeiculoWhereUniqueInput
+    update?: XOR<XOR<VeiculoUpdateToOneWithWhereWithoutLembreteInput, VeiculoUpdateWithoutLembreteInput>, VeiculoUncheckedUpdateWithoutLembreteInput>
+  }
+
+  export type AtividadeUpdateManyWithoutLembreteNestedInput = {
+    create?: XOR<AtividadeCreateWithoutLembreteInput, AtividadeUncheckedCreateWithoutLembreteInput> | AtividadeCreateWithoutLembreteInput[] | AtividadeUncheckedCreateWithoutLembreteInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutLembreteInput | AtividadeCreateOrConnectWithoutLembreteInput[]
+    upsert?: AtividadeUpsertWithWhereUniqueWithoutLembreteInput | AtividadeUpsertWithWhereUniqueWithoutLembreteInput[]
+    createMany?: AtividadeCreateManyLembreteInputEnvelope
+    set?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    disconnect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    delete?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    update?: AtividadeUpdateWithWhereUniqueWithoutLembreteInput | AtividadeUpdateWithWhereUniqueWithoutLembreteInput[]
+    updateMany?: AtividadeUpdateManyWithWhereWithoutLembreteInput | AtividadeUpdateManyWithWhereWithoutLembreteInput[]
+    deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+  }
+
+  export type AtividadeUncheckedUpdateManyWithoutLembreteNestedInput = {
+    create?: XOR<AtividadeCreateWithoutLembreteInput, AtividadeUncheckedCreateWithoutLembreteInput> | AtividadeCreateWithoutLembreteInput[] | AtividadeUncheckedCreateWithoutLembreteInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutLembreteInput | AtividadeCreateOrConnectWithoutLembreteInput[]
+    upsert?: AtividadeUpsertWithWhereUniqueWithoutLembreteInput | AtividadeUpsertWithWhereUniqueWithoutLembreteInput[]
+    createMany?: AtividadeCreateManyLembreteInputEnvelope
+    set?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    disconnect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    delete?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    update?: AtividadeUpdateWithWhereUniqueWithoutLembreteInput | AtividadeUpdateWithWhereUniqueWithoutLembreteInput[]
+    updateMany?: AtividadeUpdateManyWithWhereWithoutLembreteInput | AtividadeUpdateManyWithWhereWithoutLembreteInput[]
+    deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+  }
+
+  export type UsuarioCreateNestedOneWithoutTarefasInput = {
+    create?: XOR<UsuarioCreateWithoutTarefasInput, UsuarioUncheckedCreateWithoutTarefasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutTarefasInput
+    connect?: UsuarioWhereUniqueInput
+  }
+
+  export type AtividadeCreateNestedManyWithoutTarefaInput = {
+    create?: XOR<AtividadeCreateWithoutTarefaInput, AtividadeUncheckedCreateWithoutTarefaInput> | AtividadeCreateWithoutTarefaInput[] | AtividadeUncheckedCreateWithoutTarefaInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutTarefaInput | AtividadeCreateOrConnectWithoutTarefaInput[]
+    createMany?: AtividadeCreateManyTarefaInputEnvelope
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+  }
+
+  export type AtividadeUncheckedCreateNestedManyWithoutTarefaInput = {
+    create?: XOR<AtividadeCreateWithoutTarefaInput, AtividadeUncheckedCreateWithoutTarefaInput> | AtividadeCreateWithoutTarefaInput[] | AtividadeUncheckedCreateWithoutTarefaInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutTarefaInput | AtividadeCreateOrConnectWithoutTarefaInput[]
+    createMany?: AtividadeCreateManyTarefaInputEnvelope
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+  }
+
+  export type UsuarioUpdateOneRequiredWithoutTarefasNestedInput = {
+    create?: XOR<UsuarioCreateWithoutTarefasInput, UsuarioUncheckedCreateWithoutTarefasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutTarefasInput
+    upsert?: UsuarioUpsertWithoutTarefasInput
+    connect?: UsuarioWhereUniqueInput
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutTarefasInput, UsuarioUpdateWithoutTarefasInput>, UsuarioUncheckedUpdateWithoutTarefasInput>
+  }
+
+  export type AtividadeUpdateManyWithoutTarefaNestedInput = {
+    create?: XOR<AtividadeCreateWithoutTarefaInput, AtividadeUncheckedCreateWithoutTarefaInput> | AtividadeCreateWithoutTarefaInput[] | AtividadeUncheckedCreateWithoutTarefaInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutTarefaInput | AtividadeCreateOrConnectWithoutTarefaInput[]
+    upsert?: AtividadeUpsertWithWhereUniqueWithoutTarefaInput | AtividadeUpsertWithWhereUniqueWithoutTarefaInput[]
+    createMany?: AtividadeCreateManyTarefaInputEnvelope
+    set?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    disconnect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    delete?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    update?: AtividadeUpdateWithWhereUniqueWithoutTarefaInput | AtividadeUpdateWithWhereUniqueWithoutTarefaInput[]
+    updateMany?: AtividadeUpdateManyWithWhereWithoutTarefaInput | AtividadeUpdateManyWithWhereWithoutTarefaInput[]
+    deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+  }
+
+  export type AtividadeUncheckedUpdateManyWithoutTarefaNestedInput = {
+    create?: XOR<AtividadeCreateWithoutTarefaInput, AtividadeUncheckedCreateWithoutTarefaInput> | AtividadeCreateWithoutTarefaInput[] | AtividadeUncheckedCreateWithoutTarefaInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutTarefaInput | AtividadeCreateOrConnectWithoutTarefaInput[]
+    upsert?: AtividadeUpsertWithWhereUniqueWithoutTarefaInput | AtividadeUpsertWithWhereUniqueWithoutTarefaInput[]
+    createMany?: AtividadeCreateManyTarefaInputEnvelope
+    set?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    disconnect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    delete?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    update?: AtividadeUpdateWithWhereUniqueWithoutTarefaInput | AtividadeUpdateWithWhereUniqueWithoutTarefaInput[]
+    updateMany?: AtividadeUpdateManyWithWhereWithoutTarefaInput | AtividadeUpdateManyWithWhereWithoutTarefaInput[]
+    deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+  }
+
+  export type TarefaCreateNestedOneWithoutAtividadesInput = {
+    create?: XOR<TarefaCreateWithoutAtividadesInput, TarefaUncheckedCreateWithoutAtividadesInput>
+    connectOrCreate?: TarefaCreateOrConnectWithoutAtividadesInput
+    connect?: TarefaWhereUniqueInput
+  }
+
+  export type ListaDeCompraCreateNestedOneWithoutAtividadesInput = {
+    create?: XOR<ListaDeCompraCreateWithoutAtividadesInput, ListaDeCompraUncheckedCreateWithoutAtividadesInput>
+    connectOrCreate?: ListaDeCompraCreateOrConnectWithoutAtividadesInput
+    connect?: ListaDeCompraWhereUniqueInput
+  }
+
+  export type LembreteCreateNestedOneWithoutAtividadesInput = {
+    create?: XOR<LembreteCreateWithoutAtividadesInput, LembreteUncheckedCreateWithoutAtividadesInput>
+    connectOrCreate?: LembreteCreateOrConnectWithoutAtividadesInput
+    connect?: LembreteWhereUniqueInput
+  }
+
+  export type VeiculoCreateNestedOneWithoutAtividadesInput = {
+    create?: XOR<VeiculoCreateWithoutAtividadesInput, VeiculoUncheckedCreateWithoutAtividadesInput>
+    connectOrCreate?: VeiculoCreateOrConnectWithoutAtividadesInput
+    connect?: VeiculoWhereUniqueInput
+  }
+
+  export type EnumTipoAtividadeFieldUpdateOperationsInput = {
+    set?: $Enums.TipoAtividade
+  }
+
+  export type EnumAcaoAtividadeFieldUpdateOperationsInput = {
+    set?: $Enums.AcaoAtividade
+  }
+
+  export type TarefaUpdateOneWithoutAtividadesNestedInput = {
+    create?: XOR<TarefaCreateWithoutAtividadesInput, TarefaUncheckedCreateWithoutAtividadesInput>
+    connectOrCreate?: TarefaCreateOrConnectWithoutAtividadesInput
+    upsert?: TarefaUpsertWithoutAtividadesInput
+    disconnect?: TarefaWhereInput | boolean
+    delete?: TarefaWhereInput | boolean
+    connect?: TarefaWhereUniqueInput
+    update?: XOR<XOR<TarefaUpdateToOneWithWhereWithoutAtividadesInput, TarefaUpdateWithoutAtividadesInput>, TarefaUncheckedUpdateWithoutAtividadesInput>
+  }
+
+  export type ListaDeCompraUpdateOneWithoutAtividadesNestedInput = {
+    create?: XOR<ListaDeCompraCreateWithoutAtividadesInput, ListaDeCompraUncheckedCreateWithoutAtividadesInput>
+    connectOrCreate?: ListaDeCompraCreateOrConnectWithoutAtividadesInput
+    upsert?: ListaDeCompraUpsertWithoutAtividadesInput
+    disconnect?: ListaDeCompraWhereInput | boolean
+    delete?: ListaDeCompraWhereInput | boolean
+    connect?: ListaDeCompraWhereUniqueInput
+    update?: XOR<XOR<ListaDeCompraUpdateToOneWithWhereWithoutAtividadesInput, ListaDeCompraUpdateWithoutAtividadesInput>, ListaDeCompraUncheckedUpdateWithoutAtividadesInput>
+  }
+
+  export type LembreteUpdateOneWithoutAtividadesNestedInput = {
+    create?: XOR<LembreteCreateWithoutAtividadesInput, LembreteUncheckedCreateWithoutAtividadesInput>
+    connectOrCreate?: LembreteCreateOrConnectWithoutAtividadesInput
+    upsert?: LembreteUpsertWithoutAtividadesInput
+    disconnect?: LembreteWhereInput | boolean
+    delete?: LembreteWhereInput | boolean
+    connect?: LembreteWhereUniqueInput
+    update?: XOR<XOR<LembreteUpdateToOneWithWhereWithoutAtividadesInput, LembreteUpdateWithoutAtividadesInput>, LembreteUncheckedUpdateWithoutAtividadesInput>
+  }
+
+  export type VeiculoUpdateOneWithoutAtividadesNestedInput = {
+    create?: XOR<VeiculoCreateWithoutAtividadesInput, VeiculoUncheckedCreateWithoutAtividadesInput>
+    connectOrCreate?: VeiculoCreateOrConnectWithoutAtividadesInput
+    upsert?: VeiculoUpsertWithoutAtividadesInput
     disconnect?: VeiculoWhereInput | boolean
     delete?: VeiculoWhereInput | boolean
     connect?: VeiculoWhereUniqueInput
-    update?: XOR<XOR<VeiculoUpdateToOneWithWhereWithoutLembreteInput, VeiculoUpdateWithoutLembreteInput>, VeiculoUncheckedUpdateWithoutLembreteInput>
+    update?: XOR<XOR<VeiculoUpdateToOneWithWhereWithoutAtividadesInput, VeiculoUpdateWithoutAtividadesInput>, VeiculoUncheckedUpdateWithoutAtividadesInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -12864,6 +16190,14 @@ export namespace Prisma {
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -12891,12 +16225,18 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -12908,6 +16248,45 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -12922,6 +16301,81 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTipoAtividadeFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoAtividade | EnumTipoAtividadeFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoAtividade[] | ListEnumTipoAtividadeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoAtividade[] | ListEnumTipoAtividadeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoAtividadeFilter<$PrismaModel> | $Enums.TipoAtividade
+  }
+
+  export type NestedEnumAcaoAtividadeFilter<$PrismaModel = never> = {
+    equals?: $Enums.AcaoAtividade | EnumAcaoAtividadeFieldRefInput<$PrismaModel>
+    in?: $Enums.AcaoAtividade[] | ListEnumAcaoAtividadeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AcaoAtividade[] | ListEnumAcaoAtividadeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAcaoAtividadeFilter<$PrismaModel> | $Enums.AcaoAtividade
+  }
+
+  export type NestedUuidNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedEnumTipoAtividadeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoAtividade | EnumTipoAtividadeFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoAtividade[] | ListEnumTipoAtividadeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoAtividade[] | ListEnumTipoAtividadeFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoAtividadeWithAggregatesFilter<$PrismaModel> | $Enums.TipoAtividade
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTipoAtividadeFilter<$PrismaModel>
+    _max?: NestedEnumTipoAtividadeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumAcaoAtividadeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AcaoAtividade | EnumAcaoAtividadeFieldRefInput<$PrismaModel>
+    in?: $Enums.AcaoAtividade[] | ListEnumAcaoAtividadeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AcaoAtividade[] | ListEnumAcaoAtividadeFieldRefInput<$PrismaModel>
+    not?: NestedEnumAcaoAtividadeWithAggregatesFilter<$PrismaModel> | $Enums.AcaoAtividade
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAcaoAtividadeFilter<$PrismaModel>
+    _max?: NestedEnumAcaoAtividadeFilter<$PrismaModel>
+  }
+
+  export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type familia_usuariosCreateWithoutUsuarioInput = {
@@ -12944,110 +16398,24 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ListaDeCompraCreateWithoutUsuarioEnviouInput = {
-    id?: string
-    nome: string
-    status?: string
-    usuarioRecebeu: UsuarioCreateNestedOneWithoutListasRecebidasInput
-    itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
-    lembretes?: LembreteCreateNestedManyWithoutListaDeCompraInput
-  }
-
-  export type ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput = {
-    id?: string
-    nome: string
-    status?: string
-    usuarioIdRecebeu: string
-    itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
-    lembretes?: LembreteUncheckedCreateNestedManyWithoutListaDeCompraInput
-  }
-
-  export type ListaDeCompraCreateOrConnectWithoutUsuarioEnviouInput = {
-    where: ListaDeCompraWhereUniqueInput
-    create: XOR<ListaDeCompraCreateWithoutUsuarioEnviouInput, ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput>
-  }
-
-  export type ListaDeCompraCreateManyUsuarioEnviouInputEnvelope = {
-    data: ListaDeCompraCreateManyUsuarioEnviouInput | ListaDeCompraCreateManyUsuarioEnviouInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ListaDeCompraCreateWithoutUsuarioRecebeuInput = {
-    id?: string
-    nome: string
-    status?: string
-    usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
-    itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
-    lembretes?: LembreteCreateNestedManyWithoutListaDeCompraInput
-  }
-
-  export type ListaDeCompraUncheckedCreateWithoutUsuarioRecebeuInput = {
-    id?: string
-    nome: string
-    status?: string
-    usuarioIdEnviou: string
-    itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
-    lembretes?: LembreteUncheckedCreateNestedManyWithoutListaDeCompraInput
-  }
-
-  export type ListaDeCompraCreateOrConnectWithoutUsuarioRecebeuInput = {
-    where: ListaDeCompraWhereUniqueInput
-    create: XOR<ListaDeCompraCreateWithoutUsuarioRecebeuInput, ListaDeCompraUncheckedCreateWithoutUsuarioRecebeuInput>
-  }
-
-  export type ListaDeCompraCreateManyUsuarioRecebeuInputEnvelope = {
-    data: ListaDeCompraCreateManyUsuarioRecebeuInput | ListaDeCompraCreateManyUsuarioRecebeuInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type VeiculoCreateWithoutUsuarioInput = {
-    id?: string
-    marca: string
-    modelo: string
-    ano: number
-    placa: string
-    manutencoes?: RegistroDeManutencaoCreateNestedManyWithoutVeiculoInput
-    Lembrete?: LembreteCreateNestedManyWithoutVeiculoInput
-  }
-
-  export type VeiculoUncheckedCreateWithoutUsuarioInput = {
-    id?: string
-    marca: string
-    modelo: string
-    ano: number
-    placa: string
-    manutencoes?: RegistroDeManutencaoUncheckedCreateNestedManyWithoutVeiculoInput
-    Lembrete?: LembreteUncheckedCreateNestedManyWithoutVeiculoInput
-  }
-
-  export type VeiculoCreateOrConnectWithoutUsuarioInput = {
-    where: VeiculoWhereUniqueInput
-    create: XOR<VeiculoCreateWithoutUsuarioInput, VeiculoUncheckedCreateWithoutUsuarioInput>
-  }
-
-  export type VeiculoCreateManyUsuarioInputEnvelope = {
-    data: VeiculoCreateManyUsuarioInput | VeiculoCreateManyUsuarioInput[]
-    skipDuplicates?: boolean
-  }
-
   export type LembreteCreateWithoutUsuarioEnviouInput = {
     id?: string
-    titulo: string
     descricao: string
-    dataHora: Date | string
-    usuarioRecebeu: UsuarioCreateNestedOneWithoutLembretesRecebidosInput
+    dataHora?: Date | string
+    status?: boolean
     listaDeCompra: ListaDeCompraCreateNestedOneWithoutLembretesInput
-    veiculo?: VeiculoCreateNestedOneWithoutLembreteInput
+    veiculo: VeiculoCreateNestedOneWithoutLembreteInput
+    atividades?: AtividadeCreateNestedManyWithoutLembreteInput
   }
 
   export type LembreteUncheckedCreateWithoutUsuarioEnviouInput = {
     id?: string
-    titulo: string
     descricao: string
-    dataHora: Date | string
-    usuarioIdRecebeu: string
+    dataHora?: Date | string
+    status?: boolean
     listaDeCompraId: string
     veiculoId: string
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutLembreteInput
   }
 
   export type LembreteCreateOrConnectWithoutUsuarioEnviouInput = {
@@ -13060,33 +16428,87 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type LembreteCreateWithoutUsuarioRecebeuInput = {
+  export type ListaDeCompraCreateWithoutUsuarioEnviouInput = {
     id?: string
-    titulo: string
-    descricao: string
-    dataHora: Date | string
-    usuarioEnviou: UsuarioCreateNestedOneWithoutLembretesEnviadosInput
-    listaDeCompra: ListaDeCompraCreateNestedOneWithoutLembretesInput
-    veiculo?: VeiculoCreateNestedOneWithoutLembreteInput
+    tipo: string
+    status?: boolean
+    itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
+    lembretes?: LembreteCreateNestedManyWithoutListaDeCompraInput
+    atividades?: AtividadeCreateNestedManyWithoutListaInput
   }
 
-  export type LembreteUncheckedCreateWithoutUsuarioRecebeuInput = {
+  export type ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput = {
     id?: string
-    titulo: string
+    tipo: string
+    status?: boolean
+    itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
+    lembretes?: LembreteUncheckedCreateNestedManyWithoutListaDeCompraInput
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutListaInput
+  }
+
+  export type ListaDeCompraCreateOrConnectWithoutUsuarioEnviouInput = {
+    where: ListaDeCompraWhereUniqueInput
+    create: XOR<ListaDeCompraCreateWithoutUsuarioEnviouInput, ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput>
+  }
+
+  export type ListaDeCompraCreateManyUsuarioEnviouInputEnvelope = {
+    data: ListaDeCompraCreateManyUsuarioEnviouInput | ListaDeCompraCreateManyUsuarioEnviouInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VeiculoCreateWithoutUsuarioInput = {
+    id?: string
+    marca: string
+    modelo: string
+    ano: number
+    placa: string
+    Lembrete?: LembreteCreateNestedManyWithoutVeiculoInput
+    manutencoes?: RegistroDeManutencaoCreateNestedManyWithoutVeiculoInput
+    atividades?: AtividadeCreateNestedManyWithoutVeiculoInput
+  }
+
+  export type VeiculoUncheckedCreateWithoutUsuarioInput = {
+    id?: string
+    marca: string
+    modelo: string
+    ano: number
+    placa: string
+    Lembrete?: LembreteUncheckedCreateNestedManyWithoutVeiculoInput
+    manutencoes?: RegistroDeManutencaoUncheckedCreateNestedManyWithoutVeiculoInput
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutVeiculoInput
+  }
+
+  export type VeiculoCreateOrConnectWithoutUsuarioInput = {
+    where: VeiculoWhereUniqueInput
+    create: XOR<VeiculoCreateWithoutUsuarioInput, VeiculoUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type VeiculoCreateManyUsuarioInputEnvelope = {
+    data: VeiculoCreateManyUsuarioInput | VeiculoCreateManyUsuarioInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TarefaCreateWithoutUsuarioInput = {
+    id?: string
     descricao: string
-    dataHora: Date | string
-    usuarioIdEnviou: string
-    listaDeCompraId: string
-    veiculoId: string
+    status?: boolean
+    atividades?: AtividadeCreateNestedManyWithoutTarefaInput
   }
 
-  export type LembreteCreateOrConnectWithoutUsuarioRecebeuInput = {
-    where: LembreteWhereUniqueInput
-    create: XOR<LembreteCreateWithoutUsuarioRecebeuInput, LembreteUncheckedCreateWithoutUsuarioRecebeuInput>
+  export type TarefaUncheckedCreateWithoutUsuarioInput = {
+    id?: string
+    descricao: string
+    status?: boolean
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutTarefaInput
   }
 
-  export type LembreteCreateManyUsuarioRecebeuInputEnvelope = {
-    data: LembreteCreateManyUsuarioRecebeuInput | LembreteCreateManyUsuarioRecebeuInput[]
+  export type TarefaCreateOrConnectWithoutUsuarioInput = {
+    where: TarefaWhereUniqueInput
+    create: XOR<TarefaCreateWithoutUsuarioInput, TarefaUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type TarefaCreateManyUsuarioInputEnvelope = {
+    data: TarefaCreateManyUsuarioInput | TarefaCreateManyUsuarioInput[]
     skipDuplicates?: boolean
   }
 
@@ -13115,6 +16537,35 @@ export namespace Prisma {
     rotulo?: EnumRotuloFilter<"familia_usuarios"> | $Enums.Rotulo
   }
 
+  export type LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput = {
+    where: LembreteWhereUniqueInput
+    update: XOR<LembreteUpdateWithoutUsuarioEnviouInput, LembreteUncheckedUpdateWithoutUsuarioEnviouInput>
+    create: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput>
+  }
+
+  export type LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput = {
+    where: LembreteWhereUniqueInput
+    data: XOR<LembreteUpdateWithoutUsuarioEnviouInput, LembreteUncheckedUpdateWithoutUsuarioEnviouInput>
+  }
+
+  export type LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput = {
+    where: LembreteScalarWhereInput
+    data: XOR<LembreteUpdateManyMutationInput, LembreteUncheckedUpdateManyWithoutUsuarioEnviouInput>
+  }
+
+  export type LembreteScalarWhereInput = {
+    AND?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
+    OR?: LembreteScalarWhereInput[]
+    NOT?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
+    id?: UuidFilter<"Lembrete"> | string
+    descricao?: StringFilter<"Lembrete"> | string
+    dataHora?: DateTimeFilter<"Lembrete"> | Date | string
+    status?: BoolFilter<"Lembrete"> | boolean
+    usuarioIdEnviou?: UuidFilter<"Lembrete"> | string
+    listaDeCompraId?: UuidFilter<"Lembrete"> | string
+    veiculoId?: UuidFilter<"Lembrete"> | string
+  }
+
   export type ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioEnviouInput = {
     where: ListaDeCompraWhereUniqueInput
     update: XOR<ListaDeCompraUpdateWithoutUsuarioEnviouInput, ListaDeCompraUncheckedUpdateWithoutUsuarioEnviouInput>
@@ -13136,26 +16587,9 @@ export namespace Prisma {
     OR?: ListaDeCompraScalarWhereInput[]
     NOT?: ListaDeCompraScalarWhereInput | ListaDeCompraScalarWhereInput[]
     id?: UuidFilter<"ListaDeCompra"> | string
-    nome?: StringFilter<"ListaDeCompra"> | string
-    status?: StringFilter<"ListaDeCompra"> | string
+    tipo?: StringFilter<"ListaDeCompra"> | string
     usuarioIdEnviou?: UuidFilter<"ListaDeCompra"> | string
-    usuarioIdRecebeu?: UuidFilter<"ListaDeCompra"> | string
-  }
-
-  export type ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioRecebeuInput = {
-    where: ListaDeCompraWhereUniqueInput
-    update: XOR<ListaDeCompraUpdateWithoutUsuarioRecebeuInput, ListaDeCompraUncheckedUpdateWithoutUsuarioRecebeuInput>
-    create: XOR<ListaDeCompraCreateWithoutUsuarioRecebeuInput, ListaDeCompraUncheckedCreateWithoutUsuarioRecebeuInput>
-  }
-
-  export type ListaDeCompraUpdateWithWhereUniqueWithoutUsuarioRecebeuInput = {
-    where: ListaDeCompraWhereUniqueInput
-    data: XOR<ListaDeCompraUpdateWithoutUsuarioRecebeuInput, ListaDeCompraUncheckedUpdateWithoutUsuarioRecebeuInput>
-  }
-
-  export type ListaDeCompraUpdateManyWithWhereWithoutUsuarioRecebeuInput = {
-    where: ListaDeCompraScalarWhereInput
-    data: XOR<ListaDeCompraUpdateManyMutationInput, ListaDeCompraUncheckedUpdateManyWithoutUsuarioRecebeuInput>
+    status?: BoolFilter<"ListaDeCompra"> | boolean
   }
 
   export type VeiculoUpsertWithWhereUniqueWithoutUsuarioInput = {
@@ -13186,50 +16620,30 @@ export namespace Prisma {
     usuarioId?: UuidFilter<"Veiculo"> | string
   }
 
-  export type LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput = {
-    where: LembreteWhereUniqueInput
-    update: XOR<LembreteUpdateWithoutUsuarioEnviouInput, LembreteUncheckedUpdateWithoutUsuarioEnviouInput>
-    create: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput>
+  export type TarefaUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: TarefaWhereUniqueInput
+    update: XOR<TarefaUpdateWithoutUsuarioInput, TarefaUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<TarefaCreateWithoutUsuarioInput, TarefaUncheckedCreateWithoutUsuarioInput>
   }
 
-  export type LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput = {
-    where: LembreteWhereUniqueInput
-    data: XOR<LembreteUpdateWithoutUsuarioEnviouInput, LembreteUncheckedUpdateWithoutUsuarioEnviouInput>
+  export type TarefaUpdateWithWhereUniqueWithoutUsuarioInput = {
+    where: TarefaWhereUniqueInput
+    data: XOR<TarefaUpdateWithoutUsuarioInput, TarefaUncheckedUpdateWithoutUsuarioInput>
   }
 
-  export type LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput = {
-    where: LembreteScalarWhereInput
-    data: XOR<LembreteUpdateManyMutationInput, LembreteUncheckedUpdateManyWithoutUsuarioEnviouInput>
+  export type TarefaUpdateManyWithWhereWithoutUsuarioInput = {
+    where: TarefaScalarWhereInput
+    data: XOR<TarefaUpdateManyMutationInput, TarefaUncheckedUpdateManyWithoutUsuarioInput>
   }
 
-  export type LembreteScalarWhereInput = {
-    AND?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
-    OR?: LembreteScalarWhereInput[]
-    NOT?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
-    id?: UuidFilter<"Lembrete"> | string
-    titulo?: StringFilter<"Lembrete"> | string
-    descricao?: StringFilter<"Lembrete"> | string
-    dataHora?: DateTimeFilter<"Lembrete"> | Date | string
-    usuarioIdEnviou?: UuidFilter<"Lembrete"> | string
-    usuarioIdRecebeu?: UuidFilter<"Lembrete"> | string
-    listaDeCompraId?: UuidFilter<"Lembrete"> | string
-    veiculoId?: UuidFilter<"Lembrete"> | string
-  }
-
-  export type LembreteUpsertWithWhereUniqueWithoutUsuarioRecebeuInput = {
-    where: LembreteWhereUniqueInput
-    update: XOR<LembreteUpdateWithoutUsuarioRecebeuInput, LembreteUncheckedUpdateWithoutUsuarioRecebeuInput>
-    create: XOR<LembreteCreateWithoutUsuarioRecebeuInput, LembreteUncheckedCreateWithoutUsuarioRecebeuInput>
-  }
-
-  export type LembreteUpdateWithWhereUniqueWithoutUsuarioRecebeuInput = {
-    where: LembreteWhereUniqueInput
-    data: XOR<LembreteUpdateWithoutUsuarioRecebeuInput, LembreteUncheckedUpdateWithoutUsuarioRecebeuInput>
-  }
-
-  export type LembreteUpdateManyWithWhereWithoutUsuarioRecebeuInput = {
-    where: LembreteScalarWhereInput
-    data: XOR<LembreteUpdateManyMutationInput, LembreteUncheckedUpdateManyWithoutUsuarioRecebeuInput>
+  export type TarefaScalarWhereInput = {
+    AND?: TarefaScalarWhereInput | TarefaScalarWhereInput[]
+    OR?: TarefaScalarWhereInput[]
+    NOT?: TarefaScalarWhereInput | TarefaScalarWhereInput[]
+    id?: UuidFilter<"Tarefa"> | string
+    descricao?: StringFilter<"Tarefa"> | string
+    status?: BoolFilter<"Tarefa"> | boolean
+    usuarioId?: UuidFilter<"Tarefa"> | string
   }
 
   export type familia_usuariosCreateWithoutFamiliaInput = {
@@ -13290,11 +16704,10 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
-    listasRecebidas?: ListaDeCompraCreateNestedManyWithoutUsuarioRecebeuInput
-    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
     lembretesEnviados?: LembreteCreateNestedManyWithoutUsuarioEnviouInput
-    lembretesRecebidos?: LembreteCreateNestedManyWithoutUsuarioRecebeuInput
+    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
+    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateWithoutFamiliasInput = {
@@ -13302,11 +16715,10 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
-    listasRecebidas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioRecebeuInput
-    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
     lembretesEnviados?: LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput
-    lembretesRecebidos?: LembreteUncheckedCreateNestedManyWithoutUsuarioRecebeuInput
+    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
+    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioCreateOrConnectWithoutFamiliasInput = {
@@ -13353,11 +16765,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
-    listasRecebidas?: ListaDeCompraUpdateManyWithoutUsuarioRecebeuNestedInput
-    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
     lembretesEnviados?: LembreteUpdateManyWithoutUsuarioEnviouNestedInput
-    lembretesRecebidos?: LembreteUpdateManyWithoutUsuarioRecebeuNestedInput
+    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
+    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateWithoutFamiliasInput = {
@@ -13365,11 +16776,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
-    listasRecebidas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput
-    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
     lembretesEnviados?: LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
-    lembretesRecebidos?: LembreteUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput
+    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
+    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioCreateWithoutListasEnviadasInput = {
@@ -13378,10 +16788,9 @@ export namespace Prisma {
     email: string
     password: string
     familias?: familia_usuariosCreateNestedManyWithoutUsuarioInput
-    listasRecebidas?: ListaDeCompraCreateNestedManyWithoutUsuarioRecebeuInput
-    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
     lembretesEnviados?: LembreteCreateNestedManyWithoutUsuarioEnviouInput
-    lembretesRecebidos?: LembreteCreateNestedManyWithoutUsuarioRecebeuInput
+    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateWithoutListasEnviadasInput = {
@@ -13390,44 +16799,14 @@ export namespace Prisma {
     email: string
     password: string
     familias?: familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput
-    listasRecebidas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioRecebeuInput
-    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
     lembretesEnviados?: LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput
-    lembretesRecebidos?: LembreteUncheckedCreateNestedManyWithoutUsuarioRecebeuInput
+    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioCreateOrConnectWithoutListasEnviadasInput = {
     where: UsuarioWhereUniqueInput
     create: XOR<UsuarioCreateWithoutListasEnviadasInput, UsuarioUncheckedCreateWithoutListasEnviadasInput>
-  }
-
-  export type UsuarioCreateWithoutListasRecebidasInput = {
-    id?: string
-    name: string
-    email: string
-    password: string
-    familias?: familia_usuariosCreateNestedManyWithoutUsuarioInput
-    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
-    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
-    lembretesEnviados?: LembreteCreateNestedManyWithoutUsuarioEnviouInput
-    lembretesRecebidos?: LembreteCreateNestedManyWithoutUsuarioRecebeuInput
-  }
-
-  export type UsuarioUncheckedCreateWithoutListasRecebidasInput = {
-    id?: string
-    name: string
-    email: string
-    password: string
-    familias?: familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput
-    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
-    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
-    lembretesEnviados?: LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput
-    lembretesRecebidos?: LembreteUncheckedCreateNestedManyWithoutUsuarioRecebeuInput
-  }
-
-  export type UsuarioCreateOrConnectWithoutListasRecebidasInput = {
-    where: UsuarioWhereUniqueInput
-    create: XOR<UsuarioCreateWithoutListasRecebidasInput, UsuarioUncheckedCreateWithoutListasRecebidasInput>
   }
 
   export type ItemListaDeCompraCreateWithoutListaInput = {
@@ -13456,22 +16835,22 @@ export namespace Prisma {
 
   export type LembreteCreateWithoutListaDeCompraInput = {
     id?: string
-    titulo: string
     descricao: string
-    dataHora: Date | string
-    usuarioRecebeu: UsuarioCreateNestedOneWithoutLembretesRecebidosInput
+    dataHora?: Date | string
+    status?: boolean
     usuarioEnviou: UsuarioCreateNestedOneWithoutLembretesEnviadosInput
-    veiculo?: VeiculoCreateNestedOneWithoutLembreteInput
+    veiculo: VeiculoCreateNestedOneWithoutLembreteInput
+    atividades?: AtividadeCreateNestedManyWithoutLembreteInput
   }
 
   export type LembreteUncheckedCreateWithoutListaDeCompraInput = {
     id?: string
-    titulo: string
     descricao: string
-    dataHora: Date | string
+    dataHora?: Date | string
+    status?: boolean
     usuarioIdEnviou: string
-    usuarioIdRecebeu: string
     veiculoId: string
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutLembreteInput
   }
 
   export type LembreteCreateOrConnectWithoutListaDeCompraInput = {
@@ -13481,6 +16860,36 @@ export namespace Prisma {
 
   export type LembreteCreateManyListaDeCompraInputEnvelope = {
     data: LembreteCreateManyListaDeCompraInput | LembreteCreateManyListaDeCompraInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AtividadeCreateWithoutListaInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
+    lembrete?: LembreteCreateNestedOneWithoutAtividadesInput
+    veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
+  }
+
+  export type AtividadeUncheckedCreateWithoutListaInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    tarefaId?: string | null
+    lembreteId?: string | null
+    veiculoId?: string | null
+  }
+
+  export type AtividadeCreateOrConnectWithoutListaInput = {
+    where: AtividadeWhereUniqueInput
+    create: XOR<AtividadeCreateWithoutListaInput, AtividadeUncheckedCreateWithoutListaInput>
+  }
+
+  export type AtividadeCreateManyListaInputEnvelope = {
+    data: AtividadeCreateManyListaInput | AtividadeCreateManyListaInput[]
     skipDuplicates?: boolean
   }
 
@@ -13501,10 +16910,9 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     familias?: familia_usuariosUpdateManyWithoutUsuarioNestedInput
-    listasRecebidas?: ListaDeCompraUpdateManyWithoutUsuarioRecebeuNestedInput
-    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
     lembretesEnviados?: LembreteUpdateManyWithoutUsuarioEnviouNestedInput
-    lembretesRecebidos?: LembreteUpdateManyWithoutUsuarioRecebeuNestedInput
+    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateWithoutListasEnviadasInput = {
@@ -13513,45 +16921,9 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     familias?: familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput
-    listasRecebidas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput
-    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
     lembretesEnviados?: LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
-    lembretesRecebidos?: LembreteUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput
-  }
-
-  export type UsuarioUpsertWithoutListasRecebidasInput = {
-    update: XOR<UsuarioUpdateWithoutListasRecebidasInput, UsuarioUncheckedUpdateWithoutListasRecebidasInput>
-    create: XOR<UsuarioCreateWithoutListasRecebidasInput, UsuarioUncheckedCreateWithoutListasRecebidasInput>
-    where?: UsuarioWhereInput
-  }
-
-  export type UsuarioUpdateToOneWithWhereWithoutListasRecebidasInput = {
-    where?: UsuarioWhereInput
-    data: XOR<UsuarioUpdateWithoutListasRecebidasInput, UsuarioUncheckedUpdateWithoutListasRecebidasInput>
-  }
-
-  export type UsuarioUpdateWithoutListasRecebidasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    familias?: familia_usuariosUpdateManyWithoutUsuarioNestedInput
-    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
-    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
-    lembretesEnviados?: LembreteUpdateManyWithoutUsuarioEnviouNestedInput
-    lembretesRecebidos?: LembreteUpdateManyWithoutUsuarioRecebeuNestedInput
-  }
-
-  export type UsuarioUncheckedUpdateWithoutListasRecebidasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    familias?: familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput
-    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
     veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
-    lembretesEnviados?: LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
-    lembretesRecebidos?: LembreteUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput
+    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type ItemListaDeCompraUpsertWithWhereUniqueWithoutListaInput = {
@@ -13597,22 +16969,52 @@ export namespace Prisma {
     data: XOR<LembreteUpdateManyMutationInput, LembreteUncheckedUpdateManyWithoutListaDeCompraInput>
   }
 
+  export type AtividadeUpsertWithWhereUniqueWithoutListaInput = {
+    where: AtividadeWhereUniqueInput
+    update: XOR<AtividadeUpdateWithoutListaInput, AtividadeUncheckedUpdateWithoutListaInput>
+    create: XOR<AtividadeCreateWithoutListaInput, AtividadeUncheckedCreateWithoutListaInput>
+  }
+
+  export type AtividadeUpdateWithWhereUniqueWithoutListaInput = {
+    where: AtividadeWhereUniqueInput
+    data: XOR<AtividadeUpdateWithoutListaInput, AtividadeUncheckedUpdateWithoutListaInput>
+  }
+
+  export type AtividadeUpdateManyWithWhereWithoutListaInput = {
+    where: AtividadeScalarWhereInput
+    data: XOR<AtividadeUpdateManyMutationInput, AtividadeUncheckedUpdateManyWithoutListaInput>
+  }
+
+  export type AtividadeScalarWhereInput = {
+    AND?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+    OR?: AtividadeScalarWhereInput[]
+    NOT?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+    id?: UuidFilter<"Atividade"> | string
+    tipo?: EnumTipoAtividadeFilter<"Atividade"> | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFilter<"Atividade"> | $Enums.AcaoAtividade
+    datHora?: DateTimeFilter<"Atividade"> | Date | string
+    tarefaId?: UuidNullableFilter<"Atividade"> | string | null
+    listaDeCompraId?: UuidNullableFilter<"Atividade"> | string | null
+    lembreteId?: UuidNullableFilter<"Atividade"> | string | null
+    veiculoId?: UuidNullableFilter<"Atividade"> | string | null
+  }
+
   export type ListaDeCompraCreateWithoutItensInput = {
     id?: string
-    nome: string
-    status?: string
+    tipo: string
+    status?: boolean
     usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
-    usuarioRecebeu: UsuarioCreateNestedOneWithoutListasRecebidasInput
     lembretes?: LembreteCreateNestedManyWithoutListaDeCompraInput
+    atividades?: AtividadeCreateNestedManyWithoutListaInput
   }
 
   export type ListaDeCompraUncheckedCreateWithoutItensInput = {
     id?: string
-    nome: string
-    status?: string
+    tipo: string
     usuarioIdEnviou: string
-    usuarioIdRecebeu: string
+    status?: boolean
     lembretes?: LembreteUncheckedCreateNestedManyWithoutListaDeCompraInput
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutListaInput
   }
 
   export type ListaDeCompraCreateOrConnectWithoutItensInput = {
@@ -13633,20 +17035,20 @@ export namespace Prisma {
 
   export type ListaDeCompraUpdateWithoutItensInput = {
     id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
-    usuarioRecebeu?: UsuarioUpdateOneRequiredWithoutListasRecebidasNestedInput
     lembretes?: LembreteUpdateManyWithoutListaDeCompraNestedInput
+    atividades?: AtividadeUpdateManyWithoutListaNestedInput
   }
 
   export type ListaDeCompraUncheckedUpdateWithoutItensInput = {
     id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     lembretes?: LembreteUncheckedUpdateManyWithoutListaDeCompraNestedInput
+    atividades?: AtividadeUncheckedUpdateManyWithoutListaNestedInput
   }
 
   export type UsuarioCreateWithoutVeiculosInput = {
@@ -13655,10 +17057,9 @@ export namespace Prisma {
     email: string
     password: string
     familias?: familia_usuariosCreateNestedManyWithoutUsuarioInput
-    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
-    listasRecebidas?: ListaDeCompraCreateNestedManyWithoutUsuarioRecebeuInput
     lembretesEnviados?: LembreteCreateNestedManyWithoutUsuarioEnviouInput
-    lembretesRecebidos?: LembreteCreateNestedManyWithoutUsuarioRecebeuInput
+    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
+    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateWithoutVeiculosInput = {
@@ -13667,10 +17068,9 @@ export namespace Prisma {
     email: string
     password: string
     familias?: familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput
-    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
-    listasRecebidas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioRecebeuInput
     lembretesEnviados?: LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput
-    lembretesRecebidos?: LembreteUncheckedCreateNestedManyWithoutUsuarioRecebeuInput
+    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
+    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioCreateOrConnectWithoutVeiculosInput = {
@@ -13678,16 +17078,48 @@ export namespace Prisma {
     create: XOR<UsuarioCreateWithoutVeiculosInput, UsuarioUncheckedCreateWithoutVeiculosInput>
   }
 
-  export type RegistroDeManutencaoCreateWithoutVeiculoInput = {
+  export type LembreteCreateWithoutVeiculoInput = {
     id?: string
     descricao: string
+    dataHora?: Date | string
+    status?: boolean
+    listaDeCompra: ListaDeCompraCreateNestedOneWithoutLembretesInput
+    usuarioEnviou: UsuarioCreateNestedOneWithoutLembretesEnviadosInput
+    atividades?: AtividadeCreateNestedManyWithoutLembreteInput
+  }
+
+  export type LembreteUncheckedCreateWithoutVeiculoInput = {
+    id?: string
+    descricao: string
+    dataHora?: Date | string
+    status?: boolean
+    usuarioIdEnviou: string
+    listaDeCompraId: string
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutLembreteInput
+  }
+
+  export type LembreteCreateOrConnectWithoutVeiculoInput = {
+    where: LembreteWhereUniqueInput
+    create: XOR<LembreteCreateWithoutVeiculoInput, LembreteUncheckedCreateWithoutVeiculoInput>
+  }
+
+  export type LembreteCreateManyVeiculoInputEnvelope = {
+    data: LembreteCreateManyVeiculoInput | LembreteCreateManyVeiculoInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type RegistroDeManutencaoCreateWithoutVeiculoInput = {
+    id?: string
+    descricao?: string | null
     data: Date | string
+    valor?: number | null
   }
 
   export type RegistroDeManutencaoUncheckedCreateWithoutVeiculoInput = {
     id?: string
-    descricao: string
+    descricao?: string | null
     data: Date | string
+    valor?: number | null
   }
 
   export type RegistroDeManutencaoCreateOrConnectWithoutVeiculoInput = {
@@ -13700,33 +17132,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type LembreteCreateWithoutVeiculoInput = {
+  export type AtividadeCreateWithoutVeiculoInput = {
     id?: string
-    titulo: string
-    descricao: string
-    dataHora: Date | string
-    usuarioRecebeu: UsuarioCreateNestedOneWithoutLembretesRecebidosInput
-    usuarioEnviou: UsuarioCreateNestedOneWithoutLembretesEnviadosInput
-    listaDeCompra: ListaDeCompraCreateNestedOneWithoutLembretesInput
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
+    lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
+    lembrete?: LembreteCreateNestedOneWithoutAtividadesInput
   }
 
-  export type LembreteUncheckedCreateWithoutVeiculoInput = {
+  export type AtividadeUncheckedCreateWithoutVeiculoInput = {
     id?: string
-    titulo: string
-    descricao: string
-    dataHora: Date | string
-    usuarioIdEnviou: string
-    usuarioIdRecebeu: string
-    listaDeCompraId: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    tarefaId?: string | null
+    listaDeCompraId?: string | null
+    lembreteId?: string | null
   }
 
-  export type LembreteCreateOrConnectWithoutVeiculoInput = {
-    where: LembreteWhereUniqueInput
-    create: XOR<LembreteCreateWithoutVeiculoInput, LembreteUncheckedCreateWithoutVeiculoInput>
+  export type AtividadeCreateOrConnectWithoutVeiculoInput = {
+    where: AtividadeWhereUniqueInput
+    create: XOR<AtividadeCreateWithoutVeiculoInput, AtividadeUncheckedCreateWithoutVeiculoInput>
   }
 
-  export type LembreteCreateManyVeiculoInputEnvelope = {
-    data: LembreteCreateManyVeiculoInput | LembreteCreateManyVeiculoInput[]
+  export type AtividadeCreateManyVeiculoInputEnvelope = {
+    data: AtividadeCreateManyVeiculoInput | AtividadeCreateManyVeiculoInput[]
     skipDuplicates?: boolean
   }
 
@@ -13747,10 +17179,9 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     familias?: familia_usuariosUpdateManyWithoutUsuarioNestedInput
-    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
-    listasRecebidas?: ListaDeCompraUpdateManyWithoutUsuarioRecebeuNestedInput
     lembretesEnviados?: LembreteUpdateManyWithoutUsuarioEnviouNestedInput
-    lembretesRecebidos?: LembreteUpdateManyWithoutUsuarioRecebeuNestedInput
+    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
+    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateWithoutVeiculosInput = {
@@ -13759,10 +17190,25 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     familias?: familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput
-    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
-    listasRecebidas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput
     lembretesEnviados?: LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
-    lembretesRecebidos?: LembreteUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput
+    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
+    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type LembreteUpsertWithWhereUniqueWithoutVeiculoInput = {
+    where: LembreteWhereUniqueInput
+    update: XOR<LembreteUpdateWithoutVeiculoInput, LembreteUncheckedUpdateWithoutVeiculoInput>
+    create: XOR<LembreteCreateWithoutVeiculoInput, LembreteUncheckedCreateWithoutVeiculoInput>
+  }
+
+  export type LembreteUpdateWithWhereUniqueWithoutVeiculoInput = {
+    where: LembreteWhereUniqueInput
+    data: XOR<LembreteUpdateWithoutVeiculoInput, LembreteUncheckedUpdateWithoutVeiculoInput>
+  }
+
+  export type LembreteUpdateManyWithWhereWithoutVeiculoInput = {
+    where: LembreteScalarWhereInput
+    data: XOR<LembreteUpdateManyMutationInput, LembreteUncheckedUpdateManyWithoutVeiculoInput>
   }
 
   export type RegistroDeManutencaoUpsertWithWhereUniqueWithoutVeiculoInput = {
@@ -13786,25 +17232,26 @@ export namespace Prisma {
     OR?: RegistroDeManutencaoScalarWhereInput[]
     NOT?: RegistroDeManutencaoScalarWhereInput | RegistroDeManutencaoScalarWhereInput[]
     id?: UuidFilter<"RegistroDeManutencao"> | string
-    descricao?: StringFilter<"RegistroDeManutencao"> | string
+    descricao?: StringNullableFilter<"RegistroDeManutencao"> | string | null
     data?: DateTimeFilter<"RegistroDeManutencao"> | Date | string
+    valor?: FloatNullableFilter<"RegistroDeManutencao"> | number | null
     veiculoId?: UuidFilter<"RegistroDeManutencao"> | string
   }
 
-  export type LembreteUpsertWithWhereUniqueWithoutVeiculoInput = {
-    where: LembreteWhereUniqueInput
-    update: XOR<LembreteUpdateWithoutVeiculoInput, LembreteUncheckedUpdateWithoutVeiculoInput>
-    create: XOR<LembreteCreateWithoutVeiculoInput, LembreteUncheckedCreateWithoutVeiculoInput>
+  export type AtividadeUpsertWithWhereUniqueWithoutVeiculoInput = {
+    where: AtividadeWhereUniqueInput
+    update: XOR<AtividadeUpdateWithoutVeiculoInput, AtividadeUncheckedUpdateWithoutVeiculoInput>
+    create: XOR<AtividadeCreateWithoutVeiculoInput, AtividadeUncheckedCreateWithoutVeiculoInput>
   }
 
-  export type LembreteUpdateWithWhereUniqueWithoutVeiculoInput = {
-    where: LembreteWhereUniqueInput
-    data: XOR<LembreteUpdateWithoutVeiculoInput, LembreteUncheckedUpdateWithoutVeiculoInput>
+  export type AtividadeUpdateWithWhereUniqueWithoutVeiculoInput = {
+    where: AtividadeWhereUniqueInput
+    data: XOR<AtividadeUpdateWithoutVeiculoInput, AtividadeUncheckedUpdateWithoutVeiculoInput>
   }
 
-  export type LembreteUpdateManyWithWhereWithoutVeiculoInput = {
-    where: LembreteScalarWhereInput
-    data: XOR<LembreteUpdateManyMutationInput, LembreteUncheckedUpdateManyWithoutVeiculoInput>
+  export type AtividadeUpdateManyWithWhereWithoutVeiculoInput = {
+    where: AtividadeScalarWhereInput
+    data: XOR<AtividadeUpdateManyMutationInput, AtividadeUncheckedUpdateManyWithoutVeiculoInput>
   }
 
   export type VeiculoCreateWithoutManutencoesInput = {
@@ -13815,6 +17262,7 @@ export namespace Prisma {
     placa: string
     usuario: UsuarioCreateNestedOneWithoutVeiculosInput
     Lembrete?: LembreteCreateNestedManyWithoutVeiculoInput
+    atividades?: AtividadeCreateNestedManyWithoutVeiculoInput
   }
 
   export type VeiculoUncheckedCreateWithoutManutencoesInput = {
@@ -13825,6 +17273,7 @@ export namespace Prisma {
     placa: string
     usuarioId: string
     Lembrete?: LembreteUncheckedCreateNestedManyWithoutVeiculoInput
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutVeiculoInput
   }
 
   export type VeiculoCreateOrConnectWithoutManutencoesInput = {
@@ -13851,6 +17300,7 @@ export namespace Prisma {
     placa?: StringFieldUpdateOperationsInput | string
     usuario?: UsuarioUpdateOneRequiredWithoutVeiculosNestedInput
     Lembrete?: LembreteUpdateManyWithoutVeiculoNestedInput
+    atividades?: AtividadeUpdateManyWithoutVeiculoNestedInput
   }
 
   export type VeiculoUncheckedUpdateWithoutManutencoesInput = {
@@ -13861,35 +17311,30 @@ export namespace Prisma {
     placa?: StringFieldUpdateOperationsInput | string
     usuarioId?: StringFieldUpdateOperationsInput | string
     Lembrete?: LembreteUncheckedUpdateManyWithoutVeiculoNestedInput
+    atividades?: AtividadeUncheckedUpdateManyWithoutVeiculoNestedInput
   }
 
-  export type UsuarioCreateWithoutLembretesRecebidosInput = {
+  export type ListaDeCompraCreateWithoutLembretesInput = {
     id?: string
-    name: string
-    email: string
-    password: string
-    familias?: familia_usuariosCreateNestedManyWithoutUsuarioInput
-    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
-    listasRecebidas?: ListaDeCompraCreateNestedManyWithoutUsuarioRecebeuInput
-    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
-    lembretesEnviados?: LembreteCreateNestedManyWithoutUsuarioEnviouInput
+    tipo: string
+    status?: boolean
+    usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
+    itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
+    atividades?: AtividadeCreateNestedManyWithoutListaInput
   }
 
-  export type UsuarioUncheckedCreateWithoutLembretesRecebidosInput = {
+  export type ListaDeCompraUncheckedCreateWithoutLembretesInput = {
     id?: string
-    name: string
-    email: string
-    password: string
-    familias?: familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput
-    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
-    listasRecebidas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioRecebeuInput
-    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
-    lembretesEnviados?: LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput
+    tipo: string
+    usuarioIdEnviou: string
+    status?: boolean
+    itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutListaInput
   }
 
-  export type UsuarioCreateOrConnectWithoutLembretesRecebidosInput = {
-    where: UsuarioWhereUniqueInput
-    create: XOR<UsuarioCreateWithoutLembretesRecebidosInput, UsuarioUncheckedCreateWithoutLembretesRecebidosInput>
+  export type ListaDeCompraCreateOrConnectWithoutLembretesInput = {
+    where: ListaDeCompraWhereUniqueInput
+    create: XOR<ListaDeCompraCreateWithoutLembretesInput, ListaDeCompraUncheckedCreateWithoutLembretesInput>
   }
 
   export type UsuarioCreateWithoutLembretesEnviadosInput = {
@@ -13899,9 +17344,8 @@ export namespace Prisma {
     password: string
     familias?: familia_usuariosCreateNestedManyWithoutUsuarioInput
     listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
-    listasRecebidas?: ListaDeCompraCreateNestedManyWithoutUsuarioRecebeuInput
     veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
-    lembretesRecebidos?: LembreteCreateNestedManyWithoutUsuarioRecebeuInput
+    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateWithoutLembretesEnviadosInput = {
@@ -13911,37 +17355,13 @@ export namespace Prisma {
     password: string
     familias?: familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput
     listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
-    listasRecebidas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioRecebeuInput
     veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
-    lembretesRecebidos?: LembreteUncheckedCreateNestedManyWithoutUsuarioRecebeuInput
+    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioCreateOrConnectWithoutLembretesEnviadosInput = {
     where: UsuarioWhereUniqueInput
     create: XOR<UsuarioCreateWithoutLembretesEnviadosInput, UsuarioUncheckedCreateWithoutLembretesEnviadosInput>
-  }
-
-  export type ListaDeCompraCreateWithoutLembretesInput = {
-    id?: string
-    nome: string
-    status?: string
-    usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
-    usuarioRecebeu: UsuarioCreateNestedOneWithoutListasRecebidasInput
-    itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
-  }
-
-  export type ListaDeCompraUncheckedCreateWithoutLembretesInput = {
-    id?: string
-    nome: string
-    status?: string
-    usuarioIdEnviou: string
-    usuarioIdRecebeu: string
-    itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
-  }
-
-  export type ListaDeCompraCreateOrConnectWithoutLembretesInput = {
-    where: ListaDeCompraWhereUniqueInput
-    create: XOR<ListaDeCompraCreateWithoutLembretesInput, ListaDeCompraUncheckedCreateWithoutLembretesInput>
   }
 
   export type VeiculoCreateWithoutLembreteInput = {
@@ -13952,6 +17372,7 @@ export namespace Prisma {
     placa: string
     usuario: UsuarioCreateNestedOneWithoutVeiculosInput
     manutencoes?: RegistroDeManutencaoCreateNestedManyWithoutVeiculoInput
+    atividades?: AtividadeCreateNestedManyWithoutVeiculoInput
   }
 
   export type VeiculoUncheckedCreateWithoutLembreteInput = {
@@ -13962,6 +17383,7 @@ export namespace Prisma {
     placa: string
     usuarioId: string
     manutencoes?: RegistroDeManutencaoUncheckedCreateNestedManyWithoutVeiculoInput
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutVeiculoInput
   }
 
   export type VeiculoCreateOrConnectWithoutLembreteInput = {
@@ -13969,39 +17391,63 @@ export namespace Prisma {
     create: XOR<VeiculoCreateWithoutLembreteInput, VeiculoUncheckedCreateWithoutLembreteInput>
   }
 
-  export type UsuarioUpsertWithoutLembretesRecebidosInput = {
-    update: XOR<UsuarioUpdateWithoutLembretesRecebidosInput, UsuarioUncheckedUpdateWithoutLembretesRecebidosInput>
-    create: XOR<UsuarioCreateWithoutLembretesRecebidosInput, UsuarioUncheckedCreateWithoutLembretesRecebidosInput>
-    where?: UsuarioWhereInput
+  export type AtividadeCreateWithoutLembreteInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
+    lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
+    veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
   }
 
-  export type UsuarioUpdateToOneWithWhereWithoutLembretesRecebidosInput = {
-    where?: UsuarioWhereInput
-    data: XOR<UsuarioUpdateWithoutLembretesRecebidosInput, UsuarioUncheckedUpdateWithoutLembretesRecebidosInput>
+  export type AtividadeUncheckedCreateWithoutLembreteInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    tarefaId?: string | null
+    listaDeCompraId?: string | null
+    veiculoId?: string | null
   }
 
-  export type UsuarioUpdateWithoutLembretesRecebidosInput = {
+  export type AtividadeCreateOrConnectWithoutLembreteInput = {
+    where: AtividadeWhereUniqueInput
+    create: XOR<AtividadeCreateWithoutLembreteInput, AtividadeUncheckedCreateWithoutLembreteInput>
+  }
+
+  export type AtividadeCreateManyLembreteInputEnvelope = {
+    data: AtividadeCreateManyLembreteInput | AtividadeCreateManyLembreteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ListaDeCompraUpsertWithoutLembretesInput = {
+    update: XOR<ListaDeCompraUpdateWithoutLembretesInput, ListaDeCompraUncheckedUpdateWithoutLembretesInput>
+    create: XOR<ListaDeCompraCreateWithoutLembretesInput, ListaDeCompraUncheckedCreateWithoutLembretesInput>
+    where?: ListaDeCompraWhereInput
+  }
+
+  export type ListaDeCompraUpdateToOneWithWhereWithoutLembretesInput = {
+    where?: ListaDeCompraWhereInput
+    data: XOR<ListaDeCompraUpdateWithoutLembretesInput, ListaDeCompraUncheckedUpdateWithoutLembretesInput>
+  }
+
+  export type ListaDeCompraUpdateWithoutLembretesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    familias?: familia_usuariosUpdateManyWithoutUsuarioNestedInput
-    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
-    listasRecebidas?: ListaDeCompraUpdateManyWithoutUsuarioRecebeuNestedInput
-    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
-    lembretesEnviados?: LembreteUpdateManyWithoutUsuarioEnviouNestedInput
+    tipo?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
+    itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
+    atividades?: AtividadeUpdateManyWithoutListaNestedInput
   }
 
-  export type UsuarioUncheckedUpdateWithoutLembretesRecebidosInput = {
+  export type ListaDeCompraUncheckedUpdateWithoutLembretesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    familias?: familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput
-    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
-    listasRecebidas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput
-    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
-    lembretesEnviados?: LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
+    tipo?: StringFieldUpdateOperationsInput | string
+    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
+    atividades?: AtividadeUncheckedUpdateManyWithoutListaNestedInput
   }
 
   export type UsuarioUpsertWithoutLembretesEnviadosInput = {
@@ -14022,9 +17468,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     familias?: familia_usuariosUpdateManyWithoutUsuarioNestedInput
     listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
-    listasRecebidas?: ListaDeCompraUpdateManyWithoutUsuarioRecebeuNestedInput
     veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
-    lembretesRecebidos?: LembreteUpdateManyWithoutUsuarioRecebeuNestedInput
+    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateWithoutLembretesEnviadosInput = {
@@ -14034,38 +17479,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     familias?: familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput
     listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
-    listasRecebidas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput
     veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
-    lembretesRecebidos?: LembreteUncheckedUpdateManyWithoutUsuarioRecebeuNestedInput
-  }
-
-  export type ListaDeCompraUpsertWithoutLembretesInput = {
-    update: XOR<ListaDeCompraUpdateWithoutLembretesInput, ListaDeCompraUncheckedUpdateWithoutLembretesInput>
-    create: XOR<ListaDeCompraCreateWithoutLembretesInput, ListaDeCompraUncheckedCreateWithoutLembretesInput>
-    where?: ListaDeCompraWhereInput
-  }
-
-  export type ListaDeCompraUpdateToOneWithWhereWithoutLembretesInput = {
-    where?: ListaDeCompraWhereInput
-    data: XOR<ListaDeCompraUpdateWithoutLembretesInput, ListaDeCompraUncheckedUpdateWithoutLembretesInput>
-  }
-
-  export type ListaDeCompraUpdateWithoutLembretesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
-    usuarioRecebeu?: UsuarioUpdateOneRequiredWithoutListasRecebidasNestedInput
-    itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
-  }
-
-  export type ListaDeCompraUncheckedUpdateWithoutLembretesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
-    itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
+    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type VeiculoUpsertWithoutLembreteInput = {
@@ -14087,6 +17502,7 @@ export namespace Prisma {
     placa?: StringFieldUpdateOperationsInput | string
     usuario?: UsuarioUpdateOneRequiredWithoutVeiculosNestedInput
     manutencoes?: RegistroDeManutencaoUpdateManyWithoutVeiculoNestedInput
+    atividades?: AtividadeUpdateManyWithoutVeiculoNestedInput
   }
 
   export type VeiculoUncheckedUpdateWithoutLembreteInput = {
@@ -14097,6 +17513,341 @@ export namespace Prisma {
     placa?: StringFieldUpdateOperationsInput | string
     usuarioId?: StringFieldUpdateOperationsInput | string
     manutencoes?: RegistroDeManutencaoUncheckedUpdateManyWithoutVeiculoNestedInput
+    atividades?: AtividadeUncheckedUpdateManyWithoutVeiculoNestedInput
+  }
+
+  export type AtividadeUpsertWithWhereUniqueWithoutLembreteInput = {
+    where: AtividadeWhereUniqueInput
+    update: XOR<AtividadeUpdateWithoutLembreteInput, AtividadeUncheckedUpdateWithoutLembreteInput>
+    create: XOR<AtividadeCreateWithoutLembreteInput, AtividadeUncheckedCreateWithoutLembreteInput>
+  }
+
+  export type AtividadeUpdateWithWhereUniqueWithoutLembreteInput = {
+    where: AtividadeWhereUniqueInput
+    data: XOR<AtividadeUpdateWithoutLembreteInput, AtividadeUncheckedUpdateWithoutLembreteInput>
+  }
+
+  export type AtividadeUpdateManyWithWhereWithoutLembreteInput = {
+    where: AtividadeScalarWhereInput
+    data: XOR<AtividadeUpdateManyMutationInput, AtividadeUncheckedUpdateManyWithoutLembreteInput>
+  }
+
+  export type UsuarioCreateWithoutTarefasInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    familias?: familia_usuariosCreateNestedManyWithoutUsuarioInput
+    lembretesEnviados?: LembreteCreateNestedManyWithoutUsuarioEnviouInput
+    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
+    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+  }
+
+  export type UsuarioUncheckedCreateWithoutTarefasInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    familias?: familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput
+    lembretesEnviados?: LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput
+    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
+    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+  }
+
+  export type UsuarioCreateOrConnectWithoutTarefasInput = {
+    where: UsuarioWhereUniqueInput
+    create: XOR<UsuarioCreateWithoutTarefasInput, UsuarioUncheckedCreateWithoutTarefasInput>
+  }
+
+  export type AtividadeCreateWithoutTarefaInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
+    lembrete?: LembreteCreateNestedOneWithoutAtividadesInput
+    veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
+  }
+
+  export type AtividadeUncheckedCreateWithoutTarefaInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    listaDeCompraId?: string | null
+    lembreteId?: string | null
+    veiculoId?: string | null
+  }
+
+  export type AtividadeCreateOrConnectWithoutTarefaInput = {
+    where: AtividadeWhereUniqueInput
+    create: XOR<AtividadeCreateWithoutTarefaInput, AtividadeUncheckedCreateWithoutTarefaInput>
+  }
+
+  export type AtividadeCreateManyTarefaInputEnvelope = {
+    data: AtividadeCreateManyTarefaInput | AtividadeCreateManyTarefaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UsuarioUpsertWithoutTarefasInput = {
+    update: XOR<UsuarioUpdateWithoutTarefasInput, UsuarioUncheckedUpdateWithoutTarefasInput>
+    create: XOR<UsuarioCreateWithoutTarefasInput, UsuarioUncheckedCreateWithoutTarefasInput>
+    where?: UsuarioWhereInput
+  }
+
+  export type UsuarioUpdateToOneWithWhereWithoutTarefasInput = {
+    where?: UsuarioWhereInput
+    data: XOR<UsuarioUpdateWithoutTarefasInput, UsuarioUncheckedUpdateWithoutTarefasInput>
+  }
+
+  export type UsuarioUpdateWithoutTarefasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    familias?: familia_usuariosUpdateManyWithoutUsuarioNestedInput
+    lembretesEnviados?: LembreteUpdateManyWithoutUsuarioEnviouNestedInput
+    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
+    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type UsuarioUncheckedUpdateWithoutTarefasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    familias?: familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput
+    lembretesEnviados?: LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
+    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
+    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type AtividadeUpsertWithWhereUniqueWithoutTarefaInput = {
+    where: AtividadeWhereUniqueInput
+    update: XOR<AtividadeUpdateWithoutTarefaInput, AtividadeUncheckedUpdateWithoutTarefaInput>
+    create: XOR<AtividadeCreateWithoutTarefaInput, AtividadeUncheckedCreateWithoutTarefaInput>
+  }
+
+  export type AtividadeUpdateWithWhereUniqueWithoutTarefaInput = {
+    where: AtividadeWhereUniqueInput
+    data: XOR<AtividadeUpdateWithoutTarefaInput, AtividadeUncheckedUpdateWithoutTarefaInput>
+  }
+
+  export type AtividadeUpdateManyWithWhereWithoutTarefaInput = {
+    where: AtividadeScalarWhereInput
+    data: XOR<AtividadeUpdateManyMutationInput, AtividadeUncheckedUpdateManyWithoutTarefaInput>
+  }
+
+  export type TarefaCreateWithoutAtividadesInput = {
+    id?: string
+    descricao: string
+    status?: boolean
+    usuario: UsuarioCreateNestedOneWithoutTarefasInput
+  }
+
+  export type TarefaUncheckedCreateWithoutAtividadesInput = {
+    id?: string
+    descricao: string
+    status?: boolean
+    usuarioId: string
+  }
+
+  export type TarefaCreateOrConnectWithoutAtividadesInput = {
+    where: TarefaWhereUniqueInput
+    create: XOR<TarefaCreateWithoutAtividadesInput, TarefaUncheckedCreateWithoutAtividadesInput>
+  }
+
+  export type ListaDeCompraCreateWithoutAtividadesInput = {
+    id?: string
+    tipo: string
+    status?: boolean
+    usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
+    itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
+    lembretes?: LembreteCreateNestedManyWithoutListaDeCompraInput
+  }
+
+  export type ListaDeCompraUncheckedCreateWithoutAtividadesInput = {
+    id?: string
+    tipo: string
+    usuarioIdEnviou: string
+    status?: boolean
+    itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
+    lembretes?: LembreteUncheckedCreateNestedManyWithoutListaDeCompraInput
+  }
+
+  export type ListaDeCompraCreateOrConnectWithoutAtividadesInput = {
+    where: ListaDeCompraWhereUniqueInput
+    create: XOR<ListaDeCompraCreateWithoutAtividadesInput, ListaDeCompraUncheckedCreateWithoutAtividadesInput>
+  }
+
+  export type LembreteCreateWithoutAtividadesInput = {
+    id?: string
+    descricao: string
+    dataHora?: Date | string
+    status?: boolean
+    listaDeCompra: ListaDeCompraCreateNestedOneWithoutLembretesInput
+    usuarioEnviou: UsuarioCreateNestedOneWithoutLembretesEnviadosInput
+    veiculo: VeiculoCreateNestedOneWithoutLembreteInput
+  }
+
+  export type LembreteUncheckedCreateWithoutAtividadesInput = {
+    id?: string
+    descricao: string
+    dataHora?: Date | string
+    status?: boolean
+    usuarioIdEnviou: string
+    listaDeCompraId: string
+    veiculoId: string
+  }
+
+  export type LembreteCreateOrConnectWithoutAtividadesInput = {
+    where: LembreteWhereUniqueInput
+    create: XOR<LembreteCreateWithoutAtividadesInput, LembreteUncheckedCreateWithoutAtividadesInput>
+  }
+
+  export type VeiculoCreateWithoutAtividadesInput = {
+    id?: string
+    marca: string
+    modelo: string
+    ano: number
+    placa: string
+    usuario: UsuarioCreateNestedOneWithoutVeiculosInput
+    Lembrete?: LembreteCreateNestedManyWithoutVeiculoInput
+    manutencoes?: RegistroDeManutencaoCreateNestedManyWithoutVeiculoInput
+  }
+
+  export type VeiculoUncheckedCreateWithoutAtividadesInput = {
+    id?: string
+    marca: string
+    modelo: string
+    ano: number
+    placa: string
+    usuarioId: string
+    Lembrete?: LembreteUncheckedCreateNestedManyWithoutVeiculoInput
+    manutencoes?: RegistroDeManutencaoUncheckedCreateNestedManyWithoutVeiculoInput
+  }
+
+  export type VeiculoCreateOrConnectWithoutAtividadesInput = {
+    where: VeiculoWhereUniqueInput
+    create: XOR<VeiculoCreateWithoutAtividadesInput, VeiculoUncheckedCreateWithoutAtividadesInput>
+  }
+
+  export type TarefaUpsertWithoutAtividadesInput = {
+    update: XOR<TarefaUpdateWithoutAtividadesInput, TarefaUncheckedUpdateWithoutAtividadesInput>
+    create: XOR<TarefaCreateWithoutAtividadesInput, TarefaUncheckedCreateWithoutAtividadesInput>
+    where?: TarefaWhereInput
+  }
+
+  export type TarefaUpdateToOneWithWhereWithoutAtividadesInput = {
+    where?: TarefaWhereInput
+    data: XOR<TarefaUpdateWithoutAtividadesInput, TarefaUncheckedUpdateWithoutAtividadesInput>
+  }
+
+  export type TarefaUpdateWithoutAtividadesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuario?: UsuarioUpdateOneRequiredWithoutTarefasNestedInput
+  }
+
+  export type TarefaUncheckedUpdateWithoutAtividadesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuarioId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ListaDeCompraUpsertWithoutAtividadesInput = {
+    update: XOR<ListaDeCompraUpdateWithoutAtividadesInput, ListaDeCompraUncheckedUpdateWithoutAtividadesInput>
+    create: XOR<ListaDeCompraCreateWithoutAtividadesInput, ListaDeCompraUncheckedCreateWithoutAtividadesInput>
+    where?: ListaDeCompraWhereInput
+  }
+
+  export type ListaDeCompraUpdateToOneWithWhereWithoutAtividadesInput = {
+    where?: ListaDeCompraWhereInput
+    data: XOR<ListaDeCompraUpdateWithoutAtividadesInput, ListaDeCompraUncheckedUpdateWithoutAtividadesInput>
+  }
+
+  export type ListaDeCompraUpdateWithoutAtividadesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
+    itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
+    lembretes?: LembreteUpdateManyWithoutListaDeCompraNestedInput
+  }
+
+  export type ListaDeCompraUncheckedUpdateWithoutAtividadesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
+    lembretes?: LembreteUncheckedUpdateManyWithoutListaDeCompraNestedInput
+  }
+
+  export type LembreteUpsertWithoutAtividadesInput = {
+    update: XOR<LembreteUpdateWithoutAtividadesInput, LembreteUncheckedUpdateWithoutAtividadesInput>
+    create: XOR<LembreteCreateWithoutAtividadesInput, LembreteUncheckedCreateWithoutAtividadesInput>
+    where?: LembreteWhereInput
+  }
+
+  export type LembreteUpdateToOneWithWhereWithoutAtividadesInput = {
+    where?: LembreteWhereInput
+    data: XOR<LembreteUpdateWithoutAtividadesInput, LembreteUncheckedUpdateWithoutAtividadesInput>
+  }
+
+  export type LembreteUpdateWithoutAtividadesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    listaDeCompra?: ListaDeCompraUpdateOneRequiredWithoutLembretesNestedInput
+    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutLembretesEnviadosNestedInput
+    veiculo?: VeiculoUpdateOneRequiredWithoutLembreteNestedInput
+  }
+
+  export type LembreteUncheckedUpdateWithoutAtividadesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
+    listaDeCompraId?: StringFieldUpdateOperationsInput | string
+    veiculoId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type VeiculoUpsertWithoutAtividadesInput = {
+    update: XOR<VeiculoUpdateWithoutAtividadesInput, VeiculoUncheckedUpdateWithoutAtividadesInput>
+    create: XOR<VeiculoCreateWithoutAtividadesInput, VeiculoUncheckedCreateWithoutAtividadesInput>
+    where?: VeiculoWhereInput
+  }
+
+  export type VeiculoUpdateToOneWithWhereWithoutAtividadesInput = {
+    where?: VeiculoWhereInput
+    data: XOR<VeiculoUpdateWithoutAtividadesInput, VeiculoUncheckedUpdateWithoutAtividadesInput>
+  }
+
+  export type VeiculoUpdateWithoutAtividadesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    marca?: StringFieldUpdateOperationsInput | string
+    modelo?: StringFieldUpdateOperationsInput | string
+    ano?: IntFieldUpdateOperationsInput | number
+    placa?: StringFieldUpdateOperationsInput | string
+    usuario?: UsuarioUpdateOneRequiredWithoutVeiculosNestedInput
+    Lembrete?: LembreteUpdateManyWithoutVeiculoNestedInput
+    manutencoes?: RegistroDeManutencaoUpdateManyWithoutVeiculoNestedInput
+  }
+
+  export type VeiculoUncheckedUpdateWithoutAtividadesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    marca?: StringFieldUpdateOperationsInput | string
+    modelo?: StringFieldUpdateOperationsInput | string
+    ano?: IntFieldUpdateOperationsInput | number
+    placa?: StringFieldUpdateOperationsInput | string
+    usuarioId?: StringFieldUpdateOperationsInput | string
+    Lembrete?: LembreteUncheckedUpdateManyWithoutVeiculoNestedInput
+    manutencoes?: RegistroDeManutencaoUncheckedUpdateManyWithoutVeiculoNestedInput
   }
 
   export type familia_usuariosCreateManyUsuarioInput = {
@@ -14104,18 +17855,19 @@ export namespace Prisma {
     rotulo?: $Enums.Rotulo
   }
 
-  export type ListaDeCompraCreateManyUsuarioEnviouInput = {
+  export type LembreteCreateManyUsuarioEnviouInput = {
     id?: string
-    nome: string
-    status?: string
-    usuarioIdRecebeu: string
+    descricao: string
+    dataHora?: Date | string
+    status?: boolean
+    listaDeCompraId: string
+    veiculoId: string
   }
 
-  export type ListaDeCompraCreateManyUsuarioRecebeuInput = {
+  export type ListaDeCompraCreateManyUsuarioEnviouInput = {
     id?: string
-    nome: string
-    status?: string
-    usuarioIdEnviou: string
+    tipo: string
+    status?: boolean
   }
 
   export type VeiculoCreateManyUsuarioInput = {
@@ -14126,24 +17878,10 @@ export namespace Prisma {
     placa: string
   }
 
-  export type LembreteCreateManyUsuarioEnviouInput = {
+  export type TarefaCreateManyUsuarioInput = {
     id?: string
-    titulo: string
     descricao: string
-    dataHora: Date | string
-    usuarioIdRecebeu: string
-    listaDeCompraId: string
-    veiculoId: string
-  }
-
-  export type LembreteCreateManyUsuarioRecebeuInput = {
-    id?: string
-    titulo: string
-    descricao: string
-    dataHora: Date | string
-    usuarioIdEnviou: string
-    listaDeCompraId: string
-    veiculoId: string
+    status?: boolean
   }
 
   export type familia_usuariosUpdateWithoutUsuarioInput = {
@@ -14161,54 +17899,57 @@ export namespace Prisma {
     rotulo?: EnumRotuloFieldUpdateOperationsInput | $Enums.Rotulo
   }
 
+  export type LembreteUpdateWithoutUsuarioEnviouInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    listaDeCompra?: ListaDeCompraUpdateOneRequiredWithoutLembretesNestedInput
+    veiculo?: VeiculoUpdateOneRequiredWithoutLembreteNestedInput
+    atividades?: AtividadeUpdateManyWithoutLembreteNestedInput
+  }
+
+  export type LembreteUncheckedUpdateWithoutUsuarioEnviouInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    listaDeCompraId?: StringFieldUpdateOperationsInput | string
+    veiculoId?: StringFieldUpdateOperationsInput | string
+    atividades?: AtividadeUncheckedUpdateManyWithoutLembreteNestedInput
+  }
+
+  export type LembreteUncheckedUpdateManyWithoutUsuarioEnviouInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    listaDeCompraId?: StringFieldUpdateOperationsInput | string
+    veiculoId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type ListaDeCompraUpdateWithoutUsuarioEnviouInput = {
     id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    usuarioRecebeu?: UsuarioUpdateOneRequiredWithoutListasRecebidasNestedInput
+    tipo?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
     lembretes?: LembreteUpdateManyWithoutListaDeCompraNestedInput
+    atividades?: AtividadeUpdateManyWithoutListaNestedInput
   }
 
   export type ListaDeCompraUncheckedUpdateWithoutUsuarioEnviouInput = {
     id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
     lembretes?: LembreteUncheckedUpdateManyWithoutListaDeCompraNestedInput
+    atividades?: AtividadeUncheckedUpdateManyWithoutListaNestedInput
   }
 
   export type ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouInput = {
     id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type ListaDeCompraUpdateWithoutUsuarioRecebeuInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
-    itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
-    lembretes?: LembreteUpdateManyWithoutListaDeCompraNestedInput
-  }
-
-  export type ListaDeCompraUncheckedUpdateWithoutUsuarioRecebeuInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
-    lembretes?: LembreteUncheckedUpdateManyWithoutListaDeCompraNestedInput
-  }
-
-  export type ListaDeCompraUncheckedUpdateManyWithoutUsuarioRecebeuInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
+    tipo?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type VeiculoUpdateWithoutUsuarioInput = {
@@ -14217,8 +17958,9 @@ export namespace Prisma {
     modelo?: StringFieldUpdateOperationsInput | string
     ano?: IntFieldUpdateOperationsInput | number
     placa?: StringFieldUpdateOperationsInput | string
-    manutencoes?: RegistroDeManutencaoUpdateManyWithoutVeiculoNestedInput
     Lembrete?: LembreteUpdateManyWithoutVeiculoNestedInput
+    manutencoes?: RegistroDeManutencaoUpdateManyWithoutVeiculoNestedInput
+    atividades?: AtividadeUpdateManyWithoutVeiculoNestedInput
   }
 
   export type VeiculoUncheckedUpdateWithoutUsuarioInput = {
@@ -14227,8 +17969,9 @@ export namespace Prisma {
     modelo?: StringFieldUpdateOperationsInput | string
     ano?: IntFieldUpdateOperationsInput | number
     placa?: StringFieldUpdateOperationsInput | string
-    manutencoes?: RegistroDeManutencaoUncheckedUpdateManyWithoutVeiculoNestedInput
     Lembrete?: LembreteUncheckedUpdateManyWithoutVeiculoNestedInput
+    manutencoes?: RegistroDeManutencaoUncheckedUpdateManyWithoutVeiculoNestedInput
+    atividades?: AtividadeUncheckedUpdateManyWithoutVeiculoNestedInput
   }
 
   export type VeiculoUncheckedUpdateManyWithoutUsuarioInput = {
@@ -14239,64 +17982,24 @@ export namespace Prisma {
     placa?: StringFieldUpdateOperationsInput | string
   }
 
-  export type LembreteUpdateWithoutUsuarioEnviouInput = {
+  export type TarefaUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuarioRecebeu?: UsuarioUpdateOneRequiredWithoutLembretesRecebidosNestedInput
-    listaDeCompra?: ListaDeCompraUpdateOneRequiredWithoutLembretesNestedInput
-    veiculo?: VeiculoUpdateOneWithoutLembreteNestedInput
+    status?: BoolFieldUpdateOperationsInput | boolean
+    atividades?: AtividadeUpdateManyWithoutTarefaNestedInput
   }
 
-  export type LembreteUncheckedUpdateWithoutUsuarioEnviouInput = {
+  export type TarefaUncheckedUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
-    listaDeCompraId?: StringFieldUpdateOperationsInput | string
-    veiculoId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    atividades?: AtividadeUncheckedUpdateManyWithoutTarefaNestedInput
   }
 
-  export type LembreteUncheckedUpdateManyWithoutUsuarioEnviouInput = {
+  export type TarefaUncheckedUpdateManyWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
-    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
-    listaDeCompraId?: StringFieldUpdateOperationsInput | string
-    veiculoId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type LembreteUpdateWithoutUsuarioRecebeuInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
-    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutLembretesEnviadosNestedInput
-    listaDeCompra?: ListaDeCompraUpdateOneRequiredWithoutLembretesNestedInput
-    veiculo?: VeiculoUpdateOneWithoutLembreteNestedInput
-  }
-
-  export type LembreteUncheckedUpdateWithoutUsuarioRecebeuInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
-    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    listaDeCompraId?: StringFieldUpdateOperationsInput | string
-    veiculoId?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type LembreteUncheckedUpdateManyWithoutUsuarioRecebeuInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
-    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    listaDeCompraId?: StringFieldUpdateOperationsInput | string
-    veiculoId?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type familia_usuariosCreateManyFamiliaInput = {
@@ -14328,12 +18031,21 @@ export namespace Prisma {
 
   export type LembreteCreateManyListaDeCompraInput = {
     id?: string
-    titulo: string
     descricao: string
-    dataHora: Date | string
+    dataHora?: Date | string
+    status?: boolean
     usuarioIdEnviou: string
-    usuarioIdRecebeu: string
     veiculoId: string
+  }
+
+  export type AtividadeCreateManyListaInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    tarefaId?: string | null
+    lembreteId?: string | null
+    veiculoId?: string | null
   }
 
   export type ItemListaDeCompraUpdateWithoutListaInput = {
@@ -14359,96 +18071,247 @@ export namespace Prisma {
 
   export type LembreteUpdateWithoutListaDeCompraInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuarioRecebeu?: UsuarioUpdateOneRequiredWithoutLembretesRecebidosNestedInput
+    status?: BoolFieldUpdateOperationsInput | boolean
     usuarioEnviou?: UsuarioUpdateOneRequiredWithoutLembretesEnviadosNestedInput
-    veiculo?: VeiculoUpdateOneWithoutLembreteNestedInput
+    veiculo?: VeiculoUpdateOneRequiredWithoutLembreteNestedInput
+    atividades?: AtividadeUpdateManyWithoutLembreteNestedInput
   }
 
   export type LembreteUncheckedUpdateWithoutListaDeCompraInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
     veiculoId?: StringFieldUpdateOperationsInput | string
+    atividades?: AtividadeUncheckedUpdateManyWithoutLembreteNestedInput
   }
 
   export type LembreteUncheckedUpdateManyWithoutListaDeCompraInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
     veiculoId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type RegistroDeManutencaoCreateManyVeiculoInput = {
-    id?: string
-    descricao: string
-    data: Date | string
+  export type AtividadeUpdateWithoutListaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
+    lembrete?: LembreteUpdateOneWithoutAtividadesNestedInput
+    veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
+  }
+
+  export type AtividadeUncheckedUpdateWithoutListaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
+    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
+    veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AtividadeUncheckedUpdateManyWithoutListaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
+    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
+    veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LembreteCreateManyVeiculoInput = {
     id?: string
-    titulo: string
     descricao: string
-    dataHora: Date | string
+    dataHora?: Date | string
+    status?: boolean
     usuarioIdEnviou: string
-    usuarioIdRecebeu: string
     listaDeCompraId: string
   }
 
-  export type RegistroDeManutencaoUpdateWithoutVeiculoInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
-    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type RegistroDeManutencaoCreateManyVeiculoInput = {
+    id?: string
+    descricao?: string | null
+    data: Date | string
+    valor?: number | null
   }
 
-  export type RegistroDeManutencaoUncheckedUpdateWithoutVeiculoInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
-    data?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type RegistroDeManutencaoUncheckedUpdateManyWithoutVeiculoInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    descricao?: StringFieldUpdateOperationsInput | string
-    data?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type AtividadeCreateManyVeiculoInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    tarefaId?: string | null
+    listaDeCompraId?: string | null
+    lembreteId?: string | null
   }
 
   export type LembreteUpdateWithoutVeiculoInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-    usuarioRecebeu?: UsuarioUpdateOneRequiredWithoutLembretesRecebidosNestedInput
-    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutLembretesEnviadosNestedInput
+    status?: BoolFieldUpdateOperationsInput | boolean
     listaDeCompra?: ListaDeCompraUpdateOneRequiredWithoutLembretesNestedInput
+    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutLembretesEnviadosNestedInput
+    atividades?: AtividadeUpdateManyWithoutLembreteNestedInput
   }
 
   export type LembreteUncheckedUpdateWithoutVeiculoInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
     listaDeCompraId?: StringFieldUpdateOperationsInput | string
+    atividades?: AtividadeUncheckedUpdateManyWithoutLembreteNestedInput
   }
 
   export type LembreteUncheckedUpdateManyWithoutVeiculoInput = {
     id?: StringFieldUpdateOperationsInput | string
-    titulo?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
-    usuarioIdRecebeu?: StringFieldUpdateOperationsInput | string
     listaDeCompraId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type RegistroDeManutencaoUpdateWithoutVeiculoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type RegistroDeManutencaoUncheckedUpdateWithoutVeiculoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type RegistroDeManutencaoUncheckedUpdateManyWithoutVeiculoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: DateTimeFieldUpdateOperationsInput | Date | string
+    valor?: NullableFloatFieldUpdateOperationsInput | number | null
+  }
+
+  export type AtividadeUpdateWithoutVeiculoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
+    lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
+    lembrete?: LembreteUpdateOneWithoutAtividadesNestedInput
+  }
+
+  export type AtividadeUncheckedUpdateWithoutVeiculoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
+    listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
+    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AtividadeUncheckedUpdateManyWithoutVeiculoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
+    listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
+    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AtividadeCreateManyLembreteInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    tarefaId?: string | null
+    listaDeCompraId?: string | null
+    veiculoId?: string | null
+  }
+
+  export type AtividadeUpdateWithoutLembreteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
+    lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
+    veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
+  }
+
+  export type AtividadeUncheckedUpdateWithoutLembreteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
+    listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
+    veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AtividadeUncheckedUpdateManyWithoutLembreteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
+    listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
+    veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AtividadeCreateManyTarefaInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    datHora?: Date | string
+    listaDeCompraId?: string | null
+    lembreteId?: string | null
+    veiculoId?: string | null
+  }
+
+  export type AtividadeUpdateWithoutTarefaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
+    lembrete?: LembreteUpdateOneWithoutAtividadesNestedInput
+    veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
+  }
+
+  export type AtividadeUncheckedUpdateWithoutTarefaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
+    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
+    veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AtividadeUncheckedUpdateManyWithoutTarefaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
+    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
+    veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

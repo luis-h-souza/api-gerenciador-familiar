@@ -18,7 +18,6 @@ class AuthenticationMiddleware {
         throw new Error("Formato de token inválido.");
       }
 
-      console.log("Authorization header:", authorization);
       // extrai o token do cabeçalho
       const authorizationToken = authorization.split(" ")[1];
       // verifica o token usando a chave JWTsecret

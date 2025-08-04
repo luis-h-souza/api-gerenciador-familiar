@@ -15,7 +15,7 @@ const updatePasswordSchema = z.object({
 class UserController {
   constructor(UserRepository) {
     this.UserRepository = UserRepository;
-  }
+  };
 
   // lista usuário pelo ID
   async showById({ params }) {
@@ -45,7 +45,7 @@ class UserController {
         };
       }
     }
-  }
+  };
 
   // lista todos os usuários
   async show() {
@@ -69,7 +69,6 @@ class UserController {
   // Atualiza usuário
   async update({ body, params }) {
     const { id } = params;
-
     try {
       // Validar o body com Zod
       const { name, email } = schema.parse(body);
@@ -119,70 +118,33 @@ class UserController {
     }
   };
 
-
-  async handle({ body, user, params }) {
-    console.log(params)
+  async delete({ params }) {
+    const { id } = params;
+    console.log("id", id, "params", params)
     try {
-      const { id } = params;
-      // Usa o ID do usuário autenticado se nenhum ID for fornecido
-      const userId = id || user.id;
-
-      // Verifica se o usuário está autenticado
-      if (!id) {
-        return {
-          statusCode: 401,
-          body: { message: "Usuário não autenticado" },
-        };
-      }
-
-      if (!userId) {
-        return {
-          statusCode: 400,
-          body: { success: false, message: 'ID do usuário não fornecido' },
-        };
-      }
-
-      // O parse do zod já valida os dados, então não precisamos validar novamente
-      const { name, email, password } = schema.parse(body);
-
-      // Executa o caso de uso do cadastro
-      const updatedUser = await this.UserRepository.execute({
-        name,
-        email,
-        password
-      });
-
+      await this.UserRepository.delete({ id })
       return {
-        statusCode: 200,
-        body: { success: true, data: updatedUser },
+        statusCode: 204,
+        body: null,
       };
 
     } catch (error) {
       if (error instanceof z.ZodError) {
         return {
           statusCode: 400,
-          body: { success: false, errors: error.issues },
+          body: error.issues,
         };
       }
-      if (error.message === 'Email já cadastrado') {
-        return {
-          statusCode: 409,
-          body: { success: false, message: 'Este e-mail já está em uso' },
-        };
-      }
-      if (error.message === 'Usuário não encontrado') {
+
+      if (error.code === 'P2025') {
         return {
           statusCode: 404,
-          body: { success: false, message: 'Usuário não encontrado' },
+          body: { error: 'Usuário não encontrado!' },
         };
       }
-      console.error('Erro inesperado:', error);
-      return {
-        statusCode: 500,
-        body: { success: false, message: 'Erro interno do servidor' },
-      };
+      throw error;
     }
-  }
+  };
 }
 
 module.exports = { UserController };

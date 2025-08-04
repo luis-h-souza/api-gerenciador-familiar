@@ -141,10 +141,9 @@ exports.Prisma.Familia_usuariosScalarFieldEnum = {
 
 exports.Prisma.ListaDeCompraScalarFieldEnum = {
   id: 'id',
-  nome: 'nome',
-  status: 'status',
+  tipo: 'tipo',
   usuarioIdEnviou: 'usuarioIdEnviou',
-  usuarioIdRecebeu: 'usuarioIdRecebeu'
+  status: 'status'
 };
 
 exports.Prisma.ItemListaDeCompraScalarFieldEnum = {
@@ -168,17 +167,35 @@ exports.Prisma.RegistroDeManutencaoScalarFieldEnum = {
   id: 'id',
   descricao: 'descricao',
   data: 'data',
+  valor: 'valor',
   veiculoId: 'veiculoId'
 };
 
 exports.Prisma.LembreteScalarFieldEnum = {
   id: 'id',
-  titulo: 'titulo',
   descricao: 'descricao',
   dataHora: 'dataHora',
+  status: 'status',
   usuarioIdEnviou: 'usuarioIdEnviou',
-  usuarioIdRecebeu: 'usuarioIdRecebeu',
   listaDeCompraId: 'listaDeCompraId',
+  veiculoId: 'veiculoId'
+};
+
+exports.Prisma.TarefaScalarFieldEnum = {
+  id: 'id',
+  descricao: 'descricao',
+  status: 'status',
+  usuarioId: 'usuarioId'
+};
+
+exports.Prisma.AtividadeScalarFieldEnum = {
+  id: 'id',
+  tipo: 'tipo',
+  acao: 'acao',
+  datHora: 'datHora',
+  tarefaId: 'tarefaId',
+  listaDeCompraId: 'listaDeCompraId',
+  lembreteId: 'lembreteId',
   veiculoId: 'veiculoId'
 };
 
@@ -191,9 +208,27 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
 exports.Rotulo = exports.$Enums.Rotulo = {
   PAIS: 'PAIS',
   FILHO: 'FILHO'
+};
+
+exports.TipoAtividade = exports.$Enums.TipoAtividade = {
+  LEMBRETE: 'LEMBRETE',
+  TAREFA: 'TAREFA',
+  LISTA: 'LISTA',
+  VEICULO: 'VEICULO'
+};
+
+exports.AcaoAtividade = exports.$Enums.AcaoAtividade = {
+  CRIADA: 'CRIADA',
+  ATUALIZADA: 'ATUALIZADA',
+  EXCLUIDA: 'EXCLUIDA'
 };
 
 exports.Prisma.ModelName = {
@@ -204,7 +239,9 @@ exports.Prisma.ModelName = {
   ItemListaDeCompra: 'ItemListaDeCompra',
   Veiculo: 'Veiculo',
   RegistroDeManutencao: 'RegistroDeManutencao',
-  Lembrete: 'Lembrete'
+  Lembrete: 'Lembrete',
+  Tarefa: 'Tarefa',
+  Atividade: 'Atividade'
 };
 
 /**

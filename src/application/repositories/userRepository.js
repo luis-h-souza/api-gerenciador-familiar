@@ -103,6 +103,14 @@ class UserRepository {
       throw new Error(`Erro ao atualizar a senha: ${error.message}`);
     }
   };
+
+  async delete({ id }) {
+    const userDelete = await prismaClient.usuario.delete({
+      where: { id },
+    })
+    return userDelete;
+  };
+
 }
 
 module.exports = { UserRepository };

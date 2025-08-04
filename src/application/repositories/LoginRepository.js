@@ -8,6 +8,7 @@ class LoginRepository {
     const account = await prismaClient.usuario.findUnique({
       where: { email },
     });
+    const id = account.id
 
     if (!account) {
       throw new Error("Senha inválida");
@@ -25,7 +26,7 @@ class LoginRepository {
       { expiresIn: "1d" }
     );
 
-    return { accessToken };
+    return { id, accessToken };
   }
 }
 

@@ -10,6 +10,8 @@ const { makeFamilyRepository } = require('./factories/makeFamilyRepository');
 const { makeFamilyController } = require('./factories/makeFamilyController');
 const { makeUserRepository } = require('./factories/makeUserRepository');
 const { makeUserController } = require('./factories/makeUserController');
+const { makeTaskRepository } = require('./factories/makeTaskRepository');
+const { makeTaskController } = require('./factories/makeTaskController');
 
 const router = Router();
 
@@ -21,6 +23,8 @@ const familyRepository = makeFamilyRepository();
 const familyController = makeFamilyController(familyRepository);
 const userRepository = makeUserRepository();
 const userController = makeUserController(userRepository);
+const taskRepository = makeTaskRepository();
+const taskController = makeTaskController(taskRepository);
 
 // Rota de cadastro de usuário
 router.post('/register', async (req, res) => {
@@ -28,12 +32,13 @@ router.post('/register', async (req, res) => {
   res.status(response.statusCode).json(response.body);
 });
 
-// rota de login
+// rota para login
 router.post('/login', async (req, res) => {
   const response = await loginController.handle({ body: req.body })
   res.status(response.statusCode).json(response.body);
 })
 
+//? Rotas para User
 // Lista todos os usuários
 router.get('/users', jwtGuard, async (req, res) => {
   const response = await userController.show();
@@ -64,6 +69,48 @@ router.put('/update-user/:id/password', jwtGuard, async (req, res) => {
   res.status(response.statusCode).json(response.body);
 });
 
+// Deleta um usuário
+router.delete('/delete-user/:id', jwtGuard, async (req, res) => {
+  const response = await userController.delete({
+    params: req.params
+  });
+  if (response.statusCode === 204) {
+    return res.sendStatus(204); // evita enviar corpo com 204
+  }
+  res.status(response.statusCode).json(response.body);
+})
+
+//? Rotas para Tarefas
+// Cria uma tarefa
+router.post('/create-task', jwtGuard, async (req, res) => {
+  const response = await taskController.create({ body: req.body, accountId: req.accountId });
+  res.status(response.statusCode).json(response.body);
+});
+
+// Lista todas as tarefas
+router.get('/tasks', jwtGuard, async (req, res) => {
+  const resposnse = await taskController.show();
+  res.status(resposnse.statusCode).json(resposnse.body);
+});
+
+// Atualiza uma tarefa
+
+
+
+// Deleta uma tarefa
+router.delete('/delete-task/:id', jwtGuard, async (req, res) => {
+  const response = await taskController.delete({
+    params: req.params
+  });
+  if (response.statusCode === 204) {
+    return res.sendStatus(204); // evita enviar corpo com 204
+  }
+  res.status(response.statusCode).json(response.body);
+})
+
+
+//? Rotas para family
+
 // Rota de criação de família (ajustada para POST)
 router.post('/family', jwtGuard, async (req, res) => {
   const response = await familyController.handle({ body: req.body, user: req.user });
@@ -78,11 +125,6 @@ router.post('/family/invite', jwtGuard, async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, message: 'Erro interno do servidor', error: error.message });
   }
-});
-
-// Exemplo de rota protegida
-router.get('/me', jwtGuard, (req, res) => {
-  res.json({ message: 'Você está autenticado!', accountId: req.accountId });
 });
 
 module.exports = router;

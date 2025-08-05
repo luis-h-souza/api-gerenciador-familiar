@@ -59,27 +59,26 @@ class TaskRepository {
     return allTasks;
   };
 
-  // lista uma tarefa pelo ID
-  async showById({ id }) {
-    const taskById = await prismaClient.tarefa.findFirst({
-      where: { id },
-      select: {
-        id: true,
-        descricao: true,
-        status: true,
-      }
-    })
-
-    if (!taskById) {
-      throw new Error("Tarefa não encontrada!");
-    }
-    return taskById;
-  };
-
   // Atualiza uma tarefa
-  async update({ descricao, status, id }) {
+  async update({ descricao, status, tarefaId }) {
+
+    // Valida a descrição
+    if (!descricao || typeof descricao !== 'string' || descricao.trim() === '') {
+      throw new Error('A descrição é obrigatória e não deve ser um texto vazio.');
+    }
+
+    // Valida o usuarioId como UUID
+    if (!tarefaId || !isValidUUID(tarefaId)) {
+      throw new Error('O ID do usuário é obrigatório e deve ser um UUID válido.');
+    }
+
+    // Valida o status (se fornecido, deve ser booleano)
+    if (status !== undefined && typeof status !== 'boolean') {
+      throw new Error('O status deve ser um valor booleano (true ou false).');
+    }
+
     const updateTask = await prismaClient.tarefa.update({
-      where: { id },
+      where: { id: tarefaId },
       data: { descricao, status },
     });
     console.log(updateTask) //! debug

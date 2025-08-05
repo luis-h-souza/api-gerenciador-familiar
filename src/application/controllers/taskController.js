@@ -48,45 +48,21 @@ class TaskController {
       }
     }
   };
-  
-  // lista uma tarefa pelo ID
-  async showById({ params }) {
-    const { id } = params;
-
-    try {
-      const foundUser = await this.TarefaRepository.showById({ id: params.id });
-
-      return {
-        statusCode: 200,
-        body: foundUser,
-      };
-
-    } catch (error) {
-
-      if (!id) {
-        return {
-          statusCode: 401,
-          body: { message: "Tarefa não encontrada" },
-        };
-      };
-
-      if (error.message === 'Tarefa não encontrada') {
-        return {
-          statusCode: 400,
-          body: { message: "Tarefa não encontrada" },
-        };
-      }
-    }
-  };
 
   // Atualiza uma tarefa
   async update({ body, params }) {
     const { id } = params;
-    try {
-      // Validar o body com Zod
-      const { descricao } = schema.parse(body);
 
-      const result = await this.TarefaRepository.update({ id, descricao, situacao: false })
+    try {
+      const { descricao, status } = schema.parse(body);
+
+      console.log("Tentando atualizar tarefa:", id, descricao, status);
+
+      const result = await this.TarefaRepository.update({
+        descricao,
+        status,
+        tarefaId: id,
+      });
 
       return {
         statusCode: 200,
@@ -100,7 +76,11 @@ class TaskController {
           body: error.issues,
         };
       }
-      throw error;
+
+      return {
+        statusCode: 500,
+        body: { message: 'Erro interno no servidor.' },
+      };
     }
   };
 

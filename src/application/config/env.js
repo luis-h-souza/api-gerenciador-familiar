@@ -8,6 +8,4 @@ const env = {
   databaseUrl: process.env.DATABASE_URL || 'not-set'
 };
 
-console.log('Environment variables:', env); // Para depuração
-
 module.exports = { env };

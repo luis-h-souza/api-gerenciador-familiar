@@ -1,7 +1,9 @@
 generator client {
   provider = "prisma-client-js"
+
+  // Assim não terei o GENERATED local
   // output   = "./src/generated/prisma" // vercel
-  output   = "../src/generated/prisma" // local
+  // output   = "../src/generated/prisma" // local
 }
 
 datasource db {

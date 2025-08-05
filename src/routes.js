@@ -94,8 +94,16 @@ router.get('/tasks', jwtGuard, async (req, res) => {
 });
 
 // Atualiza uma tarefa
-
-
+router.put('/update-task/:id', jwtGuard, async (req, res) => {
+  console.log("Entrou na rota PUT /update-task/:id");
+  console.log("req.params:", req.params);
+  console.log("req.body:", req.body);
+  const response = await taskController.update({
+    params: req.params,
+    body: req.body,
+  });
+  res.status(response.statusCode).json(response.body);
+});
 
 // Deleta uma tarefa
 router.delete('/delete-task/:id', jwtGuard, async (req, res) => {
@@ -108,9 +116,7 @@ router.delete('/delete-task/:id', jwtGuard, async (req, res) => {
   res.status(response.statusCode).json(response.body);
 })
 
-
 //? Rotas para family
-
 // Rota de criação de família (ajustada para POST)
 router.post('/family', jwtGuard, async (req, res) => {
   const response = await familyController.handle({ body: req.body, user: req.user });

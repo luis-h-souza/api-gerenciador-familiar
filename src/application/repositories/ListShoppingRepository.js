@@ -43,22 +43,6 @@ class TaskRepository {
     return newTask;
   };
 
-  async showById({ id }) {
-    const TasksById = await prismaClient.tarefa.findFirst({
-      where: { id },
-      select: {
-        id: true,
-        descricao: true,
-        status: true,
-      }
-    })
-
-    if (!TasksById) {
-      throw new Error("Tarefa não encontrada.");
-    }
-    return TasksById;
-  };
-
   // lista todas as tarefas
   async show() {
     const allTasks = await prismaClient.tarefa.findMany({
@@ -68,7 +52,6 @@ class TaskRepository {
         status: true,
       },
     });
-    console.log(allTasks) //!debug
     if (!allTasks.length) {
       throw new Error("Usuário não encontrado");
     }

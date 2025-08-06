@@ -93,11 +93,14 @@ router.get('/tasks', jwtGuard, async (req, res) => {
   res.status(resposnse.statusCode).json(resposnse.body);
 });
 
+// Lista tarefas pelo ID
+router.get('/tasks/:id', jwtGuard, async (req, res) => {
+  const resposnse = await taskController.showById({ params: req.params });
+  res.status(resposnse.statusCode).json(resposnse.body);
+});
+
 // Atualiza uma tarefa
 router.put('/update-task/:id', jwtGuard, async (req, res) => {
-  console.log("Entrou na rota PUT /update-task/:id");
-  console.log("req.params:", req.params);
-  console.log("req.body:", req.body);
   const response = await taskController.update({
     params: req.params,
     body: req.body,

@@ -1,8 +1,12 @@
 const { z } = require('zod');
 
 const schema = z.object({
-  descricao: z.string().min(1, { message: 'A descrição deve ter no mínimo 01 caractere' }),
+  descricao: z.string().min(1, { message: 'A descrição deve ter no mínimo 01 caractere' }).max(255, { message: 'A descrição deve ter no máximo 255 caracteres' }),
   status: z.boolean().optional(), // status é opcional, usa default(false) se não fornecido
+});
+
+const getTasksById = z.object({
+  id: z.string().uuid(),
 });
 
 class TaskController {
@@ -30,6 +34,41 @@ class TaskController {
     }
   };
 
+  // lista as tarefas pelo ID
+  async showById({ params }) {
+    try {
+      const { id } = getTasksById.parse(params);
+      const foundTask = await this.TarefaRepository.showById({ id });
+      console.log("PARAMS", params, "FOUNDTASKS", foundTask, id); //!
+      return {
+        statusCode: 200,
+        body: foundTask,
+      };
+
+    } catch (error) {
+      if (error.message === 'Tarefas não encontradas.') {
+
+        return {
+          statusCode: 404,
+          body: { message: "Tarefas não encontradas." },
+        };
+      };
+
+      if (error instanceof z.ZodError) {
+        return {
+          statusCode: 400,
+          body: { message: 'ID inválido' },
+        };
+      };
+
+      console.error('Error fetching task:', error);
+      return {
+        statusCode: 500,
+        body: { message: 'Erro interno do servidor' },
+      };
+    };
+  };
+
   // lista todas as tarefas
   async show() {
     try {
@@ -55,8 +94,7 @@ class TaskController {
 
     try {
       const { descricao, status } = schema.parse(body);
-
-      console.log("Tentando atualizar tarefa:", id, descricao, status);
+      console.log("Tentando atualizar tarefa:", id, descricao, status); //!
 
       const result = await this.TarefaRepository.update({
         descricao,

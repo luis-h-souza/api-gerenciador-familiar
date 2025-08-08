@@ -5,9 +5,7 @@ const schema = z.object({
   status: z.boolean().optional(), // status é opcional, usa default(false) se não fornecido
 });
 
-const getTasksById = z.object({
-  id: z.string().uuid(),
-});
+const getTasksByUserId = z.string().uuid().or(z.number().int().positive());
 
 class TaskController {
   constructor(TarefaRepository) {
@@ -35,38 +33,39 @@ class TaskController {
   };
 
   // lista as tarefas pelo ID
-  async showById({ params }) {
+  async showByUserId({ params, req }) {
+    const accountId = params.id; // O ID agora é o ID do usuário, vindo dos params
+
     try {
-      const { id } = getTasksById.parse(params);
-      const foundTask = await this.TarefaRepository.showById({ id });
-      console.log("PARAMS", params, "FOUNDTASKS", foundTask, id); //!
+      // Validar o accountId com Zod
+      const validatedUserId = getTasksByUserId.parse(accountId); // Schema Zod para validar o ID do usuário
+      const foundTasks = await this.TarefaRepository.showByUserId({ accountId: validatedUserId });
+
       return {
         statusCode: 200,
-        body: foundTask,
+        body: foundTasks,
       };
-
     } catch (error) {
-      if (error.message === 'Tarefas não encontradas.') {
-
+      if (error.message === "Nenhuma tarefa encontrada para este usuário.") {
         return {
           statusCode: 404,
-          body: { message: "Tarefas não encontradas." },
+          body: { message: "Nenhuma tarefa encontrada para este usuário." },
         };
-      };
+      }
 
       if (error instanceof z.ZodError) {
         return {
           statusCode: 400,
-          body: { message: 'ID inválido' },
+          body: { message: "ID de usuário inválido" },
         };
-      };
+      }
 
-      console.error('Error fetching task:', error);
+      console.error("Error fetching tasks:", error);
       return {
         statusCode: 500,
-        body: { message: 'Erro interno do servidor' },
+        body: { message: "Erro interno do servidor" },
       };
-    };
+    }
   };
 
   // lista todas as tarefas
@@ -94,6 +93,7 @@ class TaskController {
 
     try {
       const { descricao, status } = schema.parse(body);
+
       console.log("Tentando atualizar tarefa:", id, descricao, status); //!
 
       const result = await this.TarefaRepository.update({

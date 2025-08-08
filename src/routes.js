@@ -95,7 +95,7 @@ router.get('/tasks', jwtGuard, async (req, res) => {
 
 // Lista tarefas pelo ID
 router.get('/tasks/:id', jwtGuard, async (req, res) => {
-  const resposnse = await taskController.showById({ params: req.params });
+  const resposnse = await taskController.showByUserId({ params: req.params });
   res.status(resposnse.statusCode).json(resposnse.body);
 });
 

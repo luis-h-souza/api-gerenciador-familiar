@@ -11,7 +11,7 @@ async function jwtGuard(req, res, next) {
   const authMiddleware = new AuthenticationMiddleware();
 
   //! Debug: log do req.body ANTES
-  console.log('jwtGuard - req.body:', req.body);
+  console.log('jwtGuard - req.body antes:', req.body);
 
   try {
     const result = await authMiddleware.handle({ headers: req.headers });
@@ -19,7 +19,7 @@ async function jwtGuard(req, res, next) {
       // Retorna erro de token inválido
       return res.status(401).json(result.body, 'Access token inválido.');
     }
-    
+
     // Adiciona o accountId ao request para uso posterior
     const accountId = result.data.accountId;
     if (!accountId || !isValidUUID(accountId)) {
@@ -27,8 +27,8 @@ async function jwtGuard(req, res, next) {
     }
     req.accountId = accountId; // Atribui o UUID como string
 
-    console.log('jwtGuard - Account ID:', req.accountId);
-    console.log('jwtGuard - req.body após:', req.body); //! Log do req.body DEPOIS
+    // console.log('req.guard - Account ID:', accountId); //!
+    // console.log('jwtGuard - req.body após:', req.body); //! Log do req.body DEPOIS
 
     next();
   } catch (error) {

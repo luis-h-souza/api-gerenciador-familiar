@@ -43,20 +43,27 @@ class TaskRepository {
     return newTask;
   };
 
-  async showById({ id }) {
-    const TasksById = await prismaClient.tarefa.findFirst({
-      where: { id },
+  async showByUserId({ accountId }) {
+    console.log("accountId:", accountId); // Debug
+
+    const tasks = await prismaClient.tarefa.findMany({
+      where: {
+        usuarioId: accountId, // Filtra todas as tarefas do usuário com o accountId
+      },
       select: {
         id: true,
         descricao: true,
         status: true,
-      }
-    })
+      },
+    });
 
-    if (!TasksById) {
-      throw new Error("Tarefa não encontrada.");
+    console.log("Tasks encontradas:", tasks); // Debug
+
+    if (!tasks || tasks.length === 0) {
+      throw new Error("Nenhuma tarefa encontrada para este usuário.");
     }
-    return TasksById;
+
+    return tasks;
   };
 
   // lista todas as tarefas

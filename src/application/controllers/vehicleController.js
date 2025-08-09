@@ -81,14 +81,14 @@ class VehicleController {
   // lista todos os veículo
   async show() {
     try {
-      const tasks = await this.TarefaRepository.show();
-      console.log(tasks)
+      const veihicles = await this.VehicleRepository.show();
+      console.log(veihicles)
       return {
         statusCode: 200,
-        body: tasks,
+        body: veihicles,
       };
     } catch (error) {
-      if (error.message === 'Tarefa não encontrada') {
+      if (error.message === 'Nenum veículo encontrado.') {
         return {
           statusCode: 400,
           body: null,
@@ -103,9 +103,6 @@ class VehicleController {
 
     try {
       const { descricao, status } = schema.parse(body);
-
-      console.log("Tentando atualizar tarefa:", id, descricao, status); //!
-
       const result = await this.TarefaRepository.update({
         descricao,
         status,
@@ -153,7 +150,7 @@ class VehicleController {
       if (error.code === 'P2025') {
         return {
           statusCode: 404,
-          body: { error: 'Tarefa não encontrada!' },
+          body: { error: 'Veículo não encontrado!' },
         };
       }
       throw error;

@@ -13,7 +13,7 @@ class VehicleRepository {
     this.salt = salt;
   }
 
-  // Cria uma tarefa
+  // Cria um veículo
   async create({ marca, modelo, ano, placa, usuarioId }) {
     try {
       // Verifica se o usuário existe
@@ -23,7 +23,6 @@ class VehicleRepository {
       if (!userExists) {
         throw new Error('Usuário não encontrado.');
       }
-
       // Cria o veículo e a atividade associada
       const newCar = await prismaClient.veiculo.create({
         data: {
@@ -47,11 +46,11 @@ class VehicleRepository {
       return newCar;
 
     } catch (error) {
-      if (error.message === 'Usuário não encontrado.') {
-        throw error; // Relança o erro de usuário não encontrado
+      if (error.message === 'Veículo não encontrado.') {
+        throw error;
       }
       if (error.code === 'P2002') {
-        // Erro de violação de unicidade (ex.: placa já existe, se placa for única no schema)
+        // Erro de violação de unicidade
         throw new Error('A placa já está registrada.');
       }
       console.error('Erro ao criar veículo:', error);
@@ -59,23 +58,17 @@ class VehicleRepository {
     }
   }
 
-  // lista todas as tarefas
+  // lista todas os veículo
   async show() {
-    const allTasks = await prismaClient.tarefa.findMany({
-      select: {
-        id: true,
-        descricao: true,
-        status: true,
-      },
-    });
-    console.log(allTasks) //!debug
-    if (!allTasks.length) {
+    const allVehicles = await prismaClient.veiculo.findMany();
+
+    if (!allVehicles.length) {
       throw new Error("Usuário não encontrado");
     }
-    return allTasks;
+    return allVehicles;
   };
 
-  // Atualiza uma tarefa
+  // Atualiza um veículo
   async update({ descricao, status, tarefaId }) {
 
     // Valida a descrição
@@ -104,12 +97,24 @@ class VehicleRepository {
     return updateTask;
   };
 
-  // deleta uma tarefa
+  // deleta um veículo
   async delete({ id }) {
-    const vehicleDelete = await prismaClient.veiculo.delete({
-      where: { id },
-    })
-    return vehicleDelete;
+    const result = await prismaClient.$transaction(async (tx) => {
+      const vehicleDelete = await tx.veiculo.delete({
+        where: { id },
+      });
+
+      await tx.atividade.create({
+        data: {
+          tipo: 'VEICULO',
+          acao: 'EXCLUIDA',
+          dataHora: new Date(),
+          veiculoId: id,
+        }
+      });
+      return vehicleDelete;
+    });
+    return result;
   };
 
 }

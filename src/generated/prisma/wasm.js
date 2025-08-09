@@ -192,7 +192,7 @@ exports.Prisma.AtividadeScalarFieldEnum = {
   id: 'id',
   tipo: 'tipo',
   acao: 'acao',
-  datHora: 'datHora',
+  dataHora: 'dataHora',
   tarefaId: 'tarefaId',
   listaDeCompraId: 'listaDeCompraId',
   lembreteId: 'lembreteId',

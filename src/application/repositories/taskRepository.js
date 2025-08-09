@@ -108,17 +108,34 @@ class TaskRepository {
     const updateTask = await prismaClient.tarefa.update({
       where: { id: tarefaId },
       data: { descricao, status },
+      atividades: {
+        create: {
+          tipo: 'TAREFA',
+          acao: 'ATUALIZADA',
+          dataHora: new Date(),
+        },
+      }
     });
-    console.log(updateTask) //! debug
     return updateTask;
   };
 
   // deleta uma tarefa
   async delete({ id }) {
-    const taskDelete = await prismaClient.tarefa.delete({
-      where: { id },
-    })
-    return taskDelete;
+    const result = await prismaClient.$transaction(async (tx) => {
+      const taskDelete = await tx.tarefa.delete({
+        where: { id },
+      });
+
+      await tx.atividade.create({
+        data: {
+          tipo: 'TAREFA',
+          acao: 'EXCLUIDA',
+          dataHora: new Date(),
+        },
+      });
+      return taskDelete;
+    });
+    return result;
   };
 
 }

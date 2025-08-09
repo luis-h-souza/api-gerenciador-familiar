@@ -132,6 +132,27 @@ router.post('/create-vehicle', jwtGuard, async (req, res) => {
 });
 
 // Lista todos os veiculos
+router.get('/vehicles', jwtGuard, async (req, res) => {
+  const resposnse = await vehicleController.show();
+  res.status(resposnse.statusCode).json(resposnse.body);
+});
+
+// Atualiza um veículo
+router.put('/update-vehicle/:id', jwtGuard, async (req, res) => {
+  const response = await vehicleController.update({
+    params: req.params,
+    body: req.body,
+  });
+  res.status(response.statusCode).json(response.body);
+});
+
+// Deleta um veículo
+router.delete('/delete-vehicle/:id', jwtGuard, async (req, res) => {
+  const response = await vehicleController.delete({
+    params: req.params
+  });
+  res.status(response.statusCode).json(response.body);
+});
 
 
 //? Rotas para Familia

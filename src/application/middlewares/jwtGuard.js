@@ -27,8 +27,8 @@ async function jwtGuard(req, res, next) {
     }
     req.accountId = accountId; // Atribui o UUID como string
 
-    // console.log('req.guard - Account ID:', accountId); //!
-    // console.log('jwtGuard - req.body após:', req.body); //! Log do req.body DEPOIS
+    console.log('req.guard - Account ID:', accountId); //!
+    console.log('jwtGuard - req.body após:', req.body); //! Log do req.body DEPOIS
 
     next();
   } catch (error) {

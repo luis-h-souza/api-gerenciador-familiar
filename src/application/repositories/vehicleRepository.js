@@ -8,65 +8,56 @@ const isValidUUID = (str) => {
 
 const SALT = 10;
 
-class TaskRepository {
+class VehicleRepository {
   constructor(salt = SALT) {
     this.salt = salt;
   }
 
   // Cria uma tarefa
-  async create({ descricao, usuarioId, status }) {
-    // Valida a descrição
-    if (!descricao || typeof descricao !== 'string' || descricao.trim() === '') {
-      throw new Error('A descrição é obrigatória e não deve ser um texto vazio.');
-    }
+  async create({ marca, modelo, ano, placa, usuarioId }) {
+    try {
+      // Verifica se o usuário existe
+      const userExists = await prismaClient.usuario.findUnique({
+        where: { id: usuarioId },
+      });
+      if (!userExists) {
+        throw new Error('Usuário não encontrado.');
+      }
 
-    // Valida o status (se fornecido, deve ser booleano)
-    if (status !== undefined && typeof status !== 'boolean') {
-      throw new Error('O status deve ser um valor booleano (true ou false).');
-    }
-
-    const newTask = await prismaClient.tarefa.create({
-      data: {
-        descricao,
-        status: status ?? false, // Usa o status do body ou false se não fornecido
-        usuario: {
-          connect: { id: usuarioId }, // Conexão com um id de usuário existente (FK)
-        },
-        atividades: {
-          create: {
-            tipo: 'TAREFA',
-            acao: 'CRIADA',
-            dataHora: new Date(),
+      // Cria o veículo e a atividade associada
+      const newCar = await prismaClient.veiculo.create({
+        data: {
+          marca,
+          modelo,
+          ano,
+          placa,
+          usuario: {
+            connect: { id: usuarioId },
           },
-        }
-      },
-    });
+          atividades: {
+            create: {
+              tipo: 'VEICULO',
+              acao: 'CRIADA',
+              dataHora: new Date(),
+            },
+          },
+        },
+      });
 
-    return newTask;
-  };
+      return newCar;
 
-  async showByUserId({ accountId }) {
-    console.log("accountId:", accountId); // Debug
-
-    const tasks = await prismaClient.tarefa.findMany({
-      where: {
-        usuarioId: accountId, // Filtra todas as tarefas do usuário com o accountId
-      },
-      select: {
-        id: true,
-        descricao: true,
-        status: true,
-      },
-    });
-
-    console.log("Tasks encontradas:", tasks); // Debug
-
-    if (!tasks || tasks.length === 0) {
-      throw new Error("Nenhuma tarefa encontrada para este usuário.");
+    } catch (error) {
+      if (error.message === 'Usuário não encontrado.') {
+        throw error; // Relança o erro de usuário não encontrado
+      }
+      if (error.code === 'P2002') {
+        // Erro de violação de unicidade (ex.: placa já existe, se placa for única no schema)
+        throw new Error('A placa já está registrada.');
+      }
+      console.error('Erro ao criar veículo:', error);
+      throw new Error('Erro interno ao criar veículo.');
     }
-
-    return tasks;
-  };
+  }
 
   // lista todas as tarefas
   async show() {
@@ -115,12 +106,12 @@ class TaskRepository {
 
   // deleta uma tarefa
   async delete({ id }) {
-    const taskDelete = await prismaClient.tarefa.delete({
+    const vehicleDelete = await prismaClient.veiculo.delete({
       where: { id },
     })
-    return taskDelete;
+    return vehicleDelete;
   };
 
 }
 
-module.exports = { TaskRepository };
+module.exports = { VehicleRepository };

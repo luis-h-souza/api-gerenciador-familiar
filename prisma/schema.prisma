@@ -160,7 +160,7 @@ model Atividade {
   id      String        @id @default(uuid()) @db.Uuid
   tipo    TipoAtividade
   acao    AcaoAtividade
-  datHora DateTime      @default(now()) @map("data_hora")
+  dataHora DateTime      @default(now()) @map("data_hora")
 
   // Chaves estrangeiras
   tarefaId        String? @map("tarefa_id") @db.Uuid

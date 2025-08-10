@@ -65,15 +65,31 @@ class VehicleRepository {
 
   // Atualiza um veículo
   async update({ marca, modelo, ano, placa, vehicleId }) {
-    console.log("vehicleId repository", vehicleId)
 
-    const updateTask = await prismaClient.veiculo.update({
-      where: { id: vehicleId }, // recebe do controller
+    //Verificação de unicidade da placa
+    if (placa) {
+      const placaExiste = await prismaClient.veiculo.findFirst({
+        where: {
+          placa,
+          id: { not: vehicleId } // Ignora o próprio veículo na busca
+        }
+      });
+
+      // Se a placa já estiver em uso por outro veículo, lança um erro.
+      if (placaExiste) {
+        const error = new Error("Placa já cadastrada para outro veículo.");
+        //* error.statusCode = 409;
+        throw error;
+      }
+    }
+
+    const updatedVehicle = await prismaClient.veiculo.update({
+      where: { id: vehicleId },
       data: {
         marca,
         modelo,
         ano,
-        placa,
+        placa, // Se a placa for undefined, o Prisma simplesmente a ignora.
         atividades: {
           create: {
             tipo: 'VEICULO',
@@ -82,10 +98,10 @@ class VehicleRepository {
           }
         },
       },
-      include: { atividades: true }
+      include: { atividades: true } // Inclui as atividades no retorno
     });
 
-    return updateTask;
+    return updatedVehicle;
   };
 
   // Deleta um veículo

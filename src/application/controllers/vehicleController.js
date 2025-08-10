@@ -1,37 +1,29 @@
 const { z } = require("zod");
 
-const vehicleIdValidate = z
-  .union([z.string().uuid(), z.number().int().positive()])
-  .refine((val) => val !== undefined && val !== null, {
-    message: "O campo vehicleId é obrigatório",
-  });
-
-// Seu schema completo com mensagens personalizadas para campos obrigatórios
-const schema = z.object({
-  vehicleId: vehicleIdValidate,
+const baseSchema = z.object({
   marca: z
     .string({ required_error: "A marca é obrigatória" })
     .min(1, { message: 'A marca deve ter no mínimo 1 caractere' })
     .max(30, { message: 'A marca deve ter no máximo 30 caracteres' }),
+
   modelo: z
     .string({ required_error: "O modelo é obrigatório" })
     .min(3, { message: 'O modelo deve ter no mínimo 3 caracteres' })
     .max(30, { message: 'O modelo deve ter no máximo 30 caracteres' }),
+
   ano: z
     .number({ required_error: "O ano é obrigatório" })
     .int({ message: "O ano deve ser um número inteiro" })
     .positive({ message: "O ano deve ser positivo" })
     .min(1900, { message: 'O ano deve ser maior ou igual a 1900' })
     .max(new Date().getFullYear() + 1, { message: 'O ano não pode ser maior que o ano atual + 1' }),
+
   placa: z
     .string({ required_error: "A placa é obrigatória" })
-    // Converte para maiúsculas e remove hífen
     .transform((val) => val.toUpperCase().replace(/-/g, ''))
     .refine(
       (val) => /^[A-Z]{3}[0-9]{4}$/.test(val) || /^[A-Z]{3}[0-9][A-Z][0-9]{2}$/.test(val),
-      {
-        message: 'Placa inválida. Use o formato ABC-1234 ou ABC1D23.',
-      }
+      { message: 'Placa inválida. Use o formato ABC-1234 ou ABC1D23.' }
     )
     .transform((val) => {
       if (/^[A-Z]{3}[0-9]{4}$/.test(val)) {
@@ -39,6 +31,15 @@ const schema = z.object({
       }
       return val;
     }),
+});
+
+const createVehicleSchema = baseSchema;
+
+// schema para Update (vehicleId obrigatório)
+const updateVehicleSchema = baseSchema.extend({
+  vehicleId: z.union([z.string().uuid(), z.number().int().positive()], {
+    required_error: "O campo vehicleId é obrigatório"
+  })
 });
 
 
@@ -50,7 +51,7 @@ class VehicleController {
   // Cria um veículo
   async create({ body, req }) {
     try {
-      const { marca, modelo, ano, placa } = schema.parse(body);
+      const { marca, modelo, ano, placa } = createVehicleSchema.parse(body);
       const usuarioId = req.accountId; // Obtém do jwtGuard
 
       const newCar = await this.VehicleRepository.create({ marca, modelo, ano, placa, usuarioId });
@@ -110,7 +111,7 @@ class VehicleController {
     console.log("accountIdParam", vehicleIdParam)
 
     try {
-      const { vehicleId, marca, modelo, ano, placa } = schema.parse({
+      const { vehicleId, marca, modelo, ano, placa } = updateVehicleSchema.parse({
         vehicleId: vehicleIdParam,
         ...body,
       });
@@ -136,6 +137,14 @@ class VehicleController {
           body: error.issues,
         };
       }
+
+      if (error.statusCode === 409) {
+        return {
+          statusCode: 409,
+          body: { message: error.message },
+        };
+      }
+
       console.log("erro interno", error)//!
       return {
         statusCode: 500,

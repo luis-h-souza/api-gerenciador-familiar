@@ -11,7 +11,7 @@ async function jwtGuard(req, res, next) {
   const authMiddleware = new AuthenticationMiddleware();
 
   //! Debug: log do req.body ANTES
-  console.log('jwtGuard - req.body antes:', req.body);
+  // console.log('jwtGuard - req.body antes:', req.body);
 
   try {
     const result = await authMiddleware.handle({ headers: req.headers });

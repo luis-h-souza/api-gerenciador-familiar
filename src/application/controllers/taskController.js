@@ -94,8 +94,6 @@ class TaskController {
     try {
       const { descricao, status } = schema.parse(body);
 
-      console.log("Tentando atualizar tarefa:", id, descricao, status); //!
-
       const result = await this.TarefaRepository.update({
         descricao,
         status,

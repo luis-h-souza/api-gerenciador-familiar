@@ -1,23 +1,32 @@
-const { z } = require('zod');
+const { z } = require("zod");
 
+const vehicleIdValidate = z
+  .union([z.string().uuid(), z.number().int().positive()])
+  .refine((val) => val !== undefined && val !== null, {
+    message: "O campo vehicleId é obrigatório",
+  });
+
+// Seu schema completo com mensagens personalizadas para campos obrigatórios
 const schema = z.object({
+  vehicleId: vehicleIdValidate,
   marca: z
-    .string()
+    .string({ required_error: "A marca é obrigatória" })
     .min(1, { message: 'A marca deve ter no mínimo 1 caractere' })
     .max(30, { message: 'A marca deve ter no máximo 30 caracteres' }),
   modelo: z
-    .string()
+    .string({ required_error: "O modelo é obrigatório" })
     .min(3, { message: 'O modelo deve ter no mínimo 3 caracteres' })
     .max(30, { message: 'O modelo deve ter no máximo 30 caracteres' }),
   ano: z
-    .number()
-    .int()
-    .positive()
+    .number({ required_error: "O ano é obrigatório" })
+    .int({ message: "O ano deve ser um número inteiro" })
+    .positive({ message: "O ano deve ser positivo" })
     .min(1900, { message: 'O ano deve ser maior ou igual a 1900' })
     .max(new Date().getFullYear() + 1, { message: 'O ano não pode ser maior que o ano atual + 1' }),
   placa: z
-    .string()
-    .transform((val) => val.toUpperCase().replace(/-/g, '')) // Converte para maiúsculas e remove hífen
+    .string({ required_error: "A placa é obrigatória" })
+    // Converte para maiúsculas e remove hífen
+    .transform((val) => val.toUpperCase().replace(/-/g, ''))
     .refine(
       (val) => /^[A-Z]{3}[0-9]{4}$/.test(val) || /^[A-Z]{3}[0-9][A-Z][0-9]{2}$/.test(val),
       {
@@ -25,13 +34,13 @@ const schema = z.object({
       }
     )
     .transform((val) => {
-      // Adiciona hífen para o formato antigo, se necessário
       if (/^[A-Z]{3}[0-9]{4}$/.test(val)) {
         return `${val.slice(0, 3)}-${val.slice(3)}`;
       }
       return val;
     }),
 });
+
 
 class VehicleController {
   constructor(VehicleRepository) {
@@ -43,8 +52,6 @@ class VehicleController {
     try {
       const { marca, modelo, ano, placa } = schema.parse(body);
       const usuarioId = req.accountId; // Obtém do jwtGuard
-
-      console.log('VehicleController: usuarioId:', usuarioId);//!
 
       const newCar = await this.VehicleRepository.create({ marca, modelo, ano, placa, usuarioId });
       return {
@@ -99,14 +106,22 @@ class VehicleController {
 
   // Atualiza um veículo
   async update({ body, params }) {
-    const { id } = params;
+    const vehicleIdParam = params.id; // O ID agora é o ID do usuário, vindo dos params
+    console.log("accountIdParam", vehicleIdParam)
 
     try {
-      const { descricao, status } = schema.parse(body);
-      const result = await this.TarefaRepository.update({
-        descricao,
-        status,
-        tarefaId: id,
+      const { vehicleId, marca, modelo, ano, placa } = schema.parse({
+        vehicleId: vehicleIdParam,
+        ...body,
+      });
+      console.log("vehicleId", vehicleId)
+
+      const result = await this.VehicleRepository.update({
+        marca,
+        modelo,
+        ano,
+        placa,
+        vehicleId: vehicleIdParam, // envia para o repository
       });
 
       return {
@@ -121,7 +136,7 @@ class VehicleController {
           body: error.issues,
         };
       }
-
+      console.log("erro interno", error)//!
       return {
         statusCode: 500,
         body: { message: 'Erro interno no servidor.' },

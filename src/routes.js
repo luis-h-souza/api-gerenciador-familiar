@@ -12,6 +12,8 @@ const { makeUserRepository } = require('./factories/makeUserRepository');
 const { makeUserController } = require('./factories/makeUserController');
 const { makeTaskRepository } = require('./factories/makeTaskRepository');
 const { makeTaskController } = require('./factories/makeTaskController');
+const { makeVehicleRepository } = require('./factories/makeVehicleRepository');
+const { makeVehicleController } = require('./factories/makeVehicleController');
 
 const router = Router();
 
@@ -25,6 +27,9 @@ const userRepository = makeUserRepository();
 const userController = makeUserController(userRepository);
 const taskRepository = makeTaskRepository();
 const taskController = makeTaskController(taskRepository);
+const vehicleRepository = makeVehicleRepository();
+const vehicleController = makeVehicleController(vehicleRepository);
+
 
 // Rota de cadastro de usuário
 router.post('/register', async (req, res) => {
@@ -117,9 +122,40 @@ router.delete('/delete-task/:id', jwtGuard, async (req, res) => {
     return res.sendStatus(204); // evita enviar corpo com 204
   }
   res.status(response.statusCode).json(response.body);
-})
+});
 
-//? Rotas para family
+//? Rotas para Veiculos
+// Cria um veículo
+router.post('/create-vehicle', jwtGuard, async (req, res) => {
+  const response = await vehicleController.create({ body: req.body, req });
+  res.status(response.statusCode).json(response.body);
+});
+
+// Lista todos os veiculos
+router.get('/vehicles', jwtGuard, async (req, res) => {
+  const resposnse = await vehicleController.show();
+  res.status(resposnse.statusCode).json(resposnse.body);
+});
+
+// Atualiza um veículo
+router.put('/update-vehicle/:id', jwtGuard, async (req, res) => {
+  const response = await vehicleController.update({
+    params: req.params,
+    body: req.body,
+  });
+  res.status(response.statusCode).json(response.body);
+});
+
+// Deleta um veículo
+router.delete('/delete-vehicle/:id', jwtGuard, async (req, res) => {
+  const response = await vehicleController.delete({
+    params: req.params
+  });
+  res.status(response.statusCode).json(response.body);
+});
+
+
+//? Rotas para Familia
 // Rota de criação de família (ajustada para POST)
 router.post('/family', jwtGuard, async (req, res) => {
   const response = await familyController.handle({ body: req.body, user: req.user });

@@ -49,11 +49,19 @@ model familia_usuarios {
   @@map("familia_usuarios")
 }
 
+enum TipoLista {
+  MERCADO
+  FARMACIA
+  PADARIA
+  ACOUGUE
+  OUTROS
+}
+
 model ListaDeCompra {
-  id              String  @id @default(uuid()) @db.Uuid
-  tipo            String
-  usuarioIdEnviou String  @map("usuario_id_enviou") @db.Uuid
-  status          Boolean @default(false)
+  id              String    @id @default(uuid()) @db.Uuid
+  tipo            TipoLista
+  usuarioIdEnviou String    @map("usuario_id_enviou") @db.Uuid
+  status          Boolean   @default(false)
 
   usuarioEnviou Usuario @relation("UsuarioEnviouLista", fields: [usuarioIdEnviou], references: [id], onDelete: Cascade, onUpdate: Cascade)
 

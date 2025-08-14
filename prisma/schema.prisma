@@ -18,8 +18,8 @@ model Usuario {
   password String
 
   familias          familia_usuarios[]
-  lembretesEnviados Lembrete[]         @relation("UsuarioEnviouLembrete")
-  listasEnviadas    ListaDeCompra[]    @relation("UsuarioEnviouLista")
+  // lembretesEnviados Lembrete[]         @relation("UsuarioEnviouLembrete")
+  // listasEnviadas    ListaDeCompra[]    @relation("UsuarioEnviouLista")
   veiculos          Veiculo[]
   tarefas           Tarefa[]
 
@@ -49,16 +49,24 @@ model familia_usuarios {
   @@map("familia_usuarios")
 }
 
-model ListaDeCompra {
-  id              String  @id @default(uuid()) @db.Uuid
-  tipo            String
-  usuarioIdEnviou String  @map("usuario_id_enviou") @db.Uuid
-  status          Boolean @default(false)
+enum TipoLista {
+  MERCADO
+  FARMACIA
+  PADARIA
+  ACOUGUE
+  OUTROS
+}
 
-  usuarioEnviou Usuario @relation("UsuarioEnviouLista", fields: [usuarioIdEnviou], references: [id], onDelete: Cascade, onUpdate: Cascade)
+model ListaDeCompra {
+  id              String    @id @default(uuid()) @db.Uuid
+  tipo            TipoLista
+  status          Boolean   @default(false)
+  // usuarioIdEnviou String    @map("usuario_id_enviou") @db.Uuid
+
+  // usuarioEnviou Usuario @relation("UsuarioEnviouLista", fields: [usuarioIdEnviou], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   itens      ItemListaDeCompra[]
-  lembretes  Lembrete[]
+  // lembretes  Lembrete[]
   atividades Atividade[]
 
   @@map("lista_de_compras")
@@ -88,7 +96,7 @@ model Veiculo {
   usuarioId String  @map("usuario_id") @db.Uuid
   usuario   Usuario @relation(fields: [usuarioId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
-  Lembrete    Lembrete[]
+  // Lembrete    Lembrete[]
   manutencoes RegistroDeManutencao[]
   atividades  Atividade[]
 
@@ -108,26 +116,26 @@ model RegistroDeManutencao {
   @@map("registros_de_manutencao")
 }
 
-model Lembrete {
-  id        String   @id @default(uuid()) @db.Uuid
-  descricao String
-  dataHora  DateTime @default(now()) @map("data_hora")
-  status    Boolean  @default(false)
+// model Lembrete {
+//   id        String   @id @default(uuid()) @db.Uuid
+//   descricao String
+//   dataHora  DateTime @default(now()) @map("data_hora")
+//   status    Boolean  @default(false)
 
-  // Chaves estrangeiras
-  usuarioIdEnviou String @map("usuario_id_enviou") @db.Uuid
-  listaDeCompraId String @map("lista_de_compra_id") @db.Uuid
-  veiculoId       String @map("veiculo_id") @db.Uuid
+//   // Chaves estrangeiras
+//   usuarioIdEnviou String @map("usuario_id_enviou") @db.Uuid
+//   listaDeCompraId String @map("lista_de_compra_id") @db.Uuid
+//   veiculoId       String @map("veiculo_id") @db.Uuid
 
-  // Relacionamentos
-  listaDeCompra ListaDeCompra @relation(fields: [listaDeCompraId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  usuarioEnviou Usuario       @relation("UsuarioEnviouLembrete", fields: [usuarioIdEnviou], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  veiculo       Veiculo       @relation(fields: [veiculoId], references: [id])
+//   // Relacionamentos
+//   listaDeCompra ListaDeCompra @relation(fields: [listaDeCompraId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+//   // usuarioEnviou Usuario       @relation("UsuarioEnviouLembrete", fields: [usuarioIdEnviou], references: [id], onDelete: Cascade, onUpdate: Cascade)
+//   veiculo       Veiculo       @relation(fields: [veiculoId], references: [id])
 
-  atividades Atividade[]
+//   atividades Atividade[]
 
-  @@map("lembretes")
-}
+//   @@map("lembretes")
+// }
 
 model Tarefa {
   id        String  @id @default(uuid()) @db.Uuid
@@ -171,7 +179,7 @@ model Atividade {
   // Relacionamentos
   tarefa   Tarefa?        @relation(fields: [tarefaId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   lista    ListaDeCompra? @relation(fields: [listaDeCompraId], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  lembrete Lembrete?      @relation(fields: [lembreteId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  // lembrete Lembrete?      @relation(fields: [lembreteId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   veiculo  Veiculo?       @relation(fields: [veiculoId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 
   @@map("atividades")

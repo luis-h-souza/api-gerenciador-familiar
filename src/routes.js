@@ -14,6 +14,9 @@ const { makeTaskRepository } = require('./factories/makeTaskRepository');
 const { makeTaskController } = require('./factories/makeTaskController');
 const { makeVehicleRepository } = require('./factories/makeVehicleRepository');
 const { makeVehicleController } = require('./factories/makeVehicleController');
+const { makeShoppingListRepository } = require('./factories/makeShoppingListRepository');
+const { makeShoppingListController } = require('./factories/makeShoppingListController');
+
 
 const router = Router();
 
@@ -29,8 +32,11 @@ const taskRepository = makeTaskRepository();
 const taskController = makeTaskController(taskRepository);
 const vehicleRepository = makeVehicleRepository();
 const vehicleController = makeVehicleController(vehicleRepository);
+const listRepository = makeShoppingListRepository();
+const listController = makeShoppingListController(listRepository);
 
 
+//? Rotas de autenticação
 // Rota de cadastro de usuário
 router.post('/register', async (req, res) => {
   const response = await registerController.handle({ body: req.body });
@@ -41,7 +47,8 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   const response = await loginController.handle({ body: req.body })
   res.status(response.statusCode).json(response.body);
-})
+});
+
 
 //? Rotas para User
 // Lista todos os usuários
@@ -85,6 +92,7 @@ router.delete('/delete-user/:id', jwtGuard, async (req, res) => {
   res.status(response.statusCode).json(response.body);
 })
 
+
 //? Rotas para Tarefas
 // Cria uma tarefa
 router.post('/create-task', jwtGuard, async (req, res) => {
@@ -124,6 +132,7 @@ router.delete('/delete-task/:id', jwtGuard, async (req, res) => {
   res.status(response.statusCode).json(response.body);
 });
 
+
 //? Rotas para Veiculos
 // Cria um veículo
 router.post('/create-vehicle', jwtGuard, async (req, res) => {
@@ -148,11 +157,40 @@ router.put('/update-vehicle/:id', jwtGuard, async (req, res) => {
 
 // Deleta um veículo
 router.delete('/delete-vehicle/:id', jwtGuard, async (req, res) => {
-  const response = await vehicleController.delete({
-    params: req.params
-  });
+  const response = await vehicleController.delete({ params: req.params });
   res.status(response.statusCode).json(response.body);
 });
+
+
+//? Rotas das Listas de Compra
+// Criar Lista de compras
+router.post('/create-list', jwtGuard, async (req, res) => {
+  const response = await listController.create({ body: req.body, req });
+  res.status(response.statusCode).json(response.body);
+});
+
+// Mostar todas as listas de compra
+router.get('/lists', jwtGuard, async (req, res) => {
+  const resposnse = await listController.show();
+  res.status(resposnse.statusCode).json(resposnse.body);
+});
+
+// Atualiza uma lista
+router.put('/update-list/:id', jwtGuard, async (req, res) => {
+  const response = await listController.update({ body: req.body, req });
+  res.status(response.statusCode).json(response.body);
+});
+
+// Delete uma lista
+router.delete('/delete-list/:id', jwtGuard, async (req, res) => {
+  console.log('Rota DELETE /delete-list/:id chamada com params:', req.params);
+  const response = await listController.delete({ params: req.params });
+  console.log('Resposta do controlador:', response);
+  res.status(response.statusCode).json(response.body)
+});
+
+// Adicionar item a lista de compras
+
 
 
 //? Rotas para Familia

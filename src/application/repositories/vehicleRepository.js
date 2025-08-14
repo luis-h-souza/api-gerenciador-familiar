@@ -58,7 +58,7 @@ class VehicleRepository {
     const allVehicles = await prismaClient.veiculo.findMany();
 
     if (!allVehicles.length) {
-      throw new Error("Usuário não encontrado");
+      throw new Error("Veículo não encontrado");
     }
     return allVehicles;
   };

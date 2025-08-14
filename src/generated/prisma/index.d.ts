@@ -68,7 +68,18 @@ export type Atividade = $Result.DefaultSelection<Prisma.$AtividadePayload>
  * Enums
  */
 export namespace $Enums {
-  export const TipoAtividade: {
+  export const TipoLista: {
+  MERCADO: 'MERCADO',
+  FARMACIA: 'FARMACIA',
+  PADARIA: 'PADARIA',
+  ACOUGUE: 'ACOUGUE',
+  OUTROS: 'OUTROS'
+};
+
+export type TipoLista = (typeof TipoLista)[keyof typeof TipoLista]
+
+
+export const TipoAtividade: {
   LEMBRETE: 'LEMBRETE',
   TAREFA: 'TAREFA',
   LISTA: 'LISTA',
@@ -95,6 +106,10 @@ export const Rotulo: {
 export type Rotulo = (typeof Rotulo)[keyof typeof Rotulo]
 
 }
+
+export type TipoLista = $Enums.TipoLista
+
+export const TipoLista: typeof $Enums.TipoLista
 
 export type TipoAtividade = $Enums.TipoAtividade
 
@@ -156,13 +171,6 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
-
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -390,8 +398,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.13.0
-   * Query Engine version: 361e86d0ea4987e9f53a565309b3eed797a6bcbd
+   * Prisma Client JS version: 6.14.0
+   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
    */
   export type PrismaVersion = {
     client: string
@@ -1703,25 +1711,6 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
-
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -5267,14 +5256,14 @@ export namespace Prisma {
 
   export type ListaDeCompraMinAggregateOutputType = {
     id: string | null
-    tipo: string | null
+    tipo: $Enums.TipoLista | null
     usuarioIdEnviou: string | null
     status: boolean | null
   }
 
   export type ListaDeCompraMaxAggregateOutputType = {
     id: string | null
-    tipo: string | null
+    tipo: $Enums.TipoLista | null
     usuarioIdEnviou: string | null
     status: boolean | null
   }
@@ -5384,7 +5373,7 @@ export namespace Prisma {
 
   export type ListaDeCompraGroupByOutputType = {
     id: string
-    tipo: string
+    tipo: $Enums.TipoLista
     usuarioIdEnviou: string
     status: boolean
     _count: ListaDeCompraCountAggregateOutputType | null
@@ -5466,7 +5455,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      tipo: string
+      tipo: $Enums.TipoLista
       usuarioIdEnviou: string
       status: boolean
     }, ExtArgs["result"]["listaDeCompra"]>
@@ -5897,7 +5886,7 @@ export namespace Prisma {
    */
   interface ListaDeCompraFieldRefs {
     readonly id: FieldRef<"ListaDeCompra", 'String'>
-    readonly tipo: FieldRef<"ListaDeCompra", 'String'>
+    readonly tipo: FieldRef<"ListaDeCompra", 'TipoLista'>
     readonly usuarioIdEnviou: FieldRef<"ListaDeCompra", 'String'>
     readonly status: FieldRef<"ListaDeCompra", 'Boolean'>
   }
@@ -13344,6 +13333,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'TipoLista'
+   */
+  export type EnumTipoListaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoLista'>
+    
+
+
+  /**
+   * Reference to a field of type 'TipoLista[]'
+   */
+  export type ListEnumTipoListaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoLista[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -13584,7 +13587,7 @@ export namespace Prisma {
     OR?: ListaDeCompraWhereInput[]
     NOT?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
     id?: UuidFilter<"ListaDeCompra"> | string
-    tipo?: StringFilter<"ListaDeCompra"> | string
+    tipo?: EnumTipoListaFilter<"ListaDeCompra"> | $Enums.TipoLista
     usuarioIdEnviou?: UuidFilter<"ListaDeCompra"> | string
     status?: BoolFilter<"ListaDeCompra"> | boolean
     usuarioEnviou?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
@@ -13609,7 +13612,7 @@ export namespace Prisma {
     AND?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
     OR?: ListaDeCompraWhereInput[]
     NOT?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
-    tipo?: StringFilter<"ListaDeCompra"> | string
+    tipo?: EnumTipoListaFilter<"ListaDeCompra"> | $Enums.TipoLista
     usuarioIdEnviou?: UuidFilter<"ListaDeCompra"> | string
     status?: BoolFilter<"ListaDeCompra"> | boolean
     usuarioEnviou?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
@@ -13633,7 +13636,7 @@ export namespace Prisma {
     OR?: ListaDeCompraScalarWhereWithAggregatesInput[]
     NOT?: ListaDeCompraScalarWhereWithAggregatesInput | ListaDeCompraScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"ListaDeCompra"> | string
-    tipo?: StringWithAggregatesFilter<"ListaDeCompra"> | string
+    tipo?: EnumTipoListaWithAggregatesFilter<"ListaDeCompra"> | $Enums.TipoLista
     usuarioIdEnviou?: UuidWithAggregatesFilter<"ListaDeCompra"> | string
     status?: BoolWithAggregatesFilter<"ListaDeCompra"> | boolean
   }
@@ -14186,7 +14189,7 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
     usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
@@ -14196,7 +14199,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedCreateInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     usuarioIdEnviou: string
     status?: boolean
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
@@ -14206,7 +14209,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
     usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
@@ -14216,7 +14219,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
@@ -14226,20 +14229,20 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateManyInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     usuarioIdEnviou: string
     status?: boolean
   }
 
   export type ListaDeCompraUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ListaDeCompraUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -14823,6 +14826,13 @@ export namespace Prisma {
     _max?: NestedEnumRotuloFilter<$PrismaModel>
   }
 
+  export type EnumTipoListaFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoLista | EnumTipoListaFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoListaFilter<$PrismaModel> | $Enums.TipoLista
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -14867,6 +14877,16 @@ export namespace Prisma {
     tipo?: SortOrder
     usuarioIdEnviou?: SortOrder
     status?: SortOrder
+  }
+
+  export type EnumTipoListaWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoLista | EnumTipoListaFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoListaWithAggregatesFilter<$PrismaModel> | $Enums.TipoLista
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTipoListaFilter<$PrismaModel>
+    _max?: NestedEnumTipoListaFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -15641,6 +15661,10 @@ export namespace Prisma {
     connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
   }
 
+  export type EnumTipoListaFieldUpdateOperationsInput = {
+    set?: $Enums.TipoLista
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
@@ -16233,9 +16257,26 @@ export namespace Prisma {
     _max?: NestedEnumRotuloFilter<$PrismaModel>
   }
 
+  export type NestedEnumTipoListaFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoLista | EnumTipoListaFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoListaFilter<$PrismaModel> | $Enums.TipoLista
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedEnumTipoListaWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoLista | EnumTipoListaFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoListaWithAggregatesFilter<$PrismaModel> | $Enums.TipoLista
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTipoListaFilter<$PrismaModel>
+    _max?: NestedEnumTipoListaFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -16494,7 +16535,7 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateWithoutUsuarioEnviouInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
     lembretes?: LembreteCreateNestedManyWithoutListaDeCompraInput
@@ -16503,7 +16544,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
     lembretes?: LembreteUncheckedCreateNestedManyWithoutListaDeCompraInput
@@ -16651,7 +16692,7 @@ export namespace Prisma {
     OR?: ListaDeCompraScalarWhereInput[]
     NOT?: ListaDeCompraScalarWhereInput | ListaDeCompraScalarWhereInput[]
     id?: UuidFilter<"ListaDeCompra"> | string
-    tipo?: StringFilter<"ListaDeCompra"> | string
+    tipo?: EnumTipoListaFilter<"ListaDeCompra"> | $Enums.TipoLista
     usuarioIdEnviou?: UuidFilter<"ListaDeCompra"> | string
     status?: BoolFilter<"ListaDeCompra"> | boolean
   }
@@ -17065,7 +17106,7 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateWithoutItensInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
     usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
     lembretes?: LembreteCreateNestedManyWithoutListaDeCompraInput
@@ -17074,7 +17115,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedCreateWithoutItensInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     usuarioIdEnviou: string
     status?: boolean
     lembretes?: LembreteUncheckedCreateNestedManyWithoutListaDeCompraInput
@@ -17099,7 +17140,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUpdateWithoutItensInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
     usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
     lembretes?: LembreteUpdateManyWithoutListaDeCompraNestedInput
@@ -17108,7 +17149,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedUpdateWithoutItensInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     lembretes?: LembreteUncheckedUpdateManyWithoutListaDeCompraNestedInput
@@ -17380,7 +17421,7 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateWithoutLembretesInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
     usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
@@ -17389,7 +17430,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedCreateWithoutLembretesInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     usuarioIdEnviou: string
     status?: boolean
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
@@ -17498,7 +17539,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUpdateWithoutLembretesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
     usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
@@ -17507,7 +17548,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedUpdateWithoutLembretesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
@@ -17723,7 +17764,7 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateWithoutAtividadesInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
     usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
@@ -17732,7 +17773,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedCreateWithoutAtividadesInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     usuarioIdEnviou: string
     status?: boolean
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
@@ -17834,7 +17875,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUpdateWithoutAtividadesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
     usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
@@ -17843,7 +17884,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedUpdateWithoutAtividadesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
@@ -17930,7 +17971,7 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateManyUsuarioEnviouInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
   }
 
@@ -17994,7 +18035,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUpdateWithoutUsuarioEnviouInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
     lembretes?: LembreteUpdateManyWithoutListaDeCompraNestedInput
@@ -18003,7 +18044,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedUpdateWithoutUsuarioEnviouInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
     lembretes?: LembreteUncheckedUpdateManyWithoutListaDeCompraNestedInput
@@ -18012,7 +18053,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
   }
 

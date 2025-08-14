@@ -42,7 +42,6 @@ const updateVehicleSchema = baseSchema.extend({
   })
 });
 
-
 class VehicleController {
   constructor(VehicleRepository) {
     this.VehicleRepository = VehicleRepository;

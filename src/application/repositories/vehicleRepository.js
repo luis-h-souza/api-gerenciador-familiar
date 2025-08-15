@@ -63,6 +63,32 @@ class VehicleRepository {
     return allVehicles;
   };
 
+  // lista todos os veículo pelo ID
+  async showByUserId(accountId) {
+
+    const vehicleById = await prismaClient.veiculo.findMany({
+      where: {
+        usuarioId: accountId, // Filtra todas as tarefas do usuário com o accountId
+      },
+      select: {
+        id: true,
+        marca: true,
+        modelo: true,
+        ano: true,
+        placa: true
+      },
+    });
+    console.log("ID linha 80", accountId)
+
+    console.log("Veiculo encontradas:", vehicleById); // Debug
+
+    if (!vehicleById || vehicleById.length === 0) {
+      throw new Error("Nenhuma veículo encontrada para este usuário.");
+    }
+
+    return vehicleById;
+  };
+
   // Atualiza um veículo
   async update({ marca, modelo, ano, placa, vehicleId }) {
 

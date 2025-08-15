@@ -104,6 +104,41 @@ class VehicleController {
     }
   };
 
+  // lista todos os veículo pelo ID
+  async showByUserId({ params, req, accountId }) {
+    accountId = params.id; // O ID agora é o ID do usuário, vindo dos params
+    console.log("accountId controller", accountId)
+
+    try {
+      const foundVehicle = await this.VehicleRepository.showByUserId(accountId);
+
+      return {
+        statusCode: 200,
+        body: foundVehicle,
+      };
+    } catch (error) {
+      if (error.message === "Nenhuma tarefa encontrada para este usuário.") {
+        return {
+          statusCode: 404,
+          body: { message: "Nenhuma tarefa encontrada para este usuário." },
+        };
+      }
+
+      if (error instanceof z.ZodError) {
+        return {
+          statusCode: 400,
+          body: { message: "ID de usuário inválido" },
+        };
+      }
+
+      console.error("Error fetching tasks:", error);
+      return {
+        statusCode: 500,
+        body: { message: "Erro interno do servidor" },
+      };
+    }
+  };
+
   // Atualiza um veículo
   async update({ body, params }) {
     const vehicleIdParam = params.id; // O ID agora é o ID do usuário, vindo dos params

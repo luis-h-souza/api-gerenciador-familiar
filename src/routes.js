@@ -146,6 +146,11 @@ router.get('/vehicles', jwtGuard, async (req, res) => {
   res.status(resposnse.statusCode).json(resposnse.body);
 });
 
+router.get('/vehicle/:id', jwtGuard, async (req, res) => {
+  const resposnse = await vehicleController.showByUserId({ params: req.params });
+  res.status(resposnse.statusCode).json(resposnse.body);
+});
+
 // Atualiza um veículo
 router.put('/update-vehicle/:id', jwtGuard, async (req, res) => {
   const response = await vehicleController.update({

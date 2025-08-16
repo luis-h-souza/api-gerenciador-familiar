@@ -16,6 +16,8 @@ const { makeVehicleRepository } = require('./factories/makeVehicleRepository');
 const { makeVehicleController } = require('./factories/makeVehicleController');
 const { makeShoppingListRepository } = require('./factories/makeShoppingListRepository');
 const { makeShoppingListController } = require('./factories/makeShoppingListController');
+const { makeActivitiesRepository } = require('./factories/makeActivitiesRepository')
+const { makeActivitiesController } = require('./factories/makeActivitiesController')
 
 
 const router = Router();
@@ -34,6 +36,8 @@ const vehicleRepository = makeVehicleRepository();
 const vehicleController = makeVehicleController(vehicleRepository);
 const listRepository = makeShoppingListRepository();
 const listController = makeShoppingListController(listRepository);
+const activitiesRepository = makeActivitiesRepository();
+const activitiesController = makeActivitiesController(activitiesRepository)
 
 
 //? Rotas de autenticação
@@ -166,6 +170,9 @@ router.delete('/delete-vehicle/:id', jwtGuard, async (req, res) => {
   res.status(response.statusCode).json(response.body);
 });
 
+// Adicionar um registro de manutenção
+
+
 
 //? Rotas das Listas de Compra
 // Criar Lista de compras
@@ -196,6 +203,13 @@ router.delete('/delete-list/:id', jwtGuard, async (req, res) => {
 
 // Adicionar item a lista de compras
 
+
+//? Rota Atividades
+// Listar as 05 últimas atividades
+router.get('/activities', jwtGuard, async (req, res) => {
+  const response =await activitiesController.show();
+  res.status(response.statusCode).json(response.body)
+});
 
 
 //? Rotas para Familia

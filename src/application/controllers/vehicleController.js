@@ -42,6 +42,39 @@ const updateVehicleSchema = baseSchema.extend({
   })
 });
 
+const registroManutencao = z.object({
+  descricao: z
+    .string()
+    .min(1, { message: 'A descrição deve ter no mínimo 1 caractere' })
+    .max(50, { message: 'A descrição deve ter no máximo 50 caracteres' }),
+
+  data: z
+    .date(),
+
+  valor: z.preprocess((val) => {
+    // se for número mantém
+    if (typeof val === 'number') {
+      return val;
+    }
+
+    // se string, limpa e converte
+    if (typeof val === 'string') {
+      // remove R$, epaços e pontos, troca a vírgula por ponto
+      const clean = val.replace(/[R$\s.]/g, "").replace(",", ".");
+      const num = parseFloat(clean);
+      return isNaN(num) ? undefined : num;
+    }
+
+    return val; // caso venha algo inesperado
+  },
+    z.number()
+      .positive({ message: 'O valor deve ser maior que zero' })
+      .refine((n) => Number(n.toFixed(2)) === n, {
+        message: 'O valordeve ter no máximo 02 casas decimais'
+      })
+  )
+})
+
 class VehicleController {
   constructor(VehicleRepository) {
     this.VehicleRepository = VehicleRepository;

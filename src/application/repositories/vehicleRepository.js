@@ -15,7 +15,7 @@ class VehicleRepository {
         where: { id: usuarioId },
       });
       if (!userExists) {
-        throw new Error('Usuário não encontrado.');
+        throw new Error("Usuário não encontrado.");
       }
       // Cria o veículo e a atividade associada
       const newCar = await prismaClient.veiculo.create({
@@ -29,29 +29,28 @@ class VehicleRepository {
           },
           atividades: {
             create: {
-              tipo: 'VEICULO',
-              acao: 'CRIADA',
+              tipo: "VEICULO",
+              acao: "CRIADA",
               dataHora: new Date(),
             },
           },
         },
-        include: { atividades: true }
+        include: { atividades: true },
       });
 
       return newCar;
-
     } catch (error) {
-      if (error.message === 'Veículo não encontrado.') {
+      if (error.message === "Veículo não encontrado.") {
         throw error;
       }
-      if (error.code === 'P2002') {
+      if (error.code === "P2002") {
         // Erro de violação de unicidade
-        throw new Error('A placa já está registrada.');
+        throw new Error("A placa já está registrada.");
       }
-      console.error('Erro ao criar veículo:', error);
-      throw new Error('Erro interno ao criar veículo.');
+      console.error("Erro ao criar veículo:", error);
+      throw new Error("Erro interno ao criar veículo.");
     }
-  }
+  };
 
   // Lista todas os veículo
   async show() {
@@ -65,7 +64,6 @@ class VehicleRepository {
 
   // lista todos os veículo pelo ID
   async showByUserId(accountId) {
-
     const vehicleById = await prismaClient.veiculo.findMany({
       where: {
         usuarioId: accountId, // Filtra todas as tarefas do usuário com o accountId
@@ -75,10 +73,10 @@ class VehicleRepository {
         marca: true,
         modelo: true,
         ano: true,
-        placa: true
+        placa: true,
       },
     });
-    console.log("ID linha 80", accountId)
+    console.log("ID linha 80", accountId);
 
     console.log("Veiculo encontradas:", vehicleById); // Debug
 
@@ -91,14 +89,13 @@ class VehicleRepository {
 
   // Atualiza um veículo
   async update({ marca, modelo, ano, placa, vehicleId }) {
-
     //Verificação de unicidade da placa
     if (placa) {
       const placaExiste = await prismaClient.veiculo.findFirst({
         where: {
           placa,
-          id: { not: vehicleId } // Ignora o próprio veículo na busca
-        }
+          id: { not: vehicleId }, // Ignora o próprio veículo na busca
+        },
       });
 
       // Se a placa já estiver em uso por outro veículo, lança um erro.
@@ -118,13 +115,13 @@ class VehicleRepository {
         placa, // Se a placa for undefined, o Prisma simplesmente a ignora.
         atividades: {
           create: {
-            tipo: 'VEICULO',
-            acao: 'ATUALIZADA',
+            tipo: "VEICULO",
+            acao: "ATUALIZADA",
             dataHora: new Date(),
-          }
+          },
         },
       },
-      include: { atividades: true } // Inclui as atividades no retorno
+      include: { atividades: true }, // Inclui as atividades no retorno
     });
 
     return updatedVehicle;
@@ -135,11 +132,11 @@ class VehicleRepository {
     const result = await prismaClient.$transaction(async (tx) => {
       await tx.atividade.create({
         data: {
-          tipo: 'VEICULO',
-          acao: 'EXCLUIDA',
+          tipo: "VEICULO",
+          acao: "EXCLUIDA",
           dataHora: new Date(),
           veiculoId: id,
-        }
+        },
       });
 
       const vehicleDelete = await tx.veiculo.delete({
@@ -151,6 +148,62 @@ class VehicleRepository {
     return result;
   };
 
+  //? Registros de manutenção
+  // registra uma manutenção
+  async registerMaintenance({ descricao, data, valor, vehicleId }) {
+    const newMaintenance = await prismaClient.registroDeManutencao.create({
+      data: {
+        descricao,
+        data,
+        valor,
+        veiculoId: vehicleId,
+      },
+    });
+    return newMaintenance;
+  };
+
+  // lista todas as manutenções de um veículo
+  async showMaintenanceByVehicleId({ vehicleId }) {
+    const allMaintenance = await prismaClient.registroDeManutencao.findMany({
+      where: {
+        veiculoId: vehicleId,
+      },
+    });
+    return allMaintenance;
+  };
+
+  // lista todas as manutenções de um veículo de um usuário
+  async showMaintenanceByUserId({ userId }) {
+    const allMaintenance = await prismaClient.registroDeManutencao.findMany({
+      where: {
+        veiculo: {
+          usuarioId: userId,
+          usuario: {
+            id: userId,
+          },
+        },
+      },
+    });
+    console.log("linha 187 userId", userId);
+    return allMaintenance;
+  };
+
+  // atualiza uma manutenção
+  async updateMaintenance({ maintenanceId, ...body }) {
+    const result = await prismaClient.registroDeManutencao.update({
+      where: { id: maintenanceId },
+      data: body,
+    });
+    return result;
+  };
+
+  // deleta uma manutenção
+  async deleteMaintenance({ maintenanceId }) {
+    const result = await prismaClient.registroDeManutencao.delete({
+      where: { id: maintenanceId },
+    });
+    return result;
+  };
 }
 
 module.exports = { VehicleRepository };

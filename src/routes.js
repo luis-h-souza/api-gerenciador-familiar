@@ -208,7 +208,7 @@ router.get("/vehicle/:id/maintenance", jwtGuard, async (req, res) => {
 // Listar manutenções pelo id o usuário
 router.get("/vehicle/:id/maintenance", jwtGuard, async (req, res) => {
   //! debug aqui
-  const {id} = req.params;
+  const { id } = req.params;
   console.log(`Fetching maintenance for vehicle ID: ${id}, user: ${req.user?.id}`);
 
   const response = await vehicleController.showMaintenanceByUserId({
@@ -298,19 +298,20 @@ router.get("/activities", jwtGuard, async (req, res) => {
 
 
 //? Rotas para Familia
-// Rota de criação de família (ajustada para POST)
-router.post("/family", jwtGuard, async (req, res) => {
-  const response = await familyController.handle({
+// Rota de criação de família
+router.post("/create-family", jwtGuard, async (req, res) => {
+  const response = await familyController.createFamily({
     body: req.body,
     user: req.user,
   });
   res.status(response.statusCode).json(response.body);
 });
 
-// Rota de convite de família (ajustada para POST)
-router.post("/family/invite", jwtGuard, async (req, res) => {
+// Rota de convite para uma família
+router.post("/family/:familyId/invite", jwtGuard, async (req, res) => {
   try {
-    const response = await familyController.handle({
+    const response = await familyController.inviteMember({
+      params: req.params,
       body: req.body,
       user: req.user,
     });
@@ -322,6 +323,38 @@ router.post("/family/invite", jwtGuard, async (req, res) => {
       error: error.message,
     });
   }
+});
+
+// Rota para responder a um convite
+router.patch("/family/invitations/respond", jwtGuard, async (req, res) => {
+  const response = await familyController.respondInvitation({
+    body: req.body,
+    user: req.user,
+  });
+  res.status(response.statusCode).json(response.body);
+});
+
+// Rota para listar convites pendentes
+router.get("/family/invitations", jwtGuard, async (req, res) => {
+  const response = await familyController.getPendingInvitations({
+    user: req.user,
+  });
+  res.status(response.statusCode).json(response.body);
+});
+
+// Rota para listar membros da família
+router.get("/family/:familyId/members", jwtGuard, async (req, res) => {
+  const response = await familyController.getFamilyMembers({
+    params: req.params,
+    user: req.user,
+  });
+  res.status(response.statusCode).json(response.body);
+});
+
+//! Rota para listar famílias do usuário
+router.get("/families", jwtGuard, async (req, res) => {
+  const response = await familyController.getUserFamilies({ user: req.user });
+  res.status(response.statusCode).json(response.body);
 });
 
 module.exports = router;

@@ -1,121 +1,150 @@
 const { prismaClient } = require("../../libs/PrismaClient");
+const emailService = require("../../libs/emailService");
 
 class FamilyRepository {
 
-  async execute({ id_familia, id_usuario, email }) {
-    // Verifica se a família existe e inclui os usuários associados
-    const family = await prismaClient.familia.findUnique({
-      where: {
-        id: id_familia,
-      },
-      include: {
-        usuarios: true,
-      },
-    });
-
-    if (!family) {
-      throw new Error("Família não encontrada");
-    }
-
-    // Verifica se o usuário convidado existe pelo e-mail
-    const invitedUser = await prismaClient.usuario.findUnique({
-      where: { email: email },
-      include: {
-        familia_usuarios: true, // Inclui os usuários da família para verificar se já está
-      }
-    })
-
-    if (!invitedUser) {
-      throw new Error("Usuário não encontrado");
-    }
-
-    if (email === undefined || email === null) {
-      throw new Error("E-mail não informado");
-    }
-
-    // Verifica se o usuário já está na família
-    const existingFamilyUser = await prismaClient.familia_usuarios.findFirst({
-      where: {
-        id_usuario: invitedUser.id,
-        id_familia: id_familia,
-      },
-    });
-
-    if (existingFamilyUser) {
-      throw new Error("Usuário já está na família");
-    }
-
-    // Adiciona o usuário à família
-    await prismaClient.familia_usuarios.create({
+  //* Cria uma família
+  async createFamily(userId, nome) {
+    return prismaClient.familia.create({
       data: {
-        id_usuario: invitedUser.id,
-        id_familia,
-        rotulo: "FILHO", // ou outro rótulo se desejar
-      }
-    });
-
-    // Cria uma notificação interna para o usuário convidado
-    const notificacao = await prismaClient.lembrete.create({
-      data: {
-        titulo: `Convite para a família ${family.nome}`,
-        descricao: `Você foi convidado para a família ${family.nome}`,
-        dataHora: new Date(),
-        usuarioIdRecebeu: id_usuario, // usuário que enviou o convite
-        familiaId: id_familia,
-        tipo: "CONVITE_FAMILIA", // se tiver enum/tipo
-        lida: false,
-      },
-      select: {
-        descricao: true,
-        dataHora: true,
-        familia: {
-          select: {
-            id: true,
-            nome: true,
-          }
-        },
-        usuarioEnviou: {
-          select: {
-            id: true,
-            name: true,
-          }
-        },
-        usuarioRecebeu: {
-          select: {
-            id: true,
-            name: true,
-          }
-        }
-      }
-    });
-
-    return {
-      family,
-      invitedUser,
-      message: "Usuário adicionado à família e notificação enviada via app",
-      notification: {
-        usuarioIdRecebeu: id_usuario,
-        descricao: notificacao.descricao,
-        dataHora: notificacao.dataHora,
-        familia: {
-          id: family.id,
-          nome: family.nome,
-        },
-        lembrete: {
-          usuarioEnviou: {
-            id: id_usuario,
-            nome: notificacao.usuarioIdEnviou.name, // buscar nome do usuário que convidou
-          },
-          usuarioRecebeu: {
-            id: invitedUser.id,
-            nome: invitedUser.name,
+        nome,
+        membros: {
+          create: {
+            rotulo: 'PAIS', // Criador são os pais
+            usuario: {
+              connect: { id: userId },
+            },
           },
         },
-        tipo: notificacao.tipo,
-        lida: notificacao.lida,
-      }
-    };
-  }
+      },
+    });
+  };
+
+  // Busca uma família pelo ID
+  async isParent(familyId, userId) {
+    return prismaClient.membrosDaFamilia.findFirst({
+      where: { id_familia: familyId, id_usuario: userId, rotulo: 'PAIS' },
+    });
+  };
+
+  //* Convida um membro para a família
+  async inviteMember(familyId, email, inviterId) {
+    const user = await prismaClient.usuario.findUnique({ where: { email } });
+    if (!user) {
+      throw new Error('Usuário não encontrado');
+    }
+
+    // Verifica se o usuário já é membro da família
+    const isMember = await prismaClient.membrosDaFamilia.findFirst({
+      where: {
+        id_familia: familyId,
+        id_usuario: user.id,
+        rotulo: 'PAIS',
+      },
+    });
+    console.log("45", isMember);
+
+    if (isMember) {
+      throw new Error('Usuário já é membro da família');
+    }
+
+    // Verifica se já existe um convite pendente
+    const existingInvitation = await prismaClient.familiaConvite.findFirst({
+      where: { familiaId: familyId, email, status: 'PENDENTE' },
+    });
+
+    if (existingInvitation) {
+      throw new Error('Convite já pendente para este usuário');
+    }
+
+    const invitation = await prismaClient.familiaConvite.create({
+      data: {
+        familiaId: familyId, // Corrija aqui também
+        email,
+        status: 'PENDENTE',
+      },
+    });
+
+    // Busca o nome da família para o e-mail
+    const family = await prismaClient.familia.findUnique({ where: { id: familyId } });
+    const deepLink = `${process.env.DEEP_LINK_BASE_URL}/${invitation.id}`;
+
+    // Envia o e-mail
+    await emailService.sendInvitationEmail(email, family.nome, invitation.id, deepLink);
+
+    return invitation;
+  };
+
+  //* Busca uma família pelo ID
+  async getFamilyMembers(familyId) {
+    return prismaClient.membrosDaFamilia.findMany({
+      where: { id_familia: familyId },
+      include: {
+        familia: true,
+        usuario: true
+      },
+    });
+  };
+
+  //* Lista convites pendentes
+  async getPendingInvitations(userId) {
+    const user = await prismaClient.usuario.findUnique({ where: { id: userId } });
+    if (!user) {
+      throw new Error('Usuário não encontrado');
+    }
+    return prismaClient.familiaConvite.findMany({
+      where: { email: user.email, status: 'PENDENTE' },
+      include: { familia: true },
+    });
+  };
+
+  //* Responde a um convite
+  async respondInvitation(invitationId, userId, status) {
+    const invitation = await prismaClient.familiaConvite.findUnique({
+      where: { id: invitationId },
+    });
+    if (!invitation) {
+      throw new Error('Convite não encontrado');
+    }
+
+    const user = await prismaClient.usuario.findUnique({ where: { id: userId } });
+    if (user.email !== invitation.email) {
+      throw new Error('O convite não pertence a este usuário');
+    }
+
+    if (status === 'ACEITO') {
+      await prismaClient.membrosDaFamilia.create({
+        data: {
+          id_usuario: userId,
+          id_familia: invitation.familiaId,
+          rotulo: 'FILHO',
+        },
+      });
+    }
+
+    return prismaClient.familiaConvite.update({
+      where: { id: invitationId },
+      data: { status },
+    });
+  };
+
+  //* Busca famílias do usuário
+  async getUserFamilies(userId) {
+    return prismaClient.familia.findMany({
+      where: {
+        membros: {
+          some: { id_usuario: userId },
+        },
+      },
+      include: {
+        membros: {
+          include: {
+            usuario: true,
+          },
+        },
+      },
+    });
+  };
 }
 
 module.exports = { FamilyRepository };

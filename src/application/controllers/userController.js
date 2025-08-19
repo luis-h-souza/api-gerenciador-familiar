@@ -120,7 +120,7 @@ class UserController {
 
   async delete({ params }) {
     const { id } = params;
-    console.log("id", id, "params", params)
+
     try {
       await this.UserRepository.delete({ id })
       return {

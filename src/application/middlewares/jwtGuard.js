@@ -11,7 +11,7 @@ async function jwtGuard(req, res, next) {
   const authMiddleware = new AuthenticationMiddleware();
 
   //! Debug: log do req.body ANTES
-  console.log('jwtGuard - req.body antes:', req.body);
+  // console.log('jwtGuard - req.body antes:', req.body);
 
   try {
     const result = await authMiddleware.handle({ headers: req.headers });
@@ -27,8 +27,14 @@ async function jwtGuard(req, res, next) {
     }
     req.accountId = accountId; // Atribui o UUID como string
 
-    // console.log('req.guard - Account ID:', accountId); //!
-    // console.log('jwtGuard - req.body após:', req.body); //! Log do req.body DEPOIS
+    // Adicione o usuário ao req para uso nos controllers
+    req.user = {
+      id: result.data.accountId,
+      nome: result.data.nome, // se disponível
+    };
+
+    console.log('req.guard - Account ID:', accountId); //!
+    console.log('jwtGuard - req.body após:', req.body); //! Log do req.body DEPOIS
 
     next();
   } catch (error) {

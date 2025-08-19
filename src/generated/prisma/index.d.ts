@@ -68,7 +68,18 @@ export type Atividade = $Result.DefaultSelection<Prisma.$AtividadePayload>
  * Enums
  */
 export namespace $Enums {
-  export const TipoAtividade: {
+  export const TipoLista: {
+  MERCADO: 'MERCADO',
+  FARMACIA: 'FARMACIA',
+  PADARIA: 'PADARIA',
+  ACOUGUE: 'ACOUGUE',
+  OUTROS: 'OUTROS'
+};
+
+export type TipoLista = (typeof TipoLista)[keyof typeof TipoLista]
+
+
+export const TipoAtividade: {
   LEMBRETE: 'LEMBRETE',
   TAREFA: 'TAREFA',
   LISTA: 'LISTA',
@@ -95,6 +106,10 @@ export const Rotulo: {
 export type Rotulo = (typeof Rotulo)[keyof typeof Rotulo]
 
 }
+
+export type TipoLista = $Enums.TipoLista
+
+export const TipoLista: typeof $Enums.TipoLista
 
 export type TipoAtividade = $Enums.TipoAtividade
 
@@ -124,7 +139,7 @@ export const Rotulo: typeof $Enums.Rotulo
  */
 export class PrismaClient<
   ClientOptions extends Prisma.PrismaClientOptions = Prisma.PrismaClientOptions,
-  U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
+  const U = 'log' extends keyof ClientOptions ? ClientOptions['log'] extends Array<Prisma.LogLevel | Prisma.LogDefinition> ? Prisma.GetEvents<ClientOptions['log']> : never : never,
   ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
@@ -156,13 +171,6 @@ export class PrismaClient<
    * Disconnect from the database
    */
   $disconnect(): $Utils.JsPromise<void>;
-
-  /**
-   * Add a middleware
-   * @deprecated since 4.16.0. For new code, prefer client extensions instead.
-   * @see https://pris.ly/d/extensions
-   */
-  $use(cb: Prisma.Middleware): void
 
 /**
    * Executes a prepared raw query and returns the number of affected rows.
@@ -390,8 +398,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.8.2
-   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+   * Prisma Client JS version: 6.14.0
+   * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
    */
   export type PrismaVersion = {
     client: string
@@ -1587,16 +1595,24 @@ export namespace Prisma {
     /**
      * @example
      * ```
-     * // Defaults to stdout
+     * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
      * 
-     * // Emit as events
+     * // Emit as events only
      * log: [
-     *   { emit: 'stdout', level: 'query' },
-     *   { emit: 'stdout', level: 'info' },
-     *   { emit: 'stdout', level: 'warn' }
-     *   { emit: 'stdout', level: 'error' }
+     *   { emit: 'event', level: 'query' },
+     *   { emit: 'event', level: 'info' },
+     *   { emit: 'event', level: 'warn' }
+     *   { emit: 'event', level: 'error' }
      * ]
+     * 
+     * / Emit as events and log to stdout
+     * og: [
+     *  { emit: 'stdout', level: 'query' },
+     *  { emit: 'stdout', level: 'info' },
+     *  { emit: 'stdout', level: 'warn' }
+     *  { emit: 'stdout', level: 'error' }
+     * 
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -1647,10 +1663,15 @@ export namespace Prisma {
     emit: 'stdout' | 'event'
   }
 
-  export type GetLogType<T extends LogLevel | LogDefinition> = T extends LogDefinition ? T['emit'] extends 'event' ? T['level'] : never : never
-  export type GetEvents<T extends any> = T extends Array<LogLevel | LogDefinition> ?
-    GetLogType<T[0]> | GetLogType<T[1]> | GetLogType<T[2]> | GetLogType<T[3]>
-    : never
+  export type CheckIsLogLevel<T> = T extends LogLevel ? T : never;
+
+  export type GetLogType<T> = CheckIsLogLevel<
+    T extends LogDefinition ? T['level'] : T
+  >;
+
+  export type GetEvents<T extends any[]> = T extends Array<LogLevel | LogDefinition>
+    ? GetLogType<T[number]>
+    : never;
 
   export type QueryEvent = {
     timestamp: Date
@@ -1690,25 +1711,6 @@ export namespace Prisma {
     | 'runCommandRaw'
     | 'findRaw'
     | 'groupBy'
-
-  /**
-   * These options are being passed into the middleware as "params"
-   */
-  export type MiddlewareParams = {
-    model?: ModelName
-    action: PrismaAction
-    args: any
-    dataPath: string[]
-    runInTransaction: boolean
-  }
-
-  /**
-   * The `T` type makes sure, that the `return proceed` is not forgotten in the middleware implementation
-   */
-  export type Middleware<T = any> = (
-    params: MiddlewareParams,
-    next: (params: MiddlewareParams) => $Utils.JsPromise<T>,
-  ) => $Utils.JsPromise<T>
 
   // tested in getLogLevel.test.ts
   export function getLogLevel(log: Array<LogLevel | LogDefinition>): LogLevel | undefined;
@@ -5254,14 +5256,14 @@ export namespace Prisma {
 
   export type ListaDeCompraMinAggregateOutputType = {
     id: string | null
-    tipo: string | null
+    tipo: $Enums.TipoLista | null
     usuarioIdEnviou: string | null
     status: boolean | null
   }
 
   export type ListaDeCompraMaxAggregateOutputType = {
     id: string | null
-    tipo: string | null
+    tipo: $Enums.TipoLista | null
     usuarioIdEnviou: string | null
     status: boolean | null
   }
@@ -5371,7 +5373,7 @@ export namespace Prisma {
 
   export type ListaDeCompraGroupByOutputType = {
     id: string
-    tipo: string
+    tipo: $Enums.TipoLista
     usuarioIdEnviou: string
     status: boolean
     _count: ListaDeCompraCountAggregateOutputType | null
@@ -5453,7 +5455,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      tipo: string
+      tipo: $Enums.TipoLista
       usuarioIdEnviou: string
       status: boolean
     }, ExtArgs["result"]["listaDeCompra"]>
@@ -5884,7 +5886,7 @@ export namespace Prisma {
    */
   interface ListaDeCompraFieldRefs {
     readonly id: FieldRef<"ListaDeCompra", 'String'>
-    readonly tipo: FieldRef<"ListaDeCompra", 'String'>
+    readonly tipo: FieldRef<"ListaDeCompra", 'TipoLista'>
     readonly usuarioIdEnviou: FieldRef<"ListaDeCompra", 'String'>
     readonly status: FieldRef<"ListaDeCompra", 'Boolean'>
   }
@@ -7638,9 +7640,9 @@ export namespace Prisma {
 
   export type VeiculoGroupByOutputType = {
     id: string
-    marca: string
-    modelo: string
-    ano: number
+    marca: string | null
+    modelo: string | null
+    ano: number | null
     placa: string
     usuarioId: string
     _count: VeiculoCountAggregateOutputType | null
@@ -7732,9 +7734,9 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      marca: string
-      modelo: string
-      ano: number
+      marca: string | null
+      modelo: string | null
+      ano: number | null
       placa: string
       usuarioId: string
     }, ExtArgs["result"]["veiculo"]>
@@ -11967,7 +11969,7 @@ export namespace Prisma {
     id: string | null
     tipo: $Enums.TipoAtividade | null
     acao: $Enums.AcaoAtividade | null
-    datHora: Date | null
+    dataHora: Date | null
     tarefaId: string | null
     listaDeCompraId: string | null
     lembreteId: string | null
@@ -11978,7 +11980,7 @@ export namespace Prisma {
     id: string | null
     tipo: $Enums.TipoAtividade | null
     acao: $Enums.AcaoAtividade | null
-    datHora: Date | null
+    dataHora: Date | null
     tarefaId: string | null
     listaDeCompraId: string | null
     lembreteId: string | null
@@ -11989,7 +11991,7 @@ export namespace Prisma {
     id: number
     tipo: number
     acao: number
-    datHora: number
+    dataHora: number
     tarefaId: number
     listaDeCompraId: number
     lembreteId: number
@@ -12002,7 +12004,7 @@ export namespace Prisma {
     id?: true
     tipo?: true
     acao?: true
-    datHora?: true
+    dataHora?: true
     tarefaId?: true
     listaDeCompraId?: true
     lembreteId?: true
@@ -12013,7 +12015,7 @@ export namespace Prisma {
     id?: true
     tipo?: true
     acao?: true
-    datHora?: true
+    dataHora?: true
     tarefaId?: true
     listaDeCompraId?: true
     lembreteId?: true
@@ -12024,7 +12026,7 @@ export namespace Prisma {
     id?: true
     tipo?: true
     acao?: true
-    datHora?: true
+    dataHora?: true
     tarefaId?: true
     listaDeCompraId?: true
     lembreteId?: true
@@ -12108,7 +12110,7 @@ export namespace Prisma {
     id: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora: Date
+    dataHora: Date
     tarefaId: string | null
     listaDeCompraId: string | null
     lembreteId: string | null
@@ -12136,7 +12138,7 @@ export namespace Prisma {
     id?: boolean
     tipo?: boolean
     acao?: boolean
-    datHora?: boolean
+    dataHora?: boolean
     tarefaId?: boolean
     listaDeCompraId?: boolean
     lembreteId?: boolean
@@ -12151,7 +12153,7 @@ export namespace Prisma {
     id?: boolean
     tipo?: boolean
     acao?: boolean
-    datHora?: boolean
+    dataHora?: boolean
     tarefaId?: boolean
     listaDeCompraId?: boolean
     lembreteId?: boolean
@@ -12166,7 +12168,7 @@ export namespace Prisma {
     id?: boolean
     tipo?: boolean
     acao?: boolean
-    datHora?: boolean
+    dataHora?: boolean
     tarefaId?: boolean
     listaDeCompraId?: boolean
     lembreteId?: boolean
@@ -12181,14 +12183,14 @@ export namespace Prisma {
     id?: boolean
     tipo?: boolean
     acao?: boolean
-    datHora?: boolean
+    dataHora?: boolean
     tarefaId?: boolean
     listaDeCompraId?: boolean
     lembreteId?: boolean
     veiculoId?: boolean
   }
 
-  export type AtividadeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipo" | "acao" | "datHora" | "tarefaId" | "listaDeCompraId" | "lembreteId" | "veiculoId", ExtArgs["result"]["atividade"]>
+  export type AtividadeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipo" | "acao" | "dataHora" | "tarefaId" | "listaDeCompraId" | "lembreteId" | "veiculoId", ExtArgs["result"]["atividade"]>
   export type AtividadeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
@@ -12220,7 +12222,7 @@ export namespace Prisma {
       id: string
       tipo: $Enums.TipoAtividade
       acao: $Enums.AcaoAtividade
-      datHora: Date
+      dataHora: Date
       tarefaId: string | null
       listaDeCompraId: string | null
       lembreteId: string | null
@@ -12655,7 +12657,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Atividade", 'String'>
     readonly tipo: FieldRef<"Atividade", 'TipoAtividade'>
     readonly acao: FieldRef<"Atividade", 'AcaoAtividade'>
-    readonly datHora: FieldRef<"Atividade", 'DateTime'>
+    readonly dataHora: FieldRef<"Atividade", 'DateTime'>
     readonly tarefaId: FieldRef<"Atividade", 'String'>
     readonly listaDeCompraId: FieldRef<"Atividade", 'String'>
     readonly lembreteId: FieldRef<"Atividade", 'String'>
@@ -13263,7 +13265,7 @@ export namespace Prisma {
     id: 'id',
     tipo: 'tipo',
     acao: 'acao',
-    datHora: 'datHora',
+    dataHora: 'dataHora',
     tarefaId: 'tarefaId',
     listaDeCompraId: 'listaDeCompraId',
     lembreteId: 'lembreteId',
@@ -13327,6 +13329,20 @@ export namespace Prisma {
    * Reference to a field of type 'Rotulo[]'
    */
   export type ListEnumRotuloFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Rotulo[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TipoLista'
+   */
+  export type EnumTipoListaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoLista'>
+    
+
+
+  /**
+   * Reference to a field of type 'TipoLista[]'
+   */
+  export type ListEnumTipoListaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoLista[]'>
     
 
 
@@ -13571,7 +13587,7 @@ export namespace Prisma {
     OR?: ListaDeCompraWhereInput[]
     NOT?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
     id?: UuidFilter<"ListaDeCompra"> | string
-    tipo?: StringFilter<"ListaDeCompra"> | string
+    tipo?: EnumTipoListaFilter<"ListaDeCompra"> | $Enums.TipoLista
     usuarioIdEnviou?: UuidFilter<"ListaDeCompra"> | string
     status?: BoolFilter<"ListaDeCompra"> | boolean
     usuarioEnviou?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
@@ -13596,7 +13612,7 @@ export namespace Prisma {
     AND?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
     OR?: ListaDeCompraWhereInput[]
     NOT?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
-    tipo?: StringFilter<"ListaDeCompra"> | string
+    tipo?: EnumTipoListaFilter<"ListaDeCompra"> | $Enums.TipoLista
     usuarioIdEnviou?: UuidFilter<"ListaDeCompra"> | string
     status?: BoolFilter<"ListaDeCompra"> | boolean
     usuarioEnviou?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
@@ -13620,7 +13636,7 @@ export namespace Prisma {
     OR?: ListaDeCompraScalarWhereWithAggregatesInput[]
     NOT?: ListaDeCompraScalarWhereWithAggregatesInput | ListaDeCompraScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"ListaDeCompra"> | string
-    tipo?: StringWithAggregatesFilter<"ListaDeCompra"> | string
+    tipo?: EnumTipoListaWithAggregatesFilter<"ListaDeCompra"> | $Enums.TipoLista
     usuarioIdEnviou?: UuidWithAggregatesFilter<"ListaDeCompra"> | string
     status?: BoolWithAggregatesFilter<"ListaDeCompra"> | boolean
   }
@@ -13687,9 +13703,9 @@ export namespace Prisma {
     OR?: VeiculoWhereInput[]
     NOT?: VeiculoWhereInput | VeiculoWhereInput[]
     id?: UuidFilter<"Veiculo"> | string
-    marca?: StringFilter<"Veiculo"> | string
-    modelo?: StringFilter<"Veiculo"> | string
-    ano?: IntFilter<"Veiculo"> | number
+    marca?: StringNullableFilter<"Veiculo"> | string | null
+    modelo?: StringNullableFilter<"Veiculo"> | string | null
+    ano?: IntNullableFilter<"Veiculo"> | number | null
     placa?: StringFilter<"Veiculo"> | string
     usuarioId?: UuidFilter<"Veiculo"> | string
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
@@ -13700,9 +13716,9 @@ export namespace Prisma {
 
   export type VeiculoOrderByWithRelationInput = {
     id?: SortOrder
-    marca?: SortOrder
-    modelo?: SortOrder
-    ano?: SortOrder
+    marca?: SortOrderInput | SortOrder
+    modelo?: SortOrderInput | SortOrder
+    ano?: SortOrderInput | SortOrder
     placa?: SortOrder
     usuarioId?: SortOrder
     usuario?: UsuarioOrderByWithRelationInput
@@ -13717,9 +13733,9 @@ export namespace Prisma {
     AND?: VeiculoWhereInput | VeiculoWhereInput[]
     OR?: VeiculoWhereInput[]
     NOT?: VeiculoWhereInput | VeiculoWhereInput[]
-    marca?: StringFilter<"Veiculo"> | string
-    modelo?: StringFilter<"Veiculo"> | string
-    ano?: IntFilter<"Veiculo"> | number
+    marca?: StringNullableFilter<"Veiculo"> | string | null
+    modelo?: StringNullableFilter<"Veiculo"> | string | null
+    ano?: IntNullableFilter<"Veiculo"> | number | null
     usuarioId?: UuidFilter<"Veiculo"> | string
     usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     Lembrete?: LembreteListRelationFilter
@@ -13729,9 +13745,9 @@ export namespace Prisma {
 
   export type VeiculoOrderByWithAggregationInput = {
     id?: SortOrder
-    marca?: SortOrder
-    modelo?: SortOrder
-    ano?: SortOrder
+    marca?: SortOrderInput | SortOrder
+    modelo?: SortOrderInput | SortOrder
+    ano?: SortOrderInput | SortOrder
     placa?: SortOrder
     usuarioId?: SortOrder
     _count?: VeiculoCountOrderByAggregateInput
@@ -13746,9 +13762,9 @@ export namespace Prisma {
     OR?: VeiculoScalarWhereWithAggregatesInput[]
     NOT?: VeiculoScalarWhereWithAggregatesInput | VeiculoScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"Veiculo"> | string
-    marca?: StringWithAggregatesFilter<"Veiculo"> | string
-    modelo?: StringWithAggregatesFilter<"Veiculo"> | string
-    ano?: IntWithAggregatesFilter<"Veiculo"> | number
+    marca?: StringNullableWithAggregatesFilter<"Veiculo"> | string | null
+    modelo?: StringNullableWithAggregatesFilter<"Veiculo"> | string | null
+    ano?: IntNullableWithAggregatesFilter<"Veiculo"> | number | null
     placa?: StringWithAggregatesFilter<"Veiculo"> | string
     usuarioId?: UuidWithAggregatesFilter<"Veiculo"> | string
   }
@@ -13944,7 +13960,7 @@ export namespace Prisma {
     id?: UuidFilter<"Atividade"> | string
     tipo?: EnumTipoAtividadeFilter<"Atividade"> | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFilter<"Atividade"> | $Enums.AcaoAtividade
-    datHora?: DateTimeFilter<"Atividade"> | Date | string
+    dataHora?: DateTimeFilter<"Atividade"> | Date | string
     tarefaId?: UuidNullableFilter<"Atividade"> | string | null
     listaDeCompraId?: UuidNullableFilter<"Atividade"> | string | null
     lembreteId?: UuidNullableFilter<"Atividade"> | string | null
@@ -13959,7 +13975,7 @@ export namespace Prisma {
     id?: SortOrder
     tipo?: SortOrder
     acao?: SortOrder
-    datHora?: SortOrder
+    dataHora?: SortOrder
     tarefaId?: SortOrderInput | SortOrder
     listaDeCompraId?: SortOrderInput | SortOrder
     lembreteId?: SortOrderInput | SortOrder
@@ -13977,7 +13993,7 @@ export namespace Prisma {
     NOT?: AtividadeWhereInput | AtividadeWhereInput[]
     tipo?: EnumTipoAtividadeFilter<"Atividade"> | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFilter<"Atividade"> | $Enums.AcaoAtividade
-    datHora?: DateTimeFilter<"Atividade"> | Date | string
+    dataHora?: DateTimeFilter<"Atividade"> | Date | string
     tarefaId?: UuidNullableFilter<"Atividade"> | string | null
     listaDeCompraId?: UuidNullableFilter<"Atividade"> | string | null
     lembreteId?: UuidNullableFilter<"Atividade"> | string | null
@@ -13992,7 +14008,7 @@ export namespace Prisma {
     id?: SortOrder
     tipo?: SortOrder
     acao?: SortOrder
-    datHora?: SortOrder
+    dataHora?: SortOrder
     tarefaId?: SortOrderInput | SortOrder
     listaDeCompraId?: SortOrderInput | SortOrder
     lembreteId?: SortOrderInput | SortOrder
@@ -14009,7 +14025,7 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"Atividade"> | string
     tipo?: EnumTipoAtividadeWithAggregatesFilter<"Atividade"> | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeWithAggregatesFilter<"Atividade"> | $Enums.AcaoAtividade
-    datHora?: DateTimeWithAggregatesFilter<"Atividade"> | Date | string
+    dataHora?: DateTimeWithAggregatesFilter<"Atividade"> | Date | string
     tarefaId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
     listaDeCompraId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
     lembreteId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
@@ -14173,7 +14189,7 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
     usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
@@ -14183,7 +14199,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedCreateInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     usuarioIdEnviou: string
     status?: boolean
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
@@ -14193,7 +14209,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
     usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
@@ -14203,7 +14219,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
@@ -14213,20 +14229,20 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateManyInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     usuarioIdEnviou: string
     status?: boolean
   }
 
   export type ListaDeCompraUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ListaDeCompraUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
   }
@@ -14288,9 +14304,9 @@ export namespace Prisma {
 
   export type VeiculoCreateInput = {
     id?: string
-    marca: string
-    modelo: string
-    ano: number
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
     placa: string
     usuario: UsuarioCreateNestedOneWithoutVeiculosInput
     Lembrete?: LembreteCreateNestedManyWithoutVeiculoInput
@@ -14300,9 +14316,9 @@ export namespace Prisma {
 
   export type VeiculoUncheckedCreateInput = {
     id?: string
-    marca: string
-    modelo: string
-    ano: number
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
     placa: string
     usuarioId: string
     Lembrete?: LembreteUncheckedCreateNestedManyWithoutVeiculoInput
@@ -14312,9 +14328,9 @@ export namespace Prisma {
 
   export type VeiculoUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
     usuario?: UsuarioUpdateOneRequiredWithoutVeiculosNestedInput
     Lembrete?: LembreteUpdateManyWithoutVeiculoNestedInput
@@ -14324,9 +14340,9 @@ export namespace Prisma {
 
   export type VeiculoUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
     usuarioId?: StringFieldUpdateOperationsInput | string
     Lembrete?: LembreteUncheckedUpdateManyWithoutVeiculoNestedInput
@@ -14336,26 +14352,26 @@ export namespace Prisma {
 
   export type VeiculoCreateManyInput = {
     id?: string
-    marca: string
-    modelo: string
-    ano: number
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
     placa: string
     usuarioId: string
   }
 
   export type VeiculoUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
   }
 
   export type VeiculoUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
     usuarioId?: StringFieldUpdateOperationsInput | string
   }
@@ -14542,7 +14558,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
     lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
     lembrete?: LembreteCreateNestedOneWithoutAtividadesInput
@@ -14553,7 +14569,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     tarefaId?: string | null
     listaDeCompraId?: string | null
     lembreteId?: string | null
@@ -14564,7 +14580,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
     lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
     lembrete?: LembreteUpdateOneWithoutAtividadesNestedInput
@@ -14575,7 +14591,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14586,7 +14602,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     tarefaId?: string | null
     listaDeCompraId?: string | null
     lembreteId?: string | null
@@ -14597,14 +14613,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AtividadeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14810,6 +14826,13 @@ export namespace Prisma {
     _max?: NestedEnumRotuloFilter<$PrismaModel>
   }
 
+  export type EnumTipoListaFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoLista | EnumTipoListaFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoListaFilter<$PrismaModel> | $Enums.TipoLista
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -14854,6 +14877,16 @@ export namespace Prisma {
     tipo?: SortOrder
     usuarioIdEnviou?: SortOrder
     status?: SortOrder
+  }
+
+  export type EnumTipoListaWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoLista | EnumTipoListaFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoListaWithAggregatesFilter<$PrismaModel> | $Enums.TipoLista
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTipoListaFilter<$PrismaModel>
+    _max?: NestedEnumTipoListaFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -14928,10 +14961,41 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type RegistroDeManutencaoListRelationFilter = {
     every?: RegistroDeManutencaoWhereInput
     some?: RegistroDeManutencaoWhereInput
     none?: RegistroDeManutencaoWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type RegistroDeManutencaoOrderByRelationAggregateInput = {
@@ -14973,7 +15037,7 @@ export namespace Prisma {
     ano?: SortOrder
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -14985,7 +15049,26 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -15013,11 +15096,6 @@ export namespace Prisma {
   export type VeiculoScalarRelationFilter = {
     is?: VeiculoWhereInput
     isNot?: VeiculoWhereInput
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type RegistroDeManutencaoCountOrderByAggregateInput = {
@@ -15050,24 +15128,6 @@ export namespace Prisma {
 
   export type RegistroDeManutencaoSumOrderByAggregateInput = {
     valor?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -15201,7 +15261,7 @@ export namespace Prisma {
     id?: SortOrder
     tipo?: SortOrder
     acao?: SortOrder
-    datHora?: SortOrder
+    dataHora?: SortOrder
     tarefaId?: SortOrder
     listaDeCompraId?: SortOrder
     lembreteId?: SortOrder
@@ -15212,7 +15272,7 @@ export namespace Prisma {
     id?: SortOrder
     tipo?: SortOrder
     acao?: SortOrder
-    datHora?: SortOrder
+    dataHora?: SortOrder
     tarefaId?: SortOrder
     listaDeCompraId?: SortOrder
     lembreteId?: SortOrder
@@ -15223,7 +15283,7 @@ export namespace Prisma {
     id?: SortOrder
     tipo?: SortOrder
     acao?: SortOrder
-    datHora?: SortOrder
+    dataHora?: SortOrder
     tarefaId?: SortOrder
     listaDeCompraId?: SortOrder
     lembreteId?: SortOrder
@@ -15601,6 +15661,10 @@ export namespace Prisma {
     connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
   }
 
+  export type EnumTipoListaFieldUpdateOperationsInput = {
+    set?: $Enums.TipoLista
+  }
+
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
   }
@@ -15767,6 +15831,18 @@ export namespace Prisma {
     connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type UsuarioUpdateOneRequiredWithoutVeiculosNestedInput = {
     create?: XOR<UsuarioCreateWithoutVeiculosInput, UsuarioUncheckedCreateWithoutVeiculosInput>
     connectOrCreate?: UsuarioCreateOrConnectWithoutVeiculosInput
@@ -15863,10 +15939,6 @@ export namespace Prisma {
     create?: XOR<VeiculoCreateWithoutManutencoesInput, VeiculoUncheckedCreateWithoutManutencoesInput>
     connectOrCreate?: VeiculoCreateOrConnectWithoutManutencoesInput
     connect?: VeiculoWhereUniqueInput
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -16185,9 +16257,26 @@ export namespace Prisma {
     _max?: NestedEnumRotuloFilter<$PrismaModel>
   }
 
+  export type NestedEnumTipoListaFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoLista | EnumTipoListaFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoListaFilter<$PrismaModel> | $Enums.TipoLista
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedEnumTipoListaWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TipoLista | EnumTipoListaFieldRefInput<$PrismaModel>
+    in?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
+    not?: NestedEnumTipoListaWithAggregatesFilter<$PrismaModel> | $Enums.TipoLista
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTipoListaFilter<$PrismaModel>
+    _max?: NestedEnumTipoListaFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -16239,26 +16328,15 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16278,7 +16356,7 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -16286,7 +16364,34 @@ export namespace Prisma {
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -16430,7 +16535,7 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateWithoutUsuarioEnviouInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
     lembretes?: LembreteCreateNestedManyWithoutListaDeCompraInput
@@ -16439,7 +16544,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
     lembretes?: LembreteUncheckedCreateNestedManyWithoutListaDeCompraInput
@@ -16458,9 +16563,9 @@ export namespace Prisma {
 
   export type VeiculoCreateWithoutUsuarioInput = {
     id?: string
-    marca: string
-    modelo: string
-    ano: number
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
     placa: string
     Lembrete?: LembreteCreateNestedManyWithoutVeiculoInput
     manutencoes?: RegistroDeManutencaoCreateNestedManyWithoutVeiculoInput
@@ -16469,9 +16574,9 @@ export namespace Prisma {
 
   export type VeiculoUncheckedCreateWithoutUsuarioInput = {
     id?: string
-    marca: string
-    modelo: string
-    ano: number
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
     placa: string
     Lembrete?: LembreteUncheckedCreateNestedManyWithoutVeiculoInput
     manutencoes?: RegistroDeManutencaoUncheckedCreateNestedManyWithoutVeiculoInput
@@ -16587,7 +16692,7 @@ export namespace Prisma {
     OR?: ListaDeCompraScalarWhereInput[]
     NOT?: ListaDeCompraScalarWhereInput | ListaDeCompraScalarWhereInput[]
     id?: UuidFilter<"ListaDeCompra"> | string
-    tipo?: StringFilter<"ListaDeCompra"> | string
+    tipo?: EnumTipoListaFilter<"ListaDeCompra"> | $Enums.TipoLista
     usuarioIdEnviou?: UuidFilter<"ListaDeCompra"> | string
     status?: BoolFilter<"ListaDeCompra"> | boolean
   }
@@ -16613,9 +16718,9 @@ export namespace Prisma {
     OR?: VeiculoScalarWhereInput[]
     NOT?: VeiculoScalarWhereInput | VeiculoScalarWhereInput[]
     id?: UuidFilter<"Veiculo"> | string
-    marca?: StringFilter<"Veiculo"> | string
-    modelo?: StringFilter<"Veiculo"> | string
-    ano?: IntFilter<"Veiculo"> | number
+    marca?: StringNullableFilter<"Veiculo"> | string | null
+    modelo?: StringNullableFilter<"Veiculo"> | string | null
+    ano?: IntNullableFilter<"Veiculo"> | number | null
     placa?: StringFilter<"Veiculo"> | string
     usuarioId?: UuidFilter<"Veiculo"> | string
   }
@@ -16867,7 +16972,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
     lembrete?: LembreteCreateNestedOneWithoutAtividadesInput
     veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
@@ -16877,7 +16982,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     tarefaId?: string | null
     lembreteId?: string | null
     veiculoId?: string | null
@@ -16992,7 +17097,7 @@ export namespace Prisma {
     id?: UuidFilter<"Atividade"> | string
     tipo?: EnumTipoAtividadeFilter<"Atividade"> | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFilter<"Atividade"> | $Enums.AcaoAtividade
-    datHora?: DateTimeFilter<"Atividade"> | Date | string
+    dataHora?: DateTimeFilter<"Atividade"> | Date | string
     tarefaId?: UuidNullableFilter<"Atividade"> | string | null
     listaDeCompraId?: UuidNullableFilter<"Atividade"> | string | null
     lembreteId?: UuidNullableFilter<"Atividade"> | string | null
@@ -17001,7 +17106,7 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateWithoutItensInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
     usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
     lembretes?: LembreteCreateNestedManyWithoutListaDeCompraInput
@@ -17010,7 +17115,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedCreateWithoutItensInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     usuarioIdEnviou: string
     status?: boolean
     lembretes?: LembreteUncheckedCreateNestedManyWithoutListaDeCompraInput
@@ -17035,7 +17140,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUpdateWithoutItensInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
     usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
     lembretes?: LembreteUpdateManyWithoutListaDeCompraNestedInput
@@ -17044,7 +17149,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedUpdateWithoutItensInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     lembretes?: LembreteUncheckedUpdateManyWithoutListaDeCompraNestedInput
@@ -17136,7 +17241,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
     lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
     lembrete?: LembreteCreateNestedOneWithoutAtividadesInput
@@ -17146,7 +17251,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     tarefaId?: string | null
     listaDeCompraId?: string | null
     lembreteId?: string | null
@@ -17256,9 +17361,9 @@ export namespace Prisma {
 
   export type VeiculoCreateWithoutManutencoesInput = {
     id?: string
-    marca: string
-    modelo: string
-    ano: number
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
     placa: string
     usuario: UsuarioCreateNestedOneWithoutVeiculosInput
     Lembrete?: LembreteCreateNestedManyWithoutVeiculoInput
@@ -17267,9 +17372,9 @@ export namespace Prisma {
 
   export type VeiculoUncheckedCreateWithoutManutencoesInput = {
     id?: string
-    marca: string
-    modelo: string
-    ano: number
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
     placa: string
     usuarioId: string
     Lembrete?: LembreteUncheckedCreateNestedManyWithoutVeiculoInput
@@ -17294,9 +17399,9 @@ export namespace Prisma {
 
   export type VeiculoUpdateWithoutManutencoesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
     usuario?: UsuarioUpdateOneRequiredWithoutVeiculosNestedInput
     Lembrete?: LembreteUpdateManyWithoutVeiculoNestedInput
@@ -17305,9 +17410,9 @@ export namespace Prisma {
 
   export type VeiculoUncheckedUpdateWithoutManutencoesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
     usuarioId?: StringFieldUpdateOperationsInput | string
     Lembrete?: LembreteUncheckedUpdateManyWithoutVeiculoNestedInput
@@ -17316,7 +17421,7 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateWithoutLembretesInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
     usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
@@ -17325,7 +17430,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedCreateWithoutLembretesInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     usuarioIdEnviou: string
     status?: boolean
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
@@ -17366,9 +17471,9 @@ export namespace Prisma {
 
   export type VeiculoCreateWithoutLembreteInput = {
     id?: string
-    marca: string
-    modelo: string
-    ano: number
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
     placa: string
     usuario: UsuarioCreateNestedOneWithoutVeiculosInput
     manutencoes?: RegistroDeManutencaoCreateNestedManyWithoutVeiculoInput
@@ -17377,9 +17482,9 @@ export namespace Prisma {
 
   export type VeiculoUncheckedCreateWithoutLembreteInput = {
     id?: string
-    marca: string
-    modelo: string
-    ano: number
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
     placa: string
     usuarioId: string
     manutencoes?: RegistroDeManutencaoUncheckedCreateNestedManyWithoutVeiculoInput
@@ -17395,7 +17500,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
     lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
     veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
@@ -17405,7 +17510,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     tarefaId?: string | null
     listaDeCompraId?: string | null
     veiculoId?: string | null
@@ -17434,7 +17539,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUpdateWithoutLembretesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
     usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
@@ -17443,7 +17548,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedUpdateWithoutLembretesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
@@ -17496,9 +17601,9 @@ export namespace Prisma {
 
   export type VeiculoUpdateWithoutLembreteInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
     usuario?: UsuarioUpdateOneRequiredWithoutVeiculosNestedInput
     manutencoes?: RegistroDeManutencaoUpdateManyWithoutVeiculoNestedInput
@@ -17507,9 +17612,9 @@ export namespace Prisma {
 
   export type VeiculoUncheckedUpdateWithoutLembreteInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
     usuarioId?: StringFieldUpdateOperationsInput | string
     manutencoes?: RegistroDeManutencaoUncheckedUpdateManyWithoutVeiculoNestedInput
@@ -17563,7 +17668,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
     lembrete?: LembreteCreateNestedOneWithoutAtividadesInput
     veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
@@ -17573,7 +17678,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     listaDeCompraId?: string | null
     lembreteId?: string | null
     veiculoId?: string | null
@@ -17659,7 +17764,7 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateWithoutAtividadesInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
     usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
@@ -17668,7 +17773,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedCreateWithoutAtividadesInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     usuarioIdEnviou: string
     status?: boolean
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
@@ -17707,9 +17812,9 @@ export namespace Prisma {
 
   export type VeiculoCreateWithoutAtividadesInput = {
     id?: string
-    marca: string
-    modelo: string
-    ano: number
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
     placa: string
     usuario: UsuarioCreateNestedOneWithoutVeiculosInput
     Lembrete?: LembreteCreateNestedManyWithoutVeiculoInput
@@ -17718,9 +17823,9 @@ export namespace Prisma {
 
   export type VeiculoUncheckedCreateWithoutAtividadesInput = {
     id?: string
-    marca: string
-    modelo: string
-    ano: number
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
     placa: string
     usuarioId: string
     Lembrete?: LembreteUncheckedCreateNestedManyWithoutVeiculoInput
@@ -17770,7 +17875,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUpdateWithoutAtividadesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
     usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
@@ -17779,7 +17884,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedUpdateWithoutAtividadesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
     status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
@@ -17830,9 +17935,9 @@ export namespace Prisma {
 
   export type VeiculoUpdateWithoutAtividadesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
     usuario?: UsuarioUpdateOneRequiredWithoutVeiculosNestedInput
     Lembrete?: LembreteUpdateManyWithoutVeiculoNestedInput
@@ -17841,9 +17946,9 @@ export namespace Prisma {
 
   export type VeiculoUncheckedUpdateWithoutAtividadesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
     usuarioId?: StringFieldUpdateOperationsInput | string
     Lembrete?: LembreteUncheckedUpdateManyWithoutVeiculoNestedInput
@@ -17866,15 +17971,15 @@ export namespace Prisma {
 
   export type ListaDeCompraCreateManyUsuarioEnviouInput = {
     id?: string
-    tipo: string
+    tipo: $Enums.TipoLista
     status?: boolean
   }
 
   export type VeiculoCreateManyUsuarioInput = {
     id?: string
-    marca: string
-    modelo: string
-    ano: number
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
     placa: string
   }
 
@@ -17930,7 +18035,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUpdateWithoutUsuarioEnviouInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
     lembretes?: LembreteUpdateManyWithoutListaDeCompraNestedInput
@@ -17939,7 +18044,7 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedUpdateWithoutUsuarioEnviouInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
     lembretes?: LembreteUncheckedUpdateManyWithoutListaDeCompraNestedInput
@@ -17948,15 +18053,15 @@ export namespace Prisma {
 
   export type ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouInput = {
     id?: StringFieldUpdateOperationsInput | string
-    tipo?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
     status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type VeiculoUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
     Lembrete?: LembreteUpdateManyWithoutVeiculoNestedInput
     manutencoes?: RegistroDeManutencaoUpdateManyWithoutVeiculoNestedInput
@@ -17965,9 +18070,9 @@ export namespace Prisma {
 
   export type VeiculoUncheckedUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
     Lembrete?: LembreteUncheckedUpdateManyWithoutVeiculoNestedInput
     manutencoes?: RegistroDeManutencaoUncheckedUpdateManyWithoutVeiculoNestedInput
@@ -17976,9 +18081,9 @@ export namespace Prisma {
 
   export type VeiculoUncheckedUpdateManyWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
-    marca?: StringFieldUpdateOperationsInput | string
-    modelo?: StringFieldUpdateOperationsInput | string
-    ano?: IntFieldUpdateOperationsInput | number
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
     placa?: StringFieldUpdateOperationsInput | string
   }
 
@@ -18042,7 +18147,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     tarefaId?: string | null
     lembreteId?: string | null
     veiculoId?: string | null
@@ -18102,7 +18207,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
     lembrete?: LembreteUpdateOneWithoutAtividadesNestedInput
     veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
@@ -18112,7 +18217,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18122,7 +18227,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18148,7 +18253,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     tarefaId?: string | null
     listaDeCompraId?: string | null
     lembreteId?: string | null
@@ -18208,7 +18313,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
     lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
     lembrete?: LembreteUpdateOneWithoutAtividadesNestedInput
@@ -18218,7 +18323,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18228,7 +18333,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18238,7 +18343,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     tarefaId?: string | null
     listaDeCompraId?: string | null
     veiculoId?: string | null
@@ -18248,7 +18353,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
     lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
     veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
@@ -18258,7 +18363,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18268,7 +18373,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18278,7 +18383,7 @@ export namespace Prisma {
     id?: string
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
-    datHora?: Date | string
+    dataHora?: Date | string
     listaDeCompraId?: string | null
     lembreteId?: string | null
     veiculoId?: string | null
@@ -18288,7 +18393,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
     lembrete?: LembreteUpdateOneWithoutAtividadesNestedInput
     veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
@@ -18298,7 +18403,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18308,7 +18413,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    datHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null

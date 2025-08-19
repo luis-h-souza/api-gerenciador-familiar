@@ -4,7 +4,7 @@ const { PrismaClient } = require('@prisma/client');
 // const { PrismaClient } = require("../generated/prisma") // local
 
 const prismaClient = new PrismaClient({
-  log: ["query"],
+  log: ['query', 'info', 'warn', 'error'],
 });
 
 module.exports = { prismaClient };

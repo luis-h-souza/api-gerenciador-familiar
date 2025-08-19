@@ -23,13 +23,14 @@ class LoginController {
         statusCode: 200,
         body: result,
       };
+
     } catch (error) {
       if (error instanceof z.ZodError) {
         return {
           statusCode: 400,
           body: error.issues,
         };
-      }
+      };
 
       if (error instanceof Error && error.message === "Senha inválida") {
         return {

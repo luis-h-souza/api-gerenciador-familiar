@@ -1,7 +1,9 @@
 generator client {
   provider = "prisma-client-js"
+
+  // Assim não terei o GENERATED local
   // output   = "./src/generated/prisma" // vercel
-  output   = "../src/generated/prisma" // local
+  output = "../src/generated/prisma" // local
 }
 
 datasource db {
@@ -47,11 +49,19 @@ model familia_usuarios {
   @@map("familia_usuarios")
 }
 
+enum TipoLista {
+  MERCADO
+  FARMACIA
+  PADARIA
+  ACOUGUE
+  OUTROS
+}
+
 model ListaDeCompra {
-  id              String  @id @default(uuid()) @db.Uuid
-  tipo            String
-  usuarioIdEnviou String  @map("usuario_id_enviou") @db.Uuid
-  status          Boolean @default(false)
+  id              String    @id @default(uuid()) @db.Uuid
+  tipo            TipoLista
+  usuarioIdEnviou String    @map("usuario_id_enviou") @db.Uuid
+  status          Boolean   @default(false)
 
   usuarioEnviou Usuario @relation("UsuarioEnviouLista", fields: [usuarioIdEnviou], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
@@ -76,11 +86,11 @@ model ItemListaDeCompra {
 }
 
 model Veiculo {
-  id     String @id @default(uuid()) @db.Uuid
-  marca  String
-  modelo String
-  ano    Int
-  placa  String @unique
+  id     String  @id @default(uuid()) @db.Uuid
+  marca  String?
+  modelo String?
+  ano    Int?
+  placa  String  @unique
 
   // Chaves estrangeiras - Relacionamento
   usuarioId String  @map("usuario_id") @db.Uuid
@@ -155,10 +165,10 @@ enum AcaoAtividade {
 }
 
 model Atividade {
-  id      String        @id @default(uuid()) @db.Uuid
-  tipo    TipoAtividade
-  acao    AcaoAtividade
-  datHora DateTime      @default(now()) @map("data_hora")
+  id       String        @id @default(uuid()) @db.Uuid
+  tipo     TipoAtividade
+  acao     AcaoAtividade
+  dataHora DateTime      @default(now()) @map("data_hora")
 
   // Chaves estrangeiras
   tarefaId        String? @map("tarefa_id") @db.Uuid

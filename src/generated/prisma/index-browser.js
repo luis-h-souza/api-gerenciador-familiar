@@ -20,12 +20,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.8.2
- * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
+ * Prisma Client JS version: 6.14.0
+ * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
  */
 Prisma.prismaVersion = {
-  client: "6.8.2",
-  engine: "2060c79ba17c6bb9f5823312b6f6b7f4a845738e"
+  client: "6.14.0",
+  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -192,7 +192,7 @@ exports.Prisma.AtividadeScalarFieldEnum = {
   id: 'id',
   tipo: 'tipo',
   acao: 'acao',
-  datHora: 'datHora',
+  dataHora: 'dataHora',
   tarefaId: 'tarefaId',
   listaDeCompraId: 'listaDeCompraId',
   lembreteId: 'lembreteId',
@@ -216,6 +216,14 @@ exports.Prisma.NullsOrder = {
 exports.Rotulo = exports.$Enums.Rotulo = {
   PAIS: 'PAIS',
   FILHO: 'FILHO'
+};
+
+exports.TipoLista = exports.$Enums.TipoLista = {
+  MERCADO: 'MERCADO',
+  FARMACIA: 'FARMACIA',
+  PADARIA: 'PADARIA',
+  ACOUGUE: 'ACOUGUE',
+  OUTROS: 'OUTROS'
 };
 
 exports.TipoAtividade = exports.$Enums.TipoAtividade = {

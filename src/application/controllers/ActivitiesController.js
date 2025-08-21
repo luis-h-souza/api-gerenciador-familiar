@@ -21,6 +21,27 @@ class ActivitiesController {
     }
   };
 
+  async showById(userId) {
+    try {
+      const activities = await this.ActivitiesRepository.showById(userId);
+      return {
+        statusCode: 200,
+        body: activities,
+      };
+    } catch (error) {
+      if (error.message === 'Nenhuma atividade encontrada para o usuário.') {
+        return {
+          statusCode: 404,
+          body: null,
+        };
+      }
+      return {
+        statusCode: 500,
+        body: null,
+      };
+    }
+  };
+
 }
 
 module.exports = { ActivitiesController };

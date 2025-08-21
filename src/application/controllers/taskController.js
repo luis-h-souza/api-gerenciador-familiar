@@ -13,10 +13,32 @@ class TaskController {
   }
 
   // Cria uma tarefa
+  // async create({ body, accountId }) {
+  //   try {
+  //     const { descricao, status } = schema.parse(body);
+  //     const newTask = await this.TarefaRepository.create({ descricao, status, usuarioId: accountId });
+  //     return {
+  //       statusCode: 201,
+  //       body: newTask,
+  //     };
+  //   } catch (error) {
+  //     if (error instanceof z.ZodError) {
+  //       return {
+  //         statusCode: 400,
+  //         body: error.issues,
+  //       };
+  //     }
+  //     throw error;
+  //   }
+  // };
   async create({ body, accountId }) {
     try {
       const { descricao, status } = schema.parse(body);
-      const newTask = await this.TarefaRepository.create({ descricao, status, usuarioId: accountId });
+      const newTask = await this.TarefaRepository.create({
+        descricao,
+        status,
+        usuarioId: accountId
+      });
       return {
         statusCode: 201,
         body: newTask,
@@ -88,8 +110,8 @@ class TaskController {
   };
 
   // Atualiza uma tarefa
-  async update({ body, params }) {
-    const { id } = params;
+  async update({ body, params, accountId }) {
+    const { id } = params; // O ID da tarefa vem dos params
 
     try {
       const { descricao, status } = schema.parse(body);
@@ -98,6 +120,7 @@ class TaskController {
         descricao,
         status,
         tarefaId: id,
+        usuarioId: accountId // Passa o ID do usuário para a atualização
       });
 
       return {
@@ -121,10 +144,10 @@ class TaskController {
   };
 
   // deleta uma tarefa
-  async delete({ params }) {
+  async delete({ params, accountId }) {
     const { id } = params;
     try {
-      await this.TarefaRepository.delete({ id })
+      await this.TarefaRepository.delete({ id, usuarioId: accountId })
       return {
         statusCode: 204,
         body: null,

@@ -3,7 +3,7 @@ generator client {
 
   // Assim não terei o GENERATED local
   // output   = "./src/generated/prisma" // vercel
-  // output = "../src/generated/prisma" // local
+  output = "../src/generated/prisma" // local
 }
 
 datasource db {
@@ -19,8 +19,10 @@ model Usuario {
 
   familias           MembrosDaFamilia[]
   familiaInvitations FamiliaConvite[]
+  listas             ListaDeCompra[]
   veiculos           Veiculo[]
   tarefas            Tarefa[]
+  atividades         Atividade[]
 
   @@index([email])
   @@map("usuarios")
@@ -89,6 +91,9 @@ model ListaDeCompra {
   id   String    @id @default(uuid()) @db.Uuid
   tipo TipoLista
 
+  usuarioId String  @map("usuario_id") @db.Uuid
+  usuario   Usuario @relation(fields: [usuarioId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+
   itens      ItemListaDeCompra[]
   atividades Atividade[]
 
@@ -153,7 +158,6 @@ model Tarefa {
 }
 
 enum TipoAtividade {
-  LEMBRETE
   TAREFA
   LISTA
   VEICULO
@@ -172,12 +176,13 @@ model Atividade {
   dataHora DateTime      @default(now()) @map("data_hora")
 
   // Chaves estrangeiras
+  usuarioId       String  @map("usuario_id") @db.Uuid
   tarefaId        String? @map("tarefa_id") @db.Uuid
   listaDeCompraId String? @map("lista_de_compra_id") @db.Uuid
-  lembreteId      String? @map("lembrete_id") @db.Uuid
   veiculoId       String? @map("veiculo_id") @db.Uuid
 
   // Relacionamentos
+  usuario Usuario        @relation(fields: [usuarioId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   tarefa  Tarefa?        @relation(fields: [tarefaId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   lista   ListaDeCompra? @relation(fields: [listaDeCompraId], references: [id], onUpdate: Cascade, onDelete: Cascade)
   veiculo Veiculo?       @relation(fields: [veiculoId], references: [id], onUpdate: Cascade, onDelete: Cascade)

@@ -28,11 +28,12 @@ class ShoppingListController {
   async create({ body, req }) {
     try {
       const { tipo } = ShoppingListschema.parse(body);
-      const accountId = req.accountId; // vindo do middleware
+      const accountId = req.accountId;
 
+      console.log("Account ID no controlador:", accountId);
       const newList = await this.ShoppingListRepository.create({
         tipo,
-        usuarioIdEnviou: accountId,
+        usuarioId: accountId,
       });
       return {
         statusCode: 201,
@@ -93,6 +94,7 @@ class ShoppingListController {
       const result = await this.ShoppingListRepository.update({
         tipo,
         listaId: id, // Passa o ID da URL para o repository
+        usuarioId: accountId, // Passa o ID do usuário que está atualizando a lista
       });
 
       return {
@@ -127,12 +129,22 @@ class ShoppingListController {
   };
 
   // deleta uma lista
-  async delete({ params }) {
+  async delete({ params, req }) {
     const { id } = idSchema.parse(params);
-    console.log("linha 120", id);
+    const accountId = req.accountId;
+
+    if (!accountId) {
+      return {
+        statusCode: 401,
+        body: { error: "Usuário não autenticado" }
+      };
+    }
+    console.log("ID da lista a ser deletada:", id);
+    console.log("ID do usuário autenticado:", accountId);
+
 
     try {
-      await this.ShoppingListRepository.delete(id);
+      await this.ShoppingListRepository.delete(id, accountId);
       return {
         statusCode: 204,
         body: null,
@@ -165,6 +177,7 @@ class ShoppingListController {
         listaId,
         descricao,
         quantidade,
+        usuarioId: accountId,
       });
 
       return {

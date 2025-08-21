@@ -130,20 +130,31 @@ exports.Prisma.UsuarioScalarFieldEnum = {
 exports.Prisma.FamiliaScalarFieldEnum = {
   id: 'id',
   nome: 'nome',
-  usuarioId: 'usuarioId'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.Familia_usuariosScalarFieldEnum = {
+exports.Prisma.MembrosDaFamiliaScalarFieldEnum = {
+  id: 'id',
   id_usuario: 'id_usuario',
   id_familia: 'id_familia',
-  rotulo: 'rotulo'
+  rotulo: 'rotulo',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.FamiliaConviteScalarFieldEnum = {
+  id: 'id',
+  familiaId: 'familiaId',
+  email: 'email',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.ListaDeCompraScalarFieldEnum = {
   id: 'id',
   tipo: 'tipo',
-  usuarioIdEnviou: 'usuarioIdEnviou',
-  status: 'status'
+  usuarioId: 'usuarioId'
 };
 
 exports.Prisma.ItemListaDeCompraScalarFieldEnum = {
@@ -171,16 +182,6 @@ exports.Prisma.RegistroDeManutencaoScalarFieldEnum = {
   veiculoId: 'veiculoId'
 };
 
-exports.Prisma.LembreteScalarFieldEnum = {
-  id: 'id',
-  descricao: 'descricao',
-  dataHora: 'dataHora',
-  status: 'status',
-  usuarioIdEnviou: 'usuarioIdEnviou',
-  listaDeCompraId: 'listaDeCompraId',
-  veiculoId: 'veiculoId'
-};
-
 exports.Prisma.TarefaScalarFieldEnum = {
   id: 'id',
   descricao: 'descricao',
@@ -193,9 +194,9 @@ exports.Prisma.AtividadeScalarFieldEnum = {
   tipo: 'tipo',
   acao: 'acao',
   dataHora: 'dataHora',
+  usuarioId: 'usuarioId',
   tarefaId: 'tarefaId',
   listaDeCompraId: 'listaDeCompraId',
-  lembreteId: 'lembreteId',
   veiculoId: 'veiculoId'
 };
 
@@ -213,9 +214,15 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.Rotulo = exports.$Enums.Rotulo = {
+exports.Membros = exports.$Enums.Membros = {
   PAIS: 'PAIS',
   FILHO: 'FILHO'
+};
+
+exports.StatusConvite = exports.$Enums.StatusConvite = {
+  PENDENTE: 'PENDENTE',
+  ACEITO: 'ACEITO',
+  REJEITADO: 'REJEITADO'
 };
 
 exports.TipoLista = exports.$Enums.TipoLista = {
@@ -227,7 +234,6 @@ exports.TipoLista = exports.$Enums.TipoLista = {
 };
 
 exports.TipoAtividade = exports.$Enums.TipoAtividade = {
-  LEMBRETE: 'LEMBRETE',
   TAREFA: 'TAREFA',
   LISTA: 'LISTA',
   VEICULO: 'VEICULO'
@@ -242,12 +248,12 @@ exports.AcaoAtividade = exports.$Enums.AcaoAtividade = {
 exports.Prisma.ModelName = {
   Usuario: 'Usuario',
   Familia: 'Familia',
-  familia_usuarios: 'familia_usuarios',
+  MembrosDaFamilia: 'MembrosDaFamilia',
+  FamiliaConvite: 'FamiliaConvite',
   ListaDeCompra: 'ListaDeCompra',
   ItemListaDeCompra: 'ItemListaDeCompra',
   Veiculo: 'Veiculo',
   RegistroDeManutencao: 'RegistroDeManutencao',
-  Lembrete: 'Lembrete',
   Tarefa: 'Tarefa',
   Atividade: 'Atividade'
 };

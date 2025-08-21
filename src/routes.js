@@ -134,6 +134,7 @@ router.get("/tasks/:id", jwtGuard, async (req, res) => {
 router.put("/update-task/:id", jwtGuard, async (req, res) => {
   const response = await taskController.update({
     params: req.params,
+    accountId: req.accountId,
     body: req.body,
   });
   res.status(response.statusCode).json(response.body);
@@ -143,6 +144,7 @@ router.put("/update-task/:id", jwtGuard, async (req, res) => {
 router.delete("/delete-task/:id", jwtGuard, async (req, res) => {
   const response = await taskController.delete({
     params: req.params,
+    accountId: req.accountId,
   });
   if (response.statusCode === 204) {
     return res.sendStatus(204); // evita enviar corpo com 204
@@ -260,9 +262,10 @@ router.put("/update-list/:id", jwtGuard, async (req, res) => {
 
 // Delete uma lista
 router.delete("/delete-list/:id", jwtGuard, async (req, res) => {
-  console.log("Rota DELETE /delete-list/:id chamada com params:", req.params);
-  const response = await listController.delete({ params: req.params });
-  console.log("Resposta do controlador:", response);
+  const response = await listController.delete({
+    params: req.params,
+    req
+  });
   res.status(response.statusCode).json(response.body);
 });
 
@@ -293,6 +296,14 @@ router.patch("update-list-items/:listId", jwtGuard, async (req, res) => {
 // Listar as 05 últimas atividades
 router.get("/activities", jwtGuard, async (req, res) => {
   const response = await activitiesController.show();
+  res.status(response.statusCode).json(response.body);
+});
+
+// Listar as 05 últimas atividades do usuário autenticado
+router.get("/activities/:userId", jwtGuard, async (req, res) => {
+  const userId = req.params.userId;
+  // Use o id do token, não do params, para garantir segurança
+  const response = await activitiesController.showById(userId);
   res.status(response.statusCode).json(response.body);
 });
 

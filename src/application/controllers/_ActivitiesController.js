@@ -6,7 +6,6 @@ class ActivitiesController {
   async show() {
     try {
       const activities = await this.ActivitiesRepository.show();
-      console.log(activities)
       return {
         statusCode: 200,
         body: activities,

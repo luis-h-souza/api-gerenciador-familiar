@@ -134,6 +134,7 @@ router.get("/tasks/:id", jwtGuard, async (req, res) => {
 router.put("/update-task/:id", jwtGuard, async (req, res) => {
   const response = await taskController.update({
     params: req.params,
+    accountId: req.accountId,
     body: req.body,
   });
   res.status(response.statusCode).json(response.body);
@@ -143,6 +144,7 @@ router.put("/update-task/:id", jwtGuard, async (req, res) => {
 router.delete("/delete-task/:id", jwtGuard, async (req, res) => {
   const response = await taskController.delete({
     params: req.params,
+    accountId: req.accountId,
   });
   if (response.statusCode === 204) {
     return res.sendStatus(204); // evita enviar corpo com 204
@@ -154,7 +156,11 @@ router.delete("/delete-task/:id", jwtGuard, async (req, res) => {
 //? Rotas para Veiculos
 // Cria um veículo
 router.post("/create-vehicle", jwtGuard, async (req, res) => {
-  const response = await vehicleController.create({ body: req.body, req });
+  const response = await vehicleController.create({
+    body: req.body,
+    req,
+    accountId: req.accountId,
+  });
   res.status(response.statusCode).json(response.body);
 });
 
@@ -176,13 +182,14 @@ router.put("/update-vehicle/:id", jwtGuard, async (req, res) => {
   const response = await vehicleController.update({
     params: req.params,
     body: req.body,
+    accountId: req.accountId,
   });
   res.status(response.statusCode).json(response.body);
 });
 
 // Deleta um veículo
 router.delete("/delete-vehicle/:id", jwtGuard, async (req, res) => {
-  const response = await vehicleController.delete({ params: req.params });
+  const response = await vehicleController.delete({ params: req.params, accountId: req.accountId, });
   res.status(response.statusCode).json(response.body);
 });
 
@@ -193,6 +200,7 @@ router.post("/vehicle/:id/maintenance", jwtGuard, async (req, res) => {
   const response = await vehicleController.registerMaintenance({
     body: req.body,
     params: req.params,
+    accountId: req.accountId,
   });
   res.status(response.statusCode).json(response.body);
 });
@@ -201,19 +209,21 @@ router.post("/vehicle/:id/maintenance", jwtGuard, async (req, res) => {
 router.get("/vehicle/:id/maintenance", jwtGuard, async (req, res) => {
   const response = await vehicleController.showMaintenanceByVehicleId({
     params: req.params,
+    accountId: req.accountId,
   });
   res.status(response.statusCode).json(response.body);
 });
 
 // Listar manutenções pelo id o usuário
-router.get("/vehicle/:id/maintenance", jwtGuard, async (req, res) => {
+router.get("/vehicle/:userId/maintenance", jwtGuard, async (req, res) => {
   //! debug aqui
-  const { id } = req.params;
-  console.log(`Fetching maintenance for vehicle ID: ${id}, user: ${req.user?.id}`);
+  // const { id } = req.params;
 
   const response = await vehicleController.showMaintenanceByUserId({
     params: req.params,
+    accountId: req.accountId,
   });
+  console.log(req.accountId);
   res.status(response.statusCode).json(response.body);
 });
 
@@ -222,6 +232,7 @@ router.put("/maintenance/:id", jwtGuard, async (req, res) => {
   const response = await vehicleController.updateMaintenance({
     body: req.body,
     params: req.params,
+    accountId: req.accountId,
   });
   res.status(response.statusCode).json(response.body);
 });
@@ -230,6 +241,7 @@ router.put("/maintenance/:id", jwtGuard, async (req, res) => {
 router.delete("/maintenance/:id", jwtGuard, async (req, res) => {
   const response = await vehicleController.deleteMaintenance({
     params: req.params,
+    accountId: req.accountId,
   });
   res.status(response.statusCode).json(response.body);
 });
@@ -260,8 +272,10 @@ router.put("/update-list/:id", jwtGuard, async (req, res) => {
 
 // Delete uma lista
 router.delete("/delete-list/:id", jwtGuard, async (req, res) => {
-  console.log("Rota DELETE /delete-list/:id chamada com params:", req.params);
-  const response = await listController.delete({ params: req.params });
+  const response = await listController.delete({
+    params: req.params,
+    accountId: req.accountId
+  });
   console.log("Resposta do controlador:", response);
   res.status(response.statusCode).json(response.body);
 });
@@ -293,6 +307,14 @@ router.patch("update-list-items/:listId", jwtGuard, async (req, res) => {
 // Listar as 05 últimas atividades
 router.get("/activities", jwtGuard, async (req, res) => {
   const response = await activitiesController.show();
+  res.status(response.statusCode).json(response.body);
+});
+
+// Listar as 05 últimas atividades do usuário autenticado
+router.get("/activities/:userId", jwtGuard, async (req, res) => {
+  const userId = req.params.userId;
+  // Use o id do token, não do params, para garantir segurança
+  const response = await activitiesController.showById(userId);
   res.status(response.statusCode).json(response.body);
 });
 

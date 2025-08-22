@@ -12,17 +12,14 @@ class TaskController {
     this.TarefaRepository = TarefaRepository;
   }
 
+  // Cria uma tarefa
   async create({ body, accountId }) {
     try {
       const { descricao, status } = schema.parse(body);
-      const newTask = await this.TarefaRepository.create({
-        descricao,
-        status,
-        usuarioId: accountId
-      });
+      const newTask = await this.TarefaRepository.create({ descricao, status, usuarioId: accountId });
       return {
         statusCode: 201,
-        body: newTask,
+        body: { newTask: newTask.newTask, newActivity: newTask.newActivity },
       };
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -91,8 +88,8 @@ class TaskController {
   };
 
   // Atualiza uma tarefa
-  async update({ body, params, accountId }) {
-    const { id } = params; // O ID da tarefa vem dos params
+  async update({ body, params }) {
+    const { id } = params;
 
     try {
       const { descricao, status } = schema.parse(body);
@@ -101,7 +98,6 @@ class TaskController {
         descricao,
         status,
         tarefaId: id,
-        usuarioId: accountId // Passa o ID do usuário para a atualização
       });
 
       return {
@@ -127,14 +123,24 @@ class TaskController {
   // deleta uma tarefa
   async delete({ params, accountId }) {
     const { id } = params;
-    
+
+    // Validação usando Zod
     try {
-      await this.TarefaRepository.delete({ id, usuarioId: accountId })
+      getTasksByUserId.parse(id);
+      getTasksByUserId.parse(accountId);
+    } catch (error) {
+      return {
+        statusCode: 400,
+        body: { error: 'ID da tarefa ou do usuário inválido.' },
+      };
+    }
+
+    try {
+      const deleteTask = await this.TarefaRepository.delete({ id, usuarioId: accountId });
       return {
         statusCode: 204,
-        body: null,
+        body: deleteTask,
       };
-
     } catch (error) {
       if (error instanceof z.ZodError) {
         return {
@@ -146,10 +152,15 @@ class TaskController {
       if (error.code === 'P2025') {
         return {
           statusCode: 404,
-          body: { error: 'Tarefa não encontrada!' },
+          body: { error: 'Tarefa não encontrada ou não pertence ao usuário.' },
         };
       }
-      throw error;
+
+      console.error('Erro ao deletar tarefa:', error);
+      return {
+        statusCode: 500,
+        body: { error: 'Erro interno ao deletar tarefa.' },
+      };
     }
   };
 }

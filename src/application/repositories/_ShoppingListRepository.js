@@ -21,15 +21,13 @@ class ShoppingListRepository {
     const newList = await prismaClient.listaDeCompra.create({
       data: {
         tipo,
-        usuario: {
-          connect: { id: usuarioId }, // Conexão com um id de usuário existente (FK)
-        },
+        usuarioId,
         atividades: {
           create: {
             tipo: "LISTA",
             acao: "CRIADA",
             dataHora: new Date(),
-            usuarioId: usuarioId, // Relacionamento correto
+            usuarioId,
           },
         },
       },
@@ -71,15 +69,13 @@ class ShoppingListRepository {
       where: { id: listaId },
       data: {
         tipo,
-        usuario: {
-          connect: { id: usuarioId }, // Conexão com um id de usuário existente (FK)
-        },
+        usuarioId,
         atividades: {
           create: {
             tipo: "LISTA",
             acao: "ATUALIZADA",
             dataHora: new Date(),
-            usuarioId: usuarioId, // Relacionamento correto
+            usuarioId,
           },
         },
       },
@@ -90,12 +86,9 @@ class ShoppingListRepository {
   };
 
   // deleta uma lista de compras
-  async delete(listId, accountId) {
+  async delete(id) {
     const exists = await prismaClient.listaDeCompra.findUnique({
-      where: {
-        id: listId,
-        usuarioId: accountId
-      }
+      where: { id },
     });
 
     if (!exists) {
@@ -108,13 +101,12 @@ class ShoppingListRepository {
           tipo: "LISTA",
           acao: "EXCLUIDA",
           dataHora: new Date(),
-          lista: { connect: { id: exists.id } },
-          // usuario: { connect: { id: exists.usuarioId } },
+          listaDeCompraId: id,
         },
       });
 
       const ListDelete = await tx.listaDeCompra.delete({
-        where: { id: listId },
+        where: { id },
       });
 
       return ListDelete;
@@ -124,14 +116,12 @@ class ShoppingListRepository {
 
   //? Itens para as listas de compra
   // Adiciona um item à lista de compras
-  async addItem({ listaId, descricao, quantidade, usuarioId }) {
-
+  async addItem({ listaId, descricao, quantidade }) {
     // Verifica se a lista existe
     const lista = await prismaClient.listaDeCompra.findUnique({
-      where: { id: listaId, usuarioId: usuarioId },
+      where: { id: listaId },
     });
 
-    console.log("ID da lista:", listaId);
     if (!lista) {
       throw new Error("Lista de compras não encontrada.");
     }
@@ -141,24 +131,9 @@ class ShoppingListRepository {
         descricao,
         quantidade,
         listaId,
-        // usuarioId,
-        // usuario: {
-        //   connect: { id: usuarioId }, // Conexão com um id de usuário existente (FK)
-        // },
       },
-      select: {
-        id: true,
-        descricao: true,
-        quantidade: true,
-        comprado: true,
-        listaId: true,
-        // usuarioId: true, // Inclui o usuarioId no retorno
-        lista: {
-          select: {
-            id: true,
-            tipo: true
-          }
-        }
+      include: {
+        lista: true,
       },
     });
 
@@ -169,10 +144,8 @@ class ShoppingListRepository {
         acao: "ATUALIZADA",
         dataHora: new Date(),
         listaDeCompraId: listaId,
-        usuarioId: usuarioId, // Relacionamento correto
       },
     });
-
 
     return novoItem;
   };

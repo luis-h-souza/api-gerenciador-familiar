@@ -1747,20 +1747,18 @@ export namespace Prisma {
 
   export type UsuarioCountOutputType = {
     familias: number
-    familiaInvitations: number
-    listas: number
+    lembretesEnviados: number
+    listasEnviadas: number
     veiculos: number
     tarefas: number
-    atividades: number
   }
 
   export type UsuarioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     familias?: boolean | UsuarioCountOutputTypeCountFamiliasArgs
-    familiaInvitations?: boolean | UsuarioCountOutputTypeCountFamiliaInvitationsArgs
-    listas?: boolean | UsuarioCountOutputTypeCountListasArgs
+    lembretesEnviados?: boolean | UsuarioCountOutputTypeCountLembretesEnviadosArgs
+    listasEnviadas?: boolean | UsuarioCountOutputTypeCountListasEnviadasArgs
     veiculos?: boolean | UsuarioCountOutputTypeCountVeiculosArgs
     tarefas?: boolean | UsuarioCountOutputTypeCountTarefasArgs
-    atividades?: boolean | UsuarioCountOutputTypeCountAtividadesArgs
   }
 
   // Custom InputTypes
@@ -1791,7 +1789,7 @@ export namespace Prisma {
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountListasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UsuarioCountOutputTypeCountListasEnviadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ListaDeCompraWhereInput
   }
 
@@ -2129,11 +2127,10 @@ export namespace Prisma {
     email?: boolean
     password?: boolean
     familias?: boolean | Usuario$familiasArgs<ExtArgs>
-    familiaInvitations?: boolean | Usuario$familiaInvitationsArgs<ExtArgs>
-    listas?: boolean | Usuario$listasArgs<ExtArgs>
+    lembretesEnviados?: boolean | Usuario$lembretesEnviadosArgs<ExtArgs>
+    listasEnviadas?: boolean | Usuario$listasEnviadasArgs<ExtArgs>
     veiculos?: boolean | Usuario$veiculosArgs<ExtArgs>
     tarefas?: boolean | Usuario$tarefasArgs<ExtArgs>
-    atividades?: boolean | Usuario$atividadesArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuario"]>
 
@@ -2161,11 +2158,10 @@ export namespace Prisma {
   export type UsuarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password", ExtArgs["result"]["usuario"]>
   export type UsuarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     familias?: boolean | Usuario$familiasArgs<ExtArgs>
-    familiaInvitations?: boolean | Usuario$familiaInvitationsArgs<ExtArgs>
-    listas?: boolean | Usuario$listasArgs<ExtArgs>
+    lembretesEnviados?: boolean | Usuario$lembretesEnviadosArgs<ExtArgs>
+    listasEnviadas?: boolean | Usuario$listasEnviadasArgs<ExtArgs>
     veiculos?: boolean | Usuario$veiculosArgs<ExtArgs>
     tarefas?: boolean | Usuario$tarefasArgs<ExtArgs>
-    atividades?: boolean | Usuario$atividadesArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UsuarioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2174,17 +2170,16 @@ export namespace Prisma {
   export type $UsuarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Usuario"
     objects: {
-      familias: Prisma.$MembrosDaFamiliaPayload<ExtArgs>[]
-      familiaInvitations: Prisma.$FamiliaConvitePayload<ExtArgs>[]
-<<<<<<< HEAD
-      tarefas: Prisma.$TarefaPayload<ExtArgs>[]
-      listaDeCompra: Prisma.$ListaDeCompraPayload<ExtArgs>[]
+      familias: Prisma.$familia_usuariosPayload<ExtArgs>[]
+      lembretesEnviados: Prisma.$LembretePayload<ExtArgs>[]
+      listasEnviadas: Prisma.$ListaDeCompraPayload<ExtArgs>[]
       veiculos: Prisma.$VeiculoPayload<ExtArgs>[]
-=======
-      listas: Prisma.$ListaDeCompraPayload<ExtArgs>[]
+      tarefas: Prisma.$TarefaPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
+      email: string
       password: string
     }, ExtArgs["result"]["usuario"]>
     composites: {}
@@ -2580,18 +2575,11 @@ export namespace Prisma {
    */
   export interface Prisma__UsuarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    familias<T extends Usuario$familiasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$familiasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembrosDaFamiliaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    familiaInvitations<T extends Usuario$familiaInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$familiaInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FamiliaConvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-<<<<<<< HEAD
-    tarefas<T extends Usuario$tarefasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$tarefasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    listaDeCompra<T extends Usuario$listaDeCompraArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$listaDeCompraArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    veiculos<T extends Usuario$veiculosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$veiculosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-=======
-    listas<T extends Usuario$listasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$listasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    familias<T extends Usuario$familiasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$familiasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$familia_usuariosPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    lembretesEnviados<T extends Usuario$lembretesEnviadosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$lembretesEnviadosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LembretePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    listasEnviadas<T extends Usuario$listasEnviadasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$listasEnviadasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     veiculos<T extends Usuario$veiculosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$veiculosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tarefas<T extends Usuario$tarefasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$tarefasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
->>>>>>> dev
-    atividades<T extends Usuario$atividadesArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$atividadesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3061,39 +3049,9 @@ export namespace Prisma {
   }
 
   /**
-<<<<<<< HEAD
-   * Usuario.tarefas
+   * Usuario.listasEnviadas
    */
-  export type Usuario$tarefasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Tarefa
-     */
-    select?: TarefaSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Tarefa
-     */
-    omit?: TarefaOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TarefaInclude<ExtArgs> | null
-    where?: TarefaWhereInput
-    orderBy?: TarefaOrderByWithRelationInput | TarefaOrderByWithRelationInput[]
-    cursor?: TarefaWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TarefaScalarFieldEnum | TarefaScalarFieldEnum[]
-  }
-
-  /**
-   * Usuario.listaDeCompra
-   */
-  export type Usuario$listaDeCompraArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-=======
-   * Usuario.listas
-   */
-  export type Usuario$listasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
->>>>>>> dev
+  export type Usuario$listasEnviadasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ListaDeCompra
      */
@@ -6578,11 +6536,8 @@ export namespace Prisma {
   export type ListaDeCompraGroupByOutputType = {
     id: string
     tipo: $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId: string | null
-=======
-    usuarioId: string
->>>>>>> dev
+    usuarioIdEnviou: string
+    status: boolean
     _count: ListaDeCompraCountAggregateOutputType | null
     _min: ListaDeCompraMinAggregateOutputType | null
     _max: ListaDeCompraMaxAggregateOutputType | null
@@ -6605,12 +6560,9 @@ export namespace Prisma {
   export type ListaDeCompraSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tipo?: boolean
-    usuarioId?: boolean
-<<<<<<< HEAD
-    usuario?: boolean | ListaDeCompra$usuarioArgs<ExtArgs>
-=======
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
->>>>>>> dev
+    usuarioIdEnviou?: boolean
+    status?: boolean
+    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
     itens?: boolean | ListaDeCompra$itensArgs<ExtArgs>
     atividades?: boolean | ListaDeCompra$atividadesArgs<ExtArgs>
     _count?: boolean | ListaDeCompraCountOutputTypeDefaultArgs<ExtArgs>
@@ -6619,23 +6571,17 @@ export namespace Prisma {
   export type ListaDeCompraSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tipo?: boolean
-    usuarioId?: boolean
-<<<<<<< HEAD
-    usuario?: boolean | ListaDeCompra$usuarioArgs<ExtArgs>
-=======
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
->>>>>>> dev
+    usuarioIdEnviou?: boolean
+    status?: boolean
+    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["listaDeCompra"]>
 
   export type ListaDeCompraSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tipo?: boolean
-    usuarioId?: boolean
-<<<<<<< HEAD
-    usuario?: boolean | ListaDeCompra$usuarioArgs<ExtArgs>
-=======
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
->>>>>>> dev
+    usuarioIdEnviou?: boolean
+    status?: boolean
+    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["listaDeCompra"]>
 
   export type ListaDeCompraSelectScalar = {
@@ -6646,48 +6592,30 @@ export namespace Prisma {
 
   export type ListaDeCompraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipo" | "usuarioId", ExtArgs["result"]["listaDeCompra"]>
   export type ListaDeCompraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-<<<<<<< HEAD
-    usuario?: boolean | ListaDeCompra$usuarioArgs<ExtArgs>
-=======
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
->>>>>>> dev
+    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
     itens?: boolean | ListaDeCompra$itensArgs<ExtArgs>
     atividades?: boolean | ListaDeCompra$atividadesArgs<ExtArgs>
     _count?: boolean | ListaDeCompraCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ListaDeCompraIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-<<<<<<< HEAD
-    usuario?: boolean | ListaDeCompra$usuarioArgs<ExtArgs>
+    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
   }
   export type ListaDeCompraIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuario?: boolean | ListaDeCompra$usuarioArgs<ExtArgs>
-=======
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
-  }
-  export type ListaDeCompraIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
->>>>>>> dev
+    usuarioEnviou?: boolean | UsuarioDefaultArgs<ExtArgs>
   }
 
   export type $ListaDeCompraPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ListaDeCompra"
     objects: {
-<<<<<<< HEAD
-      usuario: Prisma.$UsuarioPayload<ExtArgs> | null
-=======
-      usuario: Prisma.$UsuarioPayload<ExtArgs>
->>>>>>> dev
+      usuarioEnviou: Prisma.$UsuarioPayload<ExtArgs>
       itens: Prisma.$ItemListaDeCompraPayload<ExtArgs>[]
       atividades: Prisma.$AtividadePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tipo: $Enums.TipoLista
-<<<<<<< HEAD
-      usuarioId: string | null
-=======
-      usuarioId: string
->>>>>>> dev
+      usuarioIdEnviou: string
+      status: boolean
     }, ExtArgs["result"]["listaDeCompra"]>
     composites: {}
   }
@@ -7082,11 +7010,7 @@ export namespace Prisma {
    */
   export interface Prisma__ListaDeCompraClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-<<<<<<< HEAD
-    usuario<T extends ListaDeCompra$usuarioArgs<ExtArgs> = {}>(args?: Subset<T, ListaDeCompra$usuarioArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-=======
-    usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
->>>>>>> dev
+    usuarioEnviou<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     itens<T extends ListaDeCompra$itensArgs<ExtArgs> = {}>(args?: Subset<T, ListaDeCompra$itensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     atividades<T extends ListaDeCompra$atividadesArgs<ExtArgs> = {}>(args?: Subset<T, ListaDeCompra$atividadesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -12180,11 +12104,6 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora: Date
-<<<<<<< HEAD
-    usuarioId: string | null
-=======
-    usuarioId: string
->>>>>>> dev
     tarefaId: string | null
     listaDeCompraId: string | null
     veiculoId: string | null
@@ -12216,11 +12135,6 @@ export namespace Prisma {
     tarefaId?: boolean
     listaDeCompraId?: boolean
     veiculoId?: boolean
-<<<<<<< HEAD
-    usuario?: boolean | Atividade$usuarioArgs<ExtArgs>
-=======
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
->>>>>>> dev
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
     veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
@@ -12235,11 +12149,6 @@ export namespace Prisma {
     tarefaId?: boolean
     listaDeCompraId?: boolean
     veiculoId?: boolean
-<<<<<<< HEAD
-    usuario?: boolean | Atividade$usuarioArgs<ExtArgs>
-=======
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
->>>>>>> dev
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
     veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
@@ -12254,11 +12163,6 @@ export namespace Prisma {
     tarefaId?: boolean
     listaDeCompraId?: boolean
     veiculoId?: boolean
-<<<<<<< HEAD
-    usuario?: boolean | Atividade$usuarioArgs<ExtArgs>
-=======
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
->>>>>>> dev
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
     veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
@@ -12275,35 +12179,18 @@ export namespace Prisma {
     veiculoId?: boolean
   }
 
-<<<<<<< HEAD
-  export type AtividadeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipo" | "acao" | "dataHora" | "usuarioId" | "tarefaId" | "listaDeCompraId" | "lembreteId" | "veiculoId", ExtArgs["result"]["atividade"]>
+  export type AtividadeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipo" | "acao" | "dataHora" | "tarefaId" | "listaDeCompraId" | "lembreteId" | "veiculoId", ExtArgs["result"]["atividade"]>
   export type AtividadeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuario?: boolean | Atividade$usuarioArgs<ExtArgs>
-=======
-  export type AtividadeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipo" | "acao" | "dataHora" | "usuarioId" | "tarefaId" | "listaDeCompraId" | "veiculoId", ExtArgs["result"]["atividade"]>
-  export type AtividadeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
->>>>>>> dev
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
     veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
   }
   export type AtividadeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-<<<<<<< HEAD
-    usuario?: boolean | Atividade$usuarioArgs<ExtArgs>
-=======
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
->>>>>>> dev
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
     veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
   }
   export type AtividadeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-<<<<<<< HEAD
-    usuario?: boolean | Atividade$usuarioArgs<ExtArgs>
-=======
-    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
->>>>>>> dev
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
     veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
@@ -12312,11 +12199,6 @@ export namespace Prisma {
   export type $AtividadePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Atividade"
     objects: {
-<<<<<<< HEAD
-      usuario: Prisma.$UsuarioPayload<ExtArgs> | null
-=======
-      usuario: Prisma.$UsuarioPayload<ExtArgs>
->>>>>>> dev
       tarefa: Prisma.$TarefaPayload<ExtArgs> | null
       lista: Prisma.$ListaDeCompraPayload<ExtArgs> | null
       veiculo: Prisma.$VeiculoPayload<ExtArgs> | null
@@ -12326,11 +12208,6 @@ export namespace Prisma {
       tipo: $Enums.TipoAtividade
       acao: $Enums.AcaoAtividade
       dataHora: Date
-<<<<<<< HEAD
-      usuarioId: string | null
-=======
-      usuarioId: string
->>>>>>> dev
       tarefaId: string | null
       listaDeCompraId: string | null
       veiculoId: string | null
@@ -12728,11 +12605,6 @@ export namespace Prisma {
    */
   export interface Prisma__AtividadeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-<<<<<<< HEAD
-    usuario<T extends Atividade$usuarioArgs<ExtArgs> = {}>(args?: Subset<T, Atividade$usuarioArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-=======
-    usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
->>>>>>> dev
     tarefa<T extends Atividade$tarefaArgs<ExtArgs> = {}>(args?: Subset<T, Atividade$tarefaArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     lista<T extends Atividade$listaArgs<ExtArgs> = {}>(args?: Subset<T, Atividade$listaArgs<ExtArgs>>): Prisma__ListaDeCompraClient<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     veiculo<T extends Atividade$veiculoArgs<ExtArgs> = {}>(args?: Subset<T, Atividade$veiculoArgs<ExtArgs>>): Prisma__VeiculoClient<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -13560,18 +13432,11 @@ export namespace Prisma {
     name?: StringFilter<"Usuario"> | string
     email?: StringFilter<"Usuario"> | string
     password?: StringFilter<"Usuario"> | string
-    familias?: MembrosDaFamiliaListRelationFilter
-    familiaInvitations?: FamiliaConviteListRelationFilter
-<<<<<<< HEAD
-    tarefas?: TarefaListRelationFilter
-    listaDeCompra?: ListaDeCompraListRelationFilter
-    veiculos?: VeiculoListRelationFilter
-=======
-    listas?: ListaDeCompraListRelationFilter
+    familias?: Familia_usuariosListRelationFilter
+    lembretesEnviados?: LembreteListRelationFilter
+    listasEnviadas?: ListaDeCompraListRelationFilter
     veiculos?: VeiculoListRelationFilter
     tarefas?: TarefaListRelationFilter
->>>>>>> dev
-    atividades?: AtividadeListRelationFilter
   }
 
   export type UsuarioOrderByWithRelationInput = {
@@ -13579,18 +13444,11 @@ export namespace Prisma {
     name?: SortOrder
     email?: SortOrder
     password?: SortOrder
-    familias?: MembrosDaFamiliaOrderByRelationAggregateInput
-    familiaInvitations?: FamiliaConviteOrderByRelationAggregateInput
-<<<<<<< HEAD
-    tarefas?: TarefaOrderByRelationAggregateInput
-    listaDeCompra?: ListaDeCompraOrderByRelationAggregateInput
-    veiculos?: VeiculoOrderByRelationAggregateInput
-=======
-    listas?: ListaDeCompraOrderByRelationAggregateInput
+    familias?: familia_usuariosOrderByRelationAggregateInput
+    lembretesEnviados?: LembreteOrderByRelationAggregateInput
+    listasEnviadas?: ListaDeCompraOrderByRelationAggregateInput
     veiculos?: VeiculoOrderByRelationAggregateInput
     tarefas?: TarefaOrderByRelationAggregateInput
->>>>>>> dev
-    atividades?: AtividadeOrderByRelationAggregateInput
   }
 
   export type UsuarioWhereUniqueInput = Prisma.AtLeast<{
@@ -13601,18 +13459,11 @@ export namespace Prisma {
     NOT?: UsuarioWhereInput | UsuarioWhereInput[]
     name?: StringFilter<"Usuario"> | string
     password?: StringFilter<"Usuario"> | string
-    familias?: MembrosDaFamiliaListRelationFilter
-    familiaInvitations?: FamiliaConviteListRelationFilter
-<<<<<<< HEAD
-    tarefas?: TarefaListRelationFilter
-    listaDeCompra?: ListaDeCompraListRelationFilter
-    veiculos?: VeiculoListRelationFilter
-=======
-    listas?: ListaDeCompraListRelationFilter
+    familias?: Familia_usuariosListRelationFilter
+    lembretesEnviados?: LembreteListRelationFilter
+    listasEnviadas?: ListaDeCompraListRelationFilter
     veiculos?: VeiculoListRelationFilter
     tarefas?: TarefaListRelationFilter
->>>>>>> dev
-    atividades?: AtividadeListRelationFilter
   }, "id" | "email">
 
   export type UsuarioOrderByWithAggregationInput = {
@@ -13815,13 +13666,9 @@ export namespace Prisma {
     NOT?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
     id?: UuidFilter<"ListaDeCompra"> | string
     tipo?: EnumTipoListaFilter<"ListaDeCompra"> | $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId?: UuidNullableFilter<"ListaDeCompra"> | string | null
-    usuario?: XOR<UsuarioNullableScalarRelationFilter, UsuarioWhereInput> | null
-=======
-    usuarioId?: UuidFilter<"ListaDeCompra"> | string
-    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
->>>>>>> dev
+    usuarioIdEnviou?: UuidFilter<"ListaDeCompra"> | string
+    status?: BoolFilter<"ListaDeCompra"> | boolean
+    usuarioEnviou?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     itens?: ItemListaDeCompraListRelationFilter
     atividades?: AtividadeListRelationFilter
   }
@@ -13829,12 +13676,9 @@ export namespace Prisma {
   export type ListaDeCompraOrderByWithRelationInput = {
     id?: SortOrder
     tipo?: SortOrder
-<<<<<<< HEAD
-    usuarioId?: SortOrderInput | SortOrder
-=======
-    usuarioId?: SortOrder
->>>>>>> dev
-    usuario?: UsuarioOrderByWithRelationInput
+    usuarioIdEnviou?: SortOrder
+    status?: SortOrder
+    usuarioEnviou?: UsuarioOrderByWithRelationInput
     itens?: ItemListaDeCompraOrderByRelationAggregateInput
     atividades?: AtividadeOrderByRelationAggregateInput
   }
@@ -13845,13 +13689,9 @@ export namespace Prisma {
     OR?: ListaDeCompraWhereInput[]
     NOT?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
     tipo?: EnumTipoListaFilter<"ListaDeCompra"> | $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId?: UuidNullableFilter<"ListaDeCompra"> | string | null
-    usuario?: XOR<UsuarioNullableScalarRelationFilter, UsuarioWhereInput> | null
-=======
-    usuarioId?: UuidFilter<"ListaDeCompra"> | string
-    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
->>>>>>> dev
+    usuarioIdEnviou?: UuidFilter<"ListaDeCompra"> | string
+    status?: BoolFilter<"ListaDeCompra"> | boolean
+    usuarioEnviou?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
     itens?: ItemListaDeCompraListRelationFilter
     atividades?: AtividadeListRelationFilter
   }, "id">
@@ -13859,11 +13699,8 @@ export namespace Prisma {
   export type ListaDeCompraOrderByWithAggregationInput = {
     id?: SortOrder
     tipo?: SortOrder
-<<<<<<< HEAD
-    usuarioId?: SortOrderInput | SortOrder
-=======
-    usuarioId?: SortOrder
->>>>>>> dev
+    usuarioIdEnviou?: SortOrder
+    status?: SortOrder
     _count?: ListaDeCompraCountOrderByAggregateInput
     _max?: ListaDeCompraMaxOrderByAggregateInput
     _min?: ListaDeCompraMinOrderByAggregateInput
@@ -13875,11 +13712,8 @@ export namespace Prisma {
     NOT?: ListaDeCompraScalarWhereWithAggregatesInput | ListaDeCompraScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"ListaDeCompra"> | string
     tipo?: EnumTipoListaWithAggregatesFilter<"ListaDeCompra"> | $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId?: UuidNullableWithAggregatesFilter<"ListaDeCompra"> | string | null
-=======
-    usuarioId?: UuidWithAggregatesFilter<"ListaDeCompra"> | string
->>>>>>> dev
+    usuarioIdEnviou?: UuidWithAggregatesFilter<"ListaDeCompra"> | string
+    status?: BoolWithAggregatesFilter<"ListaDeCompra"> | boolean
   }
 
   export type ItemListaDeCompraWhereInput = {
@@ -14125,19 +13959,9 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFilter<"Atividade"> | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFilter<"Atividade"> | $Enums.AcaoAtividade
     dataHora?: DateTimeFilter<"Atividade"> | Date | string
-<<<<<<< HEAD
-    usuarioId?: UuidNullableFilter<"Atividade"> | string | null
-=======
-    usuarioId?: UuidFilter<"Atividade"> | string
->>>>>>> dev
     tarefaId?: UuidNullableFilter<"Atividade"> | string | null
     listaDeCompraId?: UuidNullableFilter<"Atividade"> | string | null
     veiculoId?: UuidNullableFilter<"Atividade"> | string | null
-<<<<<<< HEAD
-    usuario?: XOR<UsuarioNullableScalarRelationFilter, UsuarioWhereInput> | null
-=======
-    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
->>>>>>> dev
     tarefa?: XOR<TarefaNullableScalarRelationFilter, TarefaWhereInput> | null
     lista?: XOR<ListaDeCompraNullableScalarRelationFilter, ListaDeCompraWhereInput> | null
     veiculo?: XOR<VeiculoNullableScalarRelationFilter, VeiculoWhereInput> | null
@@ -14148,11 +13972,6 @@ export namespace Prisma {
     tipo?: SortOrder
     acao?: SortOrder
     dataHora?: SortOrder
-<<<<<<< HEAD
-    usuarioId?: SortOrderInput | SortOrder
-=======
-    usuarioId?: SortOrder
->>>>>>> dev
     tarefaId?: SortOrderInput | SortOrder
     listaDeCompraId?: SortOrderInput | SortOrder
     veiculoId?: SortOrderInput | SortOrder
@@ -14170,19 +13989,9 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFilter<"Atividade"> | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFilter<"Atividade"> | $Enums.AcaoAtividade
     dataHora?: DateTimeFilter<"Atividade"> | Date | string
-<<<<<<< HEAD
-    usuarioId?: UuidNullableFilter<"Atividade"> | string | null
-=======
-    usuarioId?: UuidFilter<"Atividade"> | string
->>>>>>> dev
     tarefaId?: UuidNullableFilter<"Atividade"> | string | null
     listaDeCompraId?: UuidNullableFilter<"Atividade"> | string | null
     veiculoId?: UuidNullableFilter<"Atividade"> | string | null
-<<<<<<< HEAD
-    usuario?: XOR<UsuarioNullableScalarRelationFilter, UsuarioWhereInput> | null
-=======
-    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
->>>>>>> dev
     tarefa?: XOR<TarefaNullableScalarRelationFilter, TarefaWhereInput> | null
     lista?: XOR<ListaDeCompraNullableScalarRelationFilter, ListaDeCompraWhereInput> | null
     veiculo?: XOR<VeiculoNullableScalarRelationFilter, VeiculoWhereInput> | null
@@ -14193,11 +14002,6 @@ export namespace Prisma {
     tipo?: SortOrder
     acao?: SortOrder
     dataHora?: SortOrder
-<<<<<<< HEAD
-    usuarioId?: SortOrderInput | SortOrder
-=======
-    usuarioId?: SortOrder
->>>>>>> dev
     tarefaId?: SortOrderInput | SortOrder
     listaDeCompraId?: SortOrderInput | SortOrder
     veiculoId?: SortOrderInput | SortOrder
@@ -14214,11 +14018,6 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeWithAggregatesFilter<"Atividade"> | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeWithAggregatesFilter<"Atividade"> | $Enums.AcaoAtividade
     dataHora?: DateTimeWithAggregatesFilter<"Atividade"> | Date | string
-<<<<<<< HEAD
-    usuarioId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
-=======
-    usuarioId?: UuidWithAggregatesFilter<"Atividade"> | string
->>>>>>> dev
     tarefaId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
     listaDeCompraId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
     veiculoId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
@@ -14229,18 +14028,11 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    familias?: MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput
-    familiaInvitations?: FamiliaConviteCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
-    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
-    listaDeCompra?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
-=======
-    listas?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
+    familias?: familia_usuariosCreateNestedManyWithoutUsuarioInput
+    lembretesEnviados?: LembreteCreateNestedManyWithoutUsuarioEnviouInput
+    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
     veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
     tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
->>>>>>> dev
-    atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateInput = {
@@ -14248,18 +14040,11 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    familias?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput
-    familiaInvitations?: FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
-    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
-    listaDeCompra?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
-=======
-    listas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
+    familias?: familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput
+    lembretesEnviados?: LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput
+    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
     veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
     tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
->>>>>>> dev
-    atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUpdateInput = {
@@ -14267,18 +14052,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    familias?: MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput
-    familiaInvitations?: FamiliaConviteUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
-    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
-    listaDeCompra?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
-=======
-    listas?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
+    familias?: familia_usuariosUpdateManyWithoutUsuarioNestedInput
+    lembretesEnviados?: LembreteUpdateManyWithoutUsuarioEnviouNestedInput
+    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
     veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
     tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
->>>>>>> dev
-    atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateInput = {
@@ -14286,18 +14064,11 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    familias?: MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput
-    familiaInvitations?: FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
-    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
-    listaDeCompra?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
-=======
-    listas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
+    familias?: familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput
+    lembretesEnviados?: LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
+    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
     veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
     tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
->>>>>>> dev
-    atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioCreateManyInput = {
@@ -14496,11 +14267,8 @@ export namespace Prisma {
   export type ListaDeCompraCreateInput = {
     id?: string
     tipo: $Enums.TipoLista
-<<<<<<< HEAD
-    usuario?: UsuarioCreateNestedOneWithoutListaDeCompraInput
-=======
-    usuario: UsuarioCreateNestedOneWithoutListasInput
->>>>>>> dev
+    status?: boolean
+    usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
     atividades?: AtividadeCreateNestedManyWithoutListaInput
   }
@@ -14508,11 +14276,8 @@ export namespace Prisma {
   export type ListaDeCompraUncheckedCreateInput = {
     id?: string
     tipo: $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId?: string | null
-=======
-    usuarioId: string
->>>>>>> dev
+    usuarioIdEnviou: string
+    status?: boolean
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
     atividades?: AtividadeUncheckedCreateNestedManyWithoutListaInput
   }
@@ -14520,11 +14285,8 @@ export namespace Prisma {
   export type ListaDeCompraUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
-<<<<<<< HEAD
-    usuario?: UsuarioUpdateOneWithoutListaDeCompraNestedInput
-=======
-    usuario?: UsuarioUpdateOneRequiredWithoutListasNestedInput
->>>>>>> dev
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
     atividades?: AtividadeUpdateManyWithoutListaNestedInput
   }
@@ -14532,11 +14294,8 @@ export namespace Prisma {
   export type ListaDeCompraUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    usuarioId?: StringFieldUpdateOperationsInput | string
->>>>>>> dev
+    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
     atividades?: AtividadeUncheckedUpdateManyWithoutListaNestedInput
   }
@@ -14544,11 +14303,8 @@ export namespace Prisma {
   export type ListaDeCompraCreateManyInput = {
     id?: string
     tipo: $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId?: string | null
-=======
-    usuarioId: string
->>>>>>> dev
+    usuarioIdEnviou: string
+    status?: boolean
   }
 
   export type ListaDeCompraUpdateManyMutationInput = {
@@ -14559,11 +14315,8 @@ export namespace Prisma {
   export type ListaDeCompraUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    usuarioId?: StringFieldUpdateOperationsInput | string
->>>>>>> dev
+    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ItemListaDeCompraCreateInput = {
@@ -14803,12 +14556,6 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
-<<<<<<< HEAD
-    lembreteId?: string | null
-    usuario?: UsuarioCreateNestedOneWithoutAtividadesInput
-=======
-    usuario: UsuarioCreateNestedOneWithoutAtividadesInput
->>>>>>> dev
     tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
     lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
     veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
@@ -14819,11 +14566,6 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
-<<<<<<< HEAD
-    usuarioId?: string | null
-=======
-    usuarioId: string
->>>>>>> dev
     tarefaId?: string | null
     listaDeCompraId?: string | null
     veiculoId?: string | null
@@ -14834,12 +14576,6 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
-    usuario?: UsuarioUpdateOneWithoutAtividadesNestedInput
-=======
-    usuario?: UsuarioUpdateOneRequiredWithoutAtividadesNestedInput
->>>>>>> dev
     tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
     lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
     veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
@@ -14850,11 +14586,6 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-    usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    usuarioId?: StringFieldUpdateOperationsInput | string
->>>>>>> dev
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14865,11 +14596,6 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
-<<<<<<< HEAD
-    usuarioId?: string | null
-=======
-    usuarioId: string
->>>>>>> dev
     tarefaId?: string | null
     listaDeCompraId?: string | null
     veiculoId?: string | null
@@ -14888,11 +14614,6 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-    usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    usuarioId?: StringFieldUpdateOperationsInput | string
->>>>>>> dev
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -14925,25 +14646,16 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type MembrosDaFamiliaListRelationFilter = {
-    every?: MembrosDaFamiliaWhereInput
-    some?: MembrosDaFamiliaWhereInput
-    none?: MembrosDaFamiliaWhereInput
+  export type Familia_usuariosListRelationFilter = {
+    every?: familia_usuariosWhereInput
+    some?: familia_usuariosWhereInput
+    none?: familia_usuariosWhereInput
   }
 
-  export type FamiliaConviteListRelationFilter = {
-    every?: FamiliaConviteWhereInput
-    some?: FamiliaConviteWhereInput
-    none?: FamiliaConviteWhereInput
-<<<<<<< HEAD
-  }
-
-  export type TarefaListRelationFilter = {
-    every?: TarefaWhereInput
-    some?: TarefaWhereInput
-    none?: TarefaWhereInput
-=======
->>>>>>> dev
+  export type LembreteListRelationFilter = {
+    every?: LembreteWhereInput
+    some?: LembreteWhereInput
+    none?: LembreteWhereInput
   }
 
   export type ListaDeCompraListRelationFilter = {
@@ -14964,27 +14676,11 @@ export namespace Prisma {
     none?: AtividadeWhereInput
   }
 
-<<<<<<< HEAD
-=======
-  export type AtividadeListRelationFilter = {
-    every?: AtividadeWhereInput
-    some?: AtividadeWhereInput
-    none?: AtividadeWhereInput
-  }
-
->>>>>>> dev
-  export type MembrosDaFamiliaOrderByRelationAggregateInput = {
+  export type familia_usuariosOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type FamiliaConviteOrderByRelationAggregateInput = {
-<<<<<<< HEAD
-    _count?: SortOrder
-  }
-
-  export type TarefaOrderByRelationAggregateInput = {
-=======
->>>>>>> dev
+  export type LembreteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15211,35 +14907,23 @@ export namespace Prisma {
     not?: NestedEnumTipoListaFilter<$PrismaModel> | $Enums.TipoLista
   }
 
-<<<<<<< HEAD
-  export type UuidNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-=======
->>>>>>> dev
   export type ItemListaDeCompraListRelationFilter = {
     every?: ItemListaDeCompraWhereInput
     some?: ItemListaDeCompraWhereInput
     none?: ItemListaDeCompraWhereInput
   }
 
-<<<<<<< HEAD
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
+  export type AtividadeListRelationFilter = {
+    every?: AtividadeWhereInput
+    some?: AtividadeWhereInput
+    none?: AtividadeWhereInput
   }
 
-=======
->>>>>>> dev
   export type ItemListaDeCompraOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -15272,28 +14956,18 @@ export namespace Prisma {
     _max?: NestedEnumTipoListaFilter<$PrismaModel>
   }
 
-<<<<<<< HEAD
-  export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedUuidNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
-=======
->>>>>>> dev
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -15624,33 +15298,18 @@ export namespace Prisma {
     connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
   }
 
-<<<<<<< HEAD
-  export type FamiliaConviteCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput> | FamiliaConviteCreateWithoutUsuarioInput[] | FamiliaConviteUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutUsuarioInput | FamiliaConviteCreateOrConnectWithoutUsuarioInput[]
-    createMany?: FamiliaConviteCreateManyUsuarioInputEnvelope
-    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
+  export type familia_usuariosCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<familia_usuariosCreateWithoutUsuarioInput, familia_usuariosUncheckedCreateWithoutUsuarioInput> | familia_usuariosCreateWithoutUsuarioInput[] | familia_usuariosUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: familia_usuariosCreateOrConnectWithoutUsuarioInput | familia_usuariosCreateOrConnectWithoutUsuarioInput[]
+    createMany?: familia_usuariosCreateManyUsuarioInputEnvelope
+    connect?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
   }
 
-  export type TarefaCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<TarefaCreateWithoutUsuarioInput, TarefaUncheckedCreateWithoutUsuarioInput> | TarefaCreateWithoutUsuarioInput[] | TarefaUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: TarefaCreateOrConnectWithoutUsuarioInput | TarefaCreateOrConnectWithoutUsuarioInput[]
-    createMany?: TarefaCreateManyUsuarioInputEnvelope
-    connect?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
-=======
-  export type MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<MembrosDaFamiliaCreateWithoutUsuarioInput, MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput> | MembrosDaFamiliaCreateWithoutUsuarioInput[] | MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput | MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput[]
-    createMany?: MembrosDaFamiliaCreateManyUsuarioInputEnvelope
-    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-  }
-
-  export type FamiliaConviteCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput> | FamiliaConviteCreateWithoutUsuarioInput[] | FamiliaConviteUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutUsuarioInput | FamiliaConviteCreateOrConnectWithoutUsuarioInput[]
-    createMany?: FamiliaConviteCreateManyUsuarioInputEnvelope
-    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
->>>>>>> dev
+  export type LembreteCreateNestedManyWithoutUsuarioEnviouInput = {
+    create?: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput> | LembreteCreateWithoutUsuarioEnviouInput[] | LembreteUncheckedCreateWithoutUsuarioEnviouInput[]
+    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioEnviouInput | LembreteCreateOrConnectWithoutUsuarioEnviouInput[]
+    createMany?: LembreteCreateManyUsuarioEnviouInputEnvelope
+    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
   }
 
   export type ListaDeCompraCreateNestedManyWithoutUsuarioInput = {
@@ -15674,51 +15333,20 @@ export namespace Prisma {
     connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
   }
 
-  export type MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<MembrosDaFamiliaCreateWithoutUsuarioInput, MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput> | MembrosDaFamiliaCreateWithoutUsuarioInput[] | MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput | MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput[]
-    createMany?: MembrosDaFamiliaCreateManyUsuarioInputEnvelope
-    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
+  export type familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<familia_usuariosCreateWithoutUsuarioInput, familia_usuariosUncheckedCreateWithoutUsuarioInput> | familia_usuariosCreateWithoutUsuarioInput[] | familia_usuariosUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: familia_usuariosCreateOrConnectWithoutUsuarioInput | familia_usuariosCreateOrConnectWithoutUsuarioInput[]
+    createMany?: familia_usuariosCreateManyUsuarioInputEnvelope
+    connect?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
   }
 
-  export type FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput> | FamiliaConviteCreateWithoutUsuarioInput[] | FamiliaConviteUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutUsuarioInput | FamiliaConviteCreateOrConnectWithoutUsuarioInput[]
-    createMany?: FamiliaConviteCreateManyUsuarioInputEnvelope
-    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
+  export type LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput = {
+    create?: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput> | LembreteCreateWithoutUsuarioEnviouInput[] | LembreteUncheckedCreateWithoutUsuarioEnviouInput[]
+    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioEnviouInput | LembreteCreateOrConnectWithoutUsuarioEnviouInput[]
+    createMany?: LembreteCreateManyUsuarioEnviouInputEnvelope
+    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
   }
 
-  export type TarefaUncheckedCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<TarefaCreateWithoutUsuarioInput, TarefaUncheckedCreateWithoutUsuarioInput> | TarefaCreateWithoutUsuarioInput[] | TarefaUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: TarefaCreateOrConnectWithoutUsuarioInput | TarefaCreateOrConnectWithoutUsuarioInput[]
-    createMany?: TarefaCreateManyUsuarioInputEnvelope
-    connect?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
-  }
-
-<<<<<<< HEAD
-=======
-  export type AtividadeCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<AtividadeCreateWithoutUsuarioInput, AtividadeUncheckedCreateWithoutUsuarioInput> | AtividadeCreateWithoutUsuarioInput[] | AtividadeUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: AtividadeCreateOrConnectWithoutUsuarioInput | AtividadeCreateOrConnectWithoutUsuarioInput[]
-    createMany?: AtividadeCreateManyUsuarioInputEnvelope
-    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
-  }
-
-  export type MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<MembrosDaFamiliaCreateWithoutUsuarioInput, MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput> | MembrosDaFamiliaCreateWithoutUsuarioInput[] | MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput | MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput[]
-    createMany?: MembrosDaFamiliaCreateManyUsuarioInputEnvelope
-    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-  }
-
-  export type FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput = {
-    create?: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput> | FamiliaConviteCreateWithoutUsuarioInput[] | FamiliaConviteUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutUsuarioInput | FamiliaConviteCreateOrConnectWithoutUsuarioInput[]
-    createMany?: FamiliaConviteCreateManyUsuarioInputEnvelope
-    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
-  }
-
->>>>>>> dev
   export type ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput = {
     create?: XOR<ListaDeCompraCreateWithoutUsuarioInput, ListaDeCompraUncheckedCreateWithoutUsuarioInput> | ListaDeCompraCreateWithoutUsuarioInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioInput | ListaDeCompraCreateOrConnectWithoutUsuarioInput[]
@@ -15751,51 +15379,34 @@ export namespace Prisma {
     set?: string
   }
 
-  export type MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<MembrosDaFamiliaCreateWithoutUsuarioInput, MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput> | MembrosDaFamiliaCreateWithoutUsuarioInput[] | MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput | MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput[]
-    upsert?: MembrosDaFamiliaUpsertWithWhereUniqueWithoutUsuarioInput | MembrosDaFamiliaUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: MembrosDaFamiliaCreateManyUsuarioInputEnvelope
-    set?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-    disconnect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-    delete?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-    update?: MembrosDaFamiliaUpdateWithWhereUniqueWithoutUsuarioInput | MembrosDaFamiliaUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: MembrosDaFamiliaUpdateManyWithWhereWithoutUsuarioInput | MembrosDaFamiliaUpdateManyWithWhereWithoutUsuarioInput[]
-    deleteMany?: MembrosDaFamiliaScalarWhereInput | MembrosDaFamiliaScalarWhereInput[]
+  export type familia_usuariosUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<familia_usuariosCreateWithoutUsuarioInput, familia_usuariosUncheckedCreateWithoutUsuarioInput> | familia_usuariosCreateWithoutUsuarioInput[] | familia_usuariosUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: familia_usuariosCreateOrConnectWithoutUsuarioInput | familia_usuariosCreateOrConnectWithoutUsuarioInput[]
+    upsert?: familia_usuariosUpsertWithWhereUniqueWithoutUsuarioInput | familia_usuariosUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: familia_usuariosCreateManyUsuarioInputEnvelope
+    set?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
+    disconnect?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
+    delete?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
+    connect?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
+    update?: familia_usuariosUpdateWithWhereUniqueWithoutUsuarioInput | familia_usuariosUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: familia_usuariosUpdateManyWithWhereWithoutUsuarioInput | familia_usuariosUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: familia_usuariosScalarWhereInput | familia_usuariosScalarWhereInput[]
   }
 
-  export type FamiliaConviteUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput> | FamiliaConviteCreateWithoutUsuarioInput[] | FamiliaConviteUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutUsuarioInput | FamiliaConviteCreateOrConnectWithoutUsuarioInput[]
-    upsert?: FamiliaConviteUpsertWithWhereUniqueWithoutUsuarioInput | FamiliaConviteUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: FamiliaConviteCreateManyUsuarioInputEnvelope
-    set?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
-    disconnect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
-    delete?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
-    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
-    update?: FamiliaConviteUpdateWithWhereUniqueWithoutUsuarioInput | FamiliaConviteUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: FamiliaConviteUpdateManyWithWhereWithoutUsuarioInput | FamiliaConviteUpdateManyWithWhereWithoutUsuarioInput[]
-    deleteMany?: FamiliaConviteScalarWhereInput | FamiliaConviteScalarWhereInput[]
+  export type LembreteUpdateManyWithoutUsuarioEnviouNestedInput = {
+    create?: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput> | LembreteCreateWithoutUsuarioEnviouInput[] | LembreteUncheckedCreateWithoutUsuarioEnviouInput[]
+    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioEnviouInput | LembreteCreateOrConnectWithoutUsuarioEnviouInput[]
+    upsert?: LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput | LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput[]
+    createMany?: LembreteCreateManyUsuarioEnviouInputEnvelope
+    set?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    disconnect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    delete?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    update?: LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput | LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput[]
+    updateMany?: LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput | LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput[]
+    deleteMany?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
   }
 
-<<<<<<< HEAD
-  export type TarefaUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<TarefaCreateWithoutUsuarioInput, TarefaUncheckedCreateWithoutUsuarioInput> | TarefaCreateWithoutUsuarioInput[] | TarefaUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: TarefaCreateOrConnectWithoutUsuarioInput | TarefaCreateOrConnectWithoutUsuarioInput[]
-    upsert?: TarefaUpsertWithWhereUniqueWithoutUsuarioInput | TarefaUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: TarefaCreateManyUsuarioInputEnvelope
-    set?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
-    disconnect?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
-    delete?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
-    connect?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
-    update?: TarefaUpdateWithWhereUniqueWithoutUsuarioInput | TarefaUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: TarefaUpdateManyWithWhereWithoutUsuarioInput | TarefaUpdateManyWithWhereWithoutUsuarioInput[]
-    deleteMany?: TarefaScalarWhereInput | TarefaScalarWhereInput[]
-  }
-
-=======
->>>>>>> dev
   export type ListaDeCompraUpdateManyWithoutUsuarioNestedInput = {
     create?: XOR<ListaDeCompraCreateWithoutUsuarioInput, ListaDeCompraUncheckedCreateWithoutUsuarioInput> | ListaDeCompraCreateWithoutUsuarioInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioInput | ListaDeCompraCreateOrConnectWithoutUsuarioInput[]
@@ -15880,56 +15491,39 @@ export namespace Prisma {
     deleteMany?: TarefaScalarWhereInput | TarefaScalarWhereInput[]
   }
 
-<<<<<<< HEAD
-=======
-  export type AtividadeUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<AtividadeCreateWithoutUsuarioInput, AtividadeUncheckedCreateWithoutUsuarioInput> | AtividadeCreateWithoutUsuarioInput[] | AtividadeUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: AtividadeCreateOrConnectWithoutUsuarioInput | AtividadeCreateOrConnectWithoutUsuarioInput[]
-    upsert?: AtividadeUpsertWithWhereUniqueWithoutUsuarioInput | AtividadeUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: AtividadeCreateManyUsuarioInputEnvelope
-    set?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
-    disconnect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
-    delete?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
-    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
-    update?: AtividadeUpdateWithWhereUniqueWithoutUsuarioInput | AtividadeUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: AtividadeUpdateManyWithWhereWithoutUsuarioInput | AtividadeUpdateManyWithWhereWithoutUsuarioInput[]
-    deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+  export type familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<familia_usuariosCreateWithoutUsuarioInput, familia_usuariosUncheckedCreateWithoutUsuarioInput> | familia_usuariosCreateWithoutUsuarioInput[] | familia_usuariosUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: familia_usuariosCreateOrConnectWithoutUsuarioInput | familia_usuariosCreateOrConnectWithoutUsuarioInput[]
+    upsert?: familia_usuariosUpsertWithWhereUniqueWithoutUsuarioInput | familia_usuariosUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: familia_usuariosCreateManyUsuarioInputEnvelope
+    set?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
+    disconnect?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
+    delete?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
+    connect?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
+    update?: familia_usuariosUpdateWithWhereUniqueWithoutUsuarioInput | familia_usuariosUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: familia_usuariosUpdateManyWithWhereWithoutUsuarioInput | familia_usuariosUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: familia_usuariosScalarWhereInput | familia_usuariosScalarWhereInput[]
   }
 
-  export type MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<MembrosDaFamiliaCreateWithoutUsuarioInput, MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput> | MembrosDaFamiliaCreateWithoutUsuarioInput[] | MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput | MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput[]
-    upsert?: MembrosDaFamiliaUpsertWithWhereUniqueWithoutUsuarioInput | MembrosDaFamiliaUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: MembrosDaFamiliaCreateManyUsuarioInputEnvelope
-    set?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-    disconnect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-    delete?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-    update?: MembrosDaFamiliaUpdateWithWhereUniqueWithoutUsuarioInput | MembrosDaFamiliaUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: MembrosDaFamiliaUpdateManyWithWhereWithoutUsuarioInput | MembrosDaFamiliaUpdateManyWithWhereWithoutUsuarioInput[]
-    deleteMany?: MembrosDaFamiliaScalarWhereInput | MembrosDaFamiliaScalarWhereInput[]
+  export type LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput = {
+    create?: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput> | LembreteCreateWithoutUsuarioEnviouInput[] | LembreteUncheckedCreateWithoutUsuarioEnviouInput[]
+    connectOrCreate?: LembreteCreateOrConnectWithoutUsuarioEnviouInput | LembreteCreateOrConnectWithoutUsuarioEnviouInput[]
+    upsert?: LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput | LembreteUpsertWithWhereUniqueWithoutUsuarioEnviouInput[]
+    createMany?: LembreteCreateManyUsuarioEnviouInputEnvelope
+    set?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    disconnect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    delete?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    connect?: LembreteWhereUniqueInput | LembreteWhereUniqueInput[]
+    update?: LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput | LembreteUpdateWithWhereUniqueWithoutUsuarioEnviouInput[]
+    updateMany?: LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput | LembreteUpdateManyWithWhereWithoutUsuarioEnviouInput[]
+    deleteMany?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
   }
 
-  export type FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput> | FamiliaConviteCreateWithoutUsuarioInput[] | FamiliaConviteUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutUsuarioInput | FamiliaConviteCreateOrConnectWithoutUsuarioInput[]
-    upsert?: FamiliaConviteUpsertWithWhereUniqueWithoutUsuarioInput | FamiliaConviteUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: FamiliaConviteCreateManyUsuarioInputEnvelope
-    set?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
-    disconnect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
-    delete?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
-    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
-    update?: FamiliaConviteUpdateWithWhereUniqueWithoutUsuarioInput | FamiliaConviteUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: FamiliaConviteUpdateManyWithWhereWithoutUsuarioInput | FamiliaConviteUpdateManyWithWhereWithoutUsuarioInput[]
-    deleteMany?: FamiliaConviteScalarWhereInput | FamiliaConviteScalarWhereInput[]
-  }
-
->>>>>>> dev
-  export type ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<ListaDeCompraCreateWithoutUsuarioInput, ListaDeCompraUncheckedCreateWithoutUsuarioInput> | ListaDeCompraCreateWithoutUsuarioInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioInput | ListaDeCompraCreateOrConnectWithoutUsuarioInput[]
-    upsert?: ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioInput | ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: ListaDeCompraCreateManyUsuarioInputEnvelope
+  export type ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput = {
+    create?: XOR<ListaDeCompraCreateWithoutUsuarioEnviouInput, ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput> | ListaDeCompraCreateWithoutUsuarioEnviouInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioEnviouInput[]
+    connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioEnviouInput | ListaDeCompraCreateOrConnectWithoutUsuarioEnviouInput[]
+    upsert?: ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioEnviouInput | ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioEnviouInput[]
+    createMany?: ListaDeCompraCreateManyUsuarioEnviouInputEnvelope
     set?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
     disconnect?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
     delete?: ListaDeCompraWhereUniqueInput | ListaDeCompraWhereUniqueInput[]
@@ -15967,19 +15561,11 @@ export namespace Prisma {
     deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
   }
 
-<<<<<<< HEAD
-  export type MembrosDaFamiliaCreateNestedManyWithoutFamiliaInput = {
-    create?: XOR<MembrosDaFamiliaCreateWithoutFamiliaInput, MembrosDaFamiliaUncheckedCreateWithoutFamiliaInput> | MembrosDaFamiliaCreateWithoutFamiliaInput[] | MembrosDaFamiliaUncheckedCreateWithoutFamiliaInput[]
-    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutFamiliaInput | MembrosDaFamiliaCreateOrConnectWithoutFamiliaInput[]
-    createMany?: MembrosDaFamiliaCreateManyFamiliaInputEnvelope
-    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-  }
-
-  export type FamiliaConviteCreateNestedManyWithoutFamiliaInput = {
-    create?: XOR<FamiliaConviteCreateWithoutFamiliaInput, FamiliaConviteUncheckedCreateWithoutFamiliaInput> | FamiliaConviteCreateWithoutFamiliaInput[] | FamiliaConviteUncheckedCreateWithoutFamiliaInput[]
-    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutFamiliaInput | FamiliaConviteCreateOrConnectWithoutFamiliaInput[]
-    createMany?: FamiliaConviteCreateManyFamiliaInputEnvelope
-    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
+  export type familia_usuariosCreateNestedManyWithoutFamiliaInput = {
+    create?: XOR<familia_usuariosCreateWithoutFamiliaInput, familia_usuariosUncheckedCreateWithoutFamiliaInput> | familia_usuariosCreateWithoutFamiliaInput[] | familia_usuariosUncheckedCreateWithoutFamiliaInput[]
+    connectOrCreate?: familia_usuariosCreateOrConnectWithoutFamiliaInput | familia_usuariosCreateOrConnectWithoutFamiliaInput[]
+    createMany?: familia_usuariosCreateManyFamiliaInputEnvelope
+    connect?: familia_usuariosWhereUniqueInput | familia_usuariosWhereUniqueInput[]
   }
 
   export type MembrosDaFamiliaUncheckedCreateNestedManyWithoutFamiliaInput = {
@@ -15996,50 +15582,6 @@ export namespace Prisma {
     connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
   }
 
-=======
-  export type AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput = {
-    create?: XOR<AtividadeCreateWithoutUsuarioInput, AtividadeUncheckedCreateWithoutUsuarioInput> | AtividadeCreateWithoutUsuarioInput[] | AtividadeUncheckedCreateWithoutUsuarioInput[]
-    connectOrCreate?: AtividadeCreateOrConnectWithoutUsuarioInput | AtividadeCreateOrConnectWithoutUsuarioInput[]
-    upsert?: AtividadeUpsertWithWhereUniqueWithoutUsuarioInput | AtividadeUpsertWithWhereUniqueWithoutUsuarioInput[]
-    createMany?: AtividadeCreateManyUsuarioInputEnvelope
-    set?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
-    disconnect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
-    delete?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
-    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
-    update?: AtividadeUpdateWithWhereUniqueWithoutUsuarioInput | AtividadeUpdateWithWhereUniqueWithoutUsuarioInput[]
-    updateMany?: AtividadeUpdateManyWithWhereWithoutUsuarioInput | AtividadeUpdateManyWithWhereWithoutUsuarioInput[]
-    deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
-  }
-
-  export type MembrosDaFamiliaCreateNestedManyWithoutFamiliaInput = {
-    create?: XOR<MembrosDaFamiliaCreateWithoutFamiliaInput, MembrosDaFamiliaUncheckedCreateWithoutFamiliaInput> | MembrosDaFamiliaCreateWithoutFamiliaInput[] | MembrosDaFamiliaUncheckedCreateWithoutFamiliaInput[]
-    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutFamiliaInput | MembrosDaFamiliaCreateOrConnectWithoutFamiliaInput[]
-    createMany?: MembrosDaFamiliaCreateManyFamiliaInputEnvelope
-    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-  }
-
-  export type FamiliaConviteCreateNestedManyWithoutFamiliaInput = {
-    create?: XOR<FamiliaConviteCreateWithoutFamiliaInput, FamiliaConviteUncheckedCreateWithoutFamiliaInput> | FamiliaConviteCreateWithoutFamiliaInput[] | FamiliaConviteUncheckedCreateWithoutFamiliaInput[]
-    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutFamiliaInput | FamiliaConviteCreateOrConnectWithoutFamiliaInput[]
-    createMany?: FamiliaConviteCreateManyFamiliaInputEnvelope
-    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
-  }
-
-  export type MembrosDaFamiliaUncheckedCreateNestedManyWithoutFamiliaInput = {
-    create?: XOR<MembrosDaFamiliaCreateWithoutFamiliaInput, MembrosDaFamiliaUncheckedCreateWithoutFamiliaInput> | MembrosDaFamiliaCreateWithoutFamiliaInput[] | MembrosDaFamiliaUncheckedCreateWithoutFamiliaInput[]
-    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutFamiliaInput | MembrosDaFamiliaCreateOrConnectWithoutFamiliaInput[]
-    createMany?: MembrosDaFamiliaCreateManyFamiliaInputEnvelope
-    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
-  }
-
-  export type FamiliaConviteUncheckedCreateNestedManyWithoutFamiliaInput = {
-    create?: XOR<FamiliaConviteCreateWithoutFamiliaInput, FamiliaConviteUncheckedCreateWithoutFamiliaInput> | FamiliaConviteCreateWithoutFamiliaInput[] | FamiliaConviteUncheckedCreateWithoutFamiliaInput[]
-    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutFamiliaInput | FamiliaConviteCreateOrConnectWithoutFamiliaInput[]
-    createMany?: FamiliaConviteCreateManyFamiliaInputEnvelope
-    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
-  }
-
->>>>>>> dev
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -16124,57 +15666,9 @@ export namespace Prisma {
     update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutFamiliasInput, UsuarioUpdateWithoutFamiliasInput>, UsuarioUncheckedUpdateWithoutFamiliasInput>
   }
 
-  export type FamiliaUpdateOneRequiredWithoutMembrosNestedInput = {
-    create?: XOR<FamiliaCreateWithoutMembrosInput, FamiliaUncheckedCreateWithoutMembrosInput>
-    connectOrCreate?: FamiliaCreateOrConnectWithoutMembrosInput
-    upsert?: FamiliaUpsertWithoutMembrosInput
-    connect?: FamiliaWhereUniqueInput
-    update?: XOR<XOR<FamiliaUpdateToOneWithWhereWithoutMembrosInput, FamiliaUpdateWithoutMembrosInput>, FamiliaUncheckedUpdateWithoutMembrosInput>
-  }
-
-  export type FamiliaCreateNestedOneWithoutFamiliaConvitesInput = {
-    create?: XOR<FamiliaCreateWithoutFamiliaConvitesInput, FamiliaUncheckedCreateWithoutFamiliaConvitesInput>
-    connectOrCreate?: FamiliaCreateOrConnectWithoutFamiliaConvitesInput
-    connect?: FamiliaWhereUniqueInput
-  }
-
-  export type UsuarioCreateNestedOneWithoutFamiliaInvitationsInput = {
-    create?: XOR<UsuarioCreateWithoutFamiliaInvitationsInput, UsuarioUncheckedCreateWithoutFamiliaInvitationsInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutFamiliaInvitationsInput
-    connect?: UsuarioWhereUniqueInput
-  }
-
-  export type EnumStatusConviteFieldUpdateOperationsInput = {
-    set?: $Enums.StatusConvite
-  }
-
-  export type FamiliaUpdateOneRequiredWithoutFamiliaConvitesNestedInput = {
-    create?: XOR<FamiliaCreateWithoutFamiliaConvitesInput, FamiliaUncheckedCreateWithoutFamiliaConvitesInput>
-    connectOrCreate?: FamiliaCreateOrConnectWithoutFamiliaConvitesInput
-    upsert?: FamiliaUpsertWithoutFamiliaConvitesInput
-    connect?: FamiliaWhereUniqueInput
-    update?: XOR<XOR<FamiliaUpdateToOneWithWhereWithoutFamiliaConvitesInput, FamiliaUpdateWithoutFamiliaConvitesInput>, FamiliaUncheckedUpdateWithoutFamiliaConvitesInput>
-  }
-
-  export type UsuarioUpdateOneWithoutFamiliaInvitationsNestedInput = {
-    create?: XOR<UsuarioCreateWithoutFamiliaInvitationsInput, UsuarioUncheckedCreateWithoutFamiliaInvitationsInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutFamiliaInvitationsInput
-    upsert?: UsuarioUpsertWithoutFamiliaInvitationsInput
-    disconnect?: UsuarioWhereInput | boolean
-    delete?: UsuarioWhereInput | boolean
-    connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutFamiliaInvitationsInput, UsuarioUpdateWithoutFamiliaInvitationsInput>, UsuarioUncheckedUpdateWithoutFamiliaInvitationsInput>
-  }
-
-<<<<<<< HEAD
-  export type UsuarioCreateNestedOneWithoutListaDeCompraInput = {
-    create?: XOR<UsuarioCreateWithoutListaDeCompraInput, UsuarioUncheckedCreateWithoutListaDeCompraInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutListaDeCompraInput
-=======
-  export type UsuarioCreateNestedOneWithoutListasInput = {
-    create?: XOR<UsuarioCreateWithoutListasInput, UsuarioUncheckedCreateWithoutListasInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutListasInput
->>>>>>> dev
+  export type UsuarioCreateNestedOneWithoutListasEnviadasInput = {
+    create?: XOR<UsuarioCreateWithoutListasEnviadasInput, UsuarioUncheckedCreateWithoutListasEnviadasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutListasEnviadasInput
     connect?: UsuarioWhereUniqueInput
   }
 
@@ -16210,23 +15704,16 @@ export namespace Prisma {
     set?: $Enums.TipoLista
   }
 
-<<<<<<< HEAD
-  export type UsuarioUpdateOneWithoutListaDeCompraNestedInput = {
-    create?: XOR<UsuarioCreateWithoutListaDeCompraInput, UsuarioUncheckedCreateWithoutListaDeCompraInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutListaDeCompraInput
-    upsert?: UsuarioUpsertWithoutListaDeCompraInput
-    disconnect?: UsuarioWhereInput | boolean
-    delete?: UsuarioWhereInput | boolean
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput = {
+    create?: XOR<UsuarioCreateWithoutListasEnviadasInput, UsuarioUncheckedCreateWithoutListasEnviadasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutListasEnviadasInput
+    upsert?: UsuarioUpsertWithoutListasEnviadasInput
     connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutListaDeCompraInput, UsuarioUpdateWithoutListaDeCompraInput>, UsuarioUncheckedUpdateWithoutListaDeCompraInput>
-=======
-  export type UsuarioUpdateOneRequiredWithoutListasNestedInput = {
-    create?: XOR<UsuarioCreateWithoutListasInput, UsuarioUncheckedCreateWithoutListasInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutListasInput
-    upsert?: UsuarioUpsertWithoutListasInput
-    connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutListasInput, UsuarioUpdateWithoutListasInput>, UsuarioUncheckedUpdateWithoutListasInput>
->>>>>>> dev
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutListasEnviadasInput, UsuarioUpdateWithoutListasEnviadasInput>, UsuarioUncheckedUpdateWithoutListasEnviadasInput>
   }
 
   export type ItemListaDeCompraUpdateManyWithoutListaNestedInput = {
@@ -16349,13 +15836,18 @@ export namespace Prisma {
     connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
   }
 
-<<<<<<< HEAD
-=======
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
 
->>>>>>> dev
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type UsuarioUpdateOneRequiredWithoutVeiculosNestedInput = {
     create?: XOR<UsuarioCreateWithoutVeiculosInput, UsuarioUncheckedCreateWithoutVeiculosInput>
     connectOrCreate?: UsuarioCreateOrConnectWithoutVeiculosInput
@@ -16530,23 +16022,6 @@ export namespace Prisma {
     set?: $Enums.AcaoAtividade
   }
 
-<<<<<<< HEAD
-  export type UsuarioUpdateOneWithoutAtividadesNestedInput = {
-    create?: XOR<UsuarioCreateWithoutAtividadesInput, UsuarioUncheckedCreateWithoutAtividadesInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutAtividadesInput
-    upsert?: UsuarioUpsertWithoutAtividadesInput
-    disconnect?: UsuarioWhereInput | boolean
-    delete?: UsuarioWhereInput | boolean
-=======
-  export type UsuarioUpdateOneRequiredWithoutAtividadesNestedInput = {
-    create?: XOR<UsuarioCreateWithoutAtividadesInput, UsuarioUncheckedCreateWithoutAtividadesInput>
-    connectOrCreate?: UsuarioCreateOrConnectWithoutAtividadesInput
-    upsert?: UsuarioUpsertWithoutAtividadesInput
->>>>>>> dev
-    connect?: UsuarioWhereUniqueInput
-    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutAtividadesInput, UsuarioUpdateWithoutAtividadesInput>, UsuarioUncheckedUpdateWithoutAtividadesInput>
-  }
-
   export type TarefaUpdateOneWithoutAtividadesNestedInput = {
     create?: XOR<TarefaCreateWithoutAtividadesInput, TarefaUncheckedCreateWithoutAtividadesInput>
     connectOrCreate?: TarefaCreateOrConnectWithoutAtividadesInput
@@ -16710,20 +16185,11 @@ export namespace Prisma {
     not?: NestedEnumTipoListaFilter<$PrismaModel> | $Enums.TipoLista
   }
 
-<<<<<<< HEAD
-  export type NestedUuidNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedUuidNullableFilter<$PrismaModel> | string | null
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
-=======
->>>>>>> dev
   export type NestedEnumTipoListaWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.TipoLista | EnumTipoListaFieldRefInput<$PrismaModel>
     in?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
@@ -16734,8 +16200,42 @@ export namespace Prisma {
     _max?: NestedEnumTipoListaFilter<$PrismaModel>
   }
 
-<<<<<<< HEAD
-  export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16749,20 +16249,6 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-=======
->>>>>>> dev
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-<<<<<<< HEAD
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16777,8 +16263,6 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-=======
->>>>>>> dev
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -16811,46 +16295,29 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
-<<<<<<< HEAD
-=======
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
->>>>>>> dev
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16910,13 +16377,6 @@ export namespace Prisma {
     familia: FamiliaCreateNestedOneWithoutMembrosInput
   }
 
-  export type MembrosDaFamiliaCreateWithoutUsuarioInput = {
-    id?: string
-    rotulo?: $Enums.Membros
-    createdAt?: Date | string
-    familia: FamiliaCreateNestedOneWithoutMembrosInput
-  }
-
   export type MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput = {
     id?: string
     id_familia: string
@@ -16934,114 +16394,56 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type FamiliaConviteCreateWithoutUsuarioInput = {
-    id?: string
-    status: $Enums.StatusConvite
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    familia: FamiliaCreateNestedOneWithoutFamiliaConvitesInput
+  export type familia_usuariosCreateWithoutUsuarioInput = {
+    rotulo?: $Enums.Rotulo
+    familia: FamiliaCreateNestedOneWithoutUsuariosInput
   }
 
-  export type FamiliaConviteUncheckedCreateWithoutUsuarioInput = {
-    id?: string
-    familiaId: string
-    status: $Enums.StatusConvite
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type familia_usuariosUncheckedCreateWithoutUsuarioInput = {
+    id_familia: string
+    rotulo?: $Enums.Rotulo
   }
 
-  export type FamiliaConviteCreateOrConnectWithoutUsuarioInput = {
-    where: FamiliaConviteWhereUniqueInput
-    create: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput>
+  export type familia_usuariosCreateOrConnectWithoutUsuarioInput = {
+    where: familia_usuariosWhereUniqueInput
+    create: XOR<familia_usuariosCreateWithoutUsuarioInput, familia_usuariosUncheckedCreateWithoutUsuarioInput>
   }
 
-  export type FamiliaConviteCreateManyUsuarioInputEnvelope = {
-    data: FamiliaConviteCreateManyUsuarioInput | FamiliaConviteCreateManyUsuarioInput[]
-<<<<<<< HEAD
-=======
+  export type familia_usuariosCreateManyUsuarioInputEnvelope = {
+    data: familia_usuariosCreateManyUsuarioInput | familia_usuariosCreateManyUsuarioInput[]
     skipDuplicates?: boolean
   }
 
-  export type ListaDeCompraCreateWithoutUsuarioInput = {
-    id?: string
-    tipo: $Enums.TipoLista
-    itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
-    atividades?: AtividadeCreateNestedManyWithoutListaInput
-  }
-
-  export type ListaDeCompraUncheckedCreateWithoutUsuarioInput = {
-    id?: string
-    tipo: $Enums.TipoLista
-    itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
-    atividades?: AtividadeUncheckedCreateNestedManyWithoutListaInput
-  }
-
-  export type ListaDeCompraCreateOrConnectWithoutUsuarioInput = {
-    where: ListaDeCompraWhereUniqueInput
-    create: XOR<ListaDeCompraCreateWithoutUsuarioInput, ListaDeCompraUncheckedCreateWithoutUsuarioInput>
-  }
-
-  export type ListaDeCompraCreateManyUsuarioInputEnvelope = {
-    data: ListaDeCompraCreateManyUsuarioInput | ListaDeCompraCreateManyUsuarioInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type VeiculoCreateWithoutUsuarioInput = {
-    id?: string
-    marca?: string | null
-    modelo?: string | null
-    ano?: number | null
-    placa: string
-    manutencoes?: RegistroDeManutencaoCreateNestedManyWithoutVeiculoInput
-    atividades?: AtividadeCreateNestedManyWithoutVeiculoInput
-  }
-
-  export type VeiculoUncheckedCreateWithoutUsuarioInput = {
-    id?: string
-    marca?: string | null
-    modelo?: string | null
-    ano?: number | null
-    placa: string
-    manutencoes?: RegistroDeManutencaoUncheckedCreateNestedManyWithoutVeiculoInput
-    atividades?: AtividadeUncheckedCreateNestedManyWithoutVeiculoInput
-  }
-
-  export type VeiculoCreateOrConnectWithoutUsuarioInput = {
-    where: VeiculoWhereUniqueInput
-    create: XOR<VeiculoCreateWithoutUsuarioInput, VeiculoUncheckedCreateWithoutUsuarioInput>
-  }
-
-  export type VeiculoCreateManyUsuarioInputEnvelope = {
-    data: VeiculoCreateManyUsuarioInput | VeiculoCreateManyUsuarioInput[]
->>>>>>> dev
-    skipDuplicates?: boolean
-  }
-
-  export type TarefaCreateWithoutUsuarioInput = {
+  export type LembreteCreateWithoutUsuarioEnviouInput = {
     id?: string
     descricao: string
+    dataHora?: Date | string
     status?: boolean
-    atividades?: AtividadeCreateNestedManyWithoutTarefaInput
+    listaDeCompra: ListaDeCompraCreateNestedOneWithoutLembretesInput
+    veiculo: VeiculoCreateNestedOneWithoutLembreteInput
+    atividades?: AtividadeCreateNestedManyWithoutLembreteInput
   }
 
-  export type TarefaUncheckedCreateWithoutUsuarioInput = {
+  export type LembreteUncheckedCreateWithoutUsuarioEnviouInput = {
     id?: string
     descricao: string
+    dataHora?: Date | string
     status?: boolean
-    atividades?: AtividadeUncheckedCreateNestedManyWithoutTarefaInput
+    listaDeCompraId: string
+    veiculoId: string
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutLembreteInput
   }
 
-  export type TarefaCreateOrConnectWithoutUsuarioInput = {
-    where: TarefaWhereUniqueInput
-    create: XOR<TarefaCreateWithoutUsuarioInput, TarefaUncheckedCreateWithoutUsuarioInput>
+  export type LembreteCreateOrConnectWithoutUsuarioEnviouInput = {
+    where: LembreteWhereUniqueInput
+    create: XOR<LembreteCreateWithoutUsuarioEnviouInput, LembreteUncheckedCreateWithoutUsuarioEnviouInput>
   }
 
-  export type TarefaCreateManyUsuarioInputEnvelope = {
-    data: TarefaCreateManyUsuarioInput | TarefaCreateManyUsuarioInput[]
+  export type LembreteCreateManyUsuarioEnviouInputEnvelope = {
+    data: LembreteCreateManyUsuarioEnviouInput | LembreteCreateManyUsuarioEnviouInput[]
     skipDuplicates?: boolean
   }
 
-<<<<<<< HEAD
   export type ListaDeCompraCreateWithoutUsuarioInput = {
     id?: string
     tipo: $Enums.TipoLista
@@ -17128,10 +16530,10 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type MembrosDaFamiliaUpsertWithWhereUniqueWithoutUsuarioInput = {
-    where: MembrosDaFamiliaWhereUniqueInput
-    update: XOR<MembrosDaFamiliaUpdateWithoutUsuarioInput, MembrosDaFamiliaUncheckedUpdateWithoutUsuarioInput>
-    create: XOR<MembrosDaFamiliaCreateWithoutUsuarioInput, MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput>
+  export type familia_usuariosUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: familia_usuariosWhereUniqueInput
+    update: XOR<familia_usuariosUpdateWithoutUsuarioInput, familia_usuariosUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<familia_usuariosCreateWithoutUsuarioInput, familia_usuariosUncheckedCreateWithoutUsuarioInput>
   }
 
   export type MembrosDaFamiliaUpdateWithWhereUniqueWithoutUsuarioInput = {
@@ -17171,42 +16573,17 @@ export namespace Prisma {
     data: XOR<FamiliaConviteUpdateManyMutationInput, FamiliaConviteUncheckedUpdateManyWithoutUsuarioInput>
   }
 
-  export type FamiliaConviteScalarWhereInput = {
-    AND?: FamiliaConviteScalarWhereInput | FamiliaConviteScalarWhereInput[]
-    OR?: FamiliaConviteScalarWhereInput[]
-    NOT?: FamiliaConviteScalarWhereInput | FamiliaConviteScalarWhereInput[]
-    id?: UuidFilter<"FamiliaConvite"> | string
-    familiaId?: UuidFilter<"FamiliaConvite"> | string
-    email?: StringFilter<"FamiliaConvite"> | string
-    status?: EnumStatusConviteFilter<"FamiliaConvite"> | $Enums.StatusConvite
-    createdAt?: DateTimeFilter<"FamiliaConvite"> | Date | string
-    updatedAt?: DateTimeFilter<"FamiliaConvite"> | Date | string
-  }
-
-  export type TarefaUpsertWithWhereUniqueWithoutUsuarioInput = {
-    where: TarefaWhereUniqueInput
-    update: XOR<TarefaUpdateWithoutUsuarioInput, TarefaUncheckedUpdateWithoutUsuarioInput>
-    create: XOR<TarefaCreateWithoutUsuarioInput, TarefaUncheckedCreateWithoutUsuarioInput>
-  }
-
-  export type TarefaUpdateWithWhereUniqueWithoutUsuarioInput = {
-    where: TarefaWhereUniqueInput
-    data: XOR<TarefaUpdateWithoutUsuarioInput, TarefaUncheckedUpdateWithoutUsuarioInput>
-  }
-
-  export type TarefaUpdateManyWithWhereWithoutUsuarioInput = {
-    where: TarefaScalarWhereInput
-    data: XOR<TarefaUpdateManyMutationInput, TarefaUncheckedUpdateManyWithoutUsuarioInput>
-  }
-
-  export type TarefaScalarWhereInput = {
-    AND?: TarefaScalarWhereInput | TarefaScalarWhereInput[]
-    OR?: TarefaScalarWhereInput[]
-    NOT?: TarefaScalarWhereInput | TarefaScalarWhereInput[]
-    id?: UuidFilter<"Tarefa"> | string
-    descricao?: StringFilter<"Tarefa"> | string
-    status?: BoolFilter<"Tarefa"> | boolean
-    usuarioId?: UuidFilter<"Tarefa"> | string
+  export type LembreteScalarWhereInput = {
+    AND?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
+    OR?: LembreteScalarWhereInput[]
+    NOT?: LembreteScalarWhereInput | LembreteScalarWhereInput[]
+    id?: UuidFilter<"Lembrete"> | string
+    descricao?: StringFilter<"Lembrete"> | string
+    dataHora?: DateTimeFilter<"Lembrete"> | Date | string
+    status?: BoolFilter<"Lembrete"> | boolean
+    usuarioIdEnviou?: UuidFilter<"Lembrete"> | string
+    listaDeCompraId?: UuidFilter<"Lembrete"> | string
+    veiculoId?: UuidFilter<"Lembrete"> | string
   }
 
   export type ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioInput = {
@@ -17220,104 +16597,6 @@ export namespace Prisma {
     data: XOR<ListaDeCompraUpdateWithoutUsuarioInput, ListaDeCompraUncheckedUpdateWithoutUsuarioInput>
   }
 
-=======
-  export type AtividadeCreateWithoutUsuarioInput = {
-    id?: string
-    tipo: $Enums.TipoAtividade
-    acao: $Enums.AcaoAtividade
-    dataHora?: Date | string
-    tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
-    lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
-    veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
-  }
-
-  export type AtividadeUncheckedCreateWithoutUsuarioInput = {
-    id?: string
-    tipo: $Enums.TipoAtividade
-    acao: $Enums.AcaoAtividade
-    dataHora?: Date | string
-    tarefaId?: string | null
-    listaDeCompraId?: string | null
-    veiculoId?: string | null
-  }
-
-  export type AtividadeCreateOrConnectWithoutUsuarioInput = {
-    where: AtividadeWhereUniqueInput
-    create: XOR<AtividadeCreateWithoutUsuarioInput, AtividadeUncheckedCreateWithoutUsuarioInput>
-  }
-
-  export type AtividadeCreateManyUsuarioInputEnvelope = {
-    data: AtividadeCreateManyUsuarioInput | AtividadeCreateManyUsuarioInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type MembrosDaFamiliaUpsertWithWhereUniqueWithoutUsuarioInput = {
-    where: MembrosDaFamiliaWhereUniqueInput
-    update: XOR<MembrosDaFamiliaUpdateWithoutUsuarioInput, MembrosDaFamiliaUncheckedUpdateWithoutUsuarioInput>
-    create: XOR<MembrosDaFamiliaCreateWithoutUsuarioInput, MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput>
-  }
-
-  export type MembrosDaFamiliaUpdateWithWhereUniqueWithoutUsuarioInput = {
-    where: MembrosDaFamiliaWhereUniqueInput
-    data: XOR<MembrosDaFamiliaUpdateWithoutUsuarioInput, MembrosDaFamiliaUncheckedUpdateWithoutUsuarioInput>
-  }
-
-  export type MembrosDaFamiliaUpdateManyWithWhereWithoutUsuarioInput = {
-    where: MembrosDaFamiliaScalarWhereInput
-    data: XOR<MembrosDaFamiliaUpdateManyMutationInput, MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioInput>
-  }
-
-  export type MembrosDaFamiliaScalarWhereInput = {
-    AND?: MembrosDaFamiliaScalarWhereInput | MembrosDaFamiliaScalarWhereInput[]
-    OR?: MembrosDaFamiliaScalarWhereInput[]
-    NOT?: MembrosDaFamiliaScalarWhereInput | MembrosDaFamiliaScalarWhereInput[]
-    id?: UuidFilter<"MembrosDaFamilia"> | string
-    id_usuario?: UuidFilter<"MembrosDaFamilia"> | string
-    id_familia?: UuidFilter<"MembrosDaFamilia"> | string
-    rotulo?: EnumMembrosFilter<"MembrosDaFamilia"> | $Enums.Membros
-    createdAt?: DateTimeFilter<"MembrosDaFamilia"> | Date | string
-  }
-
-  export type FamiliaConviteUpsertWithWhereUniqueWithoutUsuarioInput = {
-    where: FamiliaConviteWhereUniqueInput
-    update: XOR<FamiliaConviteUpdateWithoutUsuarioInput, FamiliaConviteUncheckedUpdateWithoutUsuarioInput>
-    create: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput>
-  }
-
-  export type FamiliaConviteUpdateWithWhereUniqueWithoutUsuarioInput = {
-    where: FamiliaConviteWhereUniqueInput
-    data: XOR<FamiliaConviteUpdateWithoutUsuarioInput, FamiliaConviteUncheckedUpdateWithoutUsuarioInput>
-  }
-
-  export type FamiliaConviteUpdateManyWithWhereWithoutUsuarioInput = {
-    where: FamiliaConviteScalarWhereInput
-    data: XOR<FamiliaConviteUpdateManyMutationInput, FamiliaConviteUncheckedUpdateManyWithoutUsuarioInput>
-  }
-
-  export type FamiliaConviteScalarWhereInput = {
-    AND?: FamiliaConviteScalarWhereInput | FamiliaConviteScalarWhereInput[]
-    OR?: FamiliaConviteScalarWhereInput[]
-    NOT?: FamiliaConviteScalarWhereInput | FamiliaConviteScalarWhereInput[]
-    id?: UuidFilter<"FamiliaConvite"> | string
-    familiaId?: UuidFilter<"FamiliaConvite"> | string
-    email?: StringFilter<"FamiliaConvite"> | string
-    status?: EnumStatusConviteFilter<"FamiliaConvite"> | $Enums.StatusConvite
-    createdAt?: DateTimeFilter<"FamiliaConvite"> | Date | string
-    updatedAt?: DateTimeFilter<"FamiliaConvite"> | Date | string
-  }
-
-  export type ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioInput = {
-    where: ListaDeCompraWhereUniqueInput
-    update: XOR<ListaDeCompraUpdateWithoutUsuarioInput, ListaDeCompraUncheckedUpdateWithoutUsuarioInput>
-    create: XOR<ListaDeCompraCreateWithoutUsuarioInput, ListaDeCompraUncheckedCreateWithoutUsuarioInput>
-  }
-
-  export type ListaDeCompraUpdateWithWhereUniqueWithoutUsuarioInput = {
-    where: ListaDeCompraWhereUniqueInput
-    data: XOR<ListaDeCompraUpdateWithoutUsuarioInput, ListaDeCompraUncheckedUpdateWithoutUsuarioInput>
-  }
-
->>>>>>> dev
   export type ListaDeCompraUpdateManyWithWhereWithoutUsuarioInput = {
     where: ListaDeCompraScalarWhereInput
     data: XOR<ListaDeCompraUpdateManyMutationInput, ListaDeCompraUncheckedUpdateManyWithoutUsuarioInput>
@@ -17329,11 +16608,8 @@ export namespace Prisma {
     NOT?: ListaDeCompraScalarWhereInput | ListaDeCompraScalarWhereInput[]
     id?: UuidFilter<"ListaDeCompra"> | string
     tipo?: EnumTipoListaFilter<"ListaDeCompra"> | $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId?: UuidNullableFilter<"ListaDeCompra"> | string | null
-=======
-    usuarioId?: UuidFilter<"ListaDeCompra"> | string
->>>>>>> dev
+    usuarioIdEnviou?: UuidFilter<"ListaDeCompra"> | string
+    status?: BoolFilter<"ListaDeCompra"> | boolean
   }
 
   export type VeiculoUpsertWithWhereUniqueWithoutUsuarioInput = {
@@ -17395,43 +16671,8 @@ export namespace Prisma {
     veiculoId?: UuidNullableFilter<"Atividade"> | string | null
   }
 
-<<<<<<< HEAD
-=======
-  export type AtividadeUpsertWithWhereUniqueWithoutUsuarioInput = {
-    where: AtividadeWhereUniqueInput
-    update: XOR<AtividadeUpdateWithoutUsuarioInput, AtividadeUncheckedUpdateWithoutUsuarioInput>
-    create: XOR<AtividadeCreateWithoutUsuarioInput, AtividadeUncheckedCreateWithoutUsuarioInput>
-  }
-
-  export type AtividadeUpdateWithWhereUniqueWithoutUsuarioInput = {
-    where: AtividadeWhereUniqueInput
-    data: XOR<AtividadeUpdateWithoutUsuarioInput, AtividadeUncheckedUpdateWithoutUsuarioInput>
-  }
-
-  export type AtividadeUpdateManyWithWhereWithoutUsuarioInput = {
-    where: AtividadeScalarWhereInput
-    data: XOR<AtividadeUpdateManyMutationInput, AtividadeUncheckedUpdateManyWithoutUsuarioInput>
-  }
-
-  export type AtividadeScalarWhereInput = {
-    AND?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
-    OR?: AtividadeScalarWhereInput[]
-    NOT?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
-    id?: UuidFilter<"Atividade"> | string
-    tipo?: EnumTipoAtividadeFilter<"Atividade"> | $Enums.TipoAtividade
-    acao?: EnumAcaoAtividadeFilter<"Atividade"> | $Enums.AcaoAtividade
-    dataHora?: DateTimeFilter<"Atividade"> | Date | string
-    usuarioId?: UuidFilter<"Atividade"> | string
-    tarefaId?: UuidNullableFilter<"Atividade"> | string | null
-    listaDeCompraId?: UuidNullableFilter<"Atividade"> | string | null
-    veiculoId?: UuidNullableFilter<"Atividade"> | string | null
-  }
-
->>>>>>> dev
-  export type MembrosDaFamiliaCreateWithoutFamiliaInput = {
-    id?: string
-    rotulo?: $Enums.Membros
-    createdAt?: Date | string
+  export type familia_usuariosCreateWithoutFamiliaInput = {
+    rotulo?: $Enums.Rotulo
     usuario: UsuarioCreateNestedOneWithoutFamiliasInput
   }
 
@@ -17505,45 +16746,9 @@ export namespace Prisma {
     data: XOR<FamiliaConviteUpdateWithoutFamiliaInput, FamiliaConviteUncheckedUpdateWithoutFamiliaInput>
   }
 
-  export type FamiliaConviteUpdateManyWithWhereWithoutFamiliaInput = {
-    where: FamiliaConviteScalarWhereInput
-    data: XOR<FamiliaConviteUpdateManyMutationInput, FamiliaConviteUncheckedUpdateManyWithoutFamiliaInput>
-  }
-
-  export type UsuarioCreateWithoutFamiliasInput = {
-    id?: string
-    name: string
-    email: string
-    password: string
-    familiaInvitations?: FamiliaConviteCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
-    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
-    listaDeCompra?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
-=======
-    listas?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
-    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
->>>>>>> dev
-    atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
-  }
-
-  export type UsuarioUncheckedCreateWithoutFamiliasInput = {
-    id?: string
-    name: string
-    email: string
-    password: string
-    familiaInvitations?: FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
-    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
-    listaDeCompra?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
-=======
-    listas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
-    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
->>>>>>> dev
-    atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
+  export type familia_usuariosUpdateManyWithWhereWithoutFamiliaInput = {
+    where: familia_usuariosScalarWhereInput
+    data: XOR<familia_usuariosUpdateManyMutationInput, familia_usuariosUncheckedUpdateManyWithoutFamiliaInput>
   }
 
   export type UsuarioCreateOrConnectWithoutFamiliasInput = {
@@ -17583,106 +16788,15 @@ export namespace Prisma {
     data: XOR<UsuarioUpdateWithoutFamiliasInput, UsuarioUncheckedUpdateWithoutFamiliasInput>
   }
 
-  export type UsuarioUpdateWithoutFamiliasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    familiaInvitations?: FamiliaConviteUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
-    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
-    listaDeCompra?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
-=======
-    listas?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
-    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
->>>>>>> dev
-    atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
-  }
-
-  export type UsuarioUncheckedUpdateWithoutFamiliasInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    familiaInvitations?: FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
-    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
-    listaDeCompra?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
-=======
-    listas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
-    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
->>>>>>> dev
-    atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
-  }
-
-  export type FamiliaUpsertWithoutMembrosInput = {
-    update: XOR<FamiliaUpdateWithoutMembrosInput, FamiliaUncheckedUpdateWithoutMembrosInput>
-    create: XOR<FamiliaCreateWithoutMembrosInput, FamiliaUncheckedCreateWithoutMembrosInput>
-    where?: FamiliaWhereInput
-  }
-
-  export type FamiliaUpdateToOneWithWhereWithoutMembrosInput = {
-    where?: FamiliaWhereInput
-    data: XOR<FamiliaUpdateWithoutMembrosInput, FamiliaUncheckedUpdateWithoutMembrosInput>
-  }
-
-  export type FamiliaUpdateWithoutMembrosInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    familiaConvites?: FamiliaConviteUpdateManyWithoutFamiliaNestedInput
-  }
-
-  export type FamiliaUncheckedUpdateWithoutMembrosInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    nome?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    familiaConvites?: FamiliaConviteUncheckedUpdateManyWithoutFamiliaNestedInput
-  }
-
-  export type FamiliaCreateWithoutFamiliaConvitesInput = {
-    id?: string
-    nome: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    membros?: MembrosDaFamiliaCreateNestedManyWithoutFamiliaInput
-  }
-
-  export type FamiliaUncheckedCreateWithoutFamiliaConvitesInput = {
-    id?: string
-    nome: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    membros?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutFamiliaInput
-  }
-
-  export type FamiliaCreateOrConnectWithoutFamiliaConvitesInput = {
-    where: FamiliaWhereUniqueInput
-    create: XOR<FamiliaCreateWithoutFamiliaConvitesInput, FamiliaUncheckedCreateWithoutFamiliaConvitesInput>
-  }
-
-  export type UsuarioCreateWithoutFamiliaInvitationsInput = {
+  export type UsuarioCreateWithoutFamiliasInput = {
     id?: string
     name: string
     email: string
     password: string
-    familias?: MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
-    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
-    listaDeCompra?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
-=======
-    listas?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
+    lembretesEnviados?: LembreteCreateNestedManyWithoutUsuarioEnviouInput
+    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
     veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
     tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
->>>>>>> dev
-    atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateWithoutFamiliaInvitationsInput = {
@@ -17690,17 +16804,10 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    familias?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
-    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
-    listaDeCompra?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
-=======
-    listas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
+    lembretesEnviados?: LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput
+    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
     veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
     tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
->>>>>>> dev
-    atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioCreateOrConnectWithoutFamiliaInvitationsInput = {
@@ -17751,17 +16858,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    familias?: MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
-    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
-    listaDeCompra?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
-=======
-    listas?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
+    lembretesEnviados?: LembreteUpdateManyWithoutUsuarioEnviouNestedInput
+    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
     veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
     tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
->>>>>>> dev
-    atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateWithoutFamiliaInvitationsInput = {
@@ -17769,70 +16869,37 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    familias?: MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
-    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
-    listaDeCompra?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
-    atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
-  }
-
-  export type UsuarioCreateWithoutListaDeCompraInput = {
-=======
-    listas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
+    lembretesEnviados?: LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
+    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
     veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
     tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
-    atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
-  export type UsuarioCreateWithoutListasInput = {
->>>>>>> dev
+  export type UsuarioCreateWithoutListasEnviadasInput = {
     id?: string
     name: string
     email: string
     password: string
-    familias?: MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput
-    familiaInvitations?: FamiliaConviteCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
-    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
-    atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
-  }
-
-  export type UsuarioUncheckedCreateWithoutListaDeCompraInput = {
-=======
+    familias?: familia_usuariosCreateNestedManyWithoutUsuarioInput
+    lembretesEnviados?: LembreteCreateNestedManyWithoutUsuarioEnviouInput
     veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
     tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
-    atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
   }
 
-  export type UsuarioUncheckedCreateWithoutListasInput = {
->>>>>>> dev
+  export type UsuarioUncheckedCreateWithoutListasEnviadasInput = {
     id?: string
     name: string
     email: string
     password: string
-    familias?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput
-    familiaInvitations?: FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
-    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
-    atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
-  }
-
-  export type UsuarioCreateOrConnectWithoutListaDeCompraInput = {
-    where: UsuarioWhereUniqueInput
-    create: XOR<UsuarioCreateWithoutListaDeCompraInput, UsuarioUncheckedCreateWithoutListaDeCompraInput>
-=======
+    familias?: familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput
+    lembretesEnviados?: LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput
     veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
     tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
-    atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
-  export type UsuarioCreateOrConnectWithoutListasInput = {
+  export type UsuarioCreateOrConnectWithoutListasEnviadasInput = {
     where: UsuarioWhereUniqueInput
-    create: XOR<UsuarioCreateWithoutListasInput, UsuarioUncheckedCreateWithoutListasInput>
->>>>>>> dev
+    create: XOR<UsuarioCreateWithoutListasEnviadasInput, UsuarioUncheckedCreateWithoutListasEnviadasInput>
   }
 
   export type ItemListaDeCompraCreateWithoutListaInput = {
@@ -17864,12 +16931,6 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
-<<<<<<< HEAD
-    lembreteId?: string | null
-    usuario?: UsuarioCreateNestedOneWithoutAtividadesInput
-=======
-    usuario: UsuarioCreateNestedOneWithoutAtividadesInput
->>>>>>> dev
     tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
     veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
   }
@@ -17879,11 +16940,6 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
-<<<<<<< HEAD
-    usuarioId?: string | null
-=======
-    usuarioId: string
->>>>>>> dev
     tarefaId?: string | null
     veiculoId?: string | null
   }
@@ -17898,68 +16954,37 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-<<<<<<< HEAD
-  export type UsuarioUpsertWithoutListaDeCompraInput = {
-    update: XOR<UsuarioUpdateWithoutListaDeCompraInput, UsuarioUncheckedUpdateWithoutListaDeCompraInput>
-    create: XOR<UsuarioCreateWithoutListaDeCompraInput, UsuarioUncheckedCreateWithoutListaDeCompraInput>
+  export type UsuarioUpsertWithoutListasEnviadasInput = {
+    update: XOR<UsuarioUpdateWithoutListasEnviadasInput, UsuarioUncheckedUpdateWithoutListasEnviadasInput>
+    create: XOR<UsuarioCreateWithoutListasEnviadasInput, UsuarioUncheckedCreateWithoutListasEnviadasInput>
     where?: UsuarioWhereInput
   }
 
-  export type UsuarioUpdateToOneWithWhereWithoutListaDeCompraInput = {
+  export type UsuarioUpdateToOneWithWhereWithoutListasEnviadasInput = {
     where?: UsuarioWhereInput
-    data: XOR<UsuarioUpdateWithoutListaDeCompraInput, UsuarioUncheckedUpdateWithoutListaDeCompraInput>
+    data: XOR<UsuarioUpdateWithoutListasEnviadasInput, UsuarioUncheckedUpdateWithoutListasEnviadasInput>
   }
 
-  export type UsuarioUpdateWithoutListaDeCompraInput = {
-=======
-  export type UsuarioUpsertWithoutListasInput = {
-    update: XOR<UsuarioUpdateWithoutListasInput, UsuarioUncheckedUpdateWithoutListasInput>
-    create: XOR<UsuarioCreateWithoutListasInput, UsuarioUncheckedCreateWithoutListasInput>
-    where?: UsuarioWhereInput
-  }
-
-  export type UsuarioUpdateToOneWithWhereWithoutListasInput = {
-    where?: UsuarioWhereInput
-    data: XOR<UsuarioUpdateWithoutListasInput, UsuarioUncheckedUpdateWithoutListasInput>
-  }
-
-  export type UsuarioUpdateWithoutListasInput = {
->>>>>>> dev
+  export type UsuarioUpdateWithoutListasEnviadasInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    familias?: MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput
-    familiaInvitations?: FamiliaConviteUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
-    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
-    atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
-  }
-
-  export type UsuarioUncheckedUpdateWithoutListaDeCompraInput = {
-=======
+    familias?: familia_usuariosUpdateManyWithoutUsuarioNestedInput
+    lembretesEnviados?: LembreteUpdateManyWithoutUsuarioEnviouNestedInput
     veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
     tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
-    atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
   }
 
-  export type UsuarioUncheckedUpdateWithoutListasInput = {
->>>>>>> dev
+  export type UsuarioUncheckedUpdateWithoutListasEnviadasInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    familias?: MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput
-    familiaInvitations?: FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
-    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
-=======
+    familias?: familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput
+    lembretesEnviados?: LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
     veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
     tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
->>>>>>> dev
-    atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
   export type ItemListaDeCompraUpsertWithWhereUniqueWithoutListaInput = {
@@ -18008,22 +17033,18 @@ export namespace Prisma {
   export type ListaDeCompraCreateWithoutItensInput = {
     id?: string
     tipo: $Enums.TipoLista
-<<<<<<< HEAD
-    usuario?: UsuarioCreateNestedOneWithoutListaDeCompraInput
-=======
-    usuario: UsuarioCreateNestedOneWithoutListasInput
->>>>>>> dev
+    status?: boolean
+    usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
+    lembretes?: LembreteCreateNestedManyWithoutListaDeCompraInput
     atividades?: AtividadeCreateNestedManyWithoutListaInput
   }
 
   export type ListaDeCompraUncheckedCreateWithoutItensInput = {
     id?: string
     tipo: $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId?: string | null
-=======
-    usuarioId: string
->>>>>>> dev
+    usuarioIdEnviou: string
+    status?: boolean
+    lembretes?: LembreteUncheckedCreateNestedManyWithoutListaDeCompraInput
     atividades?: AtividadeUncheckedCreateNestedManyWithoutListaInput
   }
 
@@ -18046,22 +17067,18 @@ export namespace Prisma {
   export type ListaDeCompraUpdateWithoutItensInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
-<<<<<<< HEAD
-    usuario?: UsuarioUpdateOneWithoutListaDeCompraNestedInput
-=======
-    usuario?: UsuarioUpdateOneRequiredWithoutListasNestedInput
->>>>>>> dev
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
+    lembretes?: LembreteUpdateManyWithoutListaDeCompraNestedInput
     atividades?: AtividadeUpdateManyWithoutListaNestedInput
   }
 
   export type ListaDeCompraUncheckedUpdateWithoutItensInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    usuarioId?: StringFieldUpdateOperationsInput | string
->>>>>>> dev
+    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    lembretes?: LembreteUncheckedUpdateManyWithoutListaDeCompraNestedInput
     atividades?: AtividadeUncheckedUpdateManyWithoutListaNestedInput
   }
 
@@ -18070,16 +17087,10 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    familias?: MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput
-    familiaInvitations?: FamiliaConviteCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
+    familias?: familia_usuariosCreateNestedManyWithoutUsuarioInput
+    lembretesEnviados?: LembreteCreateNestedManyWithoutUsuarioEnviouInput
+    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
     tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
-    listaDeCompra?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
-=======
-    listas?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
-    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
->>>>>>> dev
-    atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateWithoutVeiculosInput = {
@@ -18087,16 +17098,10 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    familias?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput
-    familiaInvitations?: FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
+    familias?: familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput
+    lembretesEnviados?: LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput
+    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
     tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
-    listaDeCompra?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
-=======
-    listas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
-    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
->>>>>>> dev
-    atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioCreateOrConnectWithoutVeiculosInput = {
@@ -18133,12 +17138,6 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
-<<<<<<< HEAD
-    lembreteId?: string | null
-    usuario?: UsuarioCreateNestedOneWithoutAtividadesInput
-=======
-    usuario: UsuarioCreateNestedOneWithoutAtividadesInput
->>>>>>> dev
     tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
     lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
   }
@@ -18148,11 +17147,6 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
-<<<<<<< HEAD
-    usuarioId?: string | null
-=======
-    usuarioId: string
->>>>>>> dev
     tarefaId?: string | null
     listaDeCompraId?: string | null
   }
@@ -18183,16 +17177,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    familias?: MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput
-    familiaInvitations?: FamiliaConviteUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
+    familias?: familia_usuariosUpdateManyWithoutUsuarioNestedInput
+    lembretesEnviados?: LembreteUpdateManyWithoutUsuarioEnviouNestedInput
+    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
     tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
-    listaDeCompra?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
-=======
-    listas?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
-    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
->>>>>>> dev
-    atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateWithoutVeiculosInput = {
@@ -18200,16 +17188,26 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    familias?: MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput
-    familiaInvitations?: FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
+    familias?: familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput
+    lembretesEnviados?: LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
+    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
     tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
-    listaDeCompra?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
-=======
-    listas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
-    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
->>>>>>> dev
-    atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type LembreteUpsertWithWhereUniqueWithoutVeiculoInput = {
+    where: LembreteWhereUniqueInput
+    update: XOR<LembreteUpdateWithoutVeiculoInput, LembreteUncheckedUpdateWithoutVeiculoInput>
+    create: XOR<LembreteCreateWithoutVeiculoInput, LembreteUncheckedCreateWithoutVeiculoInput>
+  }
+
+  export type LembreteUpdateWithWhereUniqueWithoutVeiculoInput = {
+    where: LembreteWhereUniqueInput
+    data: XOR<LembreteUpdateWithoutVeiculoInput, LembreteUncheckedUpdateWithoutVeiculoInput>
+  }
+
+  export type LembreteUpdateManyWithWhereWithoutVeiculoInput = {
+    where: LembreteScalarWhereInput
+    data: XOR<LembreteUpdateManyMutationInput, LembreteUncheckedUpdateManyWithoutVeiculoInput>
   }
 
   export type RegistroDeManutencaoUpsertWithWhereUniqueWithoutVeiculoInput = {
@@ -18316,13 +17314,9 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    familias?: MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput
-    familiaInvitations?: FamiliaConviteCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
-    listaDeCompra?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
-=======
-    listas?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
->>>>>>> dev
+    familias?: familia_usuariosCreateNestedManyWithoutUsuarioInput
+    lembretesEnviados?: LembreteCreateNestedManyWithoutUsuarioEnviouInput
+    listasEnviadas?: ListaDeCompraCreateNestedManyWithoutUsuarioEnviouInput
     veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
     atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
   }
@@ -18332,13 +17326,9 @@ export namespace Prisma {
     name: string
     email: string
     password: string
-    familias?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput
-    familiaInvitations?: FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
-    listaDeCompra?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
-=======
-    listas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
->>>>>>> dev
+    familias?: familia_usuariosUncheckedCreateNestedManyWithoutUsuarioInput
+    lembretesEnviados?: LembreteUncheckedCreateNestedManyWithoutUsuarioEnviouInput
+    listasEnviadas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioEnviouInput
     veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
     atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
   }
@@ -18353,12 +17343,6 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
-<<<<<<< HEAD
-    lembreteId?: string | null
-    usuario?: UsuarioCreateNestedOneWithoutAtividadesInput
-=======
-    usuario: UsuarioCreateNestedOneWithoutAtividadesInput
->>>>>>> dev
     lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
     veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
   }
@@ -18368,11 +17352,6 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
-<<<<<<< HEAD
-    usuarioId?: string | null
-=======
-    usuarioId: string
->>>>>>> dev
     listaDeCompraId?: string | null
     veiculoId?: string | null
   }
@@ -18403,13 +17382,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    familias?: MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput
-    familiaInvitations?: FamiliaConviteUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
-    listaDeCompra?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
-=======
-    listas?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
->>>>>>> dev
+    familias?: familia_usuariosUpdateManyWithoutUsuarioNestedInput
+    lembretesEnviados?: LembreteUpdateManyWithoutUsuarioEnviouNestedInput
+    listasEnviadas?: ListaDeCompraUpdateManyWithoutUsuarioEnviouNestedInput
     veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
     atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
   }
@@ -18419,13 +17394,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
-    familias?: MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput
-    familiaInvitations?: FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
-    listaDeCompra?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
-=======
-    listas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
->>>>>>> dev
+    familias?: familia_usuariosUncheckedUpdateManyWithoutUsuarioNestedInput
+    lembretesEnviados?: LembreteUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
+    listasEnviadas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioEnviouNestedInput
     veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
     atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
   }
@@ -18444,47 +17415,6 @@ export namespace Prisma {
   export type AtividadeUpdateManyWithWhereWithoutTarefaInput = {
     where: AtividadeScalarWhereInput
     data: XOR<AtividadeUpdateManyMutationInput, AtividadeUncheckedUpdateManyWithoutTarefaInput>
-  }
-
-  export type UsuarioCreateWithoutAtividadesInput = {
-    id?: string
-    name: string
-    email: string
-    password: string
-    familias?: MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput
-    familiaInvitations?: FamiliaConviteCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
-    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
-    listaDeCompra?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
-=======
-    listas?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
-    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
->>>>>>> dev
-  }
-
-  export type UsuarioUncheckedCreateWithoutAtividadesInput = {
-    id?: string
-    name: string
-    email: string
-    password: string
-    familias?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput
-    familiaInvitations?: FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput
-<<<<<<< HEAD
-    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
-    listaDeCompra?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
-=======
-    listas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
-    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
-    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
->>>>>>> dev
-  }
-
-  export type UsuarioCreateOrConnectWithoutAtividadesInput = {
-    where: UsuarioWhereUniqueInput
-    create: XOR<UsuarioCreateWithoutAtividadesInput, UsuarioUncheckedCreateWithoutAtividadesInput>
   }
 
   export type TarefaCreateWithoutAtividadesInput = {
@@ -18509,22 +17439,16 @@ export namespace Prisma {
   export type ListaDeCompraCreateWithoutAtividadesInput = {
     id?: string
     tipo: $Enums.TipoLista
-<<<<<<< HEAD
-    usuario?: UsuarioCreateNestedOneWithoutListaDeCompraInput
-=======
-    usuario: UsuarioCreateNestedOneWithoutListasInput
->>>>>>> dev
+    status?: boolean
+    usuarioEnviou: UsuarioCreateNestedOneWithoutListasEnviadasInput
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
   }
 
   export type ListaDeCompraUncheckedCreateWithoutAtividadesInput = {
     id?: string
     tipo: $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId?: string | null
-=======
-    usuarioId: string
->>>>>>> dev
+    usuarioIdEnviou: string
+    status?: boolean
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
   }
 
@@ -18556,53 +17480,6 @@ export namespace Prisma {
   export type VeiculoCreateOrConnectWithoutAtividadesInput = {
     where: VeiculoWhereUniqueInput
     create: XOR<VeiculoCreateWithoutAtividadesInput, VeiculoUncheckedCreateWithoutAtividadesInput>
-  }
-
-  export type UsuarioUpsertWithoutAtividadesInput = {
-    update: XOR<UsuarioUpdateWithoutAtividadesInput, UsuarioUncheckedUpdateWithoutAtividadesInput>
-    create: XOR<UsuarioCreateWithoutAtividadesInput, UsuarioUncheckedCreateWithoutAtividadesInput>
-    where?: UsuarioWhereInput
-  }
-
-  export type UsuarioUpdateToOneWithWhereWithoutAtividadesInput = {
-    where?: UsuarioWhereInput
-    data: XOR<UsuarioUpdateWithoutAtividadesInput, UsuarioUncheckedUpdateWithoutAtividadesInput>
-  }
-
-  export type UsuarioUpdateWithoutAtividadesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    familias?: MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput
-    familiaInvitations?: FamiliaConviteUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
-    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
-    listaDeCompra?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
-=======
-    listas?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
-    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
->>>>>>> dev
-  }
-
-  export type UsuarioUncheckedUpdateWithoutAtividadesInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    familias?: MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput
-    familiaInvitations?: FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput
-<<<<<<< HEAD
-    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
-    listaDeCompra?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
-=======
-    listas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
-    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
-    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
->>>>>>> dev
   }
 
   export type TarefaUpsertWithoutAtividadesInput = {
@@ -18644,22 +17521,16 @@ export namespace Prisma {
   export type ListaDeCompraUpdateWithoutAtividadesInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
-<<<<<<< HEAD
-    usuario?: UsuarioUpdateOneWithoutListaDeCompraNestedInput
-=======
-    usuario?: UsuarioUpdateOneRequiredWithoutListasNestedInput
->>>>>>> dev
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutListasEnviadasNestedInput
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
   }
 
   export type ListaDeCompraUncheckedUpdateWithoutAtividadesInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
-<<<<<<< HEAD
-    usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    usuarioId?: StringFieldUpdateOperationsInput | string
->>>>>>> dev
+    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
   }
 
@@ -18695,43 +17566,21 @@ export namespace Prisma {
   }
 
   export type MembrosDaFamiliaCreateManyUsuarioInput = {
-<<<<<<< HEAD
     id?: string
     id_familia: string
     rotulo?: $Enums.Membros
     createdAt?: Date | string
   }
 
-  export type FamiliaConviteCreateManyUsuarioInput = {
-    id?: string
-    familiaId: string
-    status: $Enums.StatusConvite
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type TarefaCreateManyUsuarioInput = {
+  export type LembreteCreateManyUsuarioEnviouInput = {
     id?: string
     descricao: string
+    dataHora?: Date | string
     status?: boolean
+    listaDeCompraId: string
+    veiculoId: string
   }
 
-=======
-    id?: string
-    id_familia: string
-    rotulo?: $Enums.Membros
-    createdAt?: Date | string
-  }
-
-  export type FamiliaConviteCreateManyUsuarioInput = {
-    id?: string
-    familiaId: string
-    status: $Enums.StatusConvite
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
->>>>>>> dev
   export type ListaDeCompraCreateManyUsuarioInput = {
     id?: string
     tipo: $Enums.TipoLista
@@ -18756,33 +17605,11 @@ export namespace Prisma {
     veiculoId?: string | null
   }
 
-<<<<<<< HEAD
-  export type MembrosDaFamiliaUpdateWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    rotulo?: EnumMembrosFieldUpdateOperationsInput | $Enums.Membros
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    familia?: FamiliaUpdateOneRequiredWithoutMembrosNestedInput
+  export type familia_usuariosUpdateWithoutUsuarioInput = {
+    rotulo?: EnumRotuloFieldUpdateOperationsInput | $Enums.Rotulo
+    familia?: FamiliaUpdateOneRequiredWithoutUsuariosNestedInput
   }
 
-=======
-  export type AtividadeCreateManyUsuarioInput = {
-    id?: string
-    tipo: $Enums.TipoAtividade
-    acao: $Enums.AcaoAtividade
-    dataHora?: Date | string
-    tarefaId?: string | null
-    listaDeCompraId?: string | null
-    veiculoId?: string | null
-  }
-
-  export type MembrosDaFamiliaUpdateWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    rotulo?: EnumMembrosFieldUpdateOperationsInput | $Enums.Membros
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    familia?: FamiliaUpdateOneRequiredWithoutMembrosNestedInput
-  }
-
->>>>>>> dev
   export type MembrosDaFamiliaUncheckedUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
     id_familia?: StringFieldUpdateOperationsInput | string
@@ -18793,105 +17620,38 @@ export namespace Prisma {
   export type MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
     id_familia?: StringFieldUpdateOperationsInput | string
-    rotulo?: EnumMembrosFieldUpdateOperationsInput | $Enums.Membros
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    rotulo?: EnumRotuloFieldUpdateOperationsInput | $Enums.Rotulo
   }
 
-  export type FamiliaConviteUpdateWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusConviteFieldUpdateOperationsInput | $Enums.StatusConvite
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    familia?: FamiliaUpdateOneRequiredWithoutFamiliaConvitesNestedInput
-  }
-
-  export type FamiliaConviteUncheckedUpdateWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    familiaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusConviteFieldUpdateOperationsInput | $Enums.StatusConvite
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type FamiliaConviteUncheckedUpdateManyWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    familiaId?: StringFieldUpdateOperationsInput | string
-    status?: EnumStatusConviteFieldUpdateOperationsInput | $Enums.StatusConvite
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-=======
-  }
-
-  export type ListaDeCompraUpdateWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
-    itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
-    atividades?: AtividadeUpdateManyWithoutListaNestedInput
-  }
-
-  export type ListaDeCompraUncheckedUpdateWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
-    itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
-    atividades?: AtividadeUncheckedUpdateManyWithoutListaNestedInput
-  }
-
-  export type ListaDeCompraUncheckedUpdateManyWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
-  }
-
-  export type VeiculoUpdateWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    marca?: NullableStringFieldUpdateOperationsInput | string | null
-    modelo?: NullableStringFieldUpdateOperationsInput | string | null
-    ano?: NullableIntFieldUpdateOperationsInput | number | null
-    placa?: StringFieldUpdateOperationsInput | string
-    manutencoes?: RegistroDeManutencaoUpdateManyWithoutVeiculoNestedInput
-    atividades?: AtividadeUpdateManyWithoutVeiculoNestedInput
-  }
-
-  export type VeiculoUncheckedUpdateWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    marca?: NullableStringFieldUpdateOperationsInput | string | null
-    modelo?: NullableStringFieldUpdateOperationsInput | string | null
-    ano?: NullableIntFieldUpdateOperationsInput | number | null
-    placa?: StringFieldUpdateOperationsInput | string
-    manutencoes?: RegistroDeManutencaoUncheckedUpdateManyWithoutVeiculoNestedInput
-    atividades?: AtividadeUncheckedUpdateManyWithoutVeiculoNestedInput
-  }
-
-  export type VeiculoUncheckedUpdateManyWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    marca?: NullableStringFieldUpdateOperationsInput | string | null
-    modelo?: NullableStringFieldUpdateOperationsInput | string | null
-    ano?: NullableIntFieldUpdateOperationsInput | number | null
-    placa?: StringFieldUpdateOperationsInput | string
->>>>>>> dev
-  }
-
-  export type TarefaUpdateWithoutUsuarioInput = {
+  export type LembreteUpdateWithoutUsuarioEnviouInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: BoolFieldUpdateOperationsInput | boolean
-    atividades?: AtividadeUpdateManyWithoutTarefaNestedInput
+    listaDeCompra?: ListaDeCompraUpdateOneRequiredWithoutLembretesNestedInput
+    veiculo?: VeiculoUpdateOneRequiredWithoutLembreteNestedInput
+    atividades?: AtividadeUpdateManyWithoutLembreteNestedInput
   }
 
-  export type TarefaUncheckedUpdateWithoutUsuarioInput = {
+  export type LembreteUncheckedUpdateWithoutUsuarioEnviouInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: BoolFieldUpdateOperationsInput | boolean
-    atividades?: AtividadeUncheckedUpdateManyWithoutTarefaNestedInput
+    listaDeCompraId?: StringFieldUpdateOperationsInput | string
+    veiculoId?: StringFieldUpdateOperationsInput | string
+    atividades?: AtividadeUncheckedUpdateManyWithoutLembreteNestedInput
   }
 
-  export type TarefaUncheckedUpdateManyWithoutUsuarioInput = {
+  export type LembreteUncheckedUpdateManyWithoutUsuarioEnviouInput = {
     id?: StringFieldUpdateOperationsInput | string
     descricao?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: BoolFieldUpdateOperationsInput | boolean
+    listaDeCompraId?: StringFieldUpdateOperationsInput | string
+    veiculoId?: StringFieldUpdateOperationsInput | string
   }
 
-<<<<<<< HEAD
   export type ListaDeCompraUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
@@ -18950,18 +17710,6 @@ export namespace Prisma {
     veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
   }
 
-=======
-  export type AtividadeUpdateWithoutUsuarioInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
-    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
-    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-    tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
-    lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
-    veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
-  }
-
->>>>>>> dev
   export type AtividadeUncheckedUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
@@ -18969,10 +17717,7 @@ export namespace Prisma {
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
-<<<<<<< HEAD
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
->>>>>>> dev
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -18983,15 +17728,11 @@ export namespace Prisma {
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
-<<<<<<< HEAD
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
->>>>>>> dev
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type MembrosDaFamiliaCreateManyFamiliaInput = {
-    id?: string
+  export type familia_usuariosCreateManyFamiliaInput = {
     id_usuario: string
     rotulo?: $Enums.Membros
     createdAt?: Date | string
@@ -19062,11 +17803,6 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
-<<<<<<< HEAD
-    usuarioId?: string | null
-=======
-    usuarioId: string
->>>>>>> dev
     tarefaId?: string | null
     veiculoId?: string | null
   }
@@ -19097,12 +17833,6 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
-    usuario?: UsuarioUpdateOneWithoutAtividadesNestedInput
-=======
-    usuario?: UsuarioUpdateOneRequiredWithoutAtividadesNestedInput
->>>>>>> dev
     tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
     veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
   }
@@ -19112,11 +17842,6 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-    usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    usuarioId?: StringFieldUpdateOperationsInput | string
->>>>>>> dev
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -19126,11 +17851,6 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-    usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    usuarioId?: StringFieldUpdateOperationsInput | string
->>>>>>> dev
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -19147,16 +17867,38 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
-<<<<<<< HEAD
-    usuarioId?: string | null
     tarefaId?: string | null
     listaDeCompraId?: string | null
     lembreteId?: string | null
-=======
-    usuarioId: string
-    tarefaId?: string | null
-    listaDeCompraId?: string | null
->>>>>>> dev
+  }
+
+  export type LembreteUpdateWithoutVeiculoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    listaDeCompra?: ListaDeCompraUpdateOneRequiredWithoutLembretesNestedInput
+    usuarioEnviou?: UsuarioUpdateOneRequiredWithoutLembretesEnviadosNestedInput
+    atividades?: AtividadeUpdateManyWithoutLembreteNestedInput
+  }
+
+  export type LembreteUncheckedUpdateWithoutVeiculoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
+    listaDeCompraId?: StringFieldUpdateOperationsInput | string
+    atividades?: AtividadeUncheckedUpdateManyWithoutLembreteNestedInput
+  }
+
+  export type LembreteUncheckedUpdateManyWithoutVeiculoInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    descricao?: StringFieldUpdateOperationsInput | string
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    status?: BoolFieldUpdateOperationsInput | boolean
+    usuarioIdEnviou?: StringFieldUpdateOperationsInput | string
+    listaDeCompraId?: StringFieldUpdateOperationsInput | string
   }
 
   export type RegistroDeManutencaoUpdateWithoutVeiculoInput = {
@@ -19185,12 +17927,6 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
-    usuario?: UsuarioUpdateOneWithoutAtividadesNestedInput
-=======
-    usuario?: UsuarioUpdateOneRequiredWithoutAtividadesNestedInput
->>>>>>> dev
     tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
     lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
   }
@@ -19200,11 +17936,6 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-    usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    usuarioId?: StringFieldUpdateOperationsInput | string
->>>>>>> dev
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -19214,16 +17945,49 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-    usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    usuarioId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AtividadeCreateManyLembreteInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    dataHora?: Date | string
+    tarefaId?: string | null
+    listaDeCompraId?: string | null
+    veiculoId?: string | null
+  }
+
+  export type AtividadeUpdateWithoutLembreteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
+    lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
+    veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
+  }
+
+  export type AtividadeUncheckedUpdateWithoutLembreteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
->>>>>>> dev
+    veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type AtividadeUncheckedUpdateManyWithoutLembreteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
+    listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
+    veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AtividadeCreateManyTarefaInput = {
@@ -19231,11 +17995,6 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
-<<<<<<< HEAD
-    usuarioId?: string | null
-=======
-    usuarioId: string
->>>>>>> dev
     listaDeCompraId?: string | null
     veiculoId?: string | null
   }
@@ -19245,12 +18004,6 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
-    usuario?: UsuarioUpdateOneWithoutAtividadesNestedInput
-=======
-    usuario?: UsuarioUpdateOneRequiredWithoutAtividadesNestedInput
->>>>>>> dev
     lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
     veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
   }
@@ -19260,11 +18013,6 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-    usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    usuarioId?: StringFieldUpdateOperationsInput | string
->>>>>>> dev
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -19274,11 +18022,6 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
-<<<<<<< HEAD
-    usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
-=======
-    usuarioId?: StringFieldUpdateOperationsInput | string
->>>>>>> dev
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }

@@ -129,16 +129,19 @@ class ShoppingListController {
   };
 
   // deleta uma lista
-  async delete({ params, accountId }) {
+  async delete({ params, req }) {
     const { id } = idSchema.parse(params);
-    // const accountId = req.accountId;
+    const accountId = req.accountId;
 
     if (!accountId) {
       return {
         statusCode: 401,
-        body: { error: "Lista não autenticado" }
+        body: { error: "Usuário não autenticado" }
       };
     }
+    console.log("ID da lista a ser deletada:", id);
+    console.log("ID do usuário autenticado:", accountId);
+
 
     try {
       await this.ShoppingListRepository.delete(id, accountId);

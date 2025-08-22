@@ -8,6 +8,30 @@ class TaskRepository {
   }
 
   // Cria uma tarefa
+  // async create({ descricao, usuarioId, status }) {
+  //   const newTask = await prismaClient.tarefa.create({
+  //     data: {
+  //       descricao,
+  //       status: status ?? false, // Usa o status do body ou false se não fornecido
+  //       usuario: {
+  //         connect: { id: usuarioId }, // Conexão com um id de usuário existente (FK)
+  //       },
+  //       atividades: {
+  //         create: {
+  //           tipo: 'TAREFA',
+  //           acao: 'CRIADA',
+  //           dataHora: new Date(),
+  //         },
+  //       }
+  //     },
+  //     include: {
+  //       atividades: true,
+  //     },
+  //   });
+
+  //   return newTask;
+  // };
+
   async create({ descricao, usuarioId, status }) {
     const newTask = await prismaClient.tarefa.create({
       data: {

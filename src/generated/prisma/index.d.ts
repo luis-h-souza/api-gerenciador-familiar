@@ -15,52 +15,52 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 /**
  * Model Usuario
- * 
+ *
  */
 export type Usuario = $Result.DefaultSelection<Prisma.$UsuarioPayload>
 /**
  * Model Familia
- * 
+ *
  */
 export type Familia = $Result.DefaultSelection<Prisma.$FamiliaPayload>
 /**
  * Model MembrosDaFamilia
- * 
+ *
  */
 export type MembrosDaFamilia = $Result.DefaultSelection<Prisma.$MembrosDaFamiliaPayload>
 /**
  * Model FamiliaConvite
- * 
+ *
  */
 export type FamiliaConvite = $Result.DefaultSelection<Prisma.$FamiliaConvitePayload>
 /**
  * Model ListaDeCompra
- * 
+ *
  */
 export type ListaDeCompra = $Result.DefaultSelection<Prisma.$ListaDeCompraPayload>
 /**
  * Model ItemListaDeCompra
- * 
+ *
  */
 export type ItemListaDeCompra = $Result.DefaultSelection<Prisma.$ItemListaDeCompraPayload>
 /**
  * Model Veiculo
- * 
+ *
  */
 export type Veiculo = $Result.DefaultSelection<Prisma.$VeiculoPayload>
 /**
  * Model RegistroDeManutencao
- * 
+ *
  */
 export type RegistroDeManutencao = $Result.DefaultSelection<Prisma.$RegistroDeManutencaoPayload>
 /**
  * Model Tarefa
- * 
+ *
  */
 export type Tarefa = $Result.DefaultSelection<Prisma.$TarefaPayload>
 /**
  * Model Atividade
- * 
+ *
  */
 export type Atividade = $Result.DefaultSelection<Prisma.$AtividadePayload>
 
@@ -97,7 +97,6 @@ export type TipoLista = (typeof TipoLista)[keyof typeof TipoLista]
 
 
 export const TipoAtividade: {
-  LEMBRETE: 'LEMBRETE',
   TAREFA: 'TAREFA',
   LISTA: 'LISTA',
   VEICULO: 'VEICULO'
@@ -242,7 +241,7 @@ export class PrismaClient<
    *   prisma.user.create({ data: { name: 'Alice' } }),
    * ])
    * ```
-   * 
+   *
    * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
@@ -1610,7 +1609,7 @@ export namespace Prisma {
      * ```
      * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
-     * 
+     *
      * // Emit as events only
      * log: [
      *   { emit: 'event', level: 'query' },
@@ -1618,14 +1617,14 @@ export namespace Prisma {
      *   { emit: 'event', level: 'warn' }
      *   { emit: 'event', level: 'error' }
      * ]
-     * 
+     *
      * / Emit as events and log to stdout
      * og: [
      *  { emit: 'stdout', level: 'query' },
      *  { emit: 'stdout', level: 'info' },
      *  { emit: 'stdout', level: 'warn' }
      *  { emit: 'stdout', level: 'error' }
-     * 
+     *
      * ```
      * Read more in our [docs](https://www.prisma.io/docs/reference/tools-and-interfaces/prisma-client/logging#the-log-option).
      */
@@ -1642,7 +1641,7 @@ export namespace Prisma {
     }
     /**
      * Global configuration for omitting model fields by default.
-     * 
+     *
      * @example
      * ```
      * const prisma = new PrismaClient({
@@ -1749,18 +1748,18 @@ export namespace Prisma {
   export type UsuarioCountOutputType = {
     familias: number
     familiaInvitations: number
-    tarefas: number
-    listaDeCompra: number
+    listas: number
     veiculos: number
+    tarefas: number
     atividades: number
   }
 
   export type UsuarioCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     familias?: boolean | UsuarioCountOutputTypeCountFamiliasArgs
     familiaInvitations?: boolean | UsuarioCountOutputTypeCountFamiliaInvitationsArgs
-    tarefas?: boolean | UsuarioCountOutputTypeCountTarefasArgs
-    listaDeCompra?: boolean | UsuarioCountOutputTypeCountListaDeCompraArgs
+    listas?: boolean | UsuarioCountOutputTypeCountListasArgs
     veiculos?: boolean | UsuarioCountOutputTypeCountVeiculosArgs
+    tarefas?: boolean | UsuarioCountOutputTypeCountTarefasArgs
     atividades?: boolean | UsuarioCountOutputTypeCountAtividadesArgs
   }
 
@@ -1792,14 +1791,7 @@ export namespace Prisma {
   /**
    * UsuarioCountOutputType without action
    */
-  export type UsuarioCountOutputTypeCountTarefasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TarefaWhereInput
-  }
-
-  /**
-   * UsuarioCountOutputType without action
-   */
-  export type UsuarioCountOutputTypeCountListaDeCompraArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UsuarioCountOutputTypeCountListasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ListaDeCompraWhereInput
   }
 
@@ -1808,6 +1800,13 @@ export namespace Prisma {
    */
   export type UsuarioCountOutputTypeCountVeiculosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: VeiculoWhereInput
+  }
+
+  /**
+   * UsuarioCountOutputType without action
+   */
+  export type UsuarioCountOutputTypeCountAtividadesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AtividadeWhereInput
   }
 
   /**
@@ -2035,43 +2034,43 @@ export namespace Prisma {
     where?: UsuarioWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Usuarios to fetch.
      */
     orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
     cursor?: UsuarioWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Usuarios from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Usuarios.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned Usuarios
     **/
     _count?: true | UsuarioCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
     **/
     _min?: UsuarioMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
     **/
     _max?: UsuarioMaxAggregateInputType
@@ -2131,9 +2130,9 @@ export namespace Prisma {
     password?: boolean
     familias?: boolean | Usuario$familiasArgs<ExtArgs>
     familiaInvitations?: boolean | Usuario$familiaInvitationsArgs<ExtArgs>
-    tarefas?: boolean | Usuario$tarefasArgs<ExtArgs>
-    listaDeCompra?: boolean | Usuario$listaDeCompraArgs<ExtArgs>
+    listas?: boolean | Usuario$listasArgs<ExtArgs>
     veiculos?: boolean | Usuario$veiculosArgs<ExtArgs>
+    tarefas?: boolean | Usuario$tarefasArgs<ExtArgs>
     atividades?: boolean | Usuario$atividadesArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["usuario"]>
@@ -2163,9 +2162,9 @@ export namespace Prisma {
   export type UsuarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     familias?: boolean | Usuario$familiasArgs<ExtArgs>
     familiaInvitations?: boolean | Usuario$familiaInvitationsArgs<ExtArgs>
-    tarefas?: boolean | Usuario$tarefasArgs<ExtArgs>
-    listaDeCompra?: boolean | Usuario$listaDeCompraArgs<ExtArgs>
+    listas?: boolean | Usuario$listasArgs<ExtArgs>
     veiculos?: boolean | Usuario$veiculosArgs<ExtArgs>
+    tarefas?: boolean | Usuario$tarefasArgs<ExtArgs>
     atividades?: boolean | Usuario$atividadesArgs<ExtArgs>
     _count?: boolean | UsuarioCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -2177,15 +2176,15 @@ export namespace Prisma {
     objects: {
       familias: Prisma.$MembrosDaFamiliaPayload<ExtArgs>[]
       familiaInvitations: Prisma.$FamiliaConvitePayload<ExtArgs>[]
+<<<<<<< HEAD
       tarefas: Prisma.$TarefaPayload<ExtArgs>[]
       listaDeCompra: Prisma.$ListaDeCompraPayload<ExtArgs>[]
       veiculos: Prisma.$VeiculoPayload<ExtArgs>[]
-      atividades: Prisma.$AtividadePayload<ExtArgs>[]
-    }
+=======
+      listas: Prisma.$ListaDeCompraPayload<ExtArgs>[]
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      email: string
       password: string
     }, ExtArgs["result"]["usuario"]>
     composites: {}
@@ -2266,13 +2265,13 @@ export namespace Prisma {
      * @example
      * // Get all Usuarios
      * const usuarios = await prisma.usuario.findMany()
-     * 
+     *
      * // Get first 10 Usuarios
      * const usuarios = await prisma.usuario.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const usuarioWithIdOnly = await prisma.usuario.findMany({ select: { id: true } })
-     * 
+     *
      */
     findMany<T extends UsuarioFindManyArgs>(args?: SelectSubset<T, UsuarioFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -2286,7 +2285,7 @@ export namespace Prisma {
      *     // ... data to create a Usuario
      *   }
      * })
-     * 
+     *
      */
     create<T extends UsuarioCreateArgs>(args: SelectSubset<T, UsuarioCreateArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -2300,7 +2299,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends UsuarioCreateManyArgs>(args?: SelectSubset<T, UsuarioCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -2314,7 +2313,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many Usuarios and only return the `id`
      * const usuarioWithIdOnly = await prisma.usuario.createManyAndReturn({
      *   select: { id: true },
@@ -2324,7 +2323,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     createManyAndReturn<T extends UsuarioCreateManyAndReturnArgs>(args?: SelectSubset<T, UsuarioCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -2338,7 +2337,7 @@ export namespace Prisma {
      *     // ... filter to delete one Usuario
      *   }
      * })
-     * 
+     *
      */
     delete<T extends UsuarioDeleteArgs>(args: SelectSubset<T, UsuarioDeleteArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -2355,7 +2354,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     update<T extends UsuarioUpdateArgs>(args: SelectSubset<T, UsuarioUpdateArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -2369,7 +2368,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
     deleteMany<T extends UsuarioDeleteManyArgs>(args?: SelectSubset<T, UsuarioDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -2388,7 +2387,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     updateMany<T extends UsuarioUpdateManyArgs>(args: SelectSubset<T, UsuarioUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -2405,7 +2404,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more Usuarios and only return the `id`
      * const usuarioWithIdOnly = await prisma.usuario.updateManyAndReturn({
      *   select: { id: true },
@@ -2418,7 +2417,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     updateManyAndReturn<T extends UsuarioUpdateManyAndReturnArgs>(args: SelectSubset<T, UsuarioUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -2507,7 +2506,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
+     *
     **/
     groupBy<
       T extends UsuarioGroupByArgs,
@@ -2583,9 +2582,15 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     familias<T extends Usuario$familiasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$familiasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembrosDaFamiliaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     familiaInvitations<T extends Usuario$familiaInvitationsArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$familiaInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FamiliaConvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+<<<<<<< HEAD
     tarefas<T extends Usuario$tarefasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$tarefasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     listaDeCompra<T extends Usuario$listaDeCompraArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$listaDeCompraArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     veiculos<T extends Usuario$veiculosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$veiculosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+=======
+    listas<T extends Usuario$listasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$listasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    veiculos<T extends Usuario$veiculosArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$veiculosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tarefas<T extends Usuario$tarefasArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$tarefasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+>>>>>>> dev
     atividades<T extends Usuario$atividadesArgs<ExtArgs> = {}>(args?: Subset<T, Usuario$atividadesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2621,7 +2626,7 @@ export namespace Prisma {
     readonly email: FieldRef<"Usuario", 'String'>
     readonly password: FieldRef<"Usuario", 'String'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -2690,31 +2695,31 @@ export namespace Prisma {
     where?: UsuarioWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Usuarios to fetch.
      */
     orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Usuarios.
      */
     cursor?: UsuarioWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Usuarios from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Usuarios.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Usuarios.
      */
     distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
@@ -2742,31 +2747,31 @@ export namespace Prisma {
     where?: UsuarioWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Usuarios to fetch.
      */
     orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Usuarios.
      */
     cursor?: UsuarioWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Usuarios from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Usuarios.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Usuarios.
      */
     distinct?: UsuarioScalarFieldEnum | UsuarioScalarFieldEnum[]
@@ -2794,25 +2799,25 @@ export namespace Prisma {
     where?: UsuarioWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Usuarios to fetch.
      */
     orderBy?: UsuarioOrderByWithRelationInput | UsuarioOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing Usuarios.
      */
     cursor?: UsuarioWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Usuarios from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Usuarios.
      */
     skip?: number
@@ -3056,6 +3061,7 @@ export namespace Prisma {
   }
 
   /**
+<<<<<<< HEAD
    * Usuario.tarefas
    */
   export type Usuario$tarefasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3083,6 +3089,11 @@ export namespace Prisma {
    * Usuario.listaDeCompra
    */
   export type Usuario$listaDeCompraArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+=======
+   * Usuario.listas
+   */
+  export type Usuario$listasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+>>>>>>> dev
     /**
      * Select specific fields to fetch from the ListaDeCompra
      */
@@ -3125,6 +3136,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: VeiculoScalarFieldEnum | VeiculoScalarFieldEnum[]
+  }
+
+  /**
+   * Usuario.atividades
+   */
+  export type Usuario$atividadesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Atividade
+     */
+    select?: AtividadeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Atividade
+     */
+    omit?: AtividadeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AtividadeInclude<ExtArgs> | null
+    where?: AtividadeWhereInput
+    orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
+    cursor?: AtividadeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AtividadeScalarFieldEnum | AtividadeScalarFieldEnum[]
   }
 
   /**
@@ -3232,43 +3267,43 @@ export namespace Prisma {
     where?: FamiliaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Familias to fetch.
      */
     orderBy?: FamiliaOrderByWithRelationInput | FamiliaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
     cursor?: FamiliaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Familias from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Familias.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned Familias
     **/
     _count?: true | FamiliaCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
     **/
     _min?: FamiliaMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
     **/
     _max?: FamiliaMaxAggregateInputType
@@ -3451,13 +3486,13 @@ export namespace Prisma {
      * @example
      * // Get all Familias
      * const familias = await prisma.familia.findMany()
-     * 
+     *
      * // Get first 10 Familias
      * const familias = await prisma.familia.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const familiaWithIdOnly = await prisma.familia.findMany({ select: { id: true } })
-     * 
+     *
      */
     findMany<T extends FamiliaFindManyArgs>(args?: SelectSubset<T, FamiliaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FamiliaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -3471,7 +3506,7 @@ export namespace Prisma {
      *     // ... data to create a Familia
      *   }
      * })
-     * 
+     *
      */
     create<T extends FamiliaCreateArgs>(args: SelectSubset<T, FamiliaCreateArgs<ExtArgs>>): Prisma__FamiliaClient<$Result.GetResult<Prisma.$FamiliaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -3485,7 +3520,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends FamiliaCreateManyArgs>(args?: SelectSubset<T, FamiliaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -3499,7 +3534,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many Familias and only return the `id`
      * const familiaWithIdOnly = await prisma.familia.createManyAndReturn({
      *   select: { id: true },
@@ -3509,7 +3544,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     createManyAndReturn<T extends FamiliaCreateManyAndReturnArgs>(args?: SelectSubset<T, FamiliaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FamiliaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -3523,7 +3558,7 @@ export namespace Prisma {
      *     // ... filter to delete one Familia
      *   }
      * })
-     * 
+     *
      */
     delete<T extends FamiliaDeleteArgs>(args: SelectSubset<T, FamiliaDeleteArgs<ExtArgs>>): Prisma__FamiliaClient<$Result.GetResult<Prisma.$FamiliaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -3540,7 +3575,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     update<T extends FamiliaUpdateArgs>(args: SelectSubset<T, FamiliaUpdateArgs<ExtArgs>>): Prisma__FamiliaClient<$Result.GetResult<Prisma.$FamiliaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -3554,7 +3589,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
     deleteMany<T extends FamiliaDeleteManyArgs>(args?: SelectSubset<T, FamiliaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -3573,7 +3608,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     updateMany<T extends FamiliaUpdateManyArgs>(args: SelectSubset<T, FamiliaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -3590,7 +3625,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more Familias and only return the `id`
      * const familiaWithIdOnly = await prisma.familia.updateManyAndReturn({
      *   select: { id: true },
@@ -3603,7 +3638,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     updateManyAndReturn<T extends FamiliaUpdateManyAndReturnArgs>(args: SelectSubset<T, FamiliaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FamiliaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -3692,7 +3727,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
+     *
     **/
     groupBy<
       T extends FamiliaGroupByArgs,
@@ -3802,7 +3837,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Familia", 'DateTime'>
     readonly updatedAt: FieldRef<"Familia", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -3871,31 +3906,31 @@ export namespace Prisma {
     where?: FamiliaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Familias to fetch.
      */
     orderBy?: FamiliaOrderByWithRelationInput | FamiliaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Familias.
      */
     cursor?: FamiliaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Familias from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Familias.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Familias.
      */
     distinct?: FamiliaScalarFieldEnum | FamiliaScalarFieldEnum[]
@@ -3923,31 +3958,31 @@ export namespace Prisma {
     where?: FamiliaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Familias to fetch.
      */
     orderBy?: FamiliaOrderByWithRelationInput | FamiliaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Familias.
      */
     cursor?: FamiliaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Familias from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Familias.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Familias.
      */
     distinct?: FamiliaScalarFieldEnum | FamiliaScalarFieldEnum[]
@@ -3975,25 +4010,25 @@ export namespace Prisma {
     where?: FamiliaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Familias to fetch.
      */
     orderBy?: FamiliaOrderByWithRelationInput | FamiliaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing Familias.
      */
     cursor?: FamiliaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Familias from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Familias.
      */
     skip?: number
@@ -4323,43 +4358,43 @@ export namespace Prisma {
     where?: MembrosDaFamiliaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of MembrosDaFamilias to fetch.
      */
     orderBy?: MembrosDaFamiliaOrderByWithRelationInput | MembrosDaFamiliaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
     cursor?: MembrosDaFamiliaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` MembrosDaFamilias from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` MembrosDaFamilias.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned MembrosDaFamilias
     **/
     _count?: true | MembrosDaFamiliaCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
     **/
     _min?: MembrosDaFamiliaMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
     **/
     _max?: MembrosDaFamiliaMaxAggregateInputType
@@ -4556,13 +4591,13 @@ export namespace Prisma {
      * @example
      * // Get all MembrosDaFamilias
      * const membrosDaFamilias = await prisma.membrosDaFamilia.findMany()
-     * 
+     *
      * // Get first 10 MembrosDaFamilias
      * const membrosDaFamilias = await prisma.membrosDaFamilia.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const membrosDaFamiliaWithIdOnly = await prisma.membrosDaFamilia.findMany({ select: { id: true } })
-     * 
+     *
      */
     findMany<T extends MembrosDaFamiliaFindManyArgs>(args?: SelectSubset<T, MembrosDaFamiliaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembrosDaFamiliaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -4576,7 +4611,7 @@ export namespace Prisma {
      *     // ... data to create a MembrosDaFamilia
      *   }
      * })
-     * 
+     *
      */
     create<T extends MembrosDaFamiliaCreateArgs>(args: SelectSubset<T, MembrosDaFamiliaCreateArgs<ExtArgs>>): Prisma__MembrosDaFamiliaClient<$Result.GetResult<Prisma.$MembrosDaFamiliaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -4590,7 +4625,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends MembrosDaFamiliaCreateManyArgs>(args?: SelectSubset<T, MembrosDaFamiliaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4604,7 +4639,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many MembrosDaFamilias and only return the `id`
      * const membrosDaFamiliaWithIdOnly = await prisma.membrosDaFamilia.createManyAndReturn({
      *   select: { id: true },
@@ -4614,7 +4649,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     createManyAndReturn<T extends MembrosDaFamiliaCreateManyAndReturnArgs>(args?: SelectSubset<T, MembrosDaFamiliaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembrosDaFamiliaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -4628,7 +4663,7 @@ export namespace Prisma {
      *     // ... filter to delete one MembrosDaFamilia
      *   }
      * })
-     * 
+     *
      */
     delete<T extends MembrosDaFamiliaDeleteArgs>(args: SelectSubset<T, MembrosDaFamiliaDeleteArgs<ExtArgs>>): Prisma__MembrosDaFamiliaClient<$Result.GetResult<Prisma.$MembrosDaFamiliaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -4645,7 +4680,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     update<T extends MembrosDaFamiliaUpdateArgs>(args: SelectSubset<T, MembrosDaFamiliaUpdateArgs<ExtArgs>>): Prisma__MembrosDaFamiliaClient<$Result.GetResult<Prisma.$MembrosDaFamiliaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -4659,7 +4694,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
     deleteMany<T extends MembrosDaFamiliaDeleteManyArgs>(args?: SelectSubset<T, MembrosDaFamiliaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4678,7 +4713,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     updateMany<T extends MembrosDaFamiliaUpdateManyArgs>(args: SelectSubset<T, MembrosDaFamiliaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4695,7 +4730,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more MembrosDaFamilias and only return the `id`
      * const membrosDaFamiliaWithIdOnly = await prisma.membrosDaFamilia.updateManyAndReturn({
      *   select: { id: true },
@@ -4708,7 +4743,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     updateManyAndReturn<T extends MembrosDaFamiliaUpdateManyAndReturnArgs>(args: SelectSubset<T, MembrosDaFamiliaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembrosDaFamiliaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -4797,7 +4832,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
+     *
     **/
     groupBy<
       T extends MembrosDaFamiliaGroupByArgs,
@@ -4908,7 +4943,7 @@ export namespace Prisma {
     readonly rotulo: FieldRef<"MembrosDaFamilia", 'Membros'>
     readonly createdAt: FieldRef<"MembrosDaFamilia", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -4977,31 +5012,31 @@ export namespace Prisma {
     where?: MembrosDaFamiliaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of MembrosDaFamilias to fetch.
      */
     orderBy?: MembrosDaFamiliaOrderByWithRelationInput | MembrosDaFamiliaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for MembrosDaFamilias.
      */
     cursor?: MembrosDaFamiliaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` MembrosDaFamilias from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` MembrosDaFamilias.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of MembrosDaFamilias.
      */
     distinct?: MembrosDaFamiliaScalarFieldEnum | MembrosDaFamiliaScalarFieldEnum[]
@@ -5029,31 +5064,31 @@ export namespace Prisma {
     where?: MembrosDaFamiliaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of MembrosDaFamilias to fetch.
      */
     orderBy?: MembrosDaFamiliaOrderByWithRelationInput | MembrosDaFamiliaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for MembrosDaFamilias.
      */
     cursor?: MembrosDaFamiliaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` MembrosDaFamilias from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` MembrosDaFamilias.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of MembrosDaFamilias.
      */
     distinct?: MembrosDaFamiliaScalarFieldEnum | MembrosDaFamiliaScalarFieldEnum[]
@@ -5081,25 +5116,25 @@ export namespace Prisma {
     where?: MembrosDaFamiliaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of MembrosDaFamilias to fetch.
      */
     orderBy?: MembrosDaFamiliaOrderByWithRelationInput | MembrosDaFamiliaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing MembrosDaFamilias.
      */
     cursor?: MembrosDaFamiliaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` MembrosDaFamilias from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` MembrosDaFamilias.
      */
     skip?: number
@@ -5395,43 +5430,43 @@ export namespace Prisma {
     where?: FamiliaConviteWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of FamiliaConvites to fetch.
      */
     orderBy?: FamiliaConviteOrderByWithRelationInput | FamiliaConviteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
     cursor?: FamiliaConviteWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` FamiliaConvites from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` FamiliaConvites.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned FamiliaConvites
     **/
     _count?: true | FamiliaConviteCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
     **/
     _min?: FamiliaConviteMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
     **/
     _max?: FamiliaConviteMaxAggregateInputType
@@ -5634,13 +5669,13 @@ export namespace Prisma {
      * @example
      * // Get all FamiliaConvites
      * const familiaConvites = await prisma.familiaConvite.findMany()
-     * 
+     *
      * // Get first 10 FamiliaConvites
      * const familiaConvites = await prisma.familiaConvite.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const familiaConviteWithIdOnly = await prisma.familiaConvite.findMany({ select: { id: true } })
-     * 
+     *
      */
     findMany<T extends FamiliaConviteFindManyArgs>(args?: SelectSubset<T, FamiliaConviteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FamiliaConvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -5654,7 +5689,7 @@ export namespace Prisma {
      *     // ... data to create a FamiliaConvite
      *   }
      * })
-     * 
+     *
      */
     create<T extends FamiliaConviteCreateArgs>(args: SelectSubset<T, FamiliaConviteCreateArgs<ExtArgs>>): Prisma__FamiliaConviteClient<$Result.GetResult<Prisma.$FamiliaConvitePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -5668,7 +5703,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends FamiliaConviteCreateManyArgs>(args?: SelectSubset<T, FamiliaConviteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -5682,7 +5717,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many FamiliaConvites and only return the `id`
      * const familiaConviteWithIdOnly = await prisma.familiaConvite.createManyAndReturn({
      *   select: { id: true },
@@ -5692,7 +5727,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     createManyAndReturn<T extends FamiliaConviteCreateManyAndReturnArgs>(args?: SelectSubset<T, FamiliaConviteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FamiliaConvitePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -5706,7 +5741,7 @@ export namespace Prisma {
      *     // ... filter to delete one FamiliaConvite
      *   }
      * })
-     * 
+     *
      */
     delete<T extends FamiliaConviteDeleteArgs>(args: SelectSubset<T, FamiliaConviteDeleteArgs<ExtArgs>>): Prisma__FamiliaConviteClient<$Result.GetResult<Prisma.$FamiliaConvitePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -5723,7 +5758,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     update<T extends FamiliaConviteUpdateArgs>(args: SelectSubset<T, FamiliaConviteUpdateArgs<ExtArgs>>): Prisma__FamiliaConviteClient<$Result.GetResult<Prisma.$FamiliaConvitePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -5737,7 +5772,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
     deleteMany<T extends FamiliaConviteDeleteManyArgs>(args?: SelectSubset<T, FamiliaConviteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -5756,7 +5791,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     updateMany<T extends FamiliaConviteUpdateManyArgs>(args: SelectSubset<T, FamiliaConviteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -5773,7 +5808,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more FamiliaConvites and only return the `id`
      * const familiaConviteWithIdOnly = await prisma.familiaConvite.updateManyAndReturn({
      *   select: { id: true },
@@ -5786,7 +5821,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     updateManyAndReturn<T extends FamiliaConviteUpdateManyAndReturnArgs>(args: SelectSubset<T, FamiliaConviteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FamiliaConvitePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -5875,7 +5910,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
+     *
     **/
     groupBy<
       T extends FamiliaConviteGroupByArgs,
@@ -5987,7 +6022,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"FamiliaConvite", 'DateTime'>
     readonly updatedAt: FieldRef<"FamiliaConvite", 'DateTime'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -6056,31 +6091,31 @@ export namespace Prisma {
     where?: FamiliaConviteWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of FamiliaConvites to fetch.
      */
     orderBy?: FamiliaConviteOrderByWithRelationInput | FamiliaConviteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for FamiliaConvites.
      */
     cursor?: FamiliaConviteWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` FamiliaConvites from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` FamiliaConvites.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of FamiliaConvites.
      */
     distinct?: FamiliaConviteScalarFieldEnum | FamiliaConviteScalarFieldEnum[]
@@ -6108,31 +6143,31 @@ export namespace Prisma {
     where?: FamiliaConviteWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of FamiliaConvites to fetch.
      */
     orderBy?: FamiliaConviteOrderByWithRelationInput | FamiliaConviteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for FamiliaConvites.
      */
     cursor?: FamiliaConviteWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` FamiliaConvites from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` FamiliaConvites.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of FamiliaConvites.
      */
     distinct?: FamiliaConviteScalarFieldEnum | FamiliaConviteScalarFieldEnum[]
@@ -6160,25 +6195,25 @@ export namespace Prisma {
     where?: FamiliaConviteWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of FamiliaConvites to fetch.
      */
     orderBy?: FamiliaConviteOrderByWithRelationInput | FamiliaConviteOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing FamiliaConvites.
      */
     cursor?: FamiliaConviteWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` FamiliaConvites from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` FamiliaConvites.
      */
     skip?: number
@@ -6475,43 +6510,43 @@ export namespace Prisma {
     where?: ListaDeCompraWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of ListaDeCompras to fetch.
      */
     orderBy?: ListaDeCompraOrderByWithRelationInput | ListaDeCompraOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
     cursor?: ListaDeCompraWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` ListaDeCompras from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` ListaDeCompras.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned ListaDeCompras
     **/
     _count?: true | ListaDeCompraCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
     **/
     _min?: ListaDeCompraMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
     **/
     _max?: ListaDeCompraMaxAggregateInputType
@@ -6543,7 +6578,11 @@ export namespace Prisma {
   export type ListaDeCompraGroupByOutputType = {
     id: string
     tipo: $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
     _count: ListaDeCompraCountAggregateOutputType | null
     _min: ListaDeCompraMinAggregateOutputType | null
     _max: ListaDeCompraMaxAggregateOutputType | null
@@ -6567,7 +6606,11 @@ export namespace Prisma {
     id?: boolean
     tipo?: boolean
     usuarioId?: boolean
+<<<<<<< HEAD
     usuario?: boolean | ListaDeCompra$usuarioArgs<ExtArgs>
+=======
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+>>>>>>> dev
     itens?: boolean | ListaDeCompra$itensArgs<ExtArgs>
     atividades?: boolean | ListaDeCompra$atividadesArgs<ExtArgs>
     _count?: boolean | ListaDeCompraCountOutputTypeDefaultArgs<ExtArgs>
@@ -6577,14 +6620,22 @@ export namespace Prisma {
     id?: boolean
     tipo?: boolean
     usuarioId?: boolean
+<<<<<<< HEAD
     usuario?: boolean | ListaDeCompra$usuarioArgs<ExtArgs>
+=======
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+>>>>>>> dev
   }, ExtArgs["result"]["listaDeCompra"]>
 
   export type ListaDeCompraSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tipo?: boolean
     usuarioId?: boolean
+<<<<<<< HEAD
     usuario?: boolean | ListaDeCompra$usuarioArgs<ExtArgs>
+=======
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+>>>>>>> dev
   }, ExtArgs["result"]["listaDeCompra"]>
 
   export type ListaDeCompraSelectScalar = {
@@ -6595,29 +6646,48 @@ export namespace Prisma {
 
   export type ListaDeCompraOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipo" | "usuarioId", ExtArgs["result"]["listaDeCompra"]>
   export type ListaDeCompraInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+<<<<<<< HEAD
     usuario?: boolean | ListaDeCompra$usuarioArgs<ExtArgs>
+=======
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+>>>>>>> dev
     itens?: boolean | ListaDeCompra$itensArgs<ExtArgs>
     atividades?: boolean | ListaDeCompra$atividadesArgs<ExtArgs>
     _count?: boolean | ListaDeCompraCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ListaDeCompraIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+<<<<<<< HEAD
     usuario?: boolean | ListaDeCompra$usuarioArgs<ExtArgs>
   }
   export type ListaDeCompraIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuario?: boolean | ListaDeCompra$usuarioArgs<ExtArgs>
+=======
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+  }
+  export type ListaDeCompraIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+>>>>>>> dev
   }
 
   export type $ListaDeCompraPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ListaDeCompra"
     objects: {
+<<<<<<< HEAD
       usuario: Prisma.$UsuarioPayload<ExtArgs> | null
+=======
+      usuario: Prisma.$UsuarioPayload<ExtArgs>
+>>>>>>> dev
       itens: Prisma.$ItemListaDeCompraPayload<ExtArgs>[]
       atividades: Prisma.$AtividadePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       tipo: $Enums.TipoLista
+<<<<<<< HEAD
       usuarioId: string | null
+=======
+      usuarioId: string
+>>>>>>> dev
     }, ExtArgs["result"]["listaDeCompra"]>
     composites: {}
   }
@@ -6697,13 +6767,13 @@ export namespace Prisma {
      * @example
      * // Get all ListaDeCompras
      * const listaDeCompras = await prisma.listaDeCompra.findMany()
-     * 
+     *
      * // Get first 10 ListaDeCompras
      * const listaDeCompras = await prisma.listaDeCompra.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const listaDeCompraWithIdOnly = await prisma.listaDeCompra.findMany({ select: { id: true } })
-     * 
+     *
      */
     findMany<T extends ListaDeCompraFindManyArgs>(args?: SelectSubset<T, ListaDeCompraFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -6717,7 +6787,7 @@ export namespace Prisma {
      *     // ... data to create a ListaDeCompra
      *   }
      * })
-     * 
+     *
      */
     create<T extends ListaDeCompraCreateArgs>(args: SelectSubset<T, ListaDeCompraCreateArgs<ExtArgs>>): Prisma__ListaDeCompraClient<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -6731,7 +6801,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends ListaDeCompraCreateManyArgs>(args?: SelectSubset<T, ListaDeCompraCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -6745,7 +6815,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many ListaDeCompras and only return the `id`
      * const listaDeCompraWithIdOnly = await prisma.listaDeCompra.createManyAndReturn({
      *   select: { id: true },
@@ -6755,7 +6825,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     createManyAndReturn<T extends ListaDeCompraCreateManyAndReturnArgs>(args?: SelectSubset<T, ListaDeCompraCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -6769,7 +6839,7 @@ export namespace Prisma {
      *     // ... filter to delete one ListaDeCompra
      *   }
      * })
-     * 
+     *
      */
     delete<T extends ListaDeCompraDeleteArgs>(args: SelectSubset<T, ListaDeCompraDeleteArgs<ExtArgs>>): Prisma__ListaDeCompraClient<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -6786,7 +6856,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     update<T extends ListaDeCompraUpdateArgs>(args: SelectSubset<T, ListaDeCompraUpdateArgs<ExtArgs>>): Prisma__ListaDeCompraClient<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -6800,7 +6870,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
     deleteMany<T extends ListaDeCompraDeleteManyArgs>(args?: SelectSubset<T, ListaDeCompraDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -6819,7 +6889,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     updateMany<T extends ListaDeCompraUpdateManyArgs>(args: SelectSubset<T, ListaDeCompraUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -6836,7 +6906,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more ListaDeCompras and only return the `id`
      * const listaDeCompraWithIdOnly = await prisma.listaDeCompra.updateManyAndReturn({
      *   select: { id: true },
@@ -6849,7 +6919,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     updateManyAndReturn<T extends ListaDeCompraUpdateManyAndReturnArgs>(args: SelectSubset<T, ListaDeCompraUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -6938,7 +7008,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
+     *
     **/
     groupBy<
       T extends ListaDeCompraGroupByArgs,
@@ -7012,7 +7082,11 @@ export namespace Prisma {
    */
   export interface Prisma__ListaDeCompraClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+<<<<<<< HEAD
     usuario<T extends ListaDeCompra$usuarioArgs<ExtArgs> = {}>(args?: Subset<T, ListaDeCompra$usuarioArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+=======
+    usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+>>>>>>> dev
     itens<T extends ListaDeCompra$itensArgs<ExtArgs> = {}>(args?: Subset<T, ListaDeCompra$itensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     atividades<T extends ListaDeCompra$atividadesArgs<ExtArgs> = {}>(args?: Subset<T, ListaDeCompra$atividadesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -7048,7 +7122,7 @@ export namespace Prisma {
     readonly tipo: FieldRef<"ListaDeCompra", 'TipoLista'>
     readonly usuarioId: FieldRef<"ListaDeCompra", 'String'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -7117,31 +7191,31 @@ export namespace Prisma {
     where?: ListaDeCompraWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of ListaDeCompras to fetch.
      */
     orderBy?: ListaDeCompraOrderByWithRelationInput | ListaDeCompraOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for ListaDeCompras.
      */
     cursor?: ListaDeCompraWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` ListaDeCompras from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` ListaDeCompras.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of ListaDeCompras.
      */
     distinct?: ListaDeCompraScalarFieldEnum | ListaDeCompraScalarFieldEnum[]
@@ -7169,31 +7243,31 @@ export namespace Prisma {
     where?: ListaDeCompraWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of ListaDeCompras to fetch.
      */
     orderBy?: ListaDeCompraOrderByWithRelationInput | ListaDeCompraOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for ListaDeCompras.
      */
     cursor?: ListaDeCompraWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` ListaDeCompras from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` ListaDeCompras.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of ListaDeCompras.
      */
     distinct?: ListaDeCompraScalarFieldEnum | ListaDeCompraScalarFieldEnum[]
@@ -7221,25 +7295,25 @@ export namespace Prisma {
     where?: ListaDeCompraWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of ListaDeCompras to fetch.
      */
     orderBy?: ListaDeCompraOrderByWithRelationInput | ListaDeCompraOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing ListaDeCompras.
      */
     cursor?: ListaDeCompraWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` ListaDeCompras from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` ListaDeCompras.
      */
     skip?: number
@@ -7614,55 +7688,55 @@ export namespace Prisma {
     where?: ItemListaDeCompraWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of ItemListaDeCompras to fetch.
      */
     orderBy?: ItemListaDeCompraOrderByWithRelationInput | ItemListaDeCompraOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
     cursor?: ItemListaDeCompraWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` ItemListaDeCompras from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` ItemListaDeCompras.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned ItemListaDeCompras
     **/
     _count?: true | ItemListaDeCompraCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to average
     **/
     _avg?: ItemListaDeCompraAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to sum
     **/
     _sum?: ItemListaDeCompraSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
     **/
     _min?: ItemListaDeCompraMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
     **/
     _max?: ItemListaDeCompraMaxAggregateInputType
@@ -7856,13 +7930,13 @@ export namespace Prisma {
      * @example
      * // Get all ItemListaDeCompras
      * const itemListaDeCompras = await prisma.itemListaDeCompra.findMany()
-     * 
+     *
      * // Get first 10 ItemListaDeCompras
      * const itemListaDeCompras = await prisma.itemListaDeCompra.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const itemListaDeCompraWithIdOnly = await prisma.itemListaDeCompra.findMany({ select: { id: true } })
-     * 
+     *
      */
     findMany<T extends ItemListaDeCompraFindManyArgs>(args?: SelectSubset<T, ItemListaDeCompraFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemListaDeCompraPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -7876,7 +7950,7 @@ export namespace Prisma {
      *     // ... data to create a ItemListaDeCompra
      *   }
      * })
-     * 
+     *
      */
     create<T extends ItemListaDeCompraCreateArgs>(args: SelectSubset<T, ItemListaDeCompraCreateArgs<ExtArgs>>): Prisma__ItemListaDeCompraClient<$Result.GetResult<Prisma.$ItemListaDeCompraPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -7890,7 +7964,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends ItemListaDeCompraCreateManyArgs>(args?: SelectSubset<T, ItemListaDeCompraCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -7904,7 +7978,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many ItemListaDeCompras and only return the `id`
      * const itemListaDeCompraWithIdOnly = await prisma.itemListaDeCompra.createManyAndReturn({
      *   select: { id: true },
@@ -7914,7 +7988,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     createManyAndReturn<T extends ItemListaDeCompraCreateManyAndReturnArgs>(args?: SelectSubset<T, ItemListaDeCompraCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemListaDeCompraPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -7928,7 +8002,7 @@ export namespace Prisma {
      *     // ... filter to delete one ItemListaDeCompra
      *   }
      * })
-     * 
+     *
      */
     delete<T extends ItemListaDeCompraDeleteArgs>(args: SelectSubset<T, ItemListaDeCompraDeleteArgs<ExtArgs>>): Prisma__ItemListaDeCompraClient<$Result.GetResult<Prisma.$ItemListaDeCompraPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -7945,7 +8019,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     update<T extends ItemListaDeCompraUpdateArgs>(args: SelectSubset<T, ItemListaDeCompraUpdateArgs<ExtArgs>>): Prisma__ItemListaDeCompraClient<$Result.GetResult<Prisma.$ItemListaDeCompraPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -7959,7 +8033,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
     deleteMany<T extends ItemListaDeCompraDeleteManyArgs>(args?: SelectSubset<T, ItemListaDeCompraDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -7978,7 +8052,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     updateMany<T extends ItemListaDeCompraUpdateManyArgs>(args: SelectSubset<T, ItemListaDeCompraUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -7995,7 +8069,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more ItemListaDeCompras and only return the `id`
      * const itemListaDeCompraWithIdOnly = await prisma.itemListaDeCompra.updateManyAndReturn({
      *   select: { id: true },
@@ -8008,7 +8082,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     updateManyAndReturn<T extends ItemListaDeCompraUpdateManyAndReturnArgs>(args: SelectSubset<T, ItemListaDeCompraUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemListaDeCompraPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -8097,7 +8171,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
+     *
     **/
     groupBy<
       T extends ItemListaDeCompraGroupByArgs,
@@ -8207,7 +8281,7 @@ export namespace Prisma {
     readonly comprado: FieldRef<"ItemListaDeCompra", 'Boolean'>
     readonly listaId: FieldRef<"ItemListaDeCompra", 'String'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -8276,31 +8350,31 @@ export namespace Prisma {
     where?: ItemListaDeCompraWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of ItemListaDeCompras to fetch.
      */
     orderBy?: ItemListaDeCompraOrderByWithRelationInput | ItemListaDeCompraOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for ItemListaDeCompras.
      */
     cursor?: ItemListaDeCompraWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` ItemListaDeCompras from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` ItemListaDeCompras.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of ItemListaDeCompras.
      */
     distinct?: ItemListaDeCompraScalarFieldEnum | ItemListaDeCompraScalarFieldEnum[]
@@ -8328,31 +8402,31 @@ export namespace Prisma {
     where?: ItemListaDeCompraWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of ItemListaDeCompras to fetch.
      */
     orderBy?: ItemListaDeCompraOrderByWithRelationInput | ItemListaDeCompraOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for ItemListaDeCompras.
      */
     cursor?: ItemListaDeCompraWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` ItemListaDeCompras from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` ItemListaDeCompras.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of ItemListaDeCompras.
      */
     distinct?: ItemListaDeCompraScalarFieldEnum | ItemListaDeCompraScalarFieldEnum[]
@@ -8380,25 +8454,25 @@ export namespace Prisma {
     where?: ItemListaDeCompraWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of ItemListaDeCompras to fetch.
      */
     orderBy?: ItemListaDeCompraOrderByWithRelationInput | ItemListaDeCompraOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing ItemListaDeCompras.
      */
     cursor?: ItemListaDeCompraWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` ItemListaDeCompras from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` ItemListaDeCompras.
      */
     skip?: number
@@ -8712,55 +8786,55 @@ export namespace Prisma {
     where?: VeiculoWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Veiculos to fetch.
      */
     orderBy?: VeiculoOrderByWithRelationInput | VeiculoOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
     cursor?: VeiculoWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Veiculos from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Veiculos.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned Veiculos
     **/
     _count?: true | VeiculoCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to average
     **/
     _avg?: VeiculoAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to sum
     **/
     _sum?: VeiculoSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
     **/
     _min?: VeiculoMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
     **/
     _max?: VeiculoMaxAggregateInputType
@@ -8968,13 +9042,13 @@ export namespace Prisma {
      * @example
      * // Get all Veiculos
      * const veiculos = await prisma.veiculo.findMany()
-     * 
+     *
      * // Get first 10 Veiculos
      * const veiculos = await prisma.veiculo.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const veiculoWithIdOnly = await prisma.veiculo.findMany({ select: { id: true } })
-     * 
+     *
      */
     findMany<T extends VeiculoFindManyArgs>(args?: SelectSubset<T, VeiculoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -8988,7 +9062,7 @@ export namespace Prisma {
      *     // ... data to create a Veiculo
      *   }
      * })
-     * 
+     *
      */
     create<T extends VeiculoCreateArgs>(args: SelectSubset<T, VeiculoCreateArgs<ExtArgs>>): Prisma__VeiculoClient<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -9002,7 +9076,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends VeiculoCreateManyArgs>(args?: SelectSubset<T, VeiculoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9016,7 +9090,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many Veiculos and only return the `id`
      * const veiculoWithIdOnly = await prisma.veiculo.createManyAndReturn({
      *   select: { id: true },
@@ -9026,7 +9100,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     createManyAndReturn<T extends VeiculoCreateManyAndReturnArgs>(args?: SelectSubset<T, VeiculoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -9040,7 +9114,7 @@ export namespace Prisma {
      *     // ... filter to delete one Veiculo
      *   }
      * })
-     * 
+     *
      */
     delete<T extends VeiculoDeleteArgs>(args: SelectSubset<T, VeiculoDeleteArgs<ExtArgs>>): Prisma__VeiculoClient<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -9057,7 +9131,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     update<T extends VeiculoUpdateArgs>(args: SelectSubset<T, VeiculoUpdateArgs<ExtArgs>>): Prisma__VeiculoClient<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -9071,7 +9145,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
     deleteMany<T extends VeiculoDeleteManyArgs>(args?: SelectSubset<T, VeiculoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9090,7 +9164,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     updateMany<T extends VeiculoUpdateManyArgs>(args: SelectSubset<T, VeiculoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9107,7 +9181,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more Veiculos and only return the `id`
      * const veiculoWithIdOnly = await prisma.veiculo.updateManyAndReturn({
      *   select: { id: true },
@@ -9120,7 +9194,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     updateManyAndReturn<T extends VeiculoUpdateManyAndReturnArgs>(args: SelectSubset<T, VeiculoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -9209,7 +9283,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
+     *
     **/
     groupBy<
       T extends VeiculoGroupByArgs,
@@ -9322,7 +9396,7 @@ export namespace Prisma {
     readonly placa: FieldRef<"Veiculo", 'String'>
     readonly usuarioId: FieldRef<"Veiculo", 'String'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -9391,31 +9465,31 @@ export namespace Prisma {
     where?: VeiculoWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Veiculos to fetch.
      */
     orderBy?: VeiculoOrderByWithRelationInput | VeiculoOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Veiculos.
      */
     cursor?: VeiculoWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Veiculos from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Veiculos.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Veiculos.
      */
     distinct?: VeiculoScalarFieldEnum | VeiculoScalarFieldEnum[]
@@ -9443,31 +9517,31 @@ export namespace Prisma {
     where?: VeiculoWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Veiculos to fetch.
      */
     orderBy?: VeiculoOrderByWithRelationInput | VeiculoOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Veiculos.
      */
     cursor?: VeiculoWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Veiculos from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Veiculos.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Veiculos.
      */
     distinct?: VeiculoScalarFieldEnum | VeiculoScalarFieldEnum[]
@@ -9495,25 +9569,25 @@ export namespace Prisma {
     where?: VeiculoWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Veiculos to fetch.
      */
     orderBy?: VeiculoOrderByWithRelationInput | VeiculoOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing Veiculos.
      */
     cursor?: VeiculoWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Veiculos from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Veiculos.
      */
     skip?: number
@@ -9869,55 +9943,55 @@ export namespace Prisma {
     where?: RegistroDeManutencaoWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of RegistroDeManutencaos to fetch.
      */
     orderBy?: RegistroDeManutencaoOrderByWithRelationInput | RegistroDeManutencaoOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
     cursor?: RegistroDeManutencaoWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` RegistroDeManutencaos from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` RegistroDeManutencaos.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned RegistroDeManutencaos
     **/
     _count?: true | RegistroDeManutencaoCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to average
     **/
     _avg?: RegistroDeManutencaoAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to sum
     **/
     _sum?: RegistroDeManutencaoSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
     **/
     _min?: RegistroDeManutencaoMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
     **/
     _max?: RegistroDeManutencaoMaxAggregateInputType
@@ -10111,13 +10185,13 @@ export namespace Prisma {
      * @example
      * // Get all RegistroDeManutencaos
      * const registroDeManutencaos = await prisma.registroDeManutencao.findMany()
-     * 
+     *
      * // Get first 10 RegistroDeManutencaos
      * const registroDeManutencaos = await prisma.registroDeManutencao.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const registroDeManutencaoWithIdOnly = await prisma.registroDeManutencao.findMany({ select: { id: true } })
-     * 
+     *
      */
     findMany<T extends RegistroDeManutencaoFindManyArgs>(args?: SelectSubset<T, RegistroDeManutencaoFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistroDeManutencaoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -10131,7 +10205,7 @@ export namespace Prisma {
      *     // ... data to create a RegistroDeManutencao
      *   }
      * })
-     * 
+     *
      */
     create<T extends RegistroDeManutencaoCreateArgs>(args: SelectSubset<T, RegistroDeManutencaoCreateArgs<ExtArgs>>): Prisma__RegistroDeManutencaoClient<$Result.GetResult<Prisma.$RegistroDeManutencaoPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -10145,7 +10219,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends RegistroDeManutencaoCreateManyArgs>(args?: SelectSubset<T, RegistroDeManutencaoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -10159,7 +10233,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many RegistroDeManutencaos and only return the `id`
      * const registroDeManutencaoWithIdOnly = await prisma.registroDeManutencao.createManyAndReturn({
      *   select: { id: true },
@@ -10169,7 +10243,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     createManyAndReturn<T extends RegistroDeManutencaoCreateManyAndReturnArgs>(args?: SelectSubset<T, RegistroDeManutencaoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistroDeManutencaoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -10183,7 +10257,7 @@ export namespace Prisma {
      *     // ... filter to delete one RegistroDeManutencao
      *   }
      * })
-     * 
+     *
      */
     delete<T extends RegistroDeManutencaoDeleteArgs>(args: SelectSubset<T, RegistroDeManutencaoDeleteArgs<ExtArgs>>): Prisma__RegistroDeManutencaoClient<$Result.GetResult<Prisma.$RegistroDeManutencaoPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -10200,7 +10274,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     update<T extends RegistroDeManutencaoUpdateArgs>(args: SelectSubset<T, RegistroDeManutencaoUpdateArgs<ExtArgs>>): Prisma__RegistroDeManutencaoClient<$Result.GetResult<Prisma.$RegistroDeManutencaoPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -10214,7 +10288,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
     deleteMany<T extends RegistroDeManutencaoDeleteManyArgs>(args?: SelectSubset<T, RegistroDeManutencaoDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -10233,7 +10307,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     updateMany<T extends RegistroDeManutencaoUpdateManyArgs>(args: SelectSubset<T, RegistroDeManutencaoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -10250,7 +10324,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more RegistroDeManutencaos and only return the `id`
      * const registroDeManutencaoWithIdOnly = await prisma.registroDeManutencao.updateManyAndReturn({
      *   select: { id: true },
@@ -10263,7 +10337,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     updateManyAndReturn<T extends RegistroDeManutencaoUpdateManyAndReturnArgs>(args: SelectSubset<T, RegistroDeManutencaoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RegistroDeManutencaoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -10352,7 +10426,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
+     *
     **/
     groupBy<
       T extends RegistroDeManutencaoGroupByArgs,
@@ -10462,7 +10536,7 @@ export namespace Prisma {
     readonly valor: FieldRef<"RegistroDeManutencao", 'Float'>
     readonly veiculoId: FieldRef<"RegistroDeManutencao", 'String'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -10531,31 +10605,31 @@ export namespace Prisma {
     where?: RegistroDeManutencaoWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of RegistroDeManutencaos to fetch.
      */
     orderBy?: RegistroDeManutencaoOrderByWithRelationInput | RegistroDeManutencaoOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for RegistroDeManutencaos.
      */
     cursor?: RegistroDeManutencaoWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` RegistroDeManutencaos from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` RegistroDeManutencaos.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of RegistroDeManutencaos.
      */
     distinct?: RegistroDeManutencaoScalarFieldEnum | RegistroDeManutencaoScalarFieldEnum[]
@@ -10583,31 +10657,31 @@ export namespace Prisma {
     where?: RegistroDeManutencaoWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of RegistroDeManutencaos to fetch.
      */
     orderBy?: RegistroDeManutencaoOrderByWithRelationInput | RegistroDeManutencaoOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for RegistroDeManutencaos.
      */
     cursor?: RegistroDeManutencaoWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` RegistroDeManutencaos from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` RegistroDeManutencaos.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of RegistroDeManutencaos.
      */
     distinct?: RegistroDeManutencaoScalarFieldEnum | RegistroDeManutencaoScalarFieldEnum[]
@@ -10635,25 +10709,25 @@ export namespace Prisma {
     where?: RegistroDeManutencaoWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of RegistroDeManutencaos to fetch.
      */
     orderBy?: RegistroDeManutencaoOrderByWithRelationInput | RegistroDeManutencaoOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing RegistroDeManutencaos.
      */
     cursor?: RegistroDeManutencaoWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` RegistroDeManutencaos from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` RegistroDeManutencaos.
      */
     skip?: number
@@ -10937,43 +11011,43 @@ export namespace Prisma {
     where?: TarefaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Tarefas to fetch.
      */
     orderBy?: TarefaOrderByWithRelationInput | TarefaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
     cursor?: TarefaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Tarefas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Tarefas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned Tarefas
     **/
     _count?: true | TarefaCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
     **/
     _min?: TarefaMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
     **/
     _max?: TarefaMaxAggregateInputType
@@ -11162,13 +11236,13 @@ export namespace Prisma {
      * @example
      * // Get all Tarefas
      * const tarefas = await prisma.tarefa.findMany()
-     * 
+     *
      * // Get first 10 Tarefas
      * const tarefas = await prisma.tarefa.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const tarefaWithIdOnly = await prisma.tarefa.findMany({ select: { id: true } })
-     * 
+     *
      */
     findMany<T extends TarefaFindManyArgs>(args?: SelectSubset<T, TarefaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -11182,7 +11256,7 @@ export namespace Prisma {
      *     // ... data to create a Tarefa
      *   }
      * })
-     * 
+     *
      */
     create<T extends TarefaCreateArgs>(args: SelectSubset<T, TarefaCreateArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -11196,7 +11270,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends TarefaCreateManyArgs>(args?: SelectSubset<T, TarefaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -11210,7 +11284,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many Tarefas and only return the `id`
      * const tarefaWithIdOnly = await prisma.tarefa.createManyAndReturn({
      *   select: { id: true },
@@ -11220,7 +11294,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     createManyAndReturn<T extends TarefaCreateManyAndReturnArgs>(args?: SelectSubset<T, TarefaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -11234,7 +11308,7 @@ export namespace Prisma {
      *     // ... filter to delete one Tarefa
      *   }
      * })
-     * 
+     *
      */
     delete<T extends TarefaDeleteArgs>(args: SelectSubset<T, TarefaDeleteArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -11251,7 +11325,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     update<T extends TarefaUpdateArgs>(args: SelectSubset<T, TarefaUpdateArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -11265,7 +11339,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
     deleteMany<T extends TarefaDeleteManyArgs>(args?: SelectSubset<T, TarefaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -11284,7 +11358,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     updateMany<T extends TarefaUpdateManyArgs>(args: SelectSubset<T, TarefaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -11301,7 +11375,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more Tarefas and only return the `id`
      * const tarefaWithIdOnly = await prisma.tarefa.updateManyAndReturn({
      *   select: { id: true },
@@ -11314,7 +11388,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     updateManyAndReturn<T extends TarefaUpdateManyAndReturnArgs>(args: SelectSubset<T, TarefaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -11403,7 +11477,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
+     *
     **/
     groupBy<
       T extends TarefaGroupByArgs,
@@ -11513,7 +11587,7 @@ export namespace Prisma {
     readonly status: FieldRef<"Tarefa", 'Boolean'>
     readonly usuarioId: FieldRef<"Tarefa", 'String'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -11582,31 +11656,31 @@ export namespace Prisma {
     where?: TarefaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Tarefas to fetch.
      */
     orderBy?: TarefaOrderByWithRelationInput | TarefaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Tarefas.
      */
     cursor?: TarefaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Tarefas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Tarefas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Tarefas.
      */
     distinct?: TarefaScalarFieldEnum | TarefaScalarFieldEnum[]
@@ -11634,31 +11708,31 @@ export namespace Prisma {
     where?: TarefaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Tarefas to fetch.
      */
     orderBy?: TarefaOrderByWithRelationInput | TarefaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Tarefas.
      */
     cursor?: TarefaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Tarefas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Tarefas.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Tarefas.
      */
     distinct?: TarefaScalarFieldEnum | TarefaScalarFieldEnum[]
@@ -11686,25 +11760,25 @@ export namespace Prisma {
     where?: TarefaWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Tarefas to fetch.
      */
     orderBy?: TarefaOrderByWithRelationInput | TarefaOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing Tarefas.
      */
     cursor?: TarefaWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Tarefas from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Tarefas.
      */
     skip?: number
@@ -11968,7 +12042,6 @@ export namespace Prisma {
     usuarioId: string | null
     tarefaId: string | null
     listaDeCompraId: string | null
-    lembreteId: string | null
     veiculoId: string | null
   }
 
@@ -11980,7 +12053,6 @@ export namespace Prisma {
     usuarioId: string | null
     tarefaId: string | null
     listaDeCompraId: string | null
-    lembreteId: string | null
     veiculoId: string | null
   }
 
@@ -11992,7 +12064,6 @@ export namespace Prisma {
     usuarioId: number
     tarefaId: number
     listaDeCompraId: number
-    lembreteId: number
     veiculoId: number
     _all: number
   }
@@ -12006,7 +12077,6 @@ export namespace Prisma {
     usuarioId?: true
     tarefaId?: true
     listaDeCompraId?: true
-    lembreteId?: true
     veiculoId?: true
   }
 
@@ -12018,7 +12088,6 @@ export namespace Prisma {
     usuarioId?: true
     tarefaId?: true
     listaDeCompraId?: true
-    lembreteId?: true
     veiculoId?: true
   }
 
@@ -12030,7 +12099,6 @@ export namespace Prisma {
     usuarioId?: true
     tarefaId?: true
     listaDeCompraId?: true
-    lembreteId?: true
     veiculoId?: true
     _all?: true
   }
@@ -12042,43 +12110,43 @@ export namespace Prisma {
     where?: AtividadeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Atividades to fetch.
      */
     orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the start position
      */
     cursor?: AtividadeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Atividades from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Atividades.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Count returned Atividades
     **/
     _count?: true | AtividadeCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the minimum value
     **/
     _min?: AtividadeMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
+     *
      * Select which fields to find the maximum value
     **/
     _max?: AtividadeMaxAggregateInputType
@@ -12112,10 +12180,13 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora: Date
+<<<<<<< HEAD
     usuarioId: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
     tarefaId: string | null
     listaDeCompraId: string | null
-    lembreteId: string | null
     veiculoId: string | null
     _count: AtividadeCountAggregateOutputType | null
     _min: AtividadeMinAggregateOutputType | null
@@ -12144,9 +12215,12 @@ export namespace Prisma {
     usuarioId?: boolean
     tarefaId?: boolean
     listaDeCompraId?: boolean
-    lembreteId?: boolean
     veiculoId?: boolean
+<<<<<<< HEAD
     usuario?: boolean | Atividade$usuarioArgs<ExtArgs>
+=======
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+>>>>>>> dev
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
     veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
@@ -12160,9 +12234,12 @@ export namespace Prisma {
     usuarioId?: boolean
     tarefaId?: boolean
     listaDeCompraId?: boolean
-    lembreteId?: boolean
     veiculoId?: boolean
+<<<<<<< HEAD
     usuario?: boolean | Atividade$usuarioArgs<ExtArgs>
+=======
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+>>>>>>> dev
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
     veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
@@ -12176,9 +12253,12 @@ export namespace Prisma {
     usuarioId?: boolean
     tarefaId?: boolean
     listaDeCompraId?: boolean
-    lembreteId?: boolean
     veiculoId?: boolean
+<<<<<<< HEAD
     usuario?: boolean | Atividade$usuarioArgs<ExtArgs>
+=======
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+>>>>>>> dev
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
     veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
@@ -12192,25 +12272,38 @@ export namespace Prisma {
     usuarioId?: boolean
     tarefaId?: boolean
     listaDeCompraId?: boolean
-    lembreteId?: boolean
     veiculoId?: boolean
   }
 
+<<<<<<< HEAD
   export type AtividadeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipo" | "acao" | "dataHora" | "usuarioId" | "tarefaId" | "listaDeCompraId" | "lembreteId" | "veiculoId", ExtArgs["result"]["atividade"]>
   export type AtividadeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     usuario?: boolean | Atividade$usuarioArgs<ExtArgs>
+=======
+  export type AtividadeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tipo" | "acao" | "dataHora" | "usuarioId" | "tarefaId" | "listaDeCompraId" | "veiculoId", ExtArgs["result"]["atividade"]>
+  export type AtividadeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+>>>>>>> dev
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
     veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
   }
   export type AtividadeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+<<<<<<< HEAD
     usuario?: boolean | Atividade$usuarioArgs<ExtArgs>
+=======
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+>>>>>>> dev
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
     veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
   }
   export type AtividadeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+<<<<<<< HEAD
     usuario?: boolean | Atividade$usuarioArgs<ExtArgs>
+=======
+    usuario?: boolean | UsuarioDefaultArgs<ExtArgs>
+>>>>>>> dev
     tarefa?: boolean | Atividade$tarefaArgs<ExtArgs>
     lista?: boolean | Atividade$listaArgs<ExtArgs>
     veiculo?: boolean | Atividade$veiculoArgs<ExtArgs>
@@ -12219,7 +12312,11 @@ export namespace Prisma {
   export type $AtividadePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Atividade"
     objects: {
+<<<<<<< HEAD
       usuario: Prisma.$UsuarioPayload<ExtArgs> | null
+=======
+      usuario: Prisma.$UsuarioPayload<ExtArgs>
+>>>>>>> dev
       tarefa: Prisma.$TarefaPayload<ExtArgs> | null
       lista: Prisma.$ListaDeCompraPayload<ExtArgs> | null
       veiculo: Prisma.$VeiculoPayload<ExtArgs> | null
@@ -12229,10 +12326,13 @@ export namespace Prisma {
       tipo: $Enums.TipoAtividade
       acao: $Enums.AcaoAtividade
       dataHora: Date
+<<<<<<< HEAD
       usuarioId: string | null
+=======
+      usuarioId: string
+>>>>>>> dev
       tarefaId: string | null
       listaDeCompraId: string | null
-      lembreteId: string | null
       veiculoId: string | null
     }, ExtArgs["result"]["atividade"]>
     composites: {}
@@ -12313,13 +12413,13 @@ export namespace Prisma {
      * @example
      * // Get all Atividades
      * const atividades = await prisma.atividade.findMany()
-     * 
+     *
      * // Get first 10 Atividades
      * const atividades = await prisma.atividade.findMany({ take: 10 })
-     * 
+     *
      * // Only select the `id`
      * const atividadeWithIdOnly = await prisma.atividade.findMany({ select: { id: true } })
-     * 
+     *
      */
     findMany<T extends AtividadeFindManyArgs>(args?: SelectSubset<T, AtividadeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -12333,7 +12433,7 @@ export namespace Prisma {
      *     // ... data to create a Atividade
      *   }
      * })
-     * 
+     *
      */
     create<T extends AtividadeCreateArgs>(args: SelectSubset<T, AtividadeCreateArgs<ExtArgs>>): Prisma__AtividadeClient<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -12347,7 +12447,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *     
+     *
      */
     createMany<T extends AtividadeCreateManyArgs>(args?: SelectSubset<T, AtividadeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -12361,7 +12461,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Create many Atividades and only return the `id`
      * const atividadeWithIdOnly = await prisma.atividade.createManyAndReturn({
      *   select: { id: true },
@@ -12371,7 +12471,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     createManyAndReturn<T extends AtividadeCreateManyAndReturnArgs>(args?: SelectSubset<T, AtividadeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -12385,7 +12485,7 @@ export namespace Prisma {
      *     // ... filter to delete one Atividade
      *   }
      * })
-     * 
+     *
      */
     delete<T extends AtividadeDeleteArgs>(args: SelectSubset<T, AtividadeDeleteArgs<ExtArgs>>): Prisma__AtividadeClient<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -12402,7 +12502,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     update<T extends AtividadeUpdateArgs>(args: SelectSubset<T, AtividadeUpdateArgs<ExtArgs>>): Prisma__AtividadeClient<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -12416,7 +12516,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     * 
+     *
      */
     deleteMany<T extends AtividadeDeleteManyArgs>(args?: SelectSubset<T, AtividadeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -12435,7 +12535,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     * 
+     *
      */
     updateMany<T extends AtividadeUpdateManyArgs>(args: SelectSubset<T, AtividadeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -12452,7 +12552,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     * 
+     *
      * // Update zero or more Atividades and only return the `id`
      * const atividadeWithIdOnly = await prisma.atividade.updateManyAndReturn({
      *   select: { id: true },
@@ -12465,7 +12565,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * 
+     *
      */
     updateManyAndReturn<T extends AtividadeUpdateManyAndReturnArgs>(args: SelectSubset<T, AtividadeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AtividadePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -12554,7 +12654,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     * 
+     *
     **/
     groupBy<
       T extends AtividadeGroupByArgs,
@@ -12628,7 +12728,11 @@ export namespace Prisma {
    */
   export interface Prisma__AtividadeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+<<<<<<< HEAD
     usuario<T extends Atividade$usuarioArgs<ExtArgs> = {}>(args?: Subset<T, Atividade$usuarioArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+=======
+    usuario<T extends UsuarioDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UsuarioDefaultArgs<ExtArgs>>): Prisma__UsuarioClient<$Result.GetResult<Prisma.$UsuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+>>>>>>> dev
     tarefa<T extends Atividade$tarefaArgs<ExtArgs> = {}>(args?: Subset<T, Atividade$tarefaArgs<ExtArgs>>): Prisma__TarefaClient<$Result.GetResult<Prisma.$TarefaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     lista<T extends Atividade$listaArgs<ExtArgs> = {}>(args?: Subset<T, Atividade$listaArgs<ExtArgs>>): Prisma__ListaDeCompraClient<$Result.GetResult<Prisma.$ListaDeCompraPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     veiculo<T extends Atividade$veiculoArgs<ExtArgs> = {}>(args?: Subset<T, Atividade$veiculoArgs<ExtArgs>>): Prisma__VeiculoClient<$Result.GetResult<Prisma.$VeiculoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -12668,10 +12772,9 @@ export namespace Prisma {
     readonly usuarioId: FieldRef<"Atividade", 'String'>
     readonly tarefaId: FieldRef<"Atividade", 'String'>
     readonly listaDeCompraId: FieldRef<"Atividade", 'String'>
-    readonly lembreteId: FieldRef<"Atividade", 'String'>
     readonly veiculoId: FieldRef<"Atividade", 'String'>
   }
-    
+
 
   // Custom InputTypes
   /**
@@ -12740,31 +12843,31 @@ export namespace Prisma {
     where?: AtividadeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Atividades to fetch.
      */
     orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Atividades.
      */
     cursor?: AtividadeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Atividades from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Atividades.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Atividades.
      */
     distinct?: AtividadeScalarFieldEnum | AtividadeScalarFieldEnum[]
@@ -12792,31 +12895,31 @@ export namespace Prisma {
     where?: AtividadeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Atividades to fetch.
      */
     orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for searching for Atividades.
      */
     cursor?: AtividadeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Atividades from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Atividades.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
+     *
      * Filter by unique combinations of Atividades.
      */
     distinct?: AtividadeScalarFieldEnum | AtividadeScalarFieldEnum[]
@@ -12844,25 +12947,25 @@ export namespace Prisma {
     where?: AtividadeWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
+     *
      * Determine the order of Atividades to fetch.
      */
     orderBy?: AtividadeOrderByWithRelationInput | AtividadeOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
+     *
      * Sets the position for listing Atividades.
      */
     cursor?: AtividadeWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Take `±n` Atividades from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
+     *
      * Skip the first `n` Atividades.
      */
     skip?: number
@@ -13278,7 +13381,6 @@ export namespace Prisma {
     usuarioId: 'usuarioId',
     tarefaId: 'tarefaId',
     listaDeCompraId: 'listaDeCompraId',
-    lembreteId: 'lembreteId',
     veiculoId: 'veiculoId'
   };
 
@@ -13318,133 +13420,133 @@ export namespace Prisma {
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
-    
+
 
 
   /**
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
+
 
 
   /**
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'Membros'
    */
   export type EnumMembrosFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Membros'>
-    
+
 
 
   /**
    * Reference to a field of type 'Membros[]'
    */
   export type ListEnumMembrosFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Membros[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'StatusConvite'
    */
   export type EnumStatusConviteFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusConvite'>
-    
+
 
 
   /**
    * Reference to a field of type 'StatusConvite[]'
    */
   export type ListEnumStatusConviteFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'StatusConvite[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'TipoLista'
    */
   export type EnumTipoListaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoLista'>
-    
+
 
 
   /**
    * Reference to a field of type 'TipoLista[]'
    */
   export type ListEnumTipoListaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoLista[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
+
 
 
   /**
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
+
 
 
   /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
+
 
 
   /**
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'TipoAtividade'
    */
   export type EnumTipoAtividadeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoAtividade'>
-    
+
 
 
   /**
    * Reference to a field of type 'TipoAtividade[]'
    */
   export type ListEnumTipoAtividadeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoAtividade[]'>
-    
+
 
 
   /**
    * Reference to a field of type 'AcaoAtividade'
    */
   export type EnumAcaoAtividadeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AcaoAtividade'>
-    
+
 
 
   /**
    * Reference to a field of type 'AcaoAtividade[]'
    */
   export type ListEnumAcaoAtividadeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AcaoAtividade[]'>
-    
+
   /**
    * Deep Input Types
    */
@@ -13460,9 +13562,15 @@ export namespace Prisma {
     password?: StringFilter<"Usuario"> | string
     familias?: MembrosDaFamiliaListRelationFilter
     familiaInvitations?: FamiliaConviteListRelationFilter
+<<<<<<< HEAD
     tarefas?: TarefaListRelationFilter
     listaDeCompra?: ListaDeCompraListRelationFilter
     veiculos?: VeiculoListRelationFilter
+=======
+    listas?: ListaDeCompraListRelationFilter
+    veiculos?: VeiculoListRelationFilter
+    tarefas?: TarefaListRelationFilter
+>>>>>>> dev
     atividades?: AtividadeListRelationFilter
   }
 
@@ -13473,9 +13581,15 @@ export namespace Prisma {
     password?: SortOrder
     familias?: MembrosDaFamiliaOrderByRelationAggregateInput
     familiaInvitations?: FamiliaConviteOrderByRelationAggregateInput
+<<<<<<< HEAD
     tarefas?: TarefaOrderByRelationAggregateInput
     listaDeCompra?: ListaDeCompraOrderByRelationAggregateInput
     veiculos?: VeiculoOrderByRelationAggregateInput
+=======
+    listas?: ListaDeCompraOrderByRelationAggregateInput
+    veiculos?: VeiculoOrderByRelationAggregateInput
+    tarefas?: TarefaOrderByRelationAggregateInput
+>>>>>>> dev
     atividades?: AtividadeOrderByRelationAggregateInput
   }
 
@@ -13489,9 +13603,15 @@ export namespace Prisma {
     password?: StringFilter<"Usuario"> | string
     familias?: MembrosDaFamiliaListRelationFilter
     familiaInvitations?: FamiliaConviteListRelationFilter
+<<<<<<< HEAD
     tarefas?: TarefaListRelationFilter
     listaDeCompra?: ListaDeCompraListRelationFilter
     veiculos?: VeiculoListRelationFilter
+=======
+    listas?: ListaDeCompraListRelationFilter
+    veiculos?: VeiculoListRelationFilter
+    tarefas?: TarefaListRelationFilter
+>>>>>>> dev
     atividades?: AtividadeListRelationFilter
   }, "id" | "email">
 
@@ -13695,8 +13815,13 @@ export namespace Prisma {
     NOT?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
     id?: UuidFilter<"ListaDeCompra"> | string
     tipo?: EnumTipoListaFilter<"ListaDeCompra"> | $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId?: UuidNullableFilter<"ListaDeCompra"> | string | null
     usuario?: XOR<UsuarioNullableScalarRelationFilter, UsuarioWhereInput> | null
+=======
+    usuarioId?: UuidFilter<"ListaDeCompra"> | string
+    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
+>>>>>>> dev
     itens?: ItemListaDeCompraListRelationFilter
     atividades?: AtividadeListRelationFilter
   }
@@ -13704,7 +13829,11 @@ export namespace Prisma {
   export type ListaDeCompraOrderByWithRelationInput = {
     id?: SortOrder
     tipo?: SortOrder
+<<<<<<< HEAD
     usuarioId?: SortOrderInput | SortOrder
+=======
+    usuarioId?: SortOrder
+>>>>>>> dev
     usuario?: UsuarioOrderByWithRelationInput
     itens?: ItemListaDeCompraOrderByRelationAggregateInput
     atividades?: AtividadeOrderByRelationAggregateInput
@@ -13716,8 +13845,13 @@ export namespace Prisma {
     OR?: ListaDeCompraWhereInput[]
     NOT?: ListaDeCompraWhereInput | ListaDeCompraWhereInput[]
     tipo?: EnumTipoListaFilter<"ListaDeCompra"> | $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId?: UuidNullableFilter<"ListaDeCompra"> | string | null
     usuario?: XOR<UsuarioNullableScalarRelationFilter, UsuarioWhereInput> | null
+=======
+    usuarioId?: UuidFilter<"ListaDeCompra"> | string
+    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
+>>>>>>> dev
     itens?: ItemListaDeCompraListRelationFilter
     atividades?: AtividadeListRelationFilter
   }, "id">
@@ -13725,7 +13859,11 @@ export namespace Prisma {
   export type ListaDeCompraOrderByWithAggregationInput = {
     id?: SortOrder
     tipo?: SortOrder
+<<<<<<< HEAD
     usuarioId?: SortOrderInput | SortOrder
+=======
+    usuarioId?: SortOrder
+>>>>>>> dev
     _count?: ListaDeCompraCountOrderByAggregateInput
     _max?: ListaDeCompraMaxOrderByAggregateInput
     _min?: ListaDeCompraMinOrderByAggregateInput
@@ -13737,7 +13875,11 @@ export namespace Prisma {
     NOT?: ListaDeCompraScalarWhereWithAggregatesInput | ListaDeCompraScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"ListaDeCompra"> | string
     tipo?: EnumTipoListaWithAggregatesFilter<"ListaDeCompra"> | $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId?: UuidNullableWithAggregatesFilter<"ListaDeCompra"> | string | null
+=======
+    usuarioId?: UuidWithAggregatesFilter<"ListaDeCompra"> | string
+>>>>>>> dev
   }
 
   export type ItemListaDeCompraWhereInput = {
@@ -13983,12 +14125,19 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFilter<"Atividade"> | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFilter<"Atividade"> | $Enums.AcaoAtividade
     dataHora?: DateTimeFilter<"Atividade"> | Date | string
+<<<<<<< HEAD
     usuarioId?: UuidNullableFilter<"Atividade"> | string | null
+=======
+    usuarioId?: UuidFilter<"Atividade"> | string
+>>>>>>> dev
     tarefaId?: UuidNullableFilter<"Atividade"> | string | null
     listaDeCompraId?: UuidNullableFilter<"Atividade"> | string | null
-    lembreteId?: UuidNullableFilter<"Atividade"> | string | null
     veiculoId?: UuidNullableFilter<"Atividade"> | string | null
+<<<<<<< HEAD
     usuario?: XOR<UsuarioNullableScalarRelationFilter, UsuarioWhereInput> | null
+=======
+    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
+>>>>>>> dev
     tarefa?: XOR<TarefaNullableScalarRelationFilter, TarefaWhereInput> | null
     lista?: XOR<ListaDeCompraNullableScalarRelationFilter, ListaDeCompraWhereInput> | null
     veiculo?: XOR<VeiculoNullableScalarRelationFilter, VeiculoWhereInput> | null
@@ -13999,10 +14148,13 @@ export namespace Prisma {
     tipo?: SortOrder
     acao?: SortOrder
     dataHora?: SortOrder
+<<<<<<< HEAD
     usuarioId?: SortOrderInput | SortOrder
+=======
+    usuarioId?: SortOrder
+>>>>>>> dev
     tarefaId?: SortOrderInput | SortOrder
     listaDeCompraId?: SortOrderInput | SortOrder
-    lembreteId?: SortOrderInput | SortOrder
     veiculoId?: SortOrderInput | SortOrder
     usuario?: UsuarioOrderByWithRelationInput
     tarefa?: TarefaOrderByWithRelationInput
@@ -14018,12 +14170,19 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFilter<"Atividade"> | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFilter<"Atividade"> | $Enums.AcaoAtividade
     dataHora?: DateTimeFilter<"Atividade"> | Date | string
+<<<<<<< HEAD
     usuarioId?: UuidNullableFilter<"Atividade"> | string | null
+=======
+    usuarioId?: UuidFilter<"Atividade"> | string
+>>>>>>> dev
     tarefaId?: UuidNullableFilter<"Atividade"> | string | null
     listaDeCompraId?: UuidNullableFilter<"Atividade"> | string | null
-    lembreteId?: UuidNullableFilter<"Atividade"> | string | null
     veiculoId?: UuidNullableFilter<"Atividade"> | string | null
+<<<<<<< HEAD
     usuario?: XOR<UsuarioNullableScalarRelationFilter, UsuarioWhereInput> | null
+=======
+    usuario?: XOR<UsuarioScalarRelationFilter, UsuarioWhereInput>
+>>>>>>> dev
     tarefa?: XOR<TarefaNullableScalarRelationFilter, TarefaWhereInput> | null
     lista?: XOR<ListaDeCompraNullableScalarRelationFilter, ListaDeCompraWhereInput> | null
     veiculo?: XOR<VeiculoNullableScalarRelationFilter, VeiculoWhereInput> | null
@@ -14034,10 +14193,13 @@ export namespace Prisma {
     tipo?: SortOrder
     acao?: SortOrder
     dataHora?: SortOrder
+<<<<<<< HEAD
     usuarioId?: SortOrderInput | SortOrder
+=======
+    usuarioId?: SortOrder
+>>>>>>> dev
     tarefaId?: SortOrderInput | SortOrder
     listaDeCompraId?: SortOrderInput | SortOrder
-    lembreteId?: SortOrderInput | SortOrder
     veiculoId?: SortOrderInput | SortOrder
     _count?: AtividadeCountOrderByAggregateInput
     _max?: AtividadeMaxOrderByAggregateInput
@@ -14052,10 +14214,13 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeWithAggregatesFilter<"Atividade"> | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeWithAggregatesFilter<"Atividade"> | $Enums.AcaoAtividade
     dataHora?: DateTimeWithAggregatesFilter<"Atividade"> | Date | string
+<<<<<<< HEAD
     usuarioId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
+=======
+    usuarioId?: UuidWithAggregatesFilter<"Atividade"> | string
+>>>>>>> dev
     tarefaId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
     listaDeCompraId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
-    lembreteId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
     veiculoId?: UuidNullableWithAggregatesFilter<"Atividade"> | string | null
   }
 
@@ -14066,9 +14231,15 @@ export namespace Prisma {
     password: string
     familias?: MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput
     familiaInvitations?: FamiliaConviteCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
     listaDeCompra?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
     veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+=======
+    listas?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
+    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
+>>>>>>> dev
     atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
   }
 
@@ -14079,9 +14250,15 @@ export namespace Prisma {
     password: string
     familias?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput
     familiaInvitations?: FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
     listaDeCompra?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
     veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+=======
+    listas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
+    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
+>>>>>>> dev
     atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
@@ -14092,9 +14269,15 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     familias?: MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput
     familiaInvitations?: FamiliaConviteUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
     listaDeCompra?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
     veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+=======
+    listas?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
+    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
+>>>>>>> dev
     atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
   }
 
@@ -14105,9 +14288,15 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     familias?: MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput
     familiaInvitations?: FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
     listaDeCompra?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
     veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
+=======
+    listas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
+    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
+>>>>>>> dev
     atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
@@ -14307,7 +14496,11 @@ export namespace Prisma {
   export type ListaDeCompraCreateInput = {
     id?: string
     tipo: $Enums.TipoLista
+<<<<<<< HEAD
     usuario?: UsuarioCreateNestedOneWithoutListaDeCompraInput
+=======
+    usuario: UsuarioCreateNestedOneWithoutListasInput
+>>>>>>> dev
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
     atividades?: AtividadeCreateNestedManyWithoutListaInput
   }
@@ -14315,7 +14508,11 @@ export namespace Prisma {
   export type ListaDeCompraUncheckedCreateInput = {
     id?: string
     tipo: $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId?: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
     atividades?: AtividadeUncheckedCreateNestedManyWithoutListaInput
   }
@@ -14323,7 +14520,11 @@ export namespace Prisma {
   export type ListaDeCompraUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
+<<<<<<< HEAD
     usuario?: UsuarioUpdateOneWithoutListaDeCompraNestedInput
+=======
+    usuario?: UsuarioUpdateOneRequiredWithoutListasNestedInput
+>>>>>>> dev
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
     atividades?: AtividadeUpdateManyWithoutListaNestedInput
   }
@@ -14331,7 +14532,11 @@ export namespace Prisma {
   export type ListaDeCompraUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+    usuarioId?: StringFieldUpdateOperationsInput | string
+>>>>>>> dev
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
     atividades?: AtividadeUncheckedUpdateManyWithoutListaNestedInput
   }
@@ -14339,7 +14544,11 @@ export namespace Prisma {
   export type ListaDeCompraCreateManyInput = {
     id?: string
     tipo: $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId?: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
   }
 
   export type ListaDeCompraUpdateManyMutationInput = {
@@ -14350,7 +14559,11 @@ export namespace Prisma {
   export type ListaDeCompraUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+    usuarioId?: StringFieldUpdateOperationsInput | string
+>>>>>>> dev
   }
 
   export type ItemListaDeCompraCreateInput = {
@@ -14590,8 +14803,12 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
+<<<<<<< HEAD
     lembreteId?: string | null
     usuario?: UsuarioCreateNestedOneWithoutAtividadesInput
+=======
+    usuario: UsuarioCreateNestedOneWithoutAtividadesInput
+>>>>>>> dev
     tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
     lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
     veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
@@ -14602,10 +14819,13 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
+<<<<<<< HEAD
     usuarioId?: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
     tarefaId?: string | null
     listaDeCompraId?: string | null
-    lembreteId?: string | null
     veiculoId?: string | null
   }
 
@@ -14614,8 +14834,12 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     usuario?: UsuarioUpdateOneWithoutAtividadesNestedInput
+=======
+    usuario?: UsuarioUpdateOneRequiredWithoutAtividadesNestedInput
+>>>>>>> dev
     tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
     lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
     veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
@@ -14626,10 +14850,13 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+    usuarioId?: StringFieldUpdateOperationsInput | string
+>>>>>>> dev
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
-    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -14638,10 +14865,13 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
+<<<<<<< HEAD
     usuarioId?: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
     tarefaId?: string | null
     listaDeCompraId?: string | null
-    lembreteId?: string | null
     veiculoId?: string | null
   }
 
@@ -14658,10 +14888,13 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+    usuarioId?: StringFieldUpdateOperationsInput | string
+>>>>>>> dev
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
-    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -14702,12 +14935,15 @@ export namespace Prisma {
     every?: FamiliaConviteWhereInput
     some?: FamiliaConviteWhereInput
     none?: FamiliaConviteWhereInput
+<<<<<<< HEAD
   }
 
   export type TarefaListRelationFilter = {
     every?: TarefaWhereInput
     some?: TarefaWhereInput
     none?: TarefaWhereInput
+=======
+>>>>>>> dev
   }
 
   export type ListaDeCompraListRelationFilter = {
@@ -14728,15 +14964,27 @@ export namespace Prisma {
     none?: AtividadeWhereInput
   }
 
+<<<<<<< HEAD
+=======
+  export type AtividadeListRelationFilter = {
+    every?: AtividadeWhereInput
+    some?: AtividadeWhereInput
+    none?: AtividadeWhereInput
+  }
+
+>>>>>>> dev
   export type MembrosDaFamiliaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type FamiliaConviteOrderByRelationAggregateInput = {
+<<<<<<< HEAD
     _count?: SortOrder
   }
 
   export type TarefaOrderByRelationAggregateInput = {
+=======
+>>>>>>> dev
     _count?: SortOrder
   }
 
@@ -14745,6 +14993,10 @@ export namespace Prisma {
   }
 
   export type VeiculoOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AtividadeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14959,6 +15211,7 @@ export namespace Prisma {
     not?: NestedEnumTipoListaFilter<$PrismaModel> | $Enums.TipoLista
   }
 
+<<<<<<< HEAD
   export type UuidNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -14971,17 +15224,22 @@ export namespace Prisma {
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
+=======
+>>>>>>> dev
   export type ItemListaDeCompraListRelationFilter = {
     every?: ItemListaDeCompraWhereInput
     some?: ItemListaDeCompraWhereInput
     none?: ItemListaDeCompraWhereInput
   }
 
+<<<<<<< HEAD
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
   }
 
+=======
+>>>>>>> dev
   export type ItemListaDeCompraOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -15014,6 +15272,7 @@ export namespace Prisma {
     _max?: NestedEnumTipoListaFilter<$PrismaModel>
   }
 
+<<<<<<< HEAD
   export type UuidNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -15029,6 +15288,8 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+=======
+>>>>>>> dev
   export type IntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -15048,6 +15309,11 @@ export namespace Prisma {
   export type ListaDeCompraScalarRelationFilter = {
     is?: ListaDeCompraWhereInput
     isNot?: ListaDeCompraWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type ItemListaDeCompraCountOrderByAggregateInput = {
@@ -15306,7 +15572,6 @@ export namespace Prisma {
     usuarioId?: SortOrder
     tarefaId?: SortOrder
     listaDeCompraId?: SortOrder
-    lembreteId?: SortOrder
     veiculoId?: SortOrder
   }
 
@@ -15318,7 +15583,6 @@ export namespace Prisma {
     usuarioId?: SortOrder
     tarefaId?: SortOrder
     listaDeCompraId?: SortOrder
-    lembreteId?: SortOrder
     veiculoId?: SortOrder
   }
 
@@ -15330,7 +15594,6 @@ export namespace Prisma {
     usuarioId?: SortOrder
     tarefaId?: SortOrder
     listaDeCompraId?: SortOrder
-    lembreteId?: SortOrder
     veiculoId?: SortOrder
   }
 
@@ -15361,6 +15624,7 @@ export namespace Prisma {
     connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
   }
 
+<<<<<<< HEAD
   export type FamiliaConviteCreateNestedManyWithoutUsuarioInput = {
     create?: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput> | FamiliaConviteCreateWithoutUsuarioInput[] | FamiliaConviteUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: FamiliaConviteCreateOrConnectWithoutUsuarioInput | FamiliaConviteCreateOrConnectWithoutUsuarioInput[]
@@ -15373,6 +15637,20 @@ export namespace Prisma {
     connectOrCreate?: TarefaCreateOrConnectWithoutUsuarioInput | TarefaCreateOrConnectWithoutUsuarioInput[]
     createMany?: TarefaCreateManyUsuarioInputEnvelope
     connect?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
+=======
+  export type MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<MembrosDaFamiliaCreateWithoutUsuarioInput, MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput> | MembrosDaFamiliaCreateWithoutUsuarioInput[] | MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput | MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput[]
+    createMany?: MembrosDaFamiliaCreateManyUsuarioInputEnvelope
+    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
+  }
+
+  export type FamiliaConviteCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput> | FamiliaConviteCreateWithoutUsuarioInput[] | FamiliaConviteUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutUsuarioInput | FamiliaConviteCreateOrConnectWithoutUsuarioInput[]
+    createMany?: FamiliaConviteCreateManyUsuarioInputEnvelope
+    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
+>>>>>>> dev
   }
 
   export type ListaDeCompraCreateNestedManyWithoutUsuarioInput = {
@@ -15417,6 +15695,30 @@ export namespace Prisma {
     connect?: TarefaWhereUniqueInput | TarefaWhereUniqueInput[]
   }
 
+<<<<<<< HEAD
+=======
+  export type AtividadeCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<AtividadeCreateWithoutUsuarioInput, AtividadeUncheckedCreateWithoutUsuarioInput> | AtividadeCreateWithoutUsuarioInput[] | AtividadeUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutUsuarioInput | AtividadeCreateOrConnectWithoutUsuarioInput[]
+    createMany?: AtividadeCreateManyUsuarioInputEnvelope
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+  }
+
+  export type MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<MembrosDaFamiliaCreateWithoutUsuarioInput, MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput> | MembrosDaFamiliaCreateWithoutUsuarioInput[] | MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput | MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput[]
+    createMany?: MembrosDaFamiliaCreateManyUsuarioInputEnvelope
+    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
+  }
+
+  export type FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput> | FamiliaConviteCreateWithoutUsuarioInput[] | FamiliaConviteUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutUsuarioInput | FamiliaConviteCreateOrConnectWithoutUsuarioInput[]
+    createMany?: FamiliaConviteCreateManyUsuarioInputEnvelope
+    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
+  }
+
+>>>>>>> dev
   export type ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput = {
     create?: XOR<ListaDeCompraCreateWithoutUsuarioInput, ListaDeCompraUncheckedCreateWithoutUsuarioInput> | ListaDeCompraCreateWithoutUsuarioInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioInput | ListaDeCompraCreateOrConnectWithoutUsuarioInput[]
@@ -15429,6 +15731,13 @@ export namespace Prisma {
     connectOrCreate?: VeiculoCreateOrConnectWithoutUsuarioInput | VeiculoCreateOrConnectWithoutUsuarioInput[]
     createMany?: VeiculoCreateManyUsuarioInputEnvelope
     connect?: VeiculoWhereUniqueInput | VeiculoWhereUniqueInput[]
+  }
+
+  export type AtividadeUncheckedCreateNestedManyWithoutUsuarioInput = {
+    create?: XOR<AtividadeCreateWithoutUsuarioInput, AtividadeUncheckedCreateWithoutUsuarioInput> | AtividadeCreateWithoutUsuarioInput[] | AtividadeUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutUsuarioInput | AtividadeCreateOrConnectWithoutUsuarioInput[]
+    createMany?: AtividadeCreateManyUsuarioInputEnvelope
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
   }
 
   export type AtividadeUncheckedCreateNestedManyWithoutUsuarioInput = {
@@ -15470,6 +15779,7 @@ export namespace Prisma {
     deleteMany?: FamiliaConviteScalarWhereInput | FamiliaConviteScalarWhereInput[]
   }
 
+<<<<<<< HEAD
   export type TarefaUpdateManyWithoutUsuarioNestedInput = {
     create?: XOR<TarefaCreateWithoutUsuarioInput, TarefaUncheckedCreateWithoutUsuarioInput> | TarefaCreateWithoutUsuarioInput[] | TarefaUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: TarefaCreateOrConnectWithoutUsuarioInput | TarefaCreateOrConnectWithoutUsuarioInput[]
@@ -15484,6 +15794,8 @@ export namespace Prisma {
     deleteMany?: TarefaScalarWhereInput | TarefaScalarWhereInput[]
   }
 
+=======
+>>>>>>> dev
   export type ListaDeCompraUpdateManyWithoutUsuarioNestedInput = {
     create?: XOR<ListaDeCompraCreateWithoutUsuarioInput, ListaDeCompraUncheckedCreateWithoutUsuarioInput> | ListaDeCompraCreateWithoutUsuarioInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioInput | ListaDeCompraCreateOrConnectWithoutUsuarioInput[]
@@ -15568,6 +15880,51 @@ export namespace Prisma {
     deleteMany?: TarefaScalarWhereInput | TarefaScalarWhereInput[]
   }
 
+<<<<<<< HEAD
+=======
+  export type AtividadeUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<AtividadeCreateWithoutUsuarioInput, AtividadeUncheckedCreateWithoutUsuarioInput> | AtividadeCreateWithoutUsuarioInput[] | AtividadeUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutUsuarioInput | AtividadeCreateOrConnectWithoutUsuarioInput[]
+    upsert?: AtividadeUpsertWithWhereUniqueWithoutUsuarioInput | AtividadeUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: AtividadeCreateManyUsuarioInputEnvelope
+    set?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    disconnect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    delete?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    update?: AtividadeUpdateWithWhereUniqueWithoutUsuarioInput | AtividadeUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: AtividadeUpdateManyWithWhereWithoutUsuarioInput | AtividadeUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+  }
+
+  export type MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<MembrosDaFamiliaCreateWithoutUsuarioInput, MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput> | MembrosDaFamiliaCreateWithoutUsuarioInput[] | MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput | MembrosDaFamiliaCreateOrConnectWithoutUsuarioInput[]
+    upsert?: MembrosDaFamiliaUpsertWithWhereUniqueWithoutUsuarioInput | MembrosDaFamiliaUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: MembrosDaFamiliaCreateManyUsuarioInputEnvelope
+    set?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
+    disconnect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
+    delete?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
+    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
+    update?: MembrosDaFamiliaUpdateWithWhereUniqueWithoutUsuarioInput | MembrosDaFamiliaUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: MembrosDaFamiliaUpdateManyWithWhereWithoutUsuarioInput | MembrosDaFamiliaUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: MembrosDaFamiliaScalarWhereInput | MembrosDaFamiliaScalarWhereInput[]
+  }
+
+  export type FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput> | FamiliaConviteCreateWithoutUsuarioInput[] | FamiliaConviteUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutUsuarioInput | FamiliaConviteCreateOrConnectWithoutUsuarioInput[]
+    upsert?: FamiliaConviteUpsertWithWhereUniqueWithoutUsuarioInput | FamiliaConviteUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: FamiliaConviteCreateManyUsuarioInputEnvelope
+    set?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
+    disconnect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
+    delete?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
+    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
+    update?: FamiliaConviteUpdateWithWhereUniqueWithoutUsuarioInput | FamiliaConviteUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: FamiliaConviteUpdateManyWithWhereWithoutUsuarioInput | FamiliaConviteUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: FamiliaConviteScalarWhereInput | FamiliaConviteScalarWhereInput[]
+  }
+
+>>>>>>> dev
   export type ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput = {
     create?: XOR<ListaDeCompraCreateWithoutUsuarioInput, ListaDeCompraUncheckedCreateWithoutUsuarioInput> | ListaDeCompraCreateWithoutUsuarioInput[] | ListaDeCompraUncheckedCreateWithoutUsuarioInput[]
     connectOrCreate?: ListaDeCompraCreateOrConnectWithoutUsuarioInput | ListaDeCompraCreateOrConnectWithoutUsuarioInput[]
@@ -15610,6 +15967,7 @@ export namespace Prisma {
     deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
   }
 
+<<<<<<< HEAD
   export type MembrosDaFamiliaCreateNestedManyWithoutFamiliaInput = {
     create?: XOR<MembrosDaFamiliaCreateWithoutFamiliaInput, MembrosDaFamiliaUncheckedCreateWithoutFamiliaInput> | MembrosDaFamiliaCreateWithoutFamiliaInput[] | MembrosDaFamiliaUncheckedCreateWithoutFamiliaInput[]
     connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutFamiliaInput | MembrosDaFamiliaCreateOrConnectWithoutFamiliaInput[]
@@ -15638,6 +15996,50 @@ export namespace Prisma {
     connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
   }
 
+=======
+  export type AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput = {
+    create?: XOR<AtividadeCreateWithoutUsuarioInput, AtividadeUncheckedCreateWithoutUsuarioInput> | AtividadeCreateWithoutUsuarioInput[] | AtividadeUncheckedCreateWithoutUsuarioInput[]
+    connectOrCreate?: AtividadeCreateOrConnectWithoutUsuarioInput | AtividadeCreateOrConnectWithoutUsuarioInput[]
+    upsert?: AtividadeUpsertWithWhereUniqueWithoutUsuarioInput | AtividadeUpsertWithWhereUniqueWithoutUsuarioInput[]
+    createMany?: AtividadeCreateManyUsuarioInputEnvelope
+    set?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    disconnect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    delete?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
+    update?: AtividadeUpdateWithWhereUniqueWithoutUsuarioInput | AtividadeUpdateWithWhereUniqueWithoutUsuarioInput[]
+    updateMany?: AtividadeUpdateManyWithWhereWithoutUsuarioInput | AtividadeUpdateManyWithWhereWithoutUsuarioInput[]
+    deleteMany?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+  }
+
+  export type MembrosDaFamiliaCreateNestedManyWithoutFamiliaInput = {
+    create?: XOR<MembrosDaFamiliaCreateWithoutFamiliaInput, MembrosDaFamiliaUncheckedCreateWithoutFamiliaInput> | MembrosDaFamiliaCreateWithoutFamiliaInput[] | MembrosDaFamiliaUncheckedCreateWithoutFamiliaInput[]
+    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutFamiliaInput | MembrosDaFamiliaCreateOrConnectWithoutFamiliaInput[]
+    createMany?: MembrosDaFamiliaCreateManyFamiliaInputEnvelope
+    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
+  }
+
+  export type FamiliaConviteCreateNestedManyWithoutFamiliaInput = {
+    create?: XOR<FamiliaConviteCreateWithoutFamiliaInput, FamiliaConviteUncheckedCreateWithoutFamiliaInput> | FamiliaConviteCreateWithoutFamiliaInput[] | FamiliaConviteUncheckedCreateWithoutFamiliaInput[]
+    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutFamiliaInput | FamiliaConviteCreateOrConnectWithoutFamiliaInput[]
+    createMany?: FamiliaConviteCreateManyFamiliaInputEnvelope
+    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
+  }
+
+  export type MembrosDaFamiliaUncheckedCreateNestedManyWithoutFamiliaInput = {
+    create?: XOR<MembrosDaFamiliaCreateWithoutFamiliaInput, MembrosDaFamiliaUncheckedCreateWithoutFamiliaInput> | MembrosDaFamiliaCreateWithoutFamiliaInput[] | MembrosDaFamiliaUncheckedCreateWithoutFamiliaInput[]
+    connectOrCreate?: MembrosDaFamiliaCreateOrConnectWithoutFamiliaInput | MembrosDaFamiliaCreateOrConnectWithoutFamiliaInput[]
+    createMany?: MembrosDaFamiliaCreateManyFamiliaInputEnvelope
+    connect?: MembrosDaFamiliaWhereUniqueInput | MembrosDaFamiliaWhereUniqueInput[]
+  }
+
+  export type FamiliaConviteUncheckedCreateNestedManyWithoutFamiliaInput = {
+    create?: XOR<FamiliaConviteCreateWithoutFamiliaInput, FamiliaConviteUncheckedCreateWithoutFamiliaInput> | FamiliaConviteCreateWithoutFamiliaInput[] | FamiliaConviteUncheckedCreateWithoutFamiliaInput[]
+    connectOrCreate?: FamiliaConviteCreateOrConnectWithoutFamiliaInput | FamiliaConviteCreateOrConnectWithoutFamiliaInput[]
+    createMany?: FamiliaConviteCreateManyFamiliaInputEnvelope
+    connect?: FamiliaConviteWhereUniqueInput | FamiliaConviteWhereUniqueInput[]
+  }
+
+>>>>>>> dev
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
@@ -15764,9 +16166,15 @@ export namespace Prisma {
     update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutFamiliaInvitationsInput, UsuarioUpdateWithoutFamiliaInvitationsInput>, UsuarioUncheckedUpdateWithoutFamiliaInvitationsInput>
   }
 
+<<<<<<< HEAD
   export type UsuarioCreateNestedOneWithoutListaDeCompraInput = {
     create?: XOR<UsuarioCreateWithoutListaDeCompraInput, UsuarioUncheckedCreateWithoutListaDeCompraInput>
     connectOrCreate?: UsuarioCreateOrConnectWithoutListaDeCompraInput
+=======
+  export type UsuarioCreateNestedOneWithoutListasInput = {
+    create?: XOR<UsuarioCreateWithoutListasInput, UsuarioUncheckedCreateWithoutListasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutListasInput
+>>>>>>> dev
     connect?: UsuarioWhereUniqueInput
   }
 
@@ -15802,6 +16210,7 @@ export namespace Prisma {
     set?: $Enums.TipoLista
   }
 
+<<<<<<< HEAD
   export type UsuarioUpdateOneWithoutListaDeCompraNestedInput = {
     create?: XOR<UsuarioCreateWithoutListaDeCompraInput, UsuarioUncheckedCreateWithoutListaDeCompraInput>
     connectOrCreate?: UsuarioCreateOrConnectWithoutListaDeCompraInput
@@ -15810,6 +16219,14 @@ export namespace Prisma {
     delete?: UsuarioWhereInput | boolean
     connect?: UsuarioWhereUniqueInput
     update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutListaDeCompraInput, UsuarioUpdateWithoutListaDeCompraInput>, UsuarioUncheckedUpdateWithoutListaDeCompraInput>
+=======
+  export type UsuarioUpdateOneRequiredWithoutListasNestedInput = {
+    create?: XOR<UsuarioCreateWithoutListasInput, UsuarioUncheckedCreateWithoutListasInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutListasInput
+    upsert?: UsuarioUpsertWithoutListasInput
+    connect?: UsuarioWhereUniqueInput
+    update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutListasInput, UsuarioUpdateWithoutListasInput>, UsuarioUncheckedUpdateWithoutListasInput>
+>>>>>>> dev
   }
 
   export type ItemListaDeCompraUpdateManyWithoutListaNestedInput = {
@@ -15932,6 +16349,13 @@ export namespace Prisma {
     connect?: AtividadeWhereUniqueInput | AtividadeWhereUniqueInput[]
   }
 
+<<<<<<< HEAD
+=======
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+>>>>>>> dev
   export type UsuarioUpdateOneRequiredWithoutVeiculosNestedInput = {
     create?: XOR<UsuarioCreateWithoutVeiculosInput, UsuarioUncheckedCreateWithoutVeiculosInput>
     connectOrCreate?: UsuarioCreateOrConnectWithoutVeiculosInput
@@ -16106,12 +16530,19 @@ export namespace Prisma {
     set?: $Enums.AcaoAtividade
   }
 
+<<<<<<< HEAD
   export type UsuarioUpdateOneWithoutAtividadesNestedInput = {
     create?: XOR<UsuarioCreateWithoutAtividadesInput, UsuarioUncheckedCreateWithoutAtividadesInput>
     connectOrCreate?: UsuarioCreateOrConnectWithoutAtividadesInput
     upsert?: UsuarioUpsertWithoutAtividadesInput
     disconnect?: UsuarioWhereInput | boolean
     delete?: UsuarioWhereInput | boolean
+=======
+  export type UsuarioUpdateOneRequiredWithoutAtividadesNestedInput = {
+    create?: XOR<UsuarioCreateWithoutAtividadesInput, UsuarioUncheckedCreateWithoutAtividadesInput>
+    connectOrCreate?: UsuarioCreateOrConnectWithoutAtividadesInput
+    upsert?: UsuarioUpsertWithoutAtividadesInput
+>>>>>>> dev
     connect?: UsuarioWhereUniqueInput
     update?: XOR<XOR<UsuarioUpdateToOneWithWhereWithoutAtividadesInput, UsuarioUpdateWithoutAtividadesInput>, UsuarioUncheckedUpdateWithoutAtividadesInput>
   }
@@ -16279,6 +16710,7 @@ export namespace Prisma {
     not?: NestedEnumTipoListaFilter<$PrismaModel> | $Enums.TipoLista
   }
 
+<<<<<<< HEAD
   export type NestedUuidNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16290,6 +16722,8 @@ export namespace Prisma {
     not?: NestedUuidNullableFilter<$PrismaModel> | string | null
   }
 
+=======
+>>>>>>> dev
   export type NestedEnumTipoListaWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.TipoLista | EnumTipoListaFieldRefInput<$PrismaModel>
     in?: $Enums.TipoLista[] | ListEnumTipoListaFieldRefInput<$PrismaModel>
@@ -16300,6 +16734,7 @@ export namespace Prisma {
     _max?: NestedEnumTipoListaFilter<$PrismaModel>
   }
 
+<<<<<<< HEAD
   export type NestedUuidNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16314,6 +16749,8 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+=======
+>>>>>>> dev
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -16325,6 +16762,7 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+<<<<<<< HEAD
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16339,6 +16777,8 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+=======
+>>>>>>> dev
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -16379,6 +16819,23 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+<<<<<<< HEAD
+=======
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+>>>>>>> dev
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16453,6 +16910,13 @@ export namespace Prisma {
     familia: FamiliaCreateNestedOneWithoutMembrosInput
   }
 
+  export type MembrosDaFamiliaCreateWithoutUsuarioInput = {
+    id?: string
+    rotulo?: $Enums.Membros
+    createdAt?: Date | string
+    familia: FamiliaCreateNestedOneWithoutMembrosInput
+  }
+
   export type MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput = {
     id?: string
     id_familia: string
@@ -16493,6 +16957,63 @@ export namespace Prisma {
 
   export type FamiliaConviteCreateManyUsuarioInputEnvelope = {
     data: FamiliaConviteCreateManyUsuarioInput | FamiliaConviteCreateManyUsuarioInput[]
+<<<<<<< HEAD
+=======
+    skipDuplicates?: boolean
+  }
+
+  export type ListaDeCompraCreateWithoutUsuarioInput = {
+    id?: string
+    tipo: $Enums.TipoLista
+    itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
+    atividades?: AtividadeCreateNestedManyWithoutListaInput
+  }
+
+  export type ListaDeCompraUncheckedCreateWithoutUsuarioInput = {
+    id?: string
+    tipo: $Enums.TipoLista
+    itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutListaInput
+  }
+
+  export type ListaDeCompraCreateOrConnectWithoutUsuarioInput = {
+    where: ListaDeCompraWhereUniqueInput
+    create: XOR<ListaDeCompraCreateWithoutUsuarioInput, ListaDeCompraUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type ListaDeCompraCreateManyUsuarioInputEnvelope = {
+    data: ListaDeCompraCreateManyUsuarioInput | ListaDeCompraCreateManyUsuarioInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type VeiculoCreateWithoutUsuarioInput = {
+    id?: string
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
+    placa: string
+    manutencoes?: RegistroDeManutencaoCreateNestedManyWithoutVeiculoInput
+    atividades?: AtividadeCreateNestedManyWithoutVeiculoInput
+  }
+
+  export type VeiculoUncheckedCreateWithoutUsuarioInput = {
+    id?: string
+    marca?: string | null
+    modelo?: string | null
+    ano?: number | null
+    placa: string
+    manutencoes?: RegistroDeManutencaoUncheckedCreateNestedManyWithoutVeiculoInput
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutVeiculoInput
+  }
+
+  export type VeiculoCreateOrConnectWithoutUsuarioInput = {
+    where: VeiculoWhereUniqueInput
+    create: XOR<VeiculoCreateWithoutUsuarioInput, VeiculoUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type VeiculoCreateManyUsuarioInputEnvelope = {
+    data: VeiculoCreateManyUsuarioInput | VeiculoCreateManyUsuarioInput[]
+>>>>>>> dev
     skipDuplicates?: boolean
   }
 
@@ -16520,6 +17041,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+<<<<<<< HEAD
   export type ListaDeCompraCreateWithoutUsuarioInput = {
     id?: string
     tipo: $Enums.TipoLista
@@ -16698,6 +17220,104 @@ export namespace Prisma {
     data: XOR<ListaDeCompraUpdateWithoutUsuarioInput, ListaDeCompraUncheckedUpdateWithoutUsuarioInput>
   }
 
+=======
+  export type AtividadeCreateWithoutUsuarioInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    dataHora?: Date | string
+    tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
+    lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
+    veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
+  }
+
+  export type AtividadeUncheckedCreateWithoutUsuarioInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    dataHora?: Date | string
+    tarefaId?: string | null
+    listaDeCompraId?: string | null
+    veiculoId?: string | null
+  }
+
+  export type AtividadeCreateOrConnectWithoutUsuarioInput = {
+    where: AtividadeWhereUniqueInput
+    create: XOR<AtividadeCreateWithoutUsuarioInput, AtividadeUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type AtividadeCreateManyUsuarioInputEnvelope = {
+    data: AtividadeCreateManyUsuarioInput | AtividadeCreateManyUsuarioInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MembrosDaFamiliaUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: MembrosDaFamiliaWhereUniqueInput
+    update: XOR<MembrosDaFamiliaUpdateWithoutUsuarioInput, MembrosDaFamiliaUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<MembrosDaFamiliaCreateWithoutUsuarioInput, MembrosDaFamiliaUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type MembrosDaFamiliaUpdateWithWhereUniqueWithoutUsuarioInput = {
+    where: MembrosDaFamiliaWhereUniqueInput
+    data: XOR<MembrosDaFamiliaUpdateWithoutUsuarioInput, MembrosDaFamiliaUncheckedUpdateWithoutUsuarioInput>
+  }
+
+  export type MembrosDaFamiliaUpdateManyWithWhereWithoutUsuarioInput = {
+    where: MembrosDaFamiliaScalarWhereInput
+    data: XOR<MembrosDaFamiliaUpdateManyMutationInput, MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioInput>
+  }
+
+  export type MembrosDaFamiliaScalarWhereInput = {
+    AND?: MembrosDaFamiliaScalarWhereInput | MembrosDaFamiliaScalarWhereInput[]
+    OR?: MembrosDaFamiliaScalarWhereInput[]
+    NOT?: MembrosDaFamiliaScalarWhereInput | MembrosDaFamiliaScalarWhereInput[]
+    id?: UuidFilter<"MembrosDaFamilia"> | string
+    id_usuario?: UuidFilter<"MembrosDaFamilia"> | string
+    id_familia?: UuidFilter<"MembrosDaFamilia"> | string
+    rotulo?: EnumMembrosFilter<"MembrosDaFamilia"> | $Enums.Membros
+    createdAt?: DateTimeFilter<"MembrosDaFamilia"> | Date | string
+  }
+
+  export type FamiliaConviteUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: FamiliaConviteWhereUniqueInput
+    update: XOR<FamiliaConviteUpdateWithoutUsuarioInput, FamiliaConviteUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<FamiliaConviteCreateWithoutUsuarioInput, FamiliaConviteUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type FamiliaConviteUpdateWithWhereUniqueWithoutUsuarioInput = {
+    where: FamiliaConviteWhereUniqueInput
+    data: XOR<FamiliaConviteUpdateWithoutUsuarioInput, FamiliaConviteUncheckedUpdateWithoutUsuarioInput>
+  }
+
+  export type FamiliaConviteUpdateManyWithWhereWithoutUsuarioInput = {
+    where: FamiliaConviteScalarWhereInput
+    data: XOR<FamiliaConviteUpdateManyMutationInput, FamiliaConviteUncheckedUpdateManyWithoutUsuarioInput>
+  }
+
+  export type FamiliaConviteScalarWhereInput = {
+    AND?: FamiliaConviteScalarWhereInput | FamiliaConviteScalarWhereInput[]
+    OR?: FamiliaConviteScalarWhereInput[]
+    NOT?: FamiliaConviteScalarWhereInput | FamiliaConviteScalarWhereInput[]
+    id?: UuidFilter<"FamiliaConvite"> | string
+    familiaId?: UuidFilter<"FamiliaConvite"> | string
+    email?: StringFilter<"FamiliaConvite"> | string
+    status?: EnumStatusConviteFilter<"FamiliaConvite"> | $Enums.StatusConvite
+    createdAt?: DateTimeFilter<"FamiliaConvite"> | Date | string
+    updatedAt?: DateTimeFilter<"FamiliaConvite"> | Date | string
+  }
+
+  export type ListaDeCompraUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: ListaDeCompraWhereUniqueInput
+    update: XOR<ListaDeCompraUpdateWithoutUsuarioInput, ListaDeCompraUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<ListaDeCompraCreateWithoutUsuarioInput, ListaDeCompraUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type ListaDeCompraUpdateWithWhereUniqueWithoutUsuarioInput = {
+    where: ListaDeCompraWhereUniqueInput
+    data: XOR<ListaDeCompraUpdateWithoutUsuarioInput, ListaDeCompraUncheckedUpdateWithoutUsuarioInput>
+  }
+
+>>>>>>> dev
   export type ListaDeCompraUpdateManyWithWhereWithoutUsuarioInput = {
     where: ListaDeCompraScalarWhereInput
     data: XOR<ListaDeCompraUpdateManyMutationInput, ListaDeCompraUncheckedUpdateManyWithoutUsuarioInput>
@@ -16709,7 +17329,11 @@ export namespace Prisma {
     NOT?: ListaDeCompraScalarWhereInput | ListaDeCompraScalarWhereInput[]
     id?: UuidFilter<"ListaDeCompra"> | string
     tipo?: EnumTipoListaFilter<"ListaDeCompra"> | $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId?: UuidNullableFilter<"ListaDeCompra"> | string | null
+=======
+    usuarioId?: UuidFilter<"ListaDeCompra"> | string
+>>>>>>> dev
   }
 
   export type VeiculoUpsertWithWhereUniqueWithoutUsuarioInput = {
@@ -16771,6 +17395,39 @@ export namespace Prisma {
     veiculoId?: UuidNullableFilter<"Atividade"> | string | null
   }
 
+<<<<<<< HEAD
+=======
+  export type AtividadeUpsertWithWhereUniqueWithoutUsuarioInput = {
+    where: AtividadeWhereUniqueInput
+    update: XOR<AtividadeUpdateWithoutUsuarioInput, AtividadeUncheckedUpdateWithoutUsuarioInput>
+    create: XOR<AtividadeCreateWithoutUsuarioInput, AtividadeUncheckedCreateWithoutUsuarioInput>
+  }
+
+  export type AtividadeUpdateWithWhereUniqueWithoutUsuarioInput = {
+    where: AtividadeWhereUniqueInput
+    data: XOR<AtividadeUpdateWithoutUsuarioInput, AtividadeUncheckedUpdateWithoutUsuarioInput>
+  }
+
+  export type AtividadeUpdateManyWithWhereWithoutUsuarioInput = {
+    where: AtividadeScalarWhereInput
+    data: XOR<AtividadeUpdateManyMutationInput, AtividadeUncheckedUpdateManyWithoutUsuarioInput>
+  }
+
+  export type AtividadeScalarWhereInput = {
+    AND?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+    OR?: AtividadeScalarWhereInput[]
+    NOT?: AtividadeScalarWhereInput | AtividadeScalarWhereInput[]
+    id?: UuidFilter<"Atividade"> | string
+    tipo?: EnumTipoAtividadeFilter<"Atividade"> | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFilter<"Atividade"> | $Enums.AcaoAtividade
+    dataHora?: DateTimeFilter<"Atividade"> | Date | string
+    usuarioId?: UuidFilter<"Atividade"> | string
+    tarefaId?: UuidNullableFilter<"Atividade"> | string | null
+    listaDeCompraId?: UuidNullableFilter<"Atividade"> | string | null
+    veiculoId?: UuidNullableFilter<"Atividade"> | string | null
+  }
+
+>>>>>>> dev
   export type MembrosDaFamiliaCreateWithoutFamiliaInput = {
     id?: string
     rotulo?: $Enums.Membros
@@ -16859,9 +17516,15 @@ export namespace Prisma {
     email: string
     password: string
     familiaInvitations?: FamiliaConviteCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
     listaDeCompra?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
     veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+=======
+    listas?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
+    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
+>>>>>>> dev
     atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
   }
 
@@ -16871,9 +17534,15 @@ export namespace Prisma {
     email: string
     password: string
     familiaInvitations?: FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
     listaDeCompra?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
     veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+=======
+    listas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
+    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
+>>>>>>> dev
     atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
@@ -16920,9 +17589,15 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     familiaInvitations?: FamiliaConviteUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
     listaDeCompra?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
     veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+=======
+    listas?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
+    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
+>>>>>>> dev
     atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
   }
 
@@ -16932,9 +17607,15 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     familiaInvitations?: FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
     listaDeCompra?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
     veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
+=======
+    listas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
+    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
+>>>>>>> dev
     atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
@@ -16992,9 +17673,15 @@ export namespace Prisma {
     email: string
     password: string
     familias?: MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
     listaDeCompra?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
     veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+=======
+    listas?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
+    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
+>>>>>>> dev
     atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
   }
 
@@ -17004,9 +17691,15 @@ export namespace Prisma {
     email: string
     password: string
     familias?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
     listaDeCompra?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
     veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+=======
+    listas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
+    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
+>>>>>>> dev
     atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
@@ -17059,9 +17752,15 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     familias?: MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
     listaDeCompra?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
     veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+=======
+    listas?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
+    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
+>>>>>>> dev
     atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
   }
 
@@ -17071,6 +17770,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     familias?: MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
     listaDeCompra?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
     veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -17078,24 +17778,43 @@ export namespace Prisma {
   }
 
   export type UsuarioCreateWithoutListaDeCompraInput = {
+=======
+    listas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
+    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
+    atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type UsuarioCreateWithoutListasInput = {
+>>>>>>> dev
     id?: string
     name: string
     email: string
     password: string
     familias?: MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput
     familiaInvitations?: FamiliaConviteCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
     veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
     atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
   }
 
   export type UsuarioUncheckedCreateWithoutListaDeCompraInput = {
+=======
+    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
+    atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
+  }
+
+  export type UsuarioUncheckedCreateWithoutListasInput = {
+>>>>>>> dev
     id?: string
     name: string
     email: string
     password: string
     familias?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput
     familiaInvitations?: FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
     veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
     atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
@@ -17104,6 +17823,16 @@ export namespace Prisma {
   export type UsuarioCreateOrConnectWithoutListaDeCompraInput = {
     where: UsuarioWhereUniqueInput
     create: XOR<UsuarioCreateWithoutListaDeCompraInput, UsuarioUncheckedCreateWithoutListaDeCompraInput>
+=======
+    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
+    atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
+  }
+
+  export type UsuarioCreateOrConnectWithoutListasInput = {
+    where: UsuarioWhereUniqueInput
+    create: XOR<UsuarioCreateWithoutListasInput, UsuarioUncheckedCreateWithoutListasInput>
+>>>>>>> dev
   }
 
   export type ItemListaDeCompraCreateWithoutListaInput = {
@@ -17135,8 +17864,12 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
+<<<<<<< HEAD
     lembreteId?: string | null
     usuario?: UsuarioCreateNestedOneWithoutAtividadesInput
+=======
+    usuario: UsuarioCreateNestedOneWithoutAtividadesInput
+>>>>>>> dev
     tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
     veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
   }
@@ -17146,9 +17879,12 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
+<<<<<<< HEAD
     usuarioId?: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
     tarefaId?: string | null
-    lembreteId?: string | null
     veiculoId?: string | null
   }
 
@@ -17162,6 +17898,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+<<<<<<< HEAD
   export type UsuarioUpsertWithoutListaDeCompraInput = {
     update: XOR<UsuarioUpdateWithoutListaDeCompraInput, UsuarioUncheckedUpdateWithoutListaDeCompraInput>
     create: XOR<UsuarioCreateWithoutListaDeCompraInput, UsuarioUncheckedCreateWithoutListaDeCompraInput>
@@ -17174,26 +17911,54 @@ export namespace Prisma {
   }
 
   export type UsuarioUpdateWithoutListaDeCompraInput = {
+=======
+  export type UsuarioUpsertWithoutListasInput = {
+    update: XOR<UsuarioUpdateWithoutListasInput, UsuarioUncheckedUpdateWithoutListasInput>
+    create: XOR<UsuarioCreateWithoutListasInput, UsuarioUncheckedCreateWithoutListasInput>
+    where?: UsuarioWhereInput
+  }
+
+  export type UsuarioUpdateToOneWithWhereWithoutListasInput = {
+    where?: UsuarioWhereInput
+    data: XOR<UsuarioUpdateWithoutListasInput, UsuarioUncheckedUpdateWithoutListasInput>
+  }
+
+  export type UsuarioUpdateWithoutListasInput = {
+>>>>>>> dev
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     familias?: MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput
     familiaInvitations?: FamiliaConviteUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
     veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
     atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
   }
 
   export type UsuarioUncheckedUpdateWithoutListaDeCompraInput = {
+=======
+    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
+    atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
+  }
+
+  export type UsuarioUncheckedUpdateWithoutListasInput = {
+>>>>>>> dev
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     familias?: MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput
     familiaInvitations?: FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
     veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
+=======
+    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
+>>>>>>> dev
     atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
@@ -17243,14 +18008,22 @@ export namespace Prisma {
   export type ListaDeCompraCreateWithoutItensInput = {
     id?: string
     tipo: $Enums.TipoLista
+<<<<<<< HEAD
     usuario?: UsuarioCreateNestedOneWithoutListaDeCompraInput
+=======
+    usuario: UsuarioCreateNestedOneWithoutListasInput
+>>>>>>> dev
     atividades?: AtividadeCreateNestedManyWithoutListaInput
   }
 
   export type ListaDeCompraUncheckedCreateWithoutItensInput = {
     id?: string
     tipo: $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId?: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
     atividades?: AtividadeUncheckedCreateNestedManyWithoutListaInput
   }
 
@@ -17273,14 +18046,22 @@ export namespace Prisma {
   export type ListaDeCompraUpdateWithoutItensInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
+<<<<<<< HEAD
     usuario?: UsuarioUpdateOneWithoutListaDeCompraNestedInput
+=======
+    usuario?: UsuarioUpdateOneRequiredWithoutListasNestedInput
+>>>>>>> dev
     atividades?: AtividadeUpdateManyWithoutListaNestedInput
   }
 
   export type ListaDeCompraUncheckedUpdateWithoutItensInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+    usuarioId?: StringFieldUpdateOperationsInput | string
+>>>>>>> dev
     atividades?: AtividadeUncheckedUpdateManyWithoutListaNestedInput
   }
 
@@ -17291,8 +18072,13 @@ export namespace Prisma {
     password: string
     familias?: MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput
     familiaInvitations?: FamiliaConviteCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
     listaDeCompra?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
+=======
+    listas?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
+>>>>>>> dev
     atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
   }
 
@@ -17303,8 +18089,13 @@ export namespace Prisma {
     password: string
     familias?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput
     familiaInvitations?: FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
     listaDeCompra?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
+=======
+    listas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
+>>>>>>> dev
     atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
   }
 
@@ -17342,8 +18133,12 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
+<<<<<<< HEAD
     lembreteId?: string | null
     usuario?: UsuarioCreateNestedOneWithoutAtividadesInput
+=======
+    usuario: UsuarioCreateNestedOneWithoutAtividadesInput
+>>>>>>> dev
     tarefa?: TarefaCreateNestedOneWithoutAtividadesInput
     lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
   }
@@ -17353,10 +18148,13 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
+<<<<<<< HEAD
     usuarioId?: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
     tarefaId?: string | null
     listaDeCompraId?: string | null
-    lembreteId?: string | null
   }
 
   export type AtividadeCreateOrConnectWithoutVeiculoInput = {
@@ -17387,8 +18185,13 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     familias?: MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput
     familiaInvitations?: FamiliaConviteUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
     listaDeCompra?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
+=======
+    listas?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
+>>>>>>> dev
     atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
   }
 
@@ -17399,8 +18202,13 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     familias?: MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput
     familiaInvitations?: FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
     listaDeCompra?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
+=======
+    listas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
+>>>>>>> dev
     atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
   }
 
@@ -17510,7 +18318,11 @@ export namespace Prisma {
     password: string
     familias?: MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput
     familiaInvitations?: FamiliaConviteCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     listaDeCompra?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
+=======
+    listas?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
+>>>>>>> dev
     veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
     atividades?: AtividadeCreateNestedManyWithoutUsuarioInput
   }
@@ -17522,7 +18334,11 @@ export namespace Prisma {
     password: string
     familias?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput
     familiaInvitations?: FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     listaDeCompra?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
+=======
+    listas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
+>>>>>>> dev
     veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
     atividades?: AtividadeUncheckedCreateNestedManyWithoutUsuarioInput
   }
@@ -17537,8 +18353,12 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
+<<<<<<< HEAD
     lembreteId?: string | null
     usuario?: UsuarioCreateNestedOneWithoutAtividadesInput
+=======
+    usuario: UsuarioCreateNestedOneWithoutAtividadesInput
+>>>>>>> dev
     lista?: ListaDeCompraCreateNestedOneWithoutAtividadesInput
     veiculo?: VeiculoCreateNestedOneWithoutAtividadesInput
   }
@@ -17548,9 +18368,12 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
+<<<<<<< HEAD
     usuarioId?: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
     listaDeCompraId?: string | null
-    lembreteId?: string | null
     veiculoId?: string | null
   }
 
@@ -17582,7 +18405,11 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     familias?: MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput
     familiaInvitations?: FamiliaConviteUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     listaDeCompra?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
+=======
+    listas?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
+>>>>>>> dev
     veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
     atividades?: AtividadeUpdateManyWithoutUsuarioNestedInput
   }
@@ -17594,7 +18421,11 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     familias?: MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput
     familiaInvitations?: FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     listaDeCompra?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
+=======
+    listas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
+>>>>>>> dev
     veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
     atividades?: AtividadeUncheckedUpdateManyWithoutUsuarioNestedInput
   }
@@ -17622,9 +18453,15 @@ export namespace Prisma {
     password: string
     familias?: MembrosDaFamiliaCreateNestedManyWithoutUsuarioInput
     familiaInvitations?: FamiliaConviteCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
     listaDeCompra?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
     veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+=======
+    listas?: ListaDeCompraCreateNestedManyWithoutUsuarioInput
+    veiculos?: VeiculoCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaCreateNestedManyWithoutUsuarioInput
+>>>>>>> dev
   }
 
   export type UsuarioUncheckedCreateWithoutAtividadesInput = {
@@ -17634,9 +18471,15 @@ export namespace Prisma {
     password: string
     familias?: MembrosDaFamiliaUncheckedCreateNestedManyWithoutUsuarioInput
     familiaInvitations?: FamiliaConviteUncheckedCreateNestedManyWithoutUsuarioInput
+<<<<<<< HEAD
     tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
     listaDeCompra?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
     veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+=======
+    listas?: ListaDeCompraUncheckedCreateNestedManyWithoutUsuarioInput
+    veiculos?: VeiculoUncheckedCreateNestedManyWithoutUsuarioInput
+    tarefas?: TarefaUncheckedCreateNestedManyWithoutUsuarioInput
+>>>>>>> dev
   }
 
   export type UsuarioCreateOrConnectWithoutAtividadesInput = {
@@ -17666,14 +18509,22 @@ export namespace Prisma {
   export type ListaDeCompraCreateWithoutAtividadesInput = {
     id?: string
     tipo: $Enums.TipoLista
+<<<<<<< HEAD
     usuario?: UsuarioCreateNestedOneWithoutListaDeCompraInput
+=======
+    usuario: UsuarioCreateNestedOneWithoutListasInput
+>>>>>>> dev
     itens?: ItemListaDeCompraCreateNestedManyWithoutListaInput
   }
 
   export type ListaDeCompraUncheckedCreateWithoutAtividadesInput = {
     id?: string
     tipo: $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId?: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
     itens?: ItemListaDeCompraUncheckedCreateNestedManyWithoutListaInput
   }
 
@@ -17725,9 +18576,15 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     familias?: MembrosDaFamiliaUpdateManyWithoutUsuarioNestedInput
     familiaInvitations?: FamiliaConviteUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
     listaDeCompra?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
     veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+=======
+    listas?: ListaDeCompraUpdateManyWithoutUsuarioNestedInput
+    veiculos?: VeiculoUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUpdateManyWithoutUsuarioNestedInput
+>>>>>>> dev
   }
 
   export type UsuarioUncheckedUpdateWithoutAtividadesInput = {
@@ -17737,9 +18594,15 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     familias?: MembrosDaFamiliaUncheckedUpdateManyWithoutUsuarioNestedInput
     familiaInvitations?: FamiliaConviteUncheckedUpdateManyWithoutUsuarioNestedInput
+<<<<<<< HEAD
     tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
     listaDeCompra?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
     veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
+=======
+    listas?: ListaDeCompraUncheckedUpdateManyWithoutUsuarioNestedInput
+    veiculos?: VeiculoUncheckedUpdateManyWithoutUsuarioNestedInput
+    tarefas?: TarefaUncheckedUpdateManyWithoutUsuarioNestedInput
+>>>>>>> dev
   }
 
   export type TarefaUpsertWithoutAtividadesInput = {
@@ -17781,14 +18644,22 @@ export namespace Prisma {
   export type ListaDeCompraUpdateWithoutAtividadesInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
+<<<<<<< HEAD
     usuario?: UsuarioUpdateOneWithoutListaDeCompraNestedInput
+=======
+    usuario?: UsuarioUpdateOneRequiredWithoutListasNestedInput
+>>>>>>> dev
     itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
   }
 
   export type ListaDeCompraUncheckedUpdateWithoutAtividadesInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
+<<<<<<< HEAD
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+    usuarioId?: StringFieldUpdateOperationsInput | string
+>>>>>>> dev
     itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
   }
 
@@ -17824,6 +18695,7 @@ export namespace Prisma {
   }
 
   export type MembrosDaFamiliaCreateManyUsuarioInput = {
+<<<<<<< HEAD
     id?: string
     id_familia: string
     rotulo?: $Enums.Membros
@@ -17844,6 +18716,22 @@ export namespace Prisma {
     status?: boolean
   }
 
+=======
+    id?: string
+    id_familia: string
+    rotulo?: $Enums.Membros
+    createdAt?: Date | string
+  }
+
+  export type FamiliaConviteCreateManyUsuarioInput = {
+    id?: string
+    familiaId: string
+    status: $Enums.StatusConvite
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+>>>>>>> dev
   export type ListaDeCompraCreateManyUsuarioInput = {
     id?: string
     tipo: $Enums.TipoLista
@@ -17868,6 +18756,7 @@ export namespace Prisma {
     veiculoId?: string | null
   }
 
+<<<<<<< HEAD
   export type MembrosDaFamiliaUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
     rotulo?: EnumMembrosFieldUpdateOperationsInput | $Enums.Membros
@@ -17875,6 +18764,25 @@ export namespace Prisma {
     familia?: FamiliaUpdateOneRequiredWithoutMembrosNestedInput
   }
 
+=======
+  export type AtividadeCreateManyUsuarioInput = {
+    id?: string
+    tipo: $Enums.TipoAtividade
+    acao: $Enums.AcaoAtividade
+    dataHora?: Date | string
+    tarefaId?: string | null
+    listaDeCompraId?: string | null
+    veiculoId?: string | null
+  }
+
+  export type MembrosDaFamiliaUpdateWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    rotulo?: EnumMembrosFieldUpdateOperationsInput | $Enums.Membros
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    familia?: FamiliaUpdateOneRequiredWithoutMembrosNestedInput
+  }
+
+>>>>>>> dev
   export type MembrosDaFamiliaUncheckedUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
     id_familia?: StringFieldUpdateOperationsInput | string
@@ -17911,6 +18819,56 @@ export namespace Prisma {
     status?: EnumStatusConviteFieldUpdateOperationsInput | $Enums.StatusConvite
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
+=======
+  }
+
+  export type ListaDeCompraUpdateWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
+    itens?: ItemListaDeCompraUpdateManyWithoutListaNestedInput
+    atividades?: AtividadeUpdateManyWithoutListaNestedInput
+  }
+
+  export type ListaDeCompraUncheckedUpdateWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
+    itens?: ItemListaDeCompraUncheckedUpdateManyWithoutListaNestedInput
+    atividades?: AtividadeUncheckedUpdateManyWithoutListaNestedInput
+  }
+
+  export type ListaDeCompraUncheckedUpdateManyWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
+  }
+
+  export type VeiculoUpdateWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: StringFieldUpdateOperationsInput | string
+    manutencoes?: RegistroDeManutencaoUpdateManyWithoutVeiculoNestedInput
+    atividades?: AtividadeUpdateManyWithoutVeiculoNestedInput
+  }
+
+  export type VeiculoUncheckedUpdateWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: StringFieldUpdateOperationsInput | string
+    manutencoes?: RegistroDeManutencaoUncheckedUpdateManyWithoutVeiculoNestedInput
+    atividades?: AtividadeUncheckedUpdateManyWithoutVeiculoNestedInput
+  }
+
+  export type VeiculoUncheckedUpdateManyWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    marca?: NullableStringFieldUpdateOperationsInput | string | null
+    modelo?: NullableStringFieldUpdateOperationsInput | string | null
+    ano?: NullableIntFieldUpdateOperationsInput | number | null
+    placa?: StringFieldUpdateOperationsInput | string
+>>>>>>> dev
   }
 
   export type TarefaUpdateWithoutUsuarioInput = {
@@ -17933,6 +18891,7 @@ export namespace Prisma {
     status?: BoolFieldUpdateOperationsInput | boolean
   }
 
+<<<<<<< HEAD
   export type ListaDeCompraUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoListaFieldUpdateOperationsInput | $Enums.TipoLista
@@ -17991,6 +18950,18 @@ export namespace Prisma {
     veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
   }
 
+=======
+  export type AtividadeUpdateWithoutUsuarioInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
+    acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
+    dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+    tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
+    lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
+    veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
+  }
+
+>>>>>>> dev
   export type AtividadeUncheckedUpdateWithoutUsuarioInput = {
     id?: StringFieldUpdateOperationsInput | string
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
@@ -17998,7 +18969,10 @@ export namespace Prisma {
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dev
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -18009,7 +18983,10 @@ export namespace Prisma {
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
+<<<<<<< HEAD
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+>>>>>>> dev
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -18085,9 +19062,12 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
+<<<<<<< HEAD
     usuarioId?: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
     tarefaId?: string | null
-    lembreteId?: string | null
     veiculoId?: string | null
   }
 
@@ -18117,8 +19097,12 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     usuario?: UsuarioUpdateOneWithoutAtividadesNestedInput
+=======
+    usuario?: UsuarioUpdateOneRequiredWithoutAtividadesNestedInput
+>>>>>>> dev
     tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
     veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
   }
@@ -18128,9 +19112,12 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+    usuarioId?: StringFieldUpdateOperationsInput | string
+>>>>>>> dev
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
-    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -18139,9 +19126,12 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+    usuarioId?: StringFieldUpdateOperationsInput | string
+>>>>>>> dev
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
-    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -18157,10 +19147,16 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
+<<<<<<< HEAD
     usuarioId?: string | null
     tarefaId?: string | null
     listaDeCompraId?: string | null
     lembreteId?: string | null
+=======
+    usuarioId: string
+    tarefaId?: string | null
+    listaDeCompraId?: string | null
+>>>>>>> dev
   }
 
   export type RegistroDeManutencaoUpdateWithoutVeiculoInput = {
@@ -18189,8 +19185,12 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     usuario?: UsuarioUpdateOneWithoutAtividadesNestedInput
+=======
+    usuario?: UsuarioUpdateOneRequiredWithoutAtividadesNestedInput
+>>>>>>> dev
     tarefa?: TarefaUpdateOneWithoutAtividadesNestedInput
     lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
   }
@@ -18200,10 +19200,13 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+    usuarioId?: StringFieldUpdateOperationsInput | string
+>>>>>>> dev
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
-    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AtividadeUncheckedUpdateManyWithoutVeiculoInput = {
@@ -18211,10 +19214,16 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
     tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+    usuarioId?: StringFieldUpdateOperationsInput | string
+    tarefaId?: NullableStringFieldUpdateOperationsInput | string | null
+    listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
+>>>>>>> dev
   }
 
   export type AtividadeCreateManyTarefaInput = {
@@ -18222,9 +19231,12 @@ export namespace Prisma {
     tipo: $Enums.TipoAtividade
     acao: $Enums.AcaoAtividade
     dataHora?: Date | string
+<<<<<<< HEAD
     usuarioId?: string | null
+=======
+    usuarioId: string
+>>>>>>> dev
     listaDeCompraId?: string | null
-    lembreteId?: string | null
     veiculoId?: string | null
   }
 
@@ -18233,8 +19245,12 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     usuario?: UsuarioUpdateOneWithoutAtividadesNestedInput
+=======
+    usuario?: UsuarioUpdateOneRequiredWithoutAtividadesNestedInput
+>>>>>>> dev
     lista?: ListaDeCompraUpdateOneWithoutAtividadesNestedInput
     veiculo?: VeiculoUpdateOneWithoutAtividadesNestedInput
   }
@@ -18244,9 +19260,12 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+    usuarioId?: StringFieldUpdateOperationsInput | string
+>>>>>>> dev
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
-    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
@@ -18255,9 +19274,12 @@ export namespace Prisma {
     tipo?: EnumTipoAtividadeFieldUpdateOperationsInput | $Enums.TipoAtividade
     acao?: EnumAcaoAtividadeFieldUpdateOperationsInput | $Enums.AcaoAtividade
     dataHora?: DateTimeFieldUpdateOperationsInput | Date | string
+<<<<<<< HEAD
     usuarioId?: NullableStringFieldUpdateOperationsInput | string | null
+=======
+    usuarioId?: StringFieldUpdateOperationsInput | string
+>>>>>>> dev
     listaDeCompraId?: NullableStringFieldUpdateOperationsInput | string | null
-    lembreteId?: NullableStringFieldUpdateOperationsInput | string | null
     veiculoId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 

@@ -274,9 +274,8 @@ router.put("/update-list/:id", jwtGuard, async (req, res) => {
 router.delete("/delete-list/:id", jwtGuard, async (req, res) => {
   const response = await listController.delete({
     params: req.params,
-    accountId: req.accountId
+    req
   });
-  console.log("Resposta do controlador:", response);
   res.status(response.statusCode).json(response.body);
 });
 

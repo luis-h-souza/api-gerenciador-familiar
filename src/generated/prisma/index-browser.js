@@ -197,7 +197,6 @@ exports.Prisma.AtividadeScalarFieldEnum = {
   usuarioId: 'usuarioId',
   tarefaId: 'tarefaId',
   listaDeCompraId: 'listaDeCompraId',
-  lembreteId: 'lembreteId',
   veiculoId: 'veiculoId'
 };
 
@@ -235,7 +234,6 @@ exports.TipoLista = exports.$Enums.TipoLista = {
 };
 
 exports.TipoAtividade = exports.$Enums.TipoAtividade = {
-  LEMBRETE: 'LEMBRETE',
   TAREFA: 'TAREFA',
   LISTA: 'LISTA',
   VEICULO: 'VEICULO'

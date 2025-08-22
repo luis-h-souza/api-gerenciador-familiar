@@ -12,6 +12,25 @@ class TaskController {
     this.TarefaRepository = TarefaRepository;
   }
 
+  // Cria uma tarefa
+  // async create({ body, accountId }) {
+  //   try {
+  //     const { descricao, status } = schema.parse(body);
+  //     const newTask = await this.TarefaRepository.create({ descricao, status, usuarioId: accountId });
+  //     return {
+  //       statusCode: 201,
+  //       body: newTask,
+  //     };
+  //   } catch (error) {
+  //     if (error instanceof z.ZodError) {
+  //       return {
+  //         statusCode: 400,
+  //         body: error.issues,
+  //       };
+  //     }
+  //     throw error;
+  //   }
+  // };
   async create({ body, accountId }) {
     try {
       const { descricao, status } = schema.parse(body);
@@ -127,7 +146,6 @@ class TaskController {
   // deleta uma tarefa
   async delete({ params, accountId }) {
     const { id } = params;
-    
     try {
       await this.TarefaRepository.delete({ id, usuarioId: accountId })
       return {

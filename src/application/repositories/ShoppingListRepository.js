@@ -90,11 +90,10 @@ class ShoppingListRepository {
   };
 
   // deleta uma lista de compras
-  async delete(listId, accountId) {
+  async delete(listId, usuarioId) {
     const exists = await prismaClient.listaDeCompra.findUnique({
       where: {
         id: listId,
-        usuarioId: accountId
       }
     });
 
@@ -108,8 +107,8 @@ class ShoppingListRepository {
           tipo: "LISTA",
           acao: "EXCLUIDA",
           dataHora: new Date(),
-          lista: { connect: { id: exists.id } },
-          // usuario: { connect: { id: exists.usuarioId } },
+          // listaDeCompraId: listId,
+          usuario: { connect: { id: usuarioId } }, // Relacionamento correto
         },
       });
 

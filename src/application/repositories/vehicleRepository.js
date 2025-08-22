@@ -32,6 +32,7 @@ class VehicleRepository {
               tipo: "VEICULO",
               acao: "CRIADA",
               dataHora: new Date(),
+              usuarioId: usuarioId, // Associa a atividade ao usuário
             },
           },
         },
@@ -87,9 +88,22 @@ class VehicleRepository {
     return vehicleById;
   };
 
-  // Atualiza um veículo
-  async update({ marca, modelo, ano, placa, vehicleId }) {
-    //Verificação de unicidade da placa
+  //! Atualiza um veículo
+  async update({ marca, modelo, ano, placa, vehicleId, usuarioId }) {
+    console.log("Usuário ID recebido no repository:", usuarioId);
+
+    // Verifica se o usuário existe
+    const usuarioExiste = await prismaClient.usuario.findUnique({
+      where: { id: usuarioId },
+    });
+
+    if (!usuarioExiste) {
+      const error = new Error("Usuário não encontrado.");
+      error.statusCode = 404;
+      throw error;
+    }
+
+    // Verificação de unicidade da placa
     if (placa) {
       const placaExiste = await prismaClient.veiculo.findFirst({
         where: {
@@ -97,51 +111,62 @@ class VehicleRepository {
           id: { not: vehicleId }, // Ignora o próprio veículo na busca
         },
       });
-
-      // Se a placa já estiver em uso por outro veículo, lança um erro.
       if (placaExiste) {
         const error = new Error("Placa já cadastrada para outro veículo.");
-        //* error.statusCode = 409;
+        error.statusCode = 409; // <-- aqui estava faltando
         throw error;
       }
+    }
+
+    // Monta dados a atualizar
+    const dataToUpdate = { marca, modelo, ano, placa };
+
+    // Se usuarioId foi passado explicitamente, conecta (senão deixa como está)
+    if (usuarioId) {
+      dataToUpdate.usuario = { connect: { id: usuarioId } };
     }
 
     const updatedVehicle = await prismaClient.veiculo.update({
       where: { id: vehicleId },
       data: {
-        marca,
-        modelo,
-        ano,
-        placa, // Se a placa for undefined, o Prisma simplesmente a ignora.
+        ...dataToUpdate,
         atividades: {
           create: {
             tipo: "VEICULO",
             acao: "ATUALIZADA",
             dataHora: new Date(),
+            usuarioId,
           },
         },
       },
-      include: { atividades: true }, // Inclui as atividades no retorno
+      include: { atividades: true },
     });
 
     return updatedVehicle;
-  };
+  }
+
 
   // Deleta um veículo
-  async delete({ id }) {
+  async delete({ id, usuarioId }) {
     const result = await prismaClient.$transaction(async (tx) => {
+
       await tx.atividade.create({
         data: {
           tipo: "VEICULO",
           acao: "EXCLUIDA",
           dataHora: new Date(),
           veiculoId: id,
+          usuario: {
+            connect: { id: usuarioId },
+          }
+          // usuarioId: usuarioId, // Relacionamento correto
         },
       });
 
       const vehicleDelete = await tx.veiculo.delete({
         where: { id },
       });
+      console.log(id)
       return vehicleDelete;
     });
 

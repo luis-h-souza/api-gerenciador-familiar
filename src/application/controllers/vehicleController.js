@@ -86,7 +86,7 @@ class VehicleController {
   };
 
   // Cria um veículo
-  async create({ body, req }) {
+  async create({ body, req, }) {
     try {
       const { marca, modelo, ano, placa } = createVehicleSchema.parse(body);
       const usuarioId = req.accountId; // Obtém do jwtGuard
@@ -184,10 +184,19 @@ class VehicleController {
     }
   };
 
-  // Atualiza um veículo
-  async update({ body, params }) {
-    const vehicleIdParam = params.id; // O ID agora é o ID do usuário, vindo dos params
-    console.log("accountIdParam", vehicleIdParam);
+  //! Atualiza um veículo
+  async update({ body, params, accountId }) {
+    console.log("Account ID recebido no controller:", accountId);
+
+    // Verifica se o usuário está autenticado
+    if (!accountId) {
+      return {
+        statusCode: 401,
+        body: { message: "Usuário não autenticado." },
+      };
+    }
+
+    const vehicleIdParam = params.id;
 
     try {
       const { vehicleId, marca, modelo, ano, placa } =
@@ -195,14 +204,14 @@ class VehicleController {
           vehicleId: vehicleIdParam,
           ...body,
         });
-      console.log("vehicleId", vehicleId);
 
       const result = await this.VehicleRepository.update({
         marca,
         modelo,
         ano,
         placa,
-        vehicleId: vehicleIdParam, // envia para o repository
+        vehicleId: vehicleIdParam,
+        usuarioId: accountId, // <-- já vem direto do router
       });
 
       return {
@@ -211,31 +220,23 @@ class VehicleController {
       };
     } catch (error) {
       if (error instanceof z.ZodError) {
-        return {
-          statusCode: 400,
-          body: error.issues,
-        };
+        return { statusCode: 400, body: error.issues };
       }
-
       if (error.statusCode === 409) {
-        return {
-          statusCode: 409,
-          body: { message: error.message },
-        };
+        return { statusCode: 409, body: { message: error.message } };
       }
-
-      return {
-        statusCode: 500,
-        body: { message: "Erro interno no servidor." },
-      };
+      if (error.statusCode === 404) {
+        return { statusCode: 404, body: { message: error.message } };
+      }
+      return { statusCode: 500, body: { message: "Erro interno no servidor." } };
     }
   };
 
   // deleta um veículo
-  async delete({ params }) {
+  async delete({ params, accountId }) {
     const { id } = params;
     try {
-      await this.VehicleRepository.delete({ id });
+      await this.VehicleRepository.delete({ id, usuarioId: accountId });
       return {
         statusCode: 204,
         body: null,

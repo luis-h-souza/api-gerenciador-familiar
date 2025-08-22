@@ -178,13 +178,18 @@ router.put("/update-vehicle/:id", jwtGuard, async (req, res) => {
   const response = await vehicleController.update({
     params: req.params,
     body: req.body,
+    accountId: req.user.id,
   });
+  console.log("Response do update-vehicle:", req.user.id);
   res.status(response.statusCode).json(response.body);
 });
 
 // Deleta um veículo
 router.delete("/delete-vehicle/:id", jwtGuard, async (req, res) => {
-  const response = await vehicleController.delete({ params: req.params });
+  const response = await vehicleController.delete({
+    params: req.params,
+    accountId: req.accountId,
+  });
   res.status(response.statusCode).json(response.body);
 });
 
@@ -209,7 +214,6 @@ router.get("/vehicle/:id/maintenance", jwtGuard, async (req, res) => {
 
 // Listar manutenções pelo id o usuário
 router.get("/vehicle/:id/maintenance", jwtGuard, async (req, res) => {
-  //! debug aqui
   const { id } = req.params;
   console.log(`Fetching maintenance for vehicle ID: ${id}, user: ${req.user?.id}`);
 

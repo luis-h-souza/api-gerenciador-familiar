@@ -12,25 +12,6 @@ class TaskController {
     this.TarefaRepository = TarefaRepository;
   }
 
-  // Cria uma tarefa
-  // async create({ body, accountId }) {
-  //   try {
-  //     const { descricao, status } = schema.parse(body);
-  //     const newTask = await this.TarefaRepository.create({ descricao, status, usuarioId: accountId });
-  //     return {
-  //       statusCode: 201,
-  //       body: newTask,
-  //     };
-  //   } catch (error) {
-  //     if (error instanceof z.ZodError) {
-  //       return {
-  //         statusCode: 400,
-  //         body: error.issues,
-  //       };
-  //     }
-  //     throw error;
-  //   }
-  // };
   async create({ body, accountId }) {
     try {
       const { descricao, status } = schema.parse(body);
@@ -60,7 +41,7 @@ class TaskController {
 
     try {
       // Validar o accountId com Zod
-      const validatedUserId = getTasksByUserId.parse(accountId); // Schema Zod para validar o ID do usuário
+      const validatedUserId = getTasksByUserId.parse(accountId);
       const foundTasks = await this.TarefaRepository.showByUserId({ accountId: validatedUserId });
 
       return {
@@ -112,6 +93,7 @@ class TaskController {
   // Atualiza uma tarefa
   async update({ body, params, accountId }) {
     const { id } = params; // O ID da tarefa vem dos params
+    console.log("ID da tarefa para atualizar:", accountId);
 
     try {
       const { descricao, status } = schema.parse(body);
